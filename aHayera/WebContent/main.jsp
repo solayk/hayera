@@ -67,6 +67,12 @@
         float: right;
       }
     </style>
+    <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
+    <script type="text/javascript">
+      function clickGopay(){
+        window.location.href="orderCheck.jsp";
+      }
+    </script>
   </head>
 
   <body>
@@ -211,7 +217,8 @@
                       </div>
                       <div class="panel-body">
                         52,500 원 &emsp;&emsp;
-                        <button type="button" class="btn btn-primary">바로 결제</button>
+                        <!-- KOSMO : 버튼에 결제창으로 가는 이벤트 부여 --> 
+                        <button type="button" class="btn btn-primary" onclick="clickGopay()">바로 결제</button>
                       </div>
                     </div>
                   </ul>

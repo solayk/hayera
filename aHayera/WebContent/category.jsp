@@ -146,10 +146,65 @@
         <br><br>
         <div class="category_window">
           <div class="category_filter">
-            <div class="category_filter-title">필터</div>
-            <div class="category_filter-title">성별</div>
-            <div class="category_filter-title">연령대</div>
-            <div class="category_filter-title">피부타입</div>
+
+
+          <form action="">
+            <div class="category_filter-title"><h4>필터</h4></div>
+            
+            <div class="category_filter-title"><legend>성별</legend></div>
+            전체 &nbsp<input data-gender type="radio" name="gender_filter"><br/>
+            여자 &nbsp<input data-gender type="radio" name="gender_filter"><br/>
+            남자 &nbsp<input data-gender type="radio" name="gender_filter"><br/><br/>
+            
+            <div class="category_filter-title"><legend>연령대</legend></div>
+            10대 &nbsp<input data-gender type="radio" name="age_filter"><br/>
+            20대 &nbsp<input data-gender type="radio" name="age_filter"><br/>
+            30대 &nbsp<input data-gender type="radio" name="age_filter"><br/><br/>
+
+
+            <div class="category_filter-title"><legend>피부타입</legend></div>
+            <table>
+            <tr>
+            	<td>복합성</td>
+            	<td>
+            		<input data-skin type="checkbox" class="skintype_filter">
+            	</td>
+            </tr>
+            
+            <tr>
+            	<td>건성</td>
+            	<td>
+           			<input data-skin type="checkbox" class="skintype_filter"><br/>
+            	</td>
+            </tr>
+            
+            <tr>
+            	<td>지성</td>
+            	<td>
+            		<input data-skin type="checkbox" class="skintype_filter">
+            	</td>
+            </tr>
+            
+            <tr>
+	            <td>민감성</td>
+	            <td>
+	            	<input data-skin type="checkbox" class="skintype_filter">
+	            </td>
+            </tr>
+            
+            <tr>
+	            <td>중성</td>
+	            <td>
+	            	<input data-skin type="checkbox" class="skintype_filter">
+	            </td>
+            </tr>
+            
+            </table>
+            <br/>
+            <input type="button" name="filter_btn" value="필터적용">
+          </form>
+
+
           </div>
           <div class="category_product">
             <ul class="category_product-list">

@@ -15,7 +15,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	
 	public CustomerVO login(CustomerVO vo) {
 		System.out.println("mybatis login 호출");
-		System.out.println(vo.getId());
+		System.out.println(vo.getCustomer_id());
 		
 		return (CustomerVO)mybatis.selectOne("CustomerDAO.login",vo);
 	}

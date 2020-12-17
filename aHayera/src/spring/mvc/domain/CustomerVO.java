@@ -5,10 +5,10 @@ public class CustomerVO {
 	private String customer_id;
 	private String password;
 	
-	public String getId() {
+	public String getCustomer_id() {
 		return customer_id;
 	}
-	public void setId(String id) {
+	public void setCustomer_id(String customer_id) {
 		this.customer_id = customer_id;
 	}
 	public String getPassword() {
@@ -18,6 +18,7 @@ public class CustomerVO {
 		this.password = password;
 	}
 	
+
 	
 
 }

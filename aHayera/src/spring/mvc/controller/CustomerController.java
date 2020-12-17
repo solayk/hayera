@@ -18,6 +18,6 @@ public class CustomerController {
 	public String login(CustomerVO vo, Model m) {
 		System.out.println("login.do요청");
 		m.addAttribute("customer",customerserive.login(vo));
-		return "LoginTest";
+		return "loginTest";
 	}
 }

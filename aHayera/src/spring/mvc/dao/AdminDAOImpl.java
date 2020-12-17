@@ -11,9 +11,10 @@ public class AdminDAOImpl implements AdminDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public void adminLogin(AdminVO vo) {
+	public AdminVO adminLogin(AdminVO vo) {
 		System.out.println("===> Mybatis adminLogin() 호출");
-		mybatis.selectOne("LoginDAO.adminLogin",vo);
+		System.out.println(vo.getManager_id());
+		return (AdminVO) mybatis.selectOne("AdminDAO.adminLogin",vo);
 	}
 
 }

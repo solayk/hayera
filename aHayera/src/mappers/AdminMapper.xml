@@ -5,7 +5,7 @@
 
 	<select id="adminLogin"  parameterType="admin" resultType="admin">
 		<![CDATA[
-		SELECT * FROM MANAGER WHERE MANAGER_ID = #{manager_id};
+		SELECT * FROM MANAGER WHERE MANAGER_ID = #{manager_id}
 		]]>
 	</select>
 

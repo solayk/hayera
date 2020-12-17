@@ -12,7 +12,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO loginDAO;
 	
-	public void adminLogin(AdminVO vo) {
-		loginDAO.adminLogin(vo);
+	public AdminVO adminLogin(AdminVO vo) {
+		return loginDAO.adminLogin(vo);
 	}
 }

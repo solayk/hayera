@@ -59,9 +59,9 @@
 						<div class="error alert alert-danger"></div>
 						
 						<div class="AdminLoginBox">
-							<form action="adminLogin.do" method="get">
-								<input id="adminId" class="form-control" type="text" placeholder="아이디" name="adminId">
-								<input id="adminPassword" class="form-control" type="password" placeholder="비밀번호" name="adminPassword">
+							<form action="adminLogin.do" method="post">
+								<input id="adminId" class="form-control" type="text" placeholder="아이디" name="manager_id">
+								<input id="adminPassword" class="form-control" type="password" placeholder="비밀번호" name="manager_password">
 								<br>	
 								<input class="adminLogin" type="submit" value="로그인">
 							</form>

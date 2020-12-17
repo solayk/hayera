@@ -1,19 +1,19 @@
 package spring.mvc.domain;
 
 public class AdminVO {
-	private String adminId;
-	private String adminPassword;
+	private String manager_id;
+	private String manager_password;
 	
-	public String getAdminId() {
-		return adminId;
+	public String getManager_id() {
+		return manager_id;
 	}
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+	public void setManager_id(String manager_id) {
+		this.manager_id = manager_id;
 	}
-	public String getAdminPassword() {
-		return adminPassword;
+	public String getManager_password() {
+		return manager_password;
 	}
-	public void setAdminPassword(String adminPassword) {
-		this.adminPassword = adminPassword;
+	public void setManager_password(String manager_password) {
+		this.manager_password = manager_password;
 	}
 }

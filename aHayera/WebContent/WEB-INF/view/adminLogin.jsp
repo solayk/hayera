@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	됐다.
+	됐다.<br/>
+	${admin.manager_id }<br/>
+	${admin.manager_password }<br/>
 </body>
 </html>

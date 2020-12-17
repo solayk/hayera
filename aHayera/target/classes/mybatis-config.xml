@@ -6,7 +6,7 @@
 
 	<!-- Alias 설정 -->
 	<typeAliases>
-		<typeAlias alias="customer" type="com.hayera.domain.CustomerVO" />		
+		<typeAlias alias="admin" type="spring.mvc.domain.AdminVO" />		
 	</typeAliases>
 
 </configuration>

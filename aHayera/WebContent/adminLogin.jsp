@@ -69,7 +69,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> <!-- END OF admin_login -->
 
 	</body>
 </html>

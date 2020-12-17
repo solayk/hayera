@@ -58,12 +58,12 @@
 						</div>
 						<div class="error alert alert-danger"></div>
 						
-						<div class="form loginBox">
-							<form method="" action="main.jsp" accept-charset="UTF-8">
+						<div class="AdminLoginBox">
+							<form action="adminLogin.do" method="get">
 								<input id="adminId" class="form-control" type="text" placeholder="아이디" name="adminId">
 								<input id="adminPassword" class="form-control" type="password" placeholder="비밀번호" name="adminPassword">
 								<br>	
-								<input class="adminLogin" type="button" value="로그인">
+								<input class="adminLogin" type="submit" value="로그인">
 							</form>
 						</div>
 					</div>
@@ -71,10 +71,7 @@
 			</div>
 		</div> <!-- END OF admin_login -->
 
-	<script type="text/javascript">
-		$('.adminLogin').click(function(){
-		});
-	</script>
+	<script type="text/javascript"></script>
 
 	</body>
 </html>

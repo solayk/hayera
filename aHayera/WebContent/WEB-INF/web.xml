@@ -3,19 +3,28 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
+	
 	<display-name>aHayera</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
-	<!-- 리스너 : 응용프로그램 적용 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/springConfig/common-servlet.xml</param-value>
 	</context-param>
+
+	<!-- 리스너 : 응용프로그램 적용 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	
+	<!-- log4j:WARN No appenders could be found for logger (jdbc.audit) error -->	
+	<context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4j.xml</param-value>
+    </context-param>
 
 	<!-- 스프링 서블릿 설정 -->
 	<servlet>
@@ -25,6 +34,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/springConfig/springMVC-servlet.xml</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>servletMVC</servlet-name>

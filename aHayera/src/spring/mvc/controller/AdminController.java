@@ -10,13 +10,16 @@ import spring.mvc.service.AdminService;
 @Controller
 public class AdminController {
 	
-	@Autowired
-	private AdminService loginService;
+//	@Autowired
+//	private AdminService loginService;
 	
 	@RequestMapping("/adminLogin.do")
-	public void adminLogin(AdminVO vo) {
+	public String adminLogin(AdminVO vo) {
 		System.out.println(" === adminLogin.do 수신  === ");
-		loginService.adminLogin(vo);
+		System.out.println(vo.getAdminId());
+		System.out.println(vo.getAdminPassword());
+//		loginService.adminLogin(vo);
+		return "AdminLoginTest";
 	}
 	
 }

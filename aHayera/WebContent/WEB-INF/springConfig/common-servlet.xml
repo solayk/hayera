@@ -7,20 +7,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!-- ViewResolver 설정 -->
-<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	<property name="prefix" value="/WEB-INF/view/"/>
-	<property name="suffix" value=".jsp"/>
-</bean>
-
-<!-- Ajax 주석문 허가 -->
-<mvc:annotation-driven/>
-<!-- 스프링에서 처리할 수 없는 요청은 tomcat에 위임 -->
-<mvc:default-servlet-handler/>
-
-<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-<mvc:resources mapping="/resources/**" location="/resources/" />
-
 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>

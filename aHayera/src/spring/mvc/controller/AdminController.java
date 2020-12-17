@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.mvc.domain.AdminVO;
+import spring.mvc.domain.ProductVO;
 import spring.mvc.service.AdminService;
 
 @Controller
@@ -24,7 +25,6 @@ public class AdminController {
 	@RequestMapping(value="/adminLogin.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String adminLogin(AdminVO vo) {
-		System.out.println(" === adminLogin.do 수신  === ");
 		AdminVO result = loginService.adminLogin(vo);
 		if(result.getManager_id()!=null) {
 			if(result.getManager_password().equals(vo.getManager_password())) return "1";
@@ -32,4 +32,11 @@ public class AdminController {
 		}
 		else return "0";
 	}
+	
+	@RequestMapping("/adminProduct.do")
+	public void adminProduct(ProductVO vo) {
+		System.out.println(" === adminProduct.do 수신 === ");
+		
+	}
+	
 }

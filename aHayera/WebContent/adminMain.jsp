@@ -68,7 +68,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="adminProduct.do">
                 <i class="now-ui-icons shopping_bag-16"></i>
                 <p>상품 등록</p>
               </a>

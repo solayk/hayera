@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ViewMainPageDAO">
+	<select id="selectMaxTotalsalesProduct" resultType="product" parameterType="product" >
+	<![CDATA[
+	SELECT prod_name, brand, discount_price, capacity, avg_rating, img_url 
+	FROM product
+	WHERE totalsales = (SELECT max(totalsales) FROM product);
+	]]>
+	</select>
+
+</mapper>

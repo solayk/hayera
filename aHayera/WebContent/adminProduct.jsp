@@ -176,6 +176,7 @@
 	                        <th>촉감 평가</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                         <tr>
                           <td>

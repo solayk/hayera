@@ -36,7 +36,7 @@
         </div>
         <div class="sidebar-wrapper" id="sidebar-wrapper">
           <ul class="nav">
-            <li class="active ">
+            <li class="active">
               <a href="./admin_main.html">
                 <i class="now-ui-icons design_app"></i>
                 <p>관리자 메인</p>
@@ -73,7 +73,6 @@
                 <p>상품 등록</p>
               </a>
             </li>
-            <li>
           </ul>
         </div>
       </div>

@@ -56,7 +56,7 @@
 							<span></span>
 							<div class="line r"></div>
 						</div>
-						<div class="error alert alert-danger"></div>
+						<div class="error alert alert-danger" style ="display:none"></div>
 						
 						<div class="AdminLoginBox">
 							<form method="post">
@@ -78,6 +78,7 @@
 						manager_id: $('#manager_id').val(),
 						manager_password: $('#manager_password').val()
 						}
+			var showMsg = $('.admin_login > div > div > div > .alert-danger');
 			$.ajax({
 				type: "POST",
 				data: info,
@@ -85,11 +86,17 @@
 				url: "adminLogin.do",
 				success: function(result){
 					if(result==1) location.replace("adminMain.do");
-					else alert("로그인 실패");
+					else if(result==-1) {
+						showMsg.text("비밀번호가 일치하지 않습니다.");
+						showMsg.show();
+					}
+					else if(result==0) {
+						showMsg.text("존재하지 않는 아이디입니다.");
+						showMsg.show();
+					}
 				},
 				error: function(err){
-					console.log(err);
-					alert("err"); /* 추후 해결 필요 */
+					alert("에러가 발생했습니다: adminLogin.jsp"); /* 에러 발생시 처리방법 고민해보기 */
 				}
 			});
 		});

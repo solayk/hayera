@@ -26,7 +26,7 @@ public class AdminController {
 	@ResponseBody
 	public String adminLogin(AdminVO vo) {
 		AdminVO result = loginService.adminLogin(vo);
-		if(result.getManager_id()!=null) {
+		if(result!=null) {
 			if(result.getManager_password().equals(vo.getManager_password())) return "1";
 			else return "-1";
 		}

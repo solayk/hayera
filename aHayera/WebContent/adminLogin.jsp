@@ -59,11 +59,11 @@
 						<div class="error alert alert-danger"></div>
 						
 						<div class="AdminLoginBox">
-							<form action="adminLogin.do" method="post">
-								<input id="adminId" class="form-control" type="text" placeholder="아이디" name="manager_id">
-								<input id="adminPassword" class="form-control" type="password" placeholder="비밀번호" name="manager_password">
+							<form method="post">
+								<input id="manager_id" class="form-control" type="text" placeholder="아이디" name="manager_id">
+								<input id="manager_password" class="form-control" type="password" placeholder="비밀번호" name="manager_password">
 								<br>	
-								<input class="adminLogin" type="submit" value="로그인">
+								<input id="adminLoginBtn" type="button" value="로그인">
 							</form>
 						</div>
 					</div>
@@ -71,7 +71,29 @@
 			</div>
 		</div> <!-- END OF admin_login -->
 
-	<script type="text/javascript"></script>
+	<script type="text/javascript">
+		$('#adminLoginBtn').click(function(){
+			console.log();
+			var info = {
+						manager_id: $('#manager_id').val(),
+						manager_password: $('#manager_password').val()
+						}
+			$.ajax({
+				type: "POST",
+				data: info,
+				dataType: "text",
+				url: "adminLogin.do",
+				success: function(result){
+					if(result==1) location.replace("adminMain.do");
+					else alert("로그인 실패");
+				},
+				error: function(err){
+					console.log(err);
+					alert("err"); /* 추후 해결 필요 */
+				}
+			});
+		});
+	</script>
 
 	</body>
 </html>

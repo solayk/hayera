@@ -13,7 +13,6 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	public AdminVO adminLogin(AdminVO vo) {
 		System.out.println("===> Mybatis adminLogin() 호출");
-		System.out.println(vo.getManager_id());
 		return (AdminVO) mybatis.selectOne("AdminDAO.adminLogin",vo);
 	}
 

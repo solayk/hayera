@@ -23,7 +23,7 @@
 				display: block;
 			}
 
-			​ pre.prettyprint {
+			​ .prettyprint {
 				background-color: #ffffff;
 				border: 1px solid #999;
 				margin-top: 20px;
@@ -53,9 +53,26 @@
 			​ .com {
 				color: #999;
 			}
+			
+			.detail-radio-filter{
+				list-style: none;
+				float:right;
+			}
+			.detail-filter{
+				float:left;
+				display: list-item;
+			}
+			.detail_button{
+				background-color: #084A83;
+				width:200px;
+				height: 50px;
+				font-size: 17px;
+				color: white;
+				
+			}
 		</style>
-		​
-		<title>상세페이지</title>
+
+	<title>상세페이지</title>
 	</head>
 
 	<body>
@@ -180,7 +197,8 @@
 								</tbody>
 							</table>
 							<div>
-								<input type="button" value="장바구니 추가"> <input type="button" value="바로 결제하기">
+								<input class='detail_button' type="button" value="장바구니 추가"> 
+								<input class='detail_button' type="button" value="바로 결제하기">
 							</div>
 						</div>
 
@@ -204,6 +222,18 @@
 					<div style="clear: both;"></div>
 
 					<div class="detail-board-content">
+						<div class="detail-review-filter">
+							<ul class="detail-radio-filter" role="radiogroup">
+								<li class="detail-filter" role="presentation">
+									<a href="" class="detail-filter:highsale" role="radio" aria-checked="true">최신순 /</a></li>
+								<li class="detail-filter" role="presentation">
+									<a href="" class="detail-filter:highreview" role="radio" aria-checked="false">평점 높은순 /</a></li>
+								<li class="detail-filter" role="presentation">
+									<a href="" class="detail-filter:lowreview" role="radio" aria-checked="false">평점 낮은순</a></li>
+							</ul>
+						</div>
+						<div style="clear: both;"></div>
+						<div>
 						<ul>
 							<li class="detail-review-list">
 								<div class="list-item">
@@ -211,8 +241,6 @@
 										<div class="user-info">
 											<p class="txt">
 												<span class="name"><span class="user-name">로니카</span>
-													<!---->
-													<!---->
 												</span> <span class="info"><span class="txt">30세
 														· 복합성 </span> </span>
 											</p>
@@ -222,7 +250,7 @@
 								</div>
 							</li>
 						</ul>
-						​ ​
+						​ </div>​
 					</div>
 					​ ​
 				</div>

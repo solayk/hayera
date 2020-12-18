@@ -4,7 +4,7 @@
     <!DOCTYPE html>
     <html>
 
-	<!-- 삭제 전 어느 것이 최신인지 반드시 확인 후 MERGE -->
+    <!-- 삭제 전 어느 것이 최신인지 반드시 확인 후 MERGE -->
 
     <!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
     <!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
@@ -38,14 +38,38 @@
       <link href="./css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
       <!-- CSS Just for demo purpose, don't include it in your project -->
       <link href="./demo/demo.css" rel="stylesheet" />
-      
+
       <!-- CSS adminProduct Only => 추후 css 파일에 통합 -->
       <style type="text/css">
-      	.adminProduct_Img {
-      		width: 50px;
-      	}
+        .adminProduct_Img {
+          width: 50px;
+        }
+        .card-header>h4 {
+          text-align: left;
+        }
+        .card-header>input {
+          float: right;
+        }
+        .adminProduct_addTable {
+          background: transparent;
+          box-shadow: none;
+        }
+        .adminProduct_addTable .card-header,
+        .adminProduct_addTable .card-footer {
+          margin-left: 0;
+          margin-right: 0;
+          background-color: transparent;
+        }
+        .adminProduct_addTable(.card-subcategories).card-body {
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .table td > input  {
+        	width: 100%;
+        	text-align: center;
+        }
       </style>
-      
+
     </head>
 
     <body class="">
@@ -176,10 +200,12 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title"> 상품현황</h4>
+                    <h4 class="card-title"> 상품현황 </h4>
+                    <input class="adminProduct_add" type="button" value="추가">
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
+                    <form action="" method= 'post' enctype='multipart/form-data'>
                       <table class="table">
                         <thead class="text-primary">
                           <tr>
@@ -205,7 +231,8 @@
                         <tbody>
                           <c:forEach items="${productList }" var="product">
                             <tr>
-                              <td><img class="adminProduct_Img" src="/aHayera/images/upload_product/${product.img_url }"> </td>
+                              <td><img class="adminProduct_Img"
+                                  src="/aHayera/images/upload_product/${product.img_url }"> </td>
                               <td>${product.prod_no }</td>
                               <td>${product.prod_name }</td>
                               <td>${product.brand }</td>
@@ -227,140 +254,55 @@
                         </tbody>
 
                       </table>
+                     </form> 
                     </div>
                   </div>
                 </div>
               </div>
 
-
-
-
               <div class="col-md-12">
-                <div class="card card-plain">
+                <div class="card .adminProduct_addTable">
+                  <!-- .adminProduct_addTable 클래스 추가 -->
                   <div class="card-header">
-                    <h4 class="card-title"> Table on Plain Background</h4>
-                    <p class="category"> Here is a subtitle for this table</p>
+                    <h4 class="card-title"> 상품 등록하기 </h4>
+                    <p class="category"> 새로운 상품을 등록해주세요.</p>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table">
-                        <thead class=" text-primary">
-                          <th>
-                            Name
-                          </th>
-                          <th>
-                            Country
-                          </th>
-                          <th>
-                            City
-                          </th>
-                          <th class="text-right">
-                            Salary
-                          </th>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              Dakota Rice
-                            </td>
-                            <td>
-                              Niger
-                            </td>
-                            <td>
-                              Oud-Turnhout
-                            </td>
-                            <td class="text-right">
-                              $36,738
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Minerva Hooper
-                            </td>
-                            <td>
-                              Curaçao
-                            </td>
-                            <td>
-                              Sinaai-Waas
-                            </td>
-                            <td class="text-right">
-                              $23,789
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Sage Rodriguez
-                            </td>
-                            <td>
-                              Netherlands
-                            </td>
-                            <td>
-                              Baileux
-                            </td>
-                            <td class="text-right">
-                              $56,142
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Philip Chaney
-                            </td>
-                            <td>
-                              Korea, South
-                            </td>
-                            <td>
-                              Overland Park
-                            </td>
-                            <td class="text-right">
-                              $38,735
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Doris Greene
-                            </td>
-                            <td>
-                              Malawi
-                            </td>
-                            <td>
-                              Feldkirchen in Kärnten
-                            </td>
-                            <td class="text-right">
-                              $63,542
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Mason Porter
-                            </td>
-                            <td>
-                              Chile
-                            </td>
-                            <td>
-                              Gloucester
-                            </td>
-                            <td class="text-right">
-                              $78,615
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Jon Porter
-                            </td>
-                            <td>
-                              Portugal
-                            </td>
-                            <td>
-                              Gloucester
-                            </td>
-                            <td class="text-right">
-                              $98,615
-                            </td>
-                          </tr>
-                        </tbody>
+                        <tr>
+                          <th>사진</th>
+                          <th>제품번호</th>
+                          <th>이름</th>
+                          <th>브랜드</th>
+                          <th>카테고리</th>
+                          <th>가격</th>
+                          <th>원가</th>
+                          <th>할인가</th>
+                          <th>용량</th>
+                          <th>수량</th>
+                          <th>향</th>
+                          <th>촉감</th>
+                        </tr>
+						<tr>
+                          <td>사진</td>
+                          <td>제품번호</td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td><input type="text" class=".adminProduct_input"></td>
+                        </tr>
+
                       </table>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>

@@ -1,5 +1,10 @@
 package spring.mvc.domain;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductVO {
 	private String prod_no;
 	private String prod_name;
@@ -18,6 +23,28 @@ public class ProductVO {
 	private int stock;
 	private String img_url;
 	private String manager_id;
+	
+	MultipartFile file;	// write.jsp에 파일첨부시 name="file"과 동일한 변수명
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+		
+		// 업로드 파일 접근
+		if(! file.isEmpty()){
+			this.img_url = file.getOriginalFilename();
+//			this.b_fsize = file.getSize(); // 필요한지 고민해보기
+			
+			// 해당 경로로 변경
+			File f = new File("C:\\Work\\spring\\hayera\\aHayera\\src\\main\\webapp\\resources\\upload\\"+img_url);
+			
+			try {file.transferTo(f);
+			} catch (IllegalStateException e) {e.printStackTrace();
+			} catch (IOException e) {e.printStackTrace();}
+		}
+	}
 	
 	public String getProd_no() {
 		return prod_no;

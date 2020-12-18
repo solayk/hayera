@@ -44,31 +44,76 @@
         .adminProduct_Img {
           width: 50px;
         }
+
         .card-header>h4 {
           text-align: left;
         }
+
         .card-header>input {
           float: right;
         }
+
         .adminProduct_addTable {
           background: transparent;
           box-shadow: none;
         }
+
         .adminProduct_addTable .card-header,
         .adminProduct_addTable .card-footer {
           margin-left: 0;
           margin-right: 0;
           background-color: transparent;
         }
+
         .adminProduct_addTable(.card-subcategories).card-body {
           padding-left: 0;
           padding-right: 0;
         }
-        .table td > input  {
-        	width: 100%;
-        	text-align: center;
+
+        .table td>input {
+          width: 100%;
+          text-align: center;
         }
       </style>
+      <!--   Core JS Files   -->
+      <script src="./js/jquery-3.5.1.min.js" type="text/javascript"></script>
+      <script src="./js/popper.min.js"></script>
+      <script src="./js/bootstrap.min.js"></script>
+      <script src="./js/perfect-scrollbar.jquery.min.js"></script>
+      <!-- Chart JS -->
+      <script src="./js/chartjs.min.js"></script>
+      <!--  Notifications Plugin    -->
+      <script src="./js/bootstrap-notify.js"></script>
+      <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="./js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
+      <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+      <script src="./demo/demo.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function () {
+
+          $('#file').on('change', function (e) {
+			alert("file");
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+
+            var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+
+            filesArr.forEach(function (f) {
+              if (!f.type.match(reg)) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+              }
+
+              sel_file = f;
+
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                $(".uploadPreview").attr("src", e.target.result);
+              }
+              reader.readAsDataURL(f);
+            });
+          });
+      </script>
 
     </head>
 
@@ -205,56 +250,56 @@
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                    <form action="" method= 'post' enctype='multipart/form-data'>
-                      <table class="table">
-                        <thead class="text-primary">
-                          <tr>
-                            <th>사진</th>
-                            <th>제품번호</th>
-                            <th>이름</th>
-                            <th>브랜드</th>
-                            <th>카테고리</th>
-                            <th>가격</th>
-                            <th>원가</th>
-                            <th>할인가</th>
-                            <th>용량</th>
-                            <th>평균평점</th>
-                            <th>총판매량</th>
-                            <th>재고</th>
-                            <th>향</th>
-                            <th>향 평가</th>
-                            <th>촉감</th>
-                            <th>촉감 평가</th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <c:forEach items="${productList }" var="product">
+                      <form action="" method='post' enctype='multipart/form-data'>
+                        <table class="table">
+                          <thead class="text-primary">
                             <tr>
-                              <td><img class="adminProduct_Img"
-                                  src="/aHayera/images/upload_product/${product.img_url }"> </td>
-                              <td>${product.prod_no }</td>
-                              <td>${product.prod_name }</td>
-                              <td>${product.brand }</td>
-                              <td>${product.category }</td>
-                              <td>${product.price }</td>
-                              <td>${product.cost_price }</td>
-                              <td>${product.discount_price }</td>
-                              <td>${product.capacity }</td>
-                              <td>${product.avg_rating }</td>
-                              <td>${product.totalsales }</td>
-                              <td>${product.stock }</td>
-                              <td>${product.scent }</td>
-                              <td>${product.scent_rating }</td>
-                              <td>${product.feel }</td>
-                              <td>${product.feel_rating }</td>
+                              <th>사진</th>
+                              <th>제품번호</th>
+                              <th>이름</th>
+                              <th>브랜드</th>
+                              <th>카테고리</th>
+                              <th>가격</th>
+                              <th>원가</th>
+                              <th>할인가</th>
+                              <th>용량</th>
+                              <th>평균평점</th>
+                              <th>총판매량</th>
+                              <th>재고</th>
+                              <th>향</th>
+                              <th>향 평가</th>
+                              <th>촉감</th>
+                              <th>촉감 평가</th>
                             </tr>
-                          </c:forEach>
+                          </thead>
 
-                        </tbody>
+                          <tbody>
+                            <c:forEach items="${productList }" var="product">
+                              <tr>
+                                <td><img class="adminProduct_Img"
+                                    src="/aHayera/images/upload_product/${product.img_url }"> </td>
+                                <td>${product.prod_no }</td>
+                                <td>${product.prod_name }</td>
+                                <td>${product.brand }</td>
+                                <td>${product.category }</td>
+                                <td>${product.price }</td>
+                                <td>${product.cost_price }</td>
+                                <td>${product.discount_price }</td>
+                                <td>${product.capacity }</td>
+                                <td>${product.avg_rating }</td>
+                                <td>${product.totalsales }</td>
+                                <td>${product.stock }</td>
+                                <td>${product.scent }</td>
+                                <td>${product.scent_rating }</td>
+                                <td>${product.feel }</td>
+                                <td>${product.feel_rating }</td>
+                              </tr>
+                            </c:forEach>
 
-                      </table>
-                     </form> 
+                          </tbody>
+
+                        </table>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -284,8 +329,8 @@
                           <th>향</th>
                           <th>촉감</th>
                         </tr>
-						<tr>
-                          <td>사진</td>
+                        <tr>
+                          <td><input type="file" name="file" id="file"></td>
                           <td>제품번호</td>
                           <td><input type="text" class=".adminProduct_input"></td>
                           <td><input type="text" class=".adminProduct_input"></td>
@@ -298,8 +343,10 @@
                           <td><input type="text" class=".adminProduct_input"></td>
                           <td><input type="text" class=".adminProduct_input"></td>
                         </tr>
-
                       </table>
+
+                      <div class="uploadPreview"></div>
+
                     </div>
                   </div>
 
@@ -313,7 +360,7 @@
               <div class="copyright" id="copyright">
                 &copy;
                 <script>
-                  document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+          document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
                 </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by <a
                   href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
               </div>
@@ -321,19 +368,6 @@
           </footer>
         </div>
       </div>
-      <!--   Core JS Files   -->
-      <script src="./js/jquery-3.5.1.min.js" type="text/javascript"></script>
-      <script src="./js/popper.min.js"></script>
-      <script src="./js/bootstrap.min.js"></script>
-      <script src="./js/perfect-scrollbar.jquery.min.js"></script>
-      <!-- Chart JS -->
-      <script src="./js/chartjs.min.js"></script>
-      <!--  Notifications Plugin    -->
-      <script src="./js/bootstrap-notify.js"></script>
-      <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-      <script src="./js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
-      <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-      <script src="./demo/demo.js"></script>
     </body>
 
     </html>

@@ -16,7 +16,7 @@
 	<link href="/aHayera/css/login-register.css" rel="stylesheet" />
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
-	<script src="/aHayera/js/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 	<script src="/aHayera/js/bootstrap_login.js" type="text/javascript"></script>
 	<script src="/aHayera/js/login-register.js" type="text/javascript"></script>
 
@@ -50,10 +50,11 @@
                                 </div>
                                 <div class="error"></div>
                                 <div class="form loginBox">
-                                    <form method="get" action="login.do" accept-charset="UTF-8">
+                                    <form method="get"  accept-charset="UTF-8">
+                                    <div id='errpopup'></div>
                                     <input id="customer_id" class="form-control" type="text" placeholder="아이디를 입력하세요" name="customer_id">
                                     <input id="password" class="form-control" type="password" placeholder="비밀번호를 입력하세요" name="password">
-                                    <input class="btn btn-default btn-login" type="submit" value="Login" >
+                                    <input class="btn btn-default btn-login" type="button" value="Login" id="login">
                                     </form>
                                 </div>
                              </div>
@@ -78,6 +79,43 @@
 <script type="text/javascript">
   $(document).ready(function(){
         openLoginModal();
+        $('#login').click(function () {
+			
+        	if($.trim($('#customer_id').val())==''){
+        		alert('아이디를 입력해 주세요');
+        		$('#customer_id').focus();
+        		return;
+        	}
+        	if($.trim($('#password').val())==''){
+        		alert("비밀번호입력해주세요.");
+        		$('#password').focus();
+        		return;
+        	}
+        	
+        	
+        	$.ajax({
+        		type :'post',
+        		async : true,
+        		url : "login.do", // login.do로 요청
+        		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+        		data : {
+        			'customer_id':$('#customer_id').val(),
+        			'password':$('#password').val()
+        		},
+        		success : function(result){
+        			if(result==1){
+        				location.replace("loginTest.do");
+        			}else if(result==0){
+        				$('#errpopup').text("아이디 또는 비밀번호가 일치하지 않습니다.");
+        				$('#customer_id').val("");
+        				$('#password').val("");
+        			}
+        		},
+        		err: function(err){console.log(err)}
+        	});
+		});
+        
+        
     }); 
 </script>
 

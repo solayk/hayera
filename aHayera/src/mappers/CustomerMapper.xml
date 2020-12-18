@@ -5,7 +5,8 @@
 
 	<select id="login" parameterType="customer" resultType="customer">
 	<![CDATA[
-	SELECT password from CUSTOMER WHERE CUSTOMER_ID=#{customer_id}
+	SELECT * from CUSTOMER WHERE CUSTOMER_ID=#{customer_id} 
+	and password=#{password}
 	]]>
 	</select>
 

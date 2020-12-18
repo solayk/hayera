@@ -6,14 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.ProductVO;
 
-@Repository
+@Repository("viewMainDAO")
 public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
 	public ProductVO selectMaxTotalsalesProduct(ProductVO vo) {
 		System.out.println("===> Mybatis selectMaxTotalsalesProduct() 호출");
-		return (ProductVO) mybatis.selectOne("ViewMainpagDAO.selectMaxTotalsalesProduct",vo);
+		return (ProductVO) mybatis.selectOne("ViewMainPageDAO.selectMaxTotalsalesProduct",vo);
 		
 	}
 }

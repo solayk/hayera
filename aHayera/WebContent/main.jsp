@@ -10,6 +10,11 @@
 
     <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link href="css/ct-navbar.css" rel="stylesheet" />
+    
+    <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+  	<script src="js/bootstrap.js" type="text/javascript"></script>
+
+ 	<script src="js/ct-navbar.js"></script>
 
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -67,13 +72,22 @@
         float: right;
       }
     </style>
-    <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
     <script type="text/javascript">
-	$(document).ready(function () {
-		
-	}
-    
-      function clickGopay(){
+    $(document).ready(function(){
+		$.ajax({
+			type : 'post',
+			url : 'viewMain.do',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(result){
+				$("#mostSalesedItem").text(result);
+			},
+			error : function (err) {
+				console.log(err);
+			}
+		});
+    })    
+    <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
+   	function clickGopay(){
         window.location.href="orderCheck.jsp";
       }
     </script>
@@ -333,9 +347,10 @@
             <br>
           </h3>
           <hr>
-          <h3 class="text-center hayera">모든 상품<br>
+          <h3 class="text-center hayera">젭알!<br>
             <br>
           </h3>
+          <span id="mostSalesedItem"></span>
           <br>
           <br>
           <br>
@@ -373,11 +388,5 @@
       <!-- end main -->
 
   </body>
-
-  <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-  <script src="js/bootstrap.js" type="text/javascript"></script>
-
-  <script src="js/ct-navbar.js"></script>
-
-
+  
   </html>

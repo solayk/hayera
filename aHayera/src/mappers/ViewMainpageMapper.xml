@@ -6,7 +6,7 @@
 	<![CDATA[
 	SELECT prod_name, brand, discount_price, capacity, avg_rating, img_url 
 	FROM product
-	WHERE totalsales = (SELECT max(totalsales) FROM product);
+	WHERE totalsales = (SELECT max(totalsales) FROM product)
 	]]>
 	</select>
 

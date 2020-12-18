@@ -69,6 +69,10 @@
     </style>
     <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
     <script type="text/javascript">
+	$(document).ready(function () {
+		
+	}
+    
       function clickGopay(){
         window.location.href="orderCheck.jsp";
       }

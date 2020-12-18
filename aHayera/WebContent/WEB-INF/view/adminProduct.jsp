@@ -4,6 +4,8 @@
     <!DOCTYPE html>
     <html>
 
+	<!-- 삭제 전 어느 것이 최신인지 반드시 확인 후 MERGE -->
+
     <!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
     <!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
     <!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
@@ -36,6 +38,14 @@
       <link href="./css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
       <!-- CSS Just for demo purpose, don't include it in your project -->
       <link href="./demo/demo.css" rel="stylesheet" />
+      
+      <!-- CSS adminProduct Only => 추후 css 파일에 통합 -->
+      <style type="text/css">
+      	.adminProduct_Img {
+      		width: 50px;
+      	}
+      </style>
+      
     </head>
 
     <body class="">
@@ -195,7 +205,7 @@
                         <tbody>
                           <c:forEach items="${productList }" var="product">
                             <tr>
-                              <td></td>
+                              <td><img class="adminProduct_Img" src="/aHayera/images/upload_product/${product.img_url }"> </td>
                               <td>${product.prod_no }</td>
                               <td>${product.prod_name }</td>
                               <td>${product.brand }</td>

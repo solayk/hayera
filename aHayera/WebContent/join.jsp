@@ -93,11 +93,11 @@
 											<div class="col-sm-10 col-sm-offset-1">
 												<div class="form-group">
 													<label>이름</label>
-													<input name="firstname" type="text" class="form-control" placeholder="Andrew...">
+													<input name="name" type="text" class="form-control" placeholder="Andrew...">
 												</div>
 												<div class="form-group">
 													<label>아이디 </label>
-													<input name="lastname" type="text" class="form-control" placeholder="Smith...">
+													<input name="customer_id" type="text" class="form-control" placeholder="Smith...">
 													<input type="button" id='btn' value ='중복확인'>
 												</div>
 												<div class="form-group">
@@ -106,7 +106,7 @@
 												</div>
 												<div class="form-group">
 													<label>비밀번호확인</label>
-													<input name="password" type="password" class="form-control" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상">
+													<input name="passwordconfirm" type="password" class="form-control" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상">
 												</div>
 												<div class="form-group">
 													<label>성별  </label>
@@ -115,7 +115,7 @@
 												</div>
 												<div class="form-group">
 													<label>생년월일 </label>
-													<input name='birth' type="date" class="form-control" >
+													<input name='birthday' type="date" class="form-control" >
 												</div>
 											</div>
 											<div class="col-sm-10 col-sm-offset-1">
@@ -129,7 +129,7 @@
 												</div>
 												<div class="form-group">
 													<label>주소 </label>
-													<input name="addr" type="text" class="form-control" placeholder="상세주소">
+													<input name="address" type="text" class="form-control" placeholder="상세주소">
 												</div>
 											</div>
 										</div>
@@ -140,7 +140,7 @@
 		                                    <div class="col-sm-8 col-sm-offset-2">
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="skin" value="Design">
+		                                                <input type="checkbox" name="skin" value="건성">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-paint-roller"></i>
 															<p>건성</p>
@@ -149,7 +149,7 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="skin" value="Code">
+		                                                <input type="checkbox" name="skin" value="지성">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-pencil-alt"></i>
 															<p>지성</p>
@@ -158,7 +158,7 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="skin" value="Develop">
+		                                                <input type="checkbox" name="skin" value="복합성">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-star"></i>
 															<p>복합성</p>
@@ -167,7 +167,7 @@
 		                                        </div>
 		                                         <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="skin" value="Design">
+		                                                <input type="checkbox" name="skin" value="민감성">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-paint-roller"></i>
 															<p>민감성</p>
@@ -176,7 +176,7 @@
 		                                        </div>
 		                                         <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="skin" value="Design">
+		                                                <input type="checkbox" name="skin" value="중성">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-paint-roller"></i>
 															<p>중성</p>
@@ -185,7 +185,7 @@
 		                                        </div>
 		                                         <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="skin" value="Design">
+		                                                <input type="checkbox" name="skin" value="악건성">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-paint-roller"></i>
 															<p>악건성</p>

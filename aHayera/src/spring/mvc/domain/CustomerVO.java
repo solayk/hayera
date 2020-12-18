@@ -11,6 +11,8 @@ public class CustomerVO {
 	private String birthday;
 	private String skintype;
 	private int points;
+	private String gender;
+	
 	
 	public String getCustomer_id() {
 		return customer_id;
@@ -66,6 +68,13 @@ public class CustomerVO {
 	public void setPoints(int points) {
 		this.points = points;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
 	
 
 
@@ -82,3 +91,4 @@ public class CustomerVO {
 //BIRTHDAY VARCHAR2(10) NOT NULL, /* 생일 */
 //SKINTYPE VARCHAR2(10) NOT NULL, /* 피부타입 */
 //POINTS NUMBER /* 적립금 */
+//GENDER VARCHAR2(10) /*성별*/

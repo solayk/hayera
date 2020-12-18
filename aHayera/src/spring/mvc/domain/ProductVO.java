@@ -10,10 +10,10 @@ public class ProductVO {
 	private int discount_price;
 	private int capacity;
 	private String scent;
-	private int scent_rating;
+	private String scent_rating;
 	private String feel;
-	private int feel_rating;
-	private int avg_rating;
+	private String feel_rating;
+	private String avg_rating;
 	private int totalsales;
 	private int stock;
 	private String img_url;
@@ -73,10 +73,10 @@ public class ProductVO {
 	public void setScent(String scent) {
 		this.scent = scent;
 	}
-	public int getScent_rating() {
+	public String getScent_rating() {
 		return scent_rating;
 	}
-	public void setScent_rating(int scent_rating) {
+	public void setScent_rating(String scent_rating) {
 		this.scent_rating = scent_rating;
 	}
 	public String getFeel() {
@@ -85,16 +85,16 @@ public class ProductVO {
 	public void setFeel(String feel) {
 		this.feel = feel;
 	}
-	public int getFeel_rating() {
+	public String getFeel_rating() {
 		return feel_rating;
 	}
-	public void setFeel_rating(int feel_rating) {
+	public void setFeel_rating(String feel_rating) {
 		this.feel_rating = feel_rating;
 	}
-	public int getAvg_rating() {
+	public String getAvg_rating() {
 		return avg_rating;
 	}
-	public void setAvg_rating(int avg_rating) {
+	public void setAvg_rating(String avg_rating) {
 		this.avg_rating = avg_rating;
 	}
 	public int getTotalsales() {
@@ -121,7 +121,5 @@ public class ProductVO {
 	public void setManager_id(String manager_id) {
 		this.manager_id = manager_id;
 	}
-	
-	
 	
 }

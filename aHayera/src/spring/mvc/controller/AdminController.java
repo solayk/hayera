@@ -2,6 +2,7 @@ package spring.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,9 +35,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminProduct.do")
-	public void adminProduct(ProductVO vo) {
+	public void adminProduct(ProductVO vo, Model model) {
 		System.out.println(" === adminProduct.do 수신 === ");
-		
+		model.addAttribute("productList",loginService.adminProduct(vo));
 	}
 	
 }

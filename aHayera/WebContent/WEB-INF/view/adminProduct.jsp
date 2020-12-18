@@ -74,6 +74,9 @@
           width: 100%;
           text-align: center;
         }
+        .uploadPreview > img {
+          width: 2		00px;
+        }
       </style>
       <!--   Core JS Files   -->
       <script src="./js/jquery-3.5.1.min.js" type="text/javascript"></script>
@@ -92,7 +95,6 @@
         $(document).ready(function () {
 
           $('#file').on('change', function (e) {
-			alert("file");
             var files = e.target.files;
             var filesArr = Array.prototype.slice.call(files);
 
@@ -108,11 +110,13 @@
 
               var reader = new FileReader();
               reader.onload = function (e) {
-                $(".uploadPreview").attr("src", e.target.result);
+                $(".uploadPreview > img").attr("src", e.target.result);
               }
               reader.readAsDataURL(f);
             });
           });
+          
+        });
       </script>
 
     </head>
@@ -345,7 +349,7 @@
                         </tr>
                       </table>
 
-                      <div class="uploadPreview"></div>
+                      <div class="uploadPreview"><img src=""></div>
 
                     </div>
                   </div>
@@ -360,7 +364,7 @@
               <div class="copyright" id="copyright">
                 &copy;
                 <script>
-          document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                  document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
                 </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by <a
                   href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
               </div>

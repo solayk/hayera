@@ -84,15 +84,21 @@
 				data: info,
 				dataType: "text",
 				url: "adminLogin.do",
+				contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
 				success: function(result){
 					if(result==1) location.replace("adminMain.do");
 					else if(result==-1) {
 						showMsg.text("비밀번호가 일치하지 않습니다.");
 						showMsg.show();
+						$('#manager_password').val("");
+						$('#manager_password').focus();
 					}
 					else if(result==0) {
 						showMsg.text("존재하지 않는 아이디입니다.");
 						showMsg.show();
+						$('#manager_id').val("");
+						$('#manager_password').val("");
+						$('#manager_id').focus();
 					}
 				},
 				error: function(err){

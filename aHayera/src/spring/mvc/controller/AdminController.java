@@ -23,7 +23,7 @@ public class AdminController {
 		return step;
 	}
 	
-	@RequestMapping(value="/adminLogin.do", method=RequestMethod.POST)
+	@RequestMapping(value="/adminLogin.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
 	public String adminLogin(AdminVO vo) {
 		AdminVO result = loginService.adminLogin(vo);

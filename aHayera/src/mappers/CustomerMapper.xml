@@ -4,10 +4,12 @@
 <mapper namespace="CustomerDAO">
 
 	<select id="login" parameterType="customer" resultType="customer">
-	<![CDATA[
+	
 	SELECT * from CUSTOMER WHERE CUSTOMER_ID=#{customer_id} 
+	<if test="password!=null">
 	and password=#{password}
-	]]>
+	</if>
+	
 	</select>
 	
 	<insert id="insert" parameterType="customer">

@@ -27,4 +27,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return mybatis.insert("CustomerDAO.insert", vo);
 	}
 
+
+
+
+	public CustomerVO idCheck(CustomerVO vo) {
+		System.out.println("mybatis idCheck 호출");
+		return mybatis.selectOne("CustomerDAO.login", vo);
+	}
+
 }

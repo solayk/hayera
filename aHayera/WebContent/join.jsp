@@ -112,7 +112,7 @@
 												<div class="form-group">
 													<label>아이디 </label>
 													<input id ="customer_id" name="customer_id" type="text" class="form-control" placeholder="Smith...">
-													<input type="button" id='btn' value ='중복확인'>
+													<div id='idCheckResult' style="width:150px;color:red"></div>
 												</div>
 												<div class="form-group">
 													<label>비밀번호 </label>
@@ -143,7 +143,7 @@
 												</div>
 												<div class="form-group">
 													<label>주소 </label>
-													<input name="address" id='address' type="text" class="form-control" placeholder="상세주소">
+													<input name="address" id='addr' type="text" class="form-control" placeholder="상세주소">
 												</div>
 											</div>
 										</div>
@@ -254,7 +254,7 @@ $('#joinbtn').click(function () {
 			'name':$('#name').val(),
 			'tel':$('#tel').val(),
 			'email':$('#email').val(),
-			'address':$('#address').val(),
+			'address':$('#addr').val(),
 			'birthday':$('#birthday').val(),
 			'gender' : $('input[name="gender"]:checked').val(),
 			'skintype' :$('input[name="skin"]:checked').val()
@@ -266,6 +266,20 @@ $('#joinbtn').click(function () {
 		err : function(err){consol.log(err)}
 		
 	});  
+})
+
+$('#customer_id').focusout(function(){
+	$.ajax({
+		type: 'post', //전송방식
+    	async : true, //비동기통신
+    	url : 'idCheck.do', // ***요청(request)
+    	contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+    	data :{'customer_id': $('#customer_id').val()}, //보내는 데이타
+    	success : function(result){
+    		$('#idCheckResult').text(result);
+    	},
+    	error: function(err){console.log(err);}
+	})
 })
 
 </script>

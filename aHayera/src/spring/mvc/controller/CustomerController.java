@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.service.CustomerService;
 
@@ -18,6 +20,23 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerserive;
 	
+	@RequestMapping(value="/idCheck.do",produces="application/text;charset=utf-8")
+	@ResponseBody
+	public String idCheck(CustomerVO vo) {
+		CustomerVO result = customerserive.idCheck_Login(vo);
+		String message = "이미 사용중인 아이디입니다.";
+		if(result==null) {
+			message="사용가능합니다.";
+		}
+		
+		return message;
+		//*******리턴형이 String인 경우 원래는 뷰페이지 지정이어야 하지만
+		// 		AJAX인 경우는 결과반환
+	}
+	
+	
+	
+	// 로그인 하기
 	@RequestMapping(value="/login.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public String login(CustomerVO vo, HttpSession session) {
@@ -26,7 +45,6 @@ public class CustomerController {
 	if(result==null || result.getCustomer_id()==null) {
 			return "0"; 
 	}else {
-		System.out.println("dd");
 		session.setAttribute("login", result.getCustomer_id());	
 			return "1";
 		}
@@ -39,6 +57,8 @@ public class CustomerController {
 		return "redirect:/main.jsp";
 	} // ----- end of logout.do
 	
+	
+	// 회원가입하기
 	@RequestMapping(value="/join.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public void join(CustomerVO vo) {

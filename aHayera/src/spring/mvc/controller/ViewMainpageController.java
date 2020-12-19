@@ -50,11 +50,13 @@ public class ViewMainpageController {
 		ProductVO result = viewMainpageService.selectMaxTotalsalesProduct(vo);
 		return result.getBrand();
 	}
-	/*
-	 * @RequestMapping("/main.do") public void viewAllproduct(ProductVO vo, Model m)
-	 * { System.out.println("---- main.do 요청 됨"); m.addAttribute("productList",
-	 * viewMainpageService.viewAllproduct(vo)); }
-	 */
 	
+//	@RequestMapping("/viewAll.do")
+//	@ResponseBody
+//	public String viewAllproduct(ProductVO vo, Model m)	{ 
+//		System.out.println("---- main.do 요청 됨"); 
+//		m.addAttribute("productList",viewMainpageService.viewAllproduct(vo)); 
+//		return "";
+//	}
 	
 }

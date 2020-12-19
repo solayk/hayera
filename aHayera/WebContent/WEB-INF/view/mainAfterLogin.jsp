@@ -2,6 +2,8 @@
 <%@ page import="spring.mvc.domain.ObjectVO"%>
   <!DOCTYPE html>
   <html>
+  
+  <!-- 로그인 이후 화면 -->
 
   <head>
     <meta charset="utf-8" />
@@ -265,10 +267,10 @@
                     <p>내 계정 <b class="caret"></b></p>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">로그인</a></li>
+                    <li><a href="#">로그아웃</a></li>
                     <li><a href="#">주문목록</a></li>
                     <!-- mypage.jsp는 로그인 한 사람만 접근 가능한 페이지라서 view 폴더로 이동시킴 -->
-                    <li><a href="/aHayera/mypage.do">마이페이지</a></li>
+                    <li><a href="/aHayera/mypage.do?customer_id=test">마이페이지</a></li>
                     <!-- <li class="divider"></li>
                             <li><a href="#">Separated link</a></li> -->
                   </ul>

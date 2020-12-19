@@ -109,7 +109,7 @@
         				$('#password').val("");
         			}
         			else if(result==1){
-        				location.replace("loginTest.do");
+        				location.replace("mainAfterLogin.do");
         			}
         		},
         		err: function(err){console.log(err)}

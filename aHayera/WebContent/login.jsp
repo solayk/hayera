@@ -108,6 +108,9 @@
         				$('#customer_id').val("");
         				$('#password').val("");
         			}
+        			else if(result==1){
+        				location.replace("loginTest.do");
+        			}
         		},
         		err: function(err){console.log(err)}
         	});

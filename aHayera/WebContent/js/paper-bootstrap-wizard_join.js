@@ -81,6 +81,9 @@ return regexpr.test(value);
         		    },
         		    address:{
         		    	required : true
+        		    },
+        		    skin:{
+        		    	required :true
         		    }
                 },
                 messages:{

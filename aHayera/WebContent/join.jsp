@@ -107,7 +107,7 @@
 											<div class="col-sm-10 col-sm-offset-1">
 												<div class="form-group">
 													<label>이름</label>
-													<input name="name" type="text" class="form-control" placeholder="Andrew...">
+													<input name="name" id="name" type="text" class="form-control" placeholder="Andrew...">
 												</div>
 												<div class="form-group">
 													<label>아이디 </label>
@@ -124,26 +124,26 @@
 												</div>
 												<div class="form-group">
 													<label>성별  </label>
-													<input name ='gender'id="gender" type="radio" value="남성">남성
+													<input name ='gender' type="radio" value="남성">남성
 													<input name ='gender' type="radio" value="여성">여성
 												</div>
 												<div class="form-group">
 													<label>생년월일 </label>
-													<input name='birthday' type="date" class="form-control" >
+													<input name='birthday' id='birthday' type="date" class="form-control" >
 												</div>
 											</div>
 											<div class="col-sm-10 col-sm-offset-1">
 												<div class="form-group">
 													<label>전화번호</label>
-													<input name="tel" type="tel" class="form-control" placeholder="010-1234-5678">
+													<input name="tel" type="tel" id='tel'class="form-control" placeholder="010-1234-5678">
 												</div>
 												<div class="form-group">
 													<label>Email </label>
-													<input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
+													<input id='email' name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
 												</div>
 												<div class="form-group">
 													<label>주소 </label>
-													<input name="address" type="text" class="form-control" placeholder="상세주소">
+													<input name="address" id='address' type="text" class="form-control" placeholder="상세주소">
 												</div>
 											</div>
 										</div>
@@ -256,12 +256,12 @@ $('#joinbtn').click(function () {
 			'email':$('#email').val(),
 			'address':$('#address').val(),
 			'birthday':$('#birthday').val(),
-			'gender' : $('input[name="gender"]:checked').val()
+			'gender' : $('input[name="gender"]:checked').val(),
 			'skintype' :$('input[name="skin"]:checked').val()
 			
 		},
 		sucess :function(result){
-			
+			alert("입력되었습니다");
 		},
 		err : function(err){consol.log(err)}
 		

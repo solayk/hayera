@@ -20,4 +20,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return (CustomerVO)mybatis.selectOne("CustomerDAO.login",vo);
 	}
 
+
+	
+	public int insertCustomer(CustomerVO vo) {
+		System.out.println("mybatis insert 호출");
+		return mybatis.insert("CustomerDAO.insert", vo);
+	}
+
 }

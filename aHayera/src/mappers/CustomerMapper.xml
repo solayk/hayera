@@ -9,5 +9,12 @@
 	and password=#{password}
 	]]>
 	</select>
+	
+	<insert id="insert" parameterType="customer">
+	INSERT INTO 
+	CUSTOMER(CUSTOMER_ID,TEL,PASSWORD,NAME,EMAIL,ADDRESS,BIRTHDAY,SKINTYPE,GENDER)
+	 VALUES(#{customer_id},#{tel},#{password},#{name},#{email},#{address},#{birthday},#{skintype},#{gender})
+	
+	</insert>
 
 </mapper>

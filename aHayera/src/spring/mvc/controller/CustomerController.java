@@ -35,6 +35,6 @@ public class CustomerController {
 	@RequestMapping(value="/join.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public void join(CustomerVO vo) {
-		
+		customerserive.insertCustomer(vo);
 	}
 }

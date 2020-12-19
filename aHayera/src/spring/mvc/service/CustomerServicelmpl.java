@@ -16,4 +16,9 @@ public class CustomerServicelmpl implements CustomerService {
 		return customerDAO.login(vo);
 	}
 
+	
+	public int insertCustomer(CustomerVO vo) {
+		return customerDAO.insertCustomer(vo);
+	}
+
 }

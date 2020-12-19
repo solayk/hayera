@@ -38,7 +38,7 @@ public class ProductVO {
 //			this.b_fsize = file.getSize(); // 필요한지 고민해보기
 			
 			// 해당 경로로 변경
-			File f = new File("C:\\Work\\spring\\hayera\\aHayera\\WebContent\\resources\\upload\\"+img_url);
+			File f = new File("C:\\Work\\project\\aHayera\\WebContent\\resources\\upload\\"+img_url);
 			
 			try {file.transferTo(f);
 			} catch (IllegalStateException e) {e.printStackTrace();

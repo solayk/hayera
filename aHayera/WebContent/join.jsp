@@ -208,7 +208,7 @@
 		                        <div class="wizard-footer">
 		                            <div class="pull-right">
 		                                <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
-		                                <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
+		                                <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' id='joinbtn'/>
 		                            </div>
 
 		                            <div class="pull-left">

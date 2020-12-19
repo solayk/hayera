@@ -71,7 +71,22 @@
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
+// mainAfterLogin => 나중에 main.jsp 에도 추가 필요
+		// 전체상품목록
 		$.ajax({
+			url: 'viewAllProduct.do',
+			dataType : 'json',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(data){
+				console.log(">>>ajax success! viewAllProduct!<<<");
+		    console.log(data.length);
+            for(i=0; i<data.length; i++){
+		          
+		        }
+			} 
+		});
+    	
+    	$.ajax({
 			type : 'post',
 			url : 'viewTopSalesedItem.do',
 			dataType : 'json',
@@ -364,8 +379,14 @@
         <div class="col-md-12">
           <br>
           <hr>
+
           <h3 class="text-center hayera">전체 상품 목록<br>
             <br>
+            <div class="product">
+              <ul class="product-top ">
+              </ul>
+            </div>
+
           </h3>
           <hr>
           <h3 class="text-center hayera">No.1 Salesed<br>

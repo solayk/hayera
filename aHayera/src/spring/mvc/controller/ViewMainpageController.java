@@ -1,6 +1,7 @@
 package spring.mvc.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import spring.mvc.domain.ObjectVO;
 import spring.mvc.domain.ProductVO;
@@ -53,6 +56,7 @@ public class ViewMainpageController {
 		ProductVO result = viewMainpageService.selectMaxTotalsalesProduct(vo);
 		return result.getBrand();
 	}
+	
 	@RequestMapping(value="/viewTopSalesedItemImage.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
 	public String viewTopSalesedItemImage(ProductVO vo) {
@@ -62,12 +66,13 @@ public class ViewMainpageController {
 		return result.getImg_url();
 	}
 	
-//	@RequestMapping("/viewAll.do")
-//	@ResponseBody
-//	public String viewAllproduct(ProductVO vo, Model m)	{ 
-//		System.out.println("---- main.do 요청 됨"); 
-//		m.addAttribute("productList",viewMainpageService.viewAllproduct(vo)); 
-//		return "";
-//	}
+//	전체 상품 목록 보여주기
+	@RequestMapping("/viewAllProduct.do")
+	@ResponseBody
+	public List<ProductVO> viewAllproduct(ProductVO vo)	{ 
+		System.out.println("---- main.do 요청 됨"); 
+		List<ProductVO> list = viewMainpageService.viewAllproduct(vo); 
+		return list;
+	}
 	
 }

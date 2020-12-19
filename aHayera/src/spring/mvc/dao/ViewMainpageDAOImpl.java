@@ -21,6 +21,6 @@ public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 	@Override
 	public List<ProductVO> viewAllproduct(ProductVO vo) {
 		System.out.println("===> Mybatis viewAllproduct() 호출");
-		return mybatis.selectList("ViewMainPageDAO.viewAllproduct",vo);
+		return mybatis.selectList("ViewMainPageDAO.viewAllProduct",vo);
 	}
 }

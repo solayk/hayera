@@ -10,11 +10,6 @@
 
     <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link href="css/ct-navbar.css" rel="stylesheet" />
-    
-    <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-  	<script src="js/bootstrap.js" type="text/javascript"></script>
-
- 	<script src="js/ct-navbar.js"></script>
 
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -72,22 +67,9 @@
         float: right;
       }
     </style>
-    <script type="text/javascript">
-    $(document).ready(function(){
-		$.ajax({
-			type : 'post',
-			url : 'viewMain.do',
-			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-			success : function(result){
-				$("#mostSalesedItem").text(result);
-			},
-			error : function (err) {
-				console.log(err);
-			}
-		});
-    })    
     <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
-   	function clickGopay(){
+    <script type="text/javascript">
+      function clickGopay(){
         window.location.href="orderCheck.jsp";
       }
     </script>
@@ -250,7 +232,8 @@
                   <ul class="dropdown-menu">
                     <li><a href="#">로그인</a></li>
                     <li><a href="#">주문목록</a></li>
-                    <li><a href="#">마이페이지</a></li>
+                    <!-- mypage.jsp는 로그인 한 사람만 접근 가능한 페이지라서 view 폴더로 이동시킴 -->
+                    <li><a href="/fHayera2/mypage.do?customer_id=test">마이페이지</a></li>
                     <!-- <li class="divider"></li>
                             <li><a href="#">Separated link</a></li> -->
                   </ul>
@@ -347,10 +330,9 @@
             <br>
           </h3>
           <hr>
-          <h3 class="text-center hayera">젭알!<br>
+          <h3 class="text-center hayera">모든 상품<br>
             <br>
           </h3>
-          <span id="mostSalesedItem"></span>
           <br>
           <br>
           <br>
@@ -388,5 +370,11 @@
       <!-- end main -->
 
   </body>
-  
+
+  <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+  <script src="js/bootstrap.js" type="text/javascript"></script>
+
+  <script src="js/ct-navbar.js"></script>
+
+
   </html>

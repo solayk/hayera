@@ -268,7 +268,7 @@
                     <li><a href="#">로그인</a></li>
                     <li><a href="#">주문목록</a></li>
                     <!-- mypage.jsp는 로그인 한 사람만 접근 가능한 페이지라서 view 폴더로 이동시킴 -->
-                    <li><a href="/aHayera/mypage.do">마이페이지</a></li>
+                    <li><a href="mypage.do">마이페이지</a></li>
                     <!-- <li class="divider"></li>
                             <li><a href="#">Separated link</a></li> -->
                   </ul>

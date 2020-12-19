@@ -19,18 +19,13 @@ public class MypageController {
 	@Autowired
 	private MypageServiceImple service;
 	
-	CustomerVO vo;
-	
 	@RequestMapping("/mypage.do")
-	public void getAllById( Model m, HttpSession session) {
+	public void getAllById() {
 		System.out.println("마이페이지 연결");
-			String customer_id = (String)session.getAttribute("login");
-			vo.setCustomer_id(customer_id);
+//			String customer_id = (String)session.getAttribute("login");
+//			vo.setCustomer_id(customer_id);
 			
-			CustomerVO result = service.getAllById(vo);
-			m.addAttribute("result", vo);
-		
-		
+//			CustomerVO result = service.getAllById(vo);
 	}
 	
 	/*

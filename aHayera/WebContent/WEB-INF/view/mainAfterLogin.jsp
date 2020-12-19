@@ -4,6 +4,9 @@
   <html>
   
   <!-- 로그인 이후 화면 -->
+  <!-- 로그인 이후 화면 -->
+  <!-- 로그인 이후 화면 -->
+  <!-- 상품 전체목록 띄운 후 우빈이와 합칠 예정 -->
 
   <head>
     <meta charset="utf-8" />
@@ -267,12 +270,10 @@
                     <p>내 계정 <b class="caret"></b></p>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">로그아웃</a></li>
+<!-- mainAfterLogin 에만 해당 -->
+                    <li><a href="mypage.do">마이페이지</a></li>
                     <li><a href="#">주문목록</a></li>
-                    <!-- mypage.jsp는 로그인 한 사람만 접근 가능한 페이지라서 view 폴더로 이동시킴 -->
-                    <li><a href="/aHayera/mypage.do?customer_id=test">마이페이지</a></li>
-                    <!-- <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li> -->
+                    <li><a href="logout.do">로그아웃</a></li>
                   </ul>
                 </li>
               </ul>
@@ -363,7 +364,7 @@
         <div class="col-md-12">
           <br>
           <hr>
-          <h3 class="text-center hayera">오늘의 신상품<br>
+          <h3 class="text-center hayera">전체 상품 목록<br>
             <br>
           </h3>
           <hr>

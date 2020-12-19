@@ -32,6 +32,12 @@ public class CustomerController {
 		}
 	}
 	
+	// mainAfterLogin.jsp 에서 로그아웃 클릭 시 session 값 삭제 후 main.jsp 이동
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+        session.removeAttribute("login");
+		return "redirect:/main.jsp";
+	} // ----- end of logout.do
 	
 	@RequestMapping(value="/join.do",produces = "application/text;charset=utf-8")
 	@ResponseBody

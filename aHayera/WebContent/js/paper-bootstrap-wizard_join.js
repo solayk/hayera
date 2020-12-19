@@ -41,22 +41,85 @@ transparent = true;
             /*  Activate the tooltips      */
             $('[rel="tooltip"]').tooltip();
 
+/* password check*/
+$.validator.addMethod("regx",  function( value, element ,regexpr) {
+return regexpr.test(value);
+}); 
             // Code for the Validator
             var $validator = $('.wizard-card form').validate({
         		  rules: {
-        		    firstname: {
-        		      required: true,
-        		      minlength: 3
+        		    name: {
+        		      required: true
+        		    
         		    },
-        		    lastname: {
+        		    customer_id: {
         		      required: true,
         		      minlength: 3
         		    },
         		    email: {
-        		      required: true
+        		      required: true,
+        		      email: true
+        		    },
+        		    password:{
+        		    	required:true,
+        		    	minlength:8,
+        		    	regx : /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
+        		    },
+        		    passwordconfirm:{
+        		    	equalTo: "#password",
+        		    	required:true
+        		    	
+        		    },
+        		    gender:{
+        		    	required:true
+        		    },
+        		    birthday:{
+        		    	required:true
+        		    },
+        		    tel:{
+        		    	required:true
+        		    },
+        		    address:{
+        		    	required : true
         		    }
                 },
+                messages:{
+                	password:{
+                		regx:"문자,숫자, 특수문자로 입력해주세요.",
+                		required:"필수 입력사항입니다.",
+                		minlength : "8자리 이상으로 입력해주세요."
+                	},
+                	passwordconfirm:{
+                		equalTo : "비밀번호가 일치하지 않습니다.",
+                		required:"필수 입력사항입니다."
+                	},
+                	name:{
+                		required:"필수 입력사항입니다."
+                	},
+                	customer_id:{
+                		required:"필수 입력사항입니다.",
+                		minlength :"3자리 이상으로 입력해주세요."
+                	},
+                	email:{
+                		required:"필수 입력사항입니다.",
+                		email :"올바른 이메일 주소를 입력하세요."
+                	},
+                	gender:{
+                		required:"필수 입력사항입니다."
+                	
+                	},
+                	birthday:{
+                		required:"필수 입력사항입니다."
+                	},
+                	tel:{
+                		required:"필수 입력사항입니다."
+                	},
+                	address:{
+                		required:"필수 입력사항입니다."
+                	}
+                }
         	});
+        	
 
             // Wizard Initialization
           	$('.wizard-card').bootstrapWizard({

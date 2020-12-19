@@ -10,6 +10,11 @@
 
     <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link href="css/ct-navbar.css" rel="stylesheet" />
+    
+    <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+  	<script src="js/bootstrap.js" type="text/javascript"></script>
+
+ 	<script src="js/ct-navbar.js"></script>
 
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -20,12 +25,10 @@
       .fa-heart {
         color: #F74933;
       }
-
       .space-100 {
         height: 100px;
         display: block;
       }
-
       pre.prettyprint {
         background-color: #ffffff;
         border: 1px solid #999;
@@ -33,42 +36,60 @@
         padding: 20px;
         text-align: left;
       }
-
       .atv,
       .str {
         color: #05AE0E;
       }
-
       .tag,
       .pln,
       .kwd {
         color: #3472F7;
       }
-
       .atn {
         color: #2C93FF;
       }
-
       .pln {
         color: #333;
       }
-
       .com {
         color: #999;
       }
-
       /* KOSMO : 장바구니 CSS */
       .table {
         width: 600px;
         text-align: center;
       }
-
       .panel-body {
         float: right;
       }
     </style>
-    <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
     <script type="text/javascript">
+    $(document).ready(function(){
+		$.ajax({
+			type : 'post',
+			url : 'viewTopSalesedItemName.do',
+			/* dataType : JSON.stringify(data), */
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(data){
+				$("#topSalesedItemName").text(data);
+			},
+			error : function (err) {
+				console.log(err);
+			}
+		});
+	 	$.ajax({
+			type : 'post',
+			url : 'viewTopSalesedItemBrand.do',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(result){
+				$("#topSalesedItemBrand").text(result);
+			},
+			error : function (err) {
+				console.log(err);
+			}
+		});
+    })    
+    <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
       function clickGopay(){
         window.location.href="orderCheck.jsp";
       }
@@ -233,7 +254,7 @@
                     <li><a href="#">로그인</a></li>
                     <li><a href="#">주문목록</a></li>
                     <!-- mypage.jsp는 로그인 한 사람만 접근 가능한 페이지라서 view 폴더로 이동시킴 -->
-                    <li><a href="/fHayera2/mypage.do?customer_id=test">마이페이지</a></li>
+                    <li><a href="/aHayera/mypage.do?customer_id=test">마이페이지</a></li>
                     <!-- <li class="divider"></li>
                             <li><a href="#">Separated link</a></li> -->
                   </ul>
@@ -330,9 +351,24 @@
             <br>
           </h3>
           <hr>
-          <h3 class="text-center hayera">모든 상품<br>
+          <h3 class="text-center hayera">No.1 Salesed<br>
             <br>
           </h3>
+          <div class="product">
+	          <ul class="product-top">
+	          	<c:forEach items="${productList }" var="product">
+		            <li>
+		              <div class="item-img"><img src="/aHayera/resources/upload/${product.img_url }"></div>
+		              <div class="item-title" id="topSalesedItemName">${product.prod_name }</div>
+		              <div class="item-brand" id="topSalesedItemBrand">${product.brand }</div>
+		              <div class="item-reviewno"><img src="./images/4star.png"> 231</div>
+		              <div class="item-price">12,000원${product.discount_price }</div>
+		              <div class="item-price-ml">ml당 1,000원${product.capacity }</div>
+		              <div class="item-sale-remaining">세일 2일 남음</div>
+		            </li>
+	            </c:forEach>
+            </ul>
+           </div>
           <br>
           <br>
           <br>
@@ -370,11 +406,4 @@
       <!-- end main -->
 
   </body>
-
-  <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-  <script src="js/bootstrap.js" type="text/javascript"></script>
-
-  <script src="js/ct-navbar.js"></script>
-
-
   </html>

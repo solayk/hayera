@@ -66,42 +66,30 @@
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
-		$.ajax({
+    	$.ajax({
 			type : 'post',
-			url : 'viewTopSalesedItemName.do',
-			/* dataType : 'json', */
-			/* data : objectVO, */
+			url : 'viewTopSalesedItem.do',
+			dataType : 'json',
 			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-			success : function(result){
-				/* alert(data[0].prod_name); */
-				$("#topSalesedItemName").text(result);
+			success : function(data){
+				for(i=0;i<data.length;i++){
+					$(".viewTopSalesedItem").append(
+						'<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
+		                  + '<div class="item-brand">' + data[i].brand +'</div>'
+		                  + '<div class="item-reviewno"><img src="./images/4star.png">' + data[i].avg_rating + '</div>'
+		                  + '<span class="item-price">' + data[i].price + '원</span> '
+		                  + '<span class="item-discount_price">'+data[i].discount_price+'원</span>'
+		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
+		                  + '<div class="item-price-ml">ML당 ' + data[i].discount_price/data[i].capacity+' 원</div>'
+		                  + '</li>'		
+					)
+				}
 			},
 			error : function (err) {
 				console.log(err);
 			}
 		});
-	 	$.ajax({
-			type : 'post',
-			url : 'viewTopSalesedItemBrand.do',
-			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-			success : function(result){
-				$("#topSalesedItemBrand").text(result);
-			},
-			error : function (err) {
-				console.log(err);
-			}
-		});
-	 	/* $.ajax({
-	 		type : 'post',
-	 		url : 'main.do',
-	 		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-	 		success : function(result){
-	 			
-	 		},
-	 		error : function (err) {
-				console.log(err);
-			}
-	 	}); */
     })    
     <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
       function clickGopay(){
@@ -365,23 +353,12 @@
             <br>
           </h3>
           <hr>
-          <h3 class="text-center hayera">No.1 Salesed<br>
+          <h3 class="text-center hayera">★No.1 SalesedItem★<br>
             <br>
           </h3>
           <div class="product">
-	          <ul class="product-top">
-	          	<c:forEach items="${productList }" var="product">
-		            <li>
-		              <div class="item-img"><img src="/aHayera/resources/upload/${product.img_url }"></div>
-		              <div class="item-title" id="topSalesedItemName">${product.prod_name }</div>
-		              <div class="item-brand" id="topSalesedItemBrand">${product.brand }</div>
-		              <div class="item-reviewno"><img src="./images/4star.png"> 231</div>
-		              <div class="item-price">12,000원${product.discount_price }</div>
-		              <div class="item-price-ml">ml당 1,000원${product.capacity }</div>
-		              <div class="item-sale-remaining">세일 2일 남음</div>
-		            </li>
-	            </c:forEach>
-            </ul>
+	          <ul class="product-top viewTopSalesedItem">
+	          </ul>
            </div>
           <br>
           <br>

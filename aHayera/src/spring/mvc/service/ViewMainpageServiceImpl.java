@@ -12,7 +12,7 @@ public class ViewMainpageServiceImpl implements ViewMainpageService {
 	@Autowired
 	private ViewMainpageDAOImpl viewMainDAO;
 
-	public ProductVO selectMaxTotalsalesProduct(ProductVO vo) {
+	public List<ProductVO> selectMaxTotalsalesProduct(ProductVO vo) {
 		return viewMainDAO.selectMaxTotalsalesProduct(vo);
 	}
 

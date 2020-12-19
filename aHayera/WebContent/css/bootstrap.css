@@ -7610,8 +7610,11 @@ td.visible-print {
   width: 80px;
   height: 80px;
 }
-
-
+/* KOSMO item-discount_price 클래스 폰트 추가.*/
+.item-discount_price{
+  font-family: '레시피코리아';
+  font-size: 20px;
+}
 .item-title,
 .item-price {
   font-family: '레시피코리아';
@@ -7627,8 +7630,9 @@ td.visible-print {
   width: 100px;
   vertical-align: -5px;
 }
-/* KOSMO item-brand 클래스 폰트 추가.*/
+/* KOSMO item-brand,capacity 클래스 폰트 추가.*/
 .item-brand,
+.item-capacity,
 .item-price-ml,
 .item-sale-remaining {
   font-family: '레시피코리아';

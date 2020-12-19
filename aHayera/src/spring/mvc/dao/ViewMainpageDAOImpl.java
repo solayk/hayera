@@ -13,9 +13,9 @@ public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public ProductVO selectMaxTotalsalesProduct(ProductVO vo) {
+	public List<ProductVO> selectMaxTotalsalesProduct(ProductVO vo) {
 		System.out.println("===> Mybatis selectMaxTotalsalesProduct() 호출");
-		return (ProductVO) mybatis.selectOne("ViewMainPageDAO.selectMaxTotalsalesProduct",vo);
+		return mybatis.selectList("ViewMainPageDAO.selectMaxTotalsalesProduct",vo);
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import spring.mvc.domain.CustomerVO;
 public class MypageDAOImpl implements MypageDAO{
 	
 	@Autowired
-	private SqlSessionTemplate mybatis;
+	private SqlSessionTemplate mybatis;  
 	
 	public CustomerVO getAllById(CustomerVO vo) {
 		System.out.println("mybatis getAllById 호출");

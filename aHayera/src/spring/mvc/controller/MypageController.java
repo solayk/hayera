@@ -13,7 +13,7 @@ import spring.mvc.service.CustomerService;
 import spring.mvc.service.MypageServiceImple;
 
 @Controller
-public class MypageController {
+public class MypageController {  
 	
 	@Autowired
 	private MypageServiceImple service;

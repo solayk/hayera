@@ -6,7 +6,7 @@
 <select id="getAllById" parameterType="Customer" resultType="Customer">
 select  *
 from customer
-where customer_id=#{customer_id}
+where customer_id=#{customer_id}<!-- test -->
 </select>
 
 

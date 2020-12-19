@@ -19,13 +19,22 @@ public class CustomerController {
 
 	@RequestMapping(value="/login.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
-	public String login(CustomerVO vo, Model m,HttpSession session) {
+	public String login(CustomerVO vo, HttpSession session) {
 	CustomerVO result = customerserive.login(vo);
-	session.setAttribute("login", result.getCustomer_id());	
+	
 	if(result==null || result.getCustomer_id()==null) {
 			return "0"; 
 	}else {
-			return "1";
+		System.out.println("dd");
+		session.setAttribute("login", result.getCustomer_id());	
+			return "redirect:/mypage.do";
 		}
+	}
+	
+	
+	@RequestMapping(value="/join.do",produces = "application/text;charset=utf-8")
+	@ResponseBody
+	public void join(CustomerVO vo) {
+		
 	}
 }

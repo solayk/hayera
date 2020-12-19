@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,11 +19,17 @@ public class MypageController {
 	@Autowired
 	private MypageServiceImple service;
 	
+	CustomerVO vo;
+	
 	@RequestMapping("/mypage.do")
-	public void getAllById(CustomerVO vo, Model m) {
+	public void getAllById( Model m, HttpSession session) {
+		System.out.println("마이페이지 연결");
+			String customer_id = (String)session.getAttribute("login");
+			vo.setCustomer_id(customer_id);
+			
 			CustomerVO result = service.getAllById(vo);
 			m.addAttribute("result", vo);
-		System.out.println("마이페이지 연결");
+		
 		
 	}
 	

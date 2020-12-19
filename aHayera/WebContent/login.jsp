@@ -103,9 +103,7 @@
         			'password':$('#password').val()
         		},
         		success : function(result){
-        			if(result==1){
-        				location.replace("loginTest.do");
-        			}else if(result==0){
+        			if(result==0){
         				$('#errpopup').text("아이디 또는 비밀번호가 일치하지 않습니다.");
         				$('#customer_id').val("");
         				$('#password').val("");

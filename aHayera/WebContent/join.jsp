@@ -22,6 +22,20 @@
 	<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 	<link href="/aHayera/css/join_themify-icons.css" rel="stylesheet">
 	
+	
+	<!--   Core JS Files   -->
+	<script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
+	<script src="/aHayera/js/bootstrap.min_join.js" type="text/javascript"></script>
+	<script src="/aHayera/js/jquery.bootstrap.wizard_join.js" type="text/javascript"></script>
+
+	<!--  Plugin for the Wizard -->
+	<script src="/aHayera/js/demo_join.js" type="text/javascript"></script>
+	<script src="/aHayera/js/paper-bootstrap-wizard_join.js" type="text/javascript"></script>
+
+	<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+	<script src="/aHayera/js/jquery.validate.min.js" type="text/javascript"></script>
+	
+	
 	</head>
 	
 	<body>
@@ -97,7 +111,7 @@
 												</div>
 												<div class="form-group">
 													<label>아이디 </label>
-													<input name="customer_id" type="text" class="form-control" placeholder="Smith...">
+													<input id ="customer_id" name="customer_id" type="text" class="form-control" placeholder="Smith...">
 													<input type="button" id='btn' value ='중복확인'>
 												</div>
 												<div class="form-group">
@@ -106,11 +120,11 @@
 												</div>
 												<div class="form-group">
 													<label>비밀번호확인</label>
-													<input name="passwordconfirm" type="password" class="form-control" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상">
+													<input id="passwordconfirm" name="passwordconfirm" type="password" class="form-control" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상">
 												</div>
 												<div class="form-group">
 													<label>성별  </label>
-													<input name ='gender' type="radio" value="남성">남성
+													<input name ='gender'id="gender" type="radio" value="남성">남성
 													<input name ='gender' type="radio" value="여성">여성
 												</div>
 												<div class="form-group">
@@ -226,19 +240,36 @@
 	   
 		
 	</div>
+<script type="text/javascript">
+$('#joinbtn').click(function () {
+
+	$.ajax({
+		type :'post',
+		async :true,
+		url : "join.do",
+		contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+		data : {
+			'customer_id':$('#customer_id').val(),
+			'password':$('#password').val(),
+			'name':$('#name').val(),
+			'tel':$('#tel').val(),
+			'email':$('#email').val(),
+			'address':$('#address').val(),
+			'birthday':$('#birthday').val(),
+			'gender' : $('input[name="gender"]:checked').val()
+			'skintype' :$('input[name="skin"]:checked').val()
+			
+		},
+		sucess :function(result){
+			
+		},
+		err : function(err){consol.log(err)}
+		
+	});  
+})
+
+</script>
 
 </body>
-
-<!--   Core JS Files   -->
-	<script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
-	<script src="/aHayera/js/bootstrap.min_join.js" type="text/javascript"></script>
-	<script src="/aHayera/js/jquery.bootstrap.wizard_join.js" type="text/javascript"></script>
-
-	<!--  Plugin for the Wizard -->
-	<script src="/aHayera/js/demo_join.js" type="text/javascript"></script>
-	<script src="/aHayera/js/paper-bootstrap-wizard_join.js" type="text/javascript"></script>
-
-	<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
-	<script src="/aHayera/js/jquery.validate.min.js" type="text/javascript"></script>
 
 </html>

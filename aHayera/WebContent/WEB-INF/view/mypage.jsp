@@ -219,7 +219,7 @@
               <개인정보수정>
                 <br>
                 <br>
-                이름: 　　<input name="name" type="text" value="">
+                이름: ${sessionScope.login}　　<input name="name" type="text" value="">
                
                 <br>
                 <br>

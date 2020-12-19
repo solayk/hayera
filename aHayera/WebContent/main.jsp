@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="spring.mvc.domain.ObjectVO"%>
   <!DOCTYPE html>
   <html>
 
@@ -67,11 +68,13 @@
     $(document).ready(function(){
 		$.ajax({
 			type : 'post',
-			url : 'viewTopSalesedItemName.do',
-			/* dataType : JSON.stringify(data), */
+			url : 'viewTopSalesedItem.do',
+			dataType : 'json',
+			/* data : objectVO, */
 			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 			success : function(data){
-				$("#topSalesedItemName").text(data);
+				alert(data[0].prod_name);
+				$("#topSalesedItemName").text(objectVO);
 			},
 			error : function (err) {
 				console.log(err);
@@ -88,6 +91,17 @@
 				console.log(err);
 			}
 		});
+	 	$.ajax({
+	 		type : 'post',
+	 		url : 'main.do',
+	 		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+	 		success : function(result){
+	 			
+	 		},
+	 		error : function (err) {
+				console.log(err);
+			}
+	 	});
     })    
     <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
       function clickGopay(){

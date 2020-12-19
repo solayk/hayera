@@ -19,10 +19,9 @@ public class CustomerController {
 
 	@RequestMapping(value="/login.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
-	public String login(CustomerVO vo, Model m) {
-	System.out.println("login.do요청");
+	public String login(CustomerVO vo, Model m,HttpSession session) {
 	CustomerVO result = customerserive.login(vo);
-		
+	session.setAttribute("login", result.getCustomer_id());	
 	if(result==null || result.getCustomer_id()==null) {
 			return "0"; 
 	}else {

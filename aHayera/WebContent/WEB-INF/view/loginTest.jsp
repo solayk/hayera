@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-로그인 성공하였습니다.<hr>
+ ${sessionScope.login} 님 로그인 성공하였습니다.<hr>
 
 </body>
 </html>

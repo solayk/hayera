@@ -28,10 +28,7 @@ public class CustomerController {
 		if(result==null) {
 			message="사용가능합니다.";
 		}
-		
 		return message;
-		//*******리턴형이 String인 경우 원래는 뷰페이지 지정이어야 하지만
-		// 		AJAX인 경우는 결과반환
 	}
 	
 	

@@ -102,7 +102,7 @@
 												</div>
 												<div class="form-group">
 													<label>비밀번호 </label>
-													<input name="password" type="password" class="form-control" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상">
+													<input name="password" id="password"type="password" class="form-control" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상">
 												</div>
 												<div class="form-group">
 													<label>비밀번호확인</label>

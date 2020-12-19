@@ -19,29 +19,30 @@ public class ViewMainpageController {
 	@Autowired
 	private ViewMainpageService viewMainpageService;
 	
-	@SuppressWarnings("null")
-	@RequestMapping(value="/viewTopSalesedItem.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
+	@RequestMapping(value="/viewTopSalesedItemName.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
-	public ObjectVO viewTopsalesdItem(ProductVO vo) {
-		System.out.println("---- viewTopSalesedItem.do 요청 됨");
-		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
-		ProductVO prd = null;
+	public String viewTopsalesdItem(ProductVO vo) {
+		System.out.println("---- viewTopSalesedItemName.do 요청 됨");
+		ProductVO result = viewMainpageService.selectMaxTotalsalesProduct(vo);
+		return result.getProd_name();
+//		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+//		ProductVO prd = null;
 		/* ProductVO result = viewMainpageService.selectMaxTotalsalesProduct(vo); */
-		ObjectVO objectVO = new ObjectVO();
-		System.out.println("으악");
+//		ObjectVO objectVO = new ObjectVO();
+//		System.out.println("으악");
 		/* System.out.println(result.getProd_name()); */
-		System.out.println(viewMainpageService.selectMaxTotalsalesProduct(vo).getProd_name());
-		prd.setProd_name(viewMainpageService.selectMaxTotalsalesProduct(vo).getProd_name());
-		prd.setBrand(viewMainpageService.selectMaxTotalsalesProduct(vo).getBrand());
+//		System.out.println(viewMainpageService.selectMaxTotalsalesProduct(vo).getProd_name());
+//		prd.setProd_name(viewMainpageService.selectMaxTotalsalesProduct(vo).getProd_name());
+//		prd.setBrand(viewMainpageService.selectMaxTotalsalesProduct(vo).getBrand());
 //		prd.setCapacity(result.getCapacity());
 //		prd.setDiscount_price(result.getDiscount_price());
 //		prd.setImg_url(result.getImg_url());
 //		prd.setAvg_rating(result.getAvg_rating());
-		list.add(prd);
+//		list.add(prd);
 		
-		objectVO.setList(list);
-		System.out.println(objectVO);
-		return objectVO;
+//		objectVO.setList(list);
+//		System.out.println(objectVO);
+//		return objectVO;
 	}
 	@RequestMapping(value="/viewTopSalesedItemBrand.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody

@@ -68,13 +68,13 @@
     $(document).ready(function(){
 		$.ajax({
 			type : 'post',
-			url : 'viewTopSalesedItem.do',
-			dataType : 'json',
+			url : 'viewTopSalesedItemName.do',
+			/* dataType : 'json', */
 			/* data : objectVO, */
 			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-			success : function(data){
-				alert(data[0].prod_name);
-				$("#topSalesedItemName").text(objectVO);
+			success : function(result){
+				/* alert(data[0].prod_name); */
+				$("#topSalesedItemName").text(result);
 			},
 			error : function (err) {
 				console.log(err);
@@ -91,7 +91,7 @@
 				console.log(err);
 			}
 		});
-	 	$.ajax({
+	 	/* $.ajax({
 	 		type : 'post',
 	 		url : 'main.do',
 	 		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
@@ -101,7 +101,7 @@
 	 		error : function (err) {
 				console.log(err);
 			}
-	 	});
+	 	}); */
     })    
     <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
       function clickGopay(){

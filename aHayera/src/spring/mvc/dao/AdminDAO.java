@@ -9,5 +9,7 @@ public interface AdminDAO {
 	
 	public AdminVO adminLogin(AdminVO vo);
 	
-	public List<ProductVO> adminProduct(ProductVO vo);	
+	public List<ProductVO> adminProduct(ProductVO vo);
+	
+	public void insertProduct(ProductVO vo);
 }

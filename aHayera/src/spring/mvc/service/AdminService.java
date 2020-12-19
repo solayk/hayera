@@ -10,4 +10,6 @@ public interface AdminService {
 	public AdminVO adminLogin(AdminVO vo);
 	
 	public List<ProductVO> adminProduct(ProductVO vo);
+	
+	public void insertProduct(ProductVO vo);
 }

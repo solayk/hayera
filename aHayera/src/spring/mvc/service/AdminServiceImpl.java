@@ -13,14 +13,18 @@ import spring.mvc.domain.ProductVO;
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
-	private AdminDAO loginDAO;
+	private AdminDAO adminDAO;
 	
 	public AdminVO adminLogin(AdminVO vo) {
-		return loginDAO.adminLogin(vo);
+		return adminDAO.adminLogin(vo);
 	}
 	
 	public List<ProductVO> adminProduct(ProductVO vo) {
-		System.out.println(" == service 진입 == ");
-		return loginDAO.adminProduct(vo);
+		return adminDAO.adminProduct(vo);
+	}
+	
+	public void insertProduct(ProductVO vo) {
+		System.out.println(" == insertProduct // service 진입 == ");
+		adminDAO.insertProduct(vo);
 	}
 }

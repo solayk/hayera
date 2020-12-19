@@ -16,7 +16,7 @@ import spring.mvc.service.AdminService;
 public class AdminController {
 	
 	@Autowired
-	private AdminService loginService;
+	private AdminService adminService;
 	
 	@RequestMapping("{step}.do")
 	public String insert(@PathVariable String step) {
@@ -26,7 +26,7 @@ public class AdminController {
 	@RequestMapping(value="/adminLogin.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
 	public String adminLogin(AdminVO vo) {
-		AdminVO result = loginService.adminLogin(vo);
+		AdminVO result = adminService.adminLogin(vo);
 		if(result!=null) {
 			if(result.getManager_password().equals(vo.getManager_password())) return "1";
 			else return "-1";
@@ -37,7 +37,15 @@ public class AdminController {
 	@RequestMapping("/adminProduct.do")
 	public void adminProduct(ProductVO vo, Model model) {
 		System.out.println(" === adminProduct.do 수신 === ");
-		model.addAttribute("productList",loginService.adminProduct(vo));
+		model.addAttribute("productList",adminService.adminProduct(vo));
 	}
+	
+	@RequestMapping("insertProduct.do")
+	public String insertProduct(ProductVO vo) {
+		System.out.println(" == insertProduct // controller 진입 == ");
+		adminService.insertProduct(vo);
+		return "redirect:/adminProduct.do";
+	}
+	
 	
 }

@@ -24,5 +24,10 @@ public class AdminDAOImpl implements AdminDAO {
 		System.out.println("===> Mybatis adminProduct() 호출");
 		return mybatis.selectList("AdminDAO.adminProduct",vo);
 	}
+	
+	public void insertProduct(ProductVO vo) {
+		System.out.println("===> Mybatis insertProduct() 호출");
+		mybatis.insert("AdminDAO.insertProduct",vo);
+	}
 
 }

@@ -65,14 +65,15 @@
           background-color: transparent;
         }
 
-        .adminProduct_addTable(.card-subcategories).card-body {
+        .adminProduct_addTable .card-body {
           padding-left: 0;
           padding-right: 0;
         }
 
-        .table td>input {
+        .table td > input {
           width: 100%;
-          text-align: center;
+        }
+        .table td > select {
         }
         .uploadPreview > img {
           width: 2		00px;
@@ -258,8 +259,8 @@
                         <table class="table">
                           <thead class="text-primary">
                             <tr>
-                              <th>사진</th>
-                              <th>제품번호</th>
+                              <th>제품</th>
+                              <th></th>
                               <th>이름</th>
                               <th>브랜드</th>
                               <th>카테고리</th>
@@ -274,6 +275,7 @@
                               <th>향 평가</th>
                               <th>촉감</th>
                               <th>촉감 평가</th>
+                              <th>수정</th>
                             </tr>
                           </thead>
 
@@ -281,7 +283,7 @@
                             <c:forEach items="${productList }" var="product">
                               <tr>
                                 <td><img class="adminProduct_Img"
-                                    src="/aHayera/images/upload_product/${product.img_url }"> </td>
+                                    src="/aHayera/resources/upload/${product.img_url }"> </td>
                                 <td>${product.prod_no }</td>
                                 <td>${product.prod_name }</td>
                                 <td>${product.brand }</td>
@@ -297,6 +299,7 @@
                                 <td>${product.scent_rating }</td>
                                 <td>${product.feel }</td>
                                 <td>${product.feel_rating }</td>
+                                <td><input type="button" value="수정"></td>
                               </tr>
                             </c:forEach>
 
@@ -313,11 +316,12 @@
                 <div class="card .adminProduct_addTable">
                   <!-- .adminProduct_addTable 클래스 추가 -->
                   <div class="card-header">
-                    <h4 class="card-title"> 상품 등록하기 </h4>
-                    <p class="category"> 새로운 상품을 등록해주세요.</p>
+                    <h4 class="card-title"> 새상품등록 </h4>
+                    <p class="category"> 새로운 상품을 등록하세요. 수량 변경은 다른 메뉴를 이용하시기 바랍니다.</p>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
+                     <form action="insertProduct.do" method= 'post' enctype='multipart/form-data'>
                       <table class="table">
                         <tr>
                           <th>사진</th>
@@ -326,7 +330,7 @@
                           <th>브랜드</th>
                           <th>카테고리</th>
                           <th>가격</th>
-                          <th>원가</th>
+                          <th>매입가</th>
                           <th>할인가</th>
                           <th>용량</th>
                           <th>수량</th>
@@ -334,22 +338,33 @@
                           <th>촉감</th>
                         </tr>
                         <tr>
-                          <td><input type="file" name="file" id="file"></td>
-                          <td>제품번호</td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
-                          <td><input type="text" class=".adminProduct_input"></td>
+                          <td></td>
+                          <td><input type="text" name="prod_no" class=".adminProduct_input"></td>
+                          <td><input type="text" name="prod_name" class=".adminProduct_input"></td>
+                          <td><input type="text" name="brand" class=".adminProduct_input"></td>
+                          <td>
+                          	<select name="category">
+                          		<option value="모이스처라이저">모이스처라이저</option>
+                          		<option value="선크림">선크림</option>
+                          	</select>
+                          </td>
+                          <td><input type="text" name="price" class=".adminProduct_input"></td>
+                          <td><input type="text" name="cost_price" class=".adminProduct_input"></td>
+                          <td><input type="text" name="discount_price" class=".adminProduct_input"></td>
+                          <td><input type="text" name="capacity" class=".adminProduct_input"></td>
+                          <td><input type="text" name="stock" class=".adminProduct_input"></td>
+                          <td><input type="text" name="scent" class=".adminProduct_input"></td>
+                          <td><input type="text" name="feel" class=".adminProduct_input"></td>
                         </tr>
+                        <tr>
+                          <td><input type="file" name="file" id="file"></td>
+                          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+               			  <td align="center"><input type="submit" value="등록" /></td>
+            			</tr>
                       </table>
-
-                      <div class="uploadPreview"><img src=""></div>
+					 </form>
+					 	
+                    <div class="uploadPreview"><img src=""></div>
 
                     </div>
                   </div>

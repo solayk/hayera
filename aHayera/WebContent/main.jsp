@@ -283,10 +283,10 @@
       <div class="filter-window">
         <ul class="filter-review">
           평균평점
-          <li><img src="./images/4star.png"> 별 4개 이상</li>
-          <li><img src="./images/3star.png"> 별 3개 이상</li>
-          <li><img src="./images/2star.png"> 별 2개 이상</li>
-          <li><img src="./images/1star.png"> 별 1개 이상</li>
+          <li><img src="./images/star_4.png"> 별 4개 이상</li>
+          <li><img src="./images/star_3.png"> 별 3개 이상</li>
+          <li><img src="./images/star_2.png"> 별 2개 이상</li>
+          <li><img src="./images/star_1.png"> 별 1개 이상</li>
         </ul> <!-- /.filter-review -->
         <ul class="filter-feeling">
           발림성
@@ -316,7 +316,7 @@
             <li>
               <div class="item-img"><img src="./images/product/1.jpg"></div>
               <div class="item-title">이니스프리</div>
-              <div class="item-reviewno"><img src="./images/4star.png"> 231</div>
+              <div class="item-reviewno"><img src="./images/star_4.png"> 231</div>
               <div class="item-price">12,000원</div>
               <div class="item-price-ml">ml당 1,000원</div>
               <div class="item-sale-remaining">세일 2일 남음</div>
@@ -324,7 +324,7 @@
             <li>
               <img src="./images/product/2.png">
               <div class="item-title">더 심플 데일리 로션</div>
-              <div class="item-reviewno"><img src="./images/5star.png"> 231</div>
+              <div class="item-reviewno"><img src="./images/star_5.png"> 231</div>
               <div class="item-price">18,000원</div>
               <div class="item-price-ml">ml당 1,200원</div>
               <div class="item-sale-remaining">세일 3일 남음</div>
@@ -332,7 +332,7 @@
             <li>
               <img src="./images/product/3.jpeg">
               <div class="item-title">세라마이드 하이드라 플루이드</div>
-              <div class="item-reviewno"><img src="./images/4star.png"> 231</div>
+              <div class="item-reviewno"><img src="./images/star_4.png"> 231</div>
               <div class="item-price">36,000원</div>
               <div class="item-price-ml">ml당 3,000원</div>
               <div class="item-sale-remaining">세일 1일 남음</div>

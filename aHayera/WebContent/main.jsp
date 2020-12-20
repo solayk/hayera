@@ -66,6 +66,7 @@
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
+    	// No.1 salesed Item
     	$.ajax({
 			type : 'post',
 			url : 'viewTopSalesedItem.do',
@@ -77,8 +78,33 @@
 						'<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
 		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
 		                  + '<div class="item-brand">' + data[i].brand +'</div>'
-		                  + '<div class="item-reviewno"><img src="./images/4star.png">' + data[i].avg_rating + '</div>'
-		                  + '<span class="item-price">' + data[i].price + '원</span> '
+		                  + '<div class="item-reviewno"><img src="./images/star_4.5.png">' + data[i].avg_rating + '</div>'
+		                  + '<span class="item-price">' + data[i].price + '원</span> '  // 삭선표시되게 해보기
+		                  + '<span class="item-discount_price">'+data[i].discount_price+'원</span>'
+		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
+		                  + '<div class="item-price-ml">ML당 ' + data[i].discount_price/data[i].capacity+' 원</div>'
+		                  + '</li>'		
+					)
+				}
+			},
+			error : function (err) {
+				console.log(err);
+			}
+		});
+    	// 누적 판매 베스트 5
+    	$.ajax({
+			type : 'post',
+			url : 'viewTopfiveSalesdProduct.do',
+			dataType : 'json',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(data){
+				for(i=0;i<data.length;i++){
+					$(".viewTopfive").append(
+						'<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
+		                  + '<div class="item-brand">' + data[i].brand +'</div>'
+		                  + '<div class="item-reviewno"><img src="./images/star_4.5.png">' + data[i].avg_rating + '</div>'
+		                  + '<span class="item-price">' + data[i].price + '원</span> '  // 삭선표시되게 해보기
 		                  + '<span class="item-discount_price">'+data[i].discount_price+'원</span>'
 		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
 		                  + '<div class="item-price-ml">ML당 ' + data[i].discount_price/data[i].capacity+' 원</div>'
@@ -342,17 +368,21 @@
         <div class="col-md-12">
           <br>
           <hr>
-          <h3 class="text-center hayera">오늘의 신상품<br>
+          <h3 class="text-center hayera">누적 판매 베스트 5<br>
             <br>
           </h3>
+          <div class="product">
+	          <ul class="product-top viewTopfive">
+	          </ul>
+          </div>
           <hr>
-          <h3 class="text-center hayera">★No.1 SalesedItem★<br>
+          <h3 class="text-center hayera">★No.1 Salesed Item★<br>
             <br>
           </h3>
           <div class="product">
 	          <ul class="product-top viewTopSalesedItem">
 	          </ul>
-           </div>
+          </div>
           <br>
           <br>
           <br>

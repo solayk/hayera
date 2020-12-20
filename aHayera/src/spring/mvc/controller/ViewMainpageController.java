@@ -21,12 +21,20 @@ public class ViewMainpageController {
 	
 	@Autowired
 	private ViewMainpageService viewMainpageService;
-//  판매량 상위 상품 보여주기	
+//  판매량 1위 상품 보여주기	
 	@RequestMapping("/viewTopSalesedItem.do")
 	@ResponseBody
 	public List<ProductVO> viewTopSalesedItem(ProductVO vo) {
 		System.out.println("---- viewTopSalesedItem.do 요청 됨");
 		List<ProductVO> list = viewMainpageService.selectMaxTotalsalesProduct(vo);
+		return list;
+	}
+//  판매량 상위 5위까지 상품 보여주기
+	@RequestMapping("/viewTopfiveSalesdProduct")
+	@ResponseBody
+	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo){
+		System.out.println("---- viewTopfiveSalesdProduct.do 요청 됨");
+		List<ProductVO> list = viewMainpageService.viewTopfiveSalesdProduct(vo);
 		return list;
 	}
 	

@@ -17,8 +17,14 @@ public class ViewMainpageServiceImpl implements ViewMainpageService {
 	}
 
 	@Override
+	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo) {
+		return viewMainDAO.viewTopfiveSalesdProduct(vo);
+	}
+	
+	@Override
 	public List<ProductVO> viewAllproduct(ProductVO vo) {
 		return viewMainDAO.viewAllproduct(vo);
 	}
+
 		
 }

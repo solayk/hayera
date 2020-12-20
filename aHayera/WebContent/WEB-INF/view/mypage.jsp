@@ -193,11 +193,16 @@ login_wrap {
 			<h3 class="text-center hayera">마이페이지</h3>
 			<div class="mypage_window">
 				<tr>
-					<td><a class="mypage_table" href="#"> <i
-							class="pe-7s-wallet  pe-5x"></i> <label class="pe-4x"> </label> <i
-							class="pe-7s-id pe-5x"></i> <label class="pe-4x">주문관리</label> <label
-							class="pe-4x"> </label> <label class="pe-4x">개인정보수정</label>
-					</a></td>
+					<td>
+					<a class="mypage_table" href="#"> 
+							<i class="pe-7s-wallet  pe-5x"></i> 
+							<label class="pe-4x">　　　　 </label> 
+							<i class="pe-7s-id pe-5x"></i> 
+							<label class="pe-4x">주문관리</label>
+							<label class="pe-4x">　　　</label> 
+							<label class="pe-4x">개인정보수정</label>
+					</a>
+					</td>
 				</tr>
 				<br> <br> <br> <br>
 				<br>

@@ -87,13 +87,26 @@
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             success: function (data) {
-              console.log(">>>ajax success! viewAllProduct!<<<");
-              console.log(data.length);
               for (i = 0; i < data.length; i++) {
-                $('.viewAllProduct').append(
+                	
+            	  /* 별점 0.5 단위 표기 */
+            	  /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
+            	  var rating = parseFloat(data[i].avg_rating).toFixed(1);
+            	  var star = 0;
+            	  if (rating >= 4.9) { star = 5; }
+            	  else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
+            	  else if (rating >= 3.8 && rating < 4.3) { star = 4; }
+            	  else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
+            	  else if (rating >= 2.8 && rating < 3.3) { star = 3; }
+            	  else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
+            	  else if (rating >= 1.8 && rating < 2.3) { star = 2; }
+            	  else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
+            	  else star = 1;
+            	  
+            	  $('.viewAllProduct').append(
                   '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                   + '<div class="item-title">' + data[i].prod_name +'</div>'
-                  + '<div class="item-reviewno"><img src="./images/4star.png">' + data[i].avg_rating + '</div>'
+                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
                   + '<div class="item-price">' + data[i].price + '원</div>'
                   + '<div class="item-price-ml">ml당' + '원</div>'
                   + '<div class="item-sale-remaining">세일 2일 남음</div>'
@@ -113,7 +126,7 @@
             /* data : objectVO, */
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             success: function (data) {
-              alert(data[0].prod_name);
+/* 삭제필요 */              /* alert(data[0].prod_name); */
               $("#topSalesedItemName").text(objectVO);
             },
             error: function (err) {
@@ -340,10 +353,10 @@
         <div class="filter-window">
           <ul class="filter-review">
             평균평점
-            <li><img src="./images/4star.png"> 별 4개 이상</li>
-            <li><img src="./images/3star.png"> 별 3개 이상</li>
-            <li><img src="./images/2star.png"> 별 2개 이상</li>
-            <li><img src="./images/1star.png"> 별 1개 이상</li>
+            <li><img src="./images/star_4.png"> 별 4개 이상</li>
+            <li><img src="./images/star_3.png"> 별 3개 이상</li>
+            <li><img src="./images/star_2.png"> 별 2개 이상</li>
+            <li><img src="./images/star_1.png"> 별 1개 이상</li>
           </ul> <!-- /.filter-review -->
           <ul class="filter-feeling">
             발림성

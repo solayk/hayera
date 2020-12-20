@@ -8,11 +8,14 @@
 	<link href="css/bootstrap.css" rel="stylesheet" />
 	<link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<link href="css/ct-navbar.css" rel="stylesheet" />
-	
+	<script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+	 <script src="js/bootstrap.js" type="text/javascript"></script>
+	<script src="js/ct-navbar.js"></script>
 	<!--     Font Awesome     -->
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
 	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 			.fa-heart {
 				color: #F74933;
@@ -164,8 +167,7 @@
 						<br>
 						<div>
 							<table class="detail-info-table">
-								<tbody>
-									​
+								<tbody>​
 									<tr class="detail-table-info">
 										<th class="info__th"><span class="title">설명</span></th>
 										<td class="info__td">
@@ -175,20 +177,18 @@
 												잠금효과 선사 <br>- 에센스의 긴 수분 지속력과 로션의 부드러운 발림의 에센스로션
 											</div>
 										</td>
-									</tr>
-									<!--설명끝-->
-									​
+									</tr>​
 									<tr class="detail-table-count">
 										<th class="info__th"><span class="title">수량</span></th>
 										<td class="info__td">
 											<div class="countcheck">
 												​ ​ <input id="spinner" type="text" value="1" />
-												<ul class="spinner" style="display: inline-block, list-style: none">
-													<li><input type="button" value="&#9650;"
-															onclick="RotateSpinner('spinner', true)" /></li>
-													<li><input type="button" value="&#9660;"
-															onclick="RotateSpinner('spinner', false)" /></li>
-												</ul>
+												<button type="button" id='countup' class="btn btn-primary btn-xs" onclick="change(1)">
+                          					  	<span class="glyphicon glyphicon-chevron-up"></span>
+                         						 </button>
+                          						<button type="button" id='countdown' class="btn btn-primary btn-xs" onclick="change(-1)">
+                           						<span class="glyphicon glyphicon-chevron-down"></span>
+                          						</button>
 												​
 											</div>
 										</td>
@@ -200,6 +200,7 @@
 								<input class='detail_button' type="button" value="장바구니 추가"> 
 								<input class='detail_button' type="button" value="바로 결제하기">
 							</div>
+							
 						</div>
 
 					</div>
@@ -263,6 +264,25 @@
 			<!-- end container -->
 		</div>
 		<!-- end main -->
+		
+		<script type="text/javascript">
+		function change(num){
+			
+			var x = $('#spinner').val();
+			var y = Number(x)+num;
+			
+			if(x==1) $('#spinner').val(1);
+			$('#spinner').val(y);
+		
+		
+			
+		}
+		
+		
+		
+		
+		</script>
+		
 	</body>
 
 

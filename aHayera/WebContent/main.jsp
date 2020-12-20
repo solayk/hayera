@@ -247,19 +247,12 @@
                   </ul>
 
                 </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <li>
+<!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
+                  <a href="login.jsp">
                     <i class="pe-7s-user"></i>
-                    <p>내 계정 <b class="caret"></b></p>
+                    <p>로그인</p>
                   </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">주문목록</a></li>
-                    <!-- mypage.jsp는 로그인 한 사람만 접근 가능한 페이지라서 view 폴더로 이동시킴 -->
-                    <li><a href="mypage.do">마이페이지</a></li>
-                    <!-- <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li> -->
-                  </ul>
                 </li>
               </ul>
 

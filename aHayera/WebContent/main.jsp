@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- ↓ 장바구니 화살표 아이콘 -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
@@ -57,7 +58,7 @@
       }
       /* KOSMO : 장바구니 CSS */
       .table {
-        width: 600px;
+        width: 750px;
         text-align: center;
       }
       .panel-body {
@@ -65,6 +66,14 @@
       }
     </style>
     <script type="text/javascript">
+    // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
+    Number.prototype.formatNumber = function(){
+        if(this==0) return 0;
+        let regex = /(^[+-]?\d+)(\d{3})/;
+        let nstr = (this + '');
+        while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+        return nstr;
+    };
     $(document).ready(function(){
     	// No.1 salesed Item
     	$.ajax({
@@ -79,10 +88,10 @@
 		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
 		                  + '<div class="item-brand">' + data[i].brand +'</div>'
 		                  + '<div class="item-reviewno"><img src="./images/star_4.5.png">' + data[i].avg_rating + '</div>'
-		                  + '<span class="item-price">' + data[i].price + '원</span> '  // 삭선표시되게 해보기
-		                  + '<span class="item-discount_price">'+data[i].discount_price+'원</span>'
+		                  + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
+		                  + '<span class="item-discount_price">'+data[i].discount_price.formatNumber()+'원</span>'
 		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-		                  + '<div class="item-price-ml">ML당 ' + data[i].discount_price/data[i].capacity+' 원</div>'
+		                  + '<div class="item-price-ml">ML당 ' + (data[i].discount_price/data[i].capacity).formatNumber()+' 원</div>'
 		                  + '</li>'		
 					)
 				}
@@ -104,10 +113,10 @@
 		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
 		                  + '<div class="item-brand">' + data[i].brand +'</div>'
 		                  + '<div class="item-reviewno"><img src="./images/star_4.5.png">' + data[i].avg_rating + '</div>'
-		                  + '<span class="item-price">' + data[i].price + '원</span> '  // 삭선표시되게 해보기
-		                  + '<span class="item-discount_price">'+data[i].discount_price+'원</span>'
+		                  + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
+		                  + '<span class="item-discount_price">'+data[i].discount_price.formatNumber()+'원</span>'
 		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-		                  + '<div class="item-price-ml">ML당 ' + data[i].discount_price/data[i].capacity+' 원</div>'
+		                  + '<div class="item-price-ml">ML당 ' + (data[i].discount_price/data[i].capacity).formatNumber()+' 원</div>'
 		                  + '</li>'		
 					)
 				}
@@ -116,11 +125,56 @@
 				console.log(err);
 			}
 		});
+    	// 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
+    	$.ajax({
+    		type : 'post',
+			url : 'viewTopfiveSalesdProduct.do',
+			dataType : 'json',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(data){
+				for(i=0;i<data.length;i++){
+					$(".main_cart").append(
+						'<tr>'+'<td>'+'<div class="checkbox">'+'<label>'+'<input type="checkbox" value="option'+(i+1)+'" checked>'+(i+1)+'</label>'+'</div>'+'</td>'
+						+'<td>'+'<img src="/aHayera/resources/upload/'+data[i].img_url+'" width="55" height="55">'+'</td>'
+						+'<td>'+'<a href="#">'+data[i].prod_name+'</a>'+'</td>'
+						+'<td>'+"수량(구현필요)"+'<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                        +'<span class="glyphicon glyphicon-chevron-up"></span>'+'</button>'
+                        +'<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                        +'<span class="glyphicon glyphicon-chevron-down"></span>'+'</button>'+'</td>'
+                        +'<td>'+data[i].discount_price.formatNumber()+'원</td>'
+                        +'<td>'+data[i].price.formatNumber()+'원</td>'
+                        +'<td>'+'<button type="button" class="btn btn-danger btn-xs">'
+                        +'<span class="glyphicon glyphicon-remove"></span>'
+                      	+'</button>'+'</td>'
+						+'</tr>'
+					)
+				}
+			},
+			error : function (err) {
+				console.log(err);
+			}
+    	});
+    	// 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
+    	$('li.dropdown a').on('click', function (event) {
+    	    $(this).parent().toggleClass('open');
+    	});
+    	$('body').on('click', function (e) {
+    	    if (!$('li.dropdown').is(e.target) 
+    	        && $('li.dropdown').has(e.target).length === 0 
+    	        && $('.open').has(e.target).length === 0
+    	    ) {
+    	        $('li.dropdown').removeClass('open');
+    	    }
+    	});
+    	// 메인페이지 상품 이미지 클릭 시 이벤트
+    	$(document).on("click",".item-img",function(event){
+        	confirm("가라 장바구니로- 실패~");
+          });
     })    
-    <!-- KOSMO : 장바구니 내 바로결제 버튼 클릭 시 -->
-      function clickGopay(){
-        window.location.href="orderCheck.jsp";
-      }
+    // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
+    function clickGopay(){
+      window.location.href="orderCheck.jsp";
+    }
     </script>
   </head>
 
@@ -178,8 +232,8 @@
                     </li> -->
 
                 <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
-                <li class="dropdown open">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle">
                     <i class="pe-7s-shopbag">
                       <span class="label">2</span>
                     </i>
@@ -192,81 +246,17 @@
                       <th>상품명</th>
                       <th>수량</th>
                       <th>가격</th>
+                      <th>합계</th>
                       <th>삭제</th>
-                      <tr>
-                        <td>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value="option1">
-                              1
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <img src="images/product/a.png" width="55" height="55">
-                        </td>
-                        <td>
-                          <a href="#">테라비코스 엔자임 워싱 파우더</a>
-                        </td>
-                        <td>
-                          1
-                          <button type="button" class="btn btn-primary btn-xs">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                          </button>
-                          <button type="button" class="btn btn-primary btn-xs">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                          </button>
-                        </td>
-                        <td>
-                          28,000원
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-danger btn-xs">
-                            <span class="glyphicon glyphicon-remove"></span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value="option2">
-                              2
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <img src="images/product/b.jpg" width="55" height="55">
-                        </td>
-                        <td>
-                          <a href="#">맨 바이오 에센스 컨디셔닝 145ml</a>
-                        </td>
-                        <td>
-                          1
-                          <button type="button" class="btn btn-primary btn-xs">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                          </button>
-                          <button type="button" class="btn btn-primary btn-xs">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                          </button>
-                        </td>
-                        <td>
-                          24,500원
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-danger btn-xs">
-                            <span class="glyphicon glyphicon-remove"></span>
-                          </button>
-                        </td>
-                      </tr>
+                      <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
                     </table>
                     <div class="panel panel-info">
                       <div class="panel-heading">
                         <h3 class="panel-title">총 결제금액</h3>
                       </div>
                       <div class="panel-body">
-                        52,500 원 &emsp;&emsp;
-                        <!-- KOSMO : 버튼에 결제창으로 가는 이벤트 부여 --> 
+                        (합산 기능 구현 필요) 원 &emsp;&emsp;
+                        <!-- 버튼에 결제창으로 가는 이벤트 부여 --> 
                         <button type="button" class="btn btn-primary" onclick="clickGopay()">바로 결제</button>
                       </div>
                     </div>
@@ -365,9 +355,9 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-12">
           <br>
           <hr>
+        <div class="col-md-12">
           <h3 class="text-center hayera">누적 판매 베스트 5<br>
             <br>
           </h3>

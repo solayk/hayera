@@ -34,7 +34,6 @@
 
 	<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
 	<script src="/aHayera/js/jquery.validate.min.js" type="text/javascript"></script>
-	<script src="https://smtpjs.com/smtp.js"></script>
 
 	
 	</head>
@@ -243,16 +242,7 @@
 	</div>
 <script type="text/javascript">
 $('#joinbtn').click(function () {
-
-	//이메일보내기
 	
-	Email.send("eunnm1216@gmail.com",//보내는 이메일 계정
-					"eunnm@naver.com",// 받는 이메일 계정
-					"회원가입축하",
-					"HAYERA의 회원이 되신 것을 축하합니다!",
-					"smtp.gmail.com",//네이버 smtp
-					"eunnm1216@gmail.com",//네이버아이디
-					"altmxjck1216!");
 	
 	$.ajax({
 		type :'post',
@@ -271,8 +261,10 @@ $('#joinbtn').click(function () {
 			'skintype' :$('input[name="skin"]:checked').val()
 			
 		},
-		sucess :function(result){
-			alert("입력되었습니다");
+		success :function(result){
+			if(result==1){
+				location.replace("mainAfterLogin.do");
+			}
 		},
 		err : function(err){consol.log(err)}
 		

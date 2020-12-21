@@ -22,6 +22,8 @@
 	rel='stylesheet' type='text/css'>
 <script
 	src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<!-- 주소찾기 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 .fa-heart {
 	color: #F74933;
@@ -214,13 +216,13 @@ login_wrap {
 						<개인정보수정> <br>
 						<br>
 						<tr>
-							<td>아이디: <input type="text" value="${sessionScope.login}">
+							<td>아이디: <input type="text" value="${result.customer_id}">
 							</td>
 						</tr>
 						<br>
 						<br>
 						<tr>
-							<td>이름: <input type="text" naem="name">
+							<td>이름: <input type="text" naem="name" value='${result.name}'>
 							</td>
 						</tr>
 						<br>
@@ -232,21 +234,29 @@ login_wrap {
 						<br>
 						<br>
 						<tr>
-							<td>전화번호: <input name="tel" type="text">
+							<td>전화번호: <input name="tel" type="text" value='${result.tel}'>
 							</td>
 						</tr>
 						<br>
 						<br>
 						<tr>
-							<td>e-mail: <input name="email" type="text">
+							<td>e-mail: <input name="email" type="text" value='${result.email}'>
 							</td>
 						</tr>
 						<br>
 						<br>
-						<tr>
-							<td>주소: <input name="address" type="text">
-							</td>
-						</tr>
+						<span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
+						<input type="text" placeholder="우편번호" id="zonecode"> 
+						<input type="button" value="주소찾기" id="findAddr">
+						
+						<input type="text"	&emsp;&emsp;&emsp;&emsp;>
+						<input type="text" size="35"
+								placeholder="도로명주소 또는 지번주소" id="addr"&emsp;&emsp;&emsp;&emsp;>
+						
+						
+						<input type="text" placeholder="상세 주소란" id="detailAddr"> 
+							<input type="text" placeholder="동" id="extraAddr">
+						<br>
 						<br>
 						<br>
 						<tr>
@@ -262,7 +272,7 @@ login_wrap {
 			​ <br> <br> <br> <br> <br> <br> <br>
 			<br> <br> <br> <br> <br> <br> <br>
 			<br> <br> <br> <br> <br> <br> <br>
-			<br> ​
+			<br> <br> <br> <br> <br> <br> <br>​
 		</div>
 		​
 		<div style="clear: both;"></div>

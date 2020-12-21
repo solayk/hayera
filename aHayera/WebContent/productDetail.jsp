@@ -225,6 +225,7 @@
 					<div style="clear: both;"></div>
 					<article class="detail-boardmenu">
 					<div class="detail-board-content">
+						<input type="button" value="리뷰 작성하기" id="writereview">
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
 								<li class="detail-filter" role="presentation">
@@ -295,6 +296,13 @@
 				err: function(err){console.log(err)}
 			});
 		
+		})
+		
+		//리뷰 작성하기 누르면 작성할 수 있는 textarea나오기 + 로그인여부확인
+		$('#writereivew').click(function(){
+			
+			
+			
 		})
 		
 

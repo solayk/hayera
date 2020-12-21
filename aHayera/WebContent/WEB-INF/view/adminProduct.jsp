@@ -324,7 +324,6 @@
                      <form action="insertProduct.do" method= 'post' enctype='multipart/form-data'>
                       <table class="table">
                         <tr>
-                          <th>사진</th>
                           <th>제품번호</th>
                           <th>이름</th>
                           <th>브랜드</th>
@@ -338,7 +337,6 @@
                           <th>촉감</th>
                         </tr>
                         <tr>
-                          <td></td>
                           <td><input type="text" name="prod_no" class=".adminProduct_input"></td>
                           <td><input type="text" name="prod_name" class=".adminProduct_input"></td>
                           <td><input type="text" name="brand" class=".adminProduct_input"></td>
@@ -357,13 +355,19 @@
                           <td><input type="text" name="feel" class=".adminProduct_input"></td>
                         </tr>
                         <tr>
-                          <td><input type="file" name="file" id="file"></td>
-                          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                          <td>설명</td>
+                          <td colspan = "10"><input type="text" name="product_explain" class=".adminProduct_input"></td>
+                        </tr>
+                        <tr>
+                          <td>사진업로드</td>
+                          <td colspan = "3"><input type="file" name="file" id="file"></td>
+                          <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                			  <td align="center"><input type="submit" value="등록" /></td>
             			</tr>
                       </table>
 					 </form>
-					 	
+					
+					<!-- 미리보기 사진 띄우기 --> 	
                     <div class="uploadPreview"><img src=""></div>
 
                     </div>

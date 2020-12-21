@@ -269,6 +269,7 @@
               else star = 1;
 
               $('.viewAllProduct').append(
+            	/* a 태그 클릭 시 productDetail 로 이동 */	  
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -313,7 +314,8 @@
               else star = 1;
 
               $(".viewTopfive").append(
-                '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+            	/* a 태그 클릭 시 productDetail 로 이동 */	  
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -321,7 +323,7 @@
                 + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
                 + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
                 + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</li>'
+                + '</a></li>'
               )
             }
           },
@@ -354,7 +356,8 @@
               else star = 1;
 
               $(".viewTopSalesedItem").append(
-                '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+            	/* a 태그 클릭 시 productDetail 로 이동 */	  
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -362,7 +365,7 @@
                 + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
                 + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
                 + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</li>'
+                + '</a></li>'
               )
             }
           },

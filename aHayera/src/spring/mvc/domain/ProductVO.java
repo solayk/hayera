@@ -23,6 +23,7 @@ public class ProductVO {
 	private int stock;
 	private String img_url;
 	private String manager_id;
+	private String product_explain;
 	
 	MultipartFile file;	// write.jsp에 파일첨부시 name="file"과 동일한 변수명
 	
@@ -148,5 +149,10 @@ public class ProductVO {
 	public void setManager_id(String manager_id) {
 		this.manager_id = manager_id;
 	}
-	
+	public String getProduct_explain() {
+		return product_explain;
+	}
+	public void setProduct_explain(String product_explain) {
+		this.product_explain = product_explain;
+	}
 }

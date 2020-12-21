@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+
   <!DOCTYPE html>
   <html>
 
@@ -242,9 +244,8 @@
 
         // 검색을 위해 전역변수 선언
         var dataList;
-
-        // mainAfterLogin => 나중에 main.jsp 에도 추가 필요
-        // 전체상품목록
+		
+        // 전체상품목록 => 띄우진 않고 검색을 위해 dataList 에 저장 목적 ONLY 
         $.ajax({
           url: 'viewAllProduct.do',
           dataType: 'json',
@@ -252,127 +253,15 @@
           async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
           success: function (data) {
 
-            // 상품목록 배열 처리
             for (i = 0; i < data.length; i++) {
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
-
-              $('.viewAllProduct').append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	  
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<div class="item-price">' + data[i].price.formatNumber() + '원</div>'
-                + '<div class="item-price-ml">ml당' + '원</div>'
-                + '<div class="item-sale-remaining">세일 2일 남음</div>'
-                + '</a></li>'
-              )
-              // 검색 자동완성 인식을 위해 JSON 데이터 추가
-              data[i].value = data[i].prod_name;
+              data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
             }
-
-            // 검색을 위한 데이터 저장
-            dataList = data;
+            dataList = data; // 검색을 위한 데이터 저장
           },
           error: function (e) {
             alert(e);
           }
         }); // --- end of $.ajax 전체상품목록
-
-        // 누적 판매 베스트 5
-        $.ajax({
-          type: 'post',
-          url: 'viewTopfiveSalesdProduct.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
-            for (i = 0; i < data.length; i++) {
-
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
-
-              $(".viewTopfive").append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	  
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-                + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
-                + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</a></li>'
-              )
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        });
-
-        // No.1 salesed Item
-        $.ajax({
-          type: 'post',
-          url: 'viewTopSalesedItem.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
-            for (i = 0; i < data.length; i++) {
-
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
-
-              $(".viewTopSalesedItem").append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	  
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-                + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
-                + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</a></li>'
-              )
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        });
 
         // 검색 자동완성
         $("#search").autocomplete({
@@ -395,7 +284,6 @@
           .autocomplete("instance")._renderItem = function (ul, item) {
             return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span></div></li>').appendTo(ul);
           };
-
 
         // 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
         $.ajax({
@@ -439,11 +327,6 @@
             $('li.dropdown').removeClass('open');
           }
         });
-        
-     // 메인페이지 상품 이미지 클릭 시 이벤트 => 변경 또는 삭제예정
-        /* $(document).on("click", ".item-img", function (event) {
-          confirm("가라 장바구니로- 실패~");
-        }); */
         
       });
 
@@ -606,29 +489,10 @@
       <div class="container tim-container" style="max-width:800px; padding-top:20px">
         <br>
         <br>
-        <br>
-        <hr>
         <div class="col-md-12">
-          <h3 class="text-center hayera">누적 판매 베스트 5<br>
+          <h3 class="text-center hayera">" ${searchTerm} "에 대한 검색 결과입니다.<br>
+		  <hr>
             <br>
-          </h3>
-          <div class="product">
-            <ul class="product-top viewTopfive">
-            </ul>
-          </div>
-          <hr>
-          <h3 class="text-center hayera">★No.1 Salesed Item★<br>
-            <br>
-          </h3>
-          <div class="product">
-            <ul class="product-top viewTopSalesedItem">
-            </ul>
-          </div>
-          <br>
-          <br>
-          <br>
-
-          <h3 class="text-center hayera">전체 상품 목록<br>
             <br>
             <div class="product">
               <ul class="product-top viewAllProduct">

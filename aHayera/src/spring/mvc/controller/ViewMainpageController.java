@@ -45,6 +45,7 @@ public class ViewMainpageController {
 	@RequestMapping("/searchResult.do")
 	public void searchResult(String search, Model model) {
 		model.addAttribute("searchResult",viewMainpageService.searchResult(search));
+		model.addAttribute("searchTerm",search);
 	}
 	
 }

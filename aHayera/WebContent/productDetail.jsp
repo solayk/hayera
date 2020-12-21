@@ -8,7 +8,7 @@
 	<link href="css/bootstrap.css" rel="stylesheet" />
 	<link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<link href="css/ct-navbar.css" rel="stylesheet" />
-	<script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
 	 <script src="js/bootstrap.js" type="text/javascript"></script>
 	<script src="js/ct-navbar.js"></script>
 	<!--     Font Awesome     -->
@@ -71,7 +71,9 @@
 				height: 50px;
 				font-size: 17px;
 				color: white;
-				
+			}
+			.detail-board-list a{
+				cursor: pointer;
 			}
 		</style>
 
@@ -197,8 +199,8 @@
 								</tbody>
 							</table>
 							<div>
-								<input class='detail_button' type="button" value="장바구니 추가"> 
-								<input class='detail_button' type="button" value="바로 결제하기">
+								<input class='detail_button' id='gokeep' type="button" value="장바구니 추가"> 
+								<input class='detail_button' id='goorder' type="button" value="바로 결제하기">
 							</div>
 							
 						</div>
@@ -213,15 +215,15 @@
 				<div class='detail-board'>
 					<div class='detail-board-list'>
 						<div>
-							<a href=''><span>리뷰게시판</span></a>
+							<a data-url="boardfiles/reviewboard.jsp"><span>리뷰게시판</span></a>
 						</div>
 						<div>
-							<a href=''><span>문의게시판</span></a>
+							<a data-url="boardfiles/qnaboard.jsp"><span>문의게시판</span></a>
 						</div>
 					</div>
 					<br>
 					<div style="clear: both;"></div>
-
+					<article class="detail-boardmenu">
 					<div class="detail-board-content">
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
@@ -234,7 +236,8 @@
 							</ul>
 						</div>
 						<div style="clear: both;"></div>
-						<div>
+						</div>
+						
 						<ul>
 							<li class="detail-review-list">
 								<div class="list-item">
@@ -251,6 +254,7 @@
 								</div>
 							</li>
 						</ul>
+						</article>
 						​ </div>​
 					</div>
 					​ ​
@@ -265,22 +269,35 @@
 		</div>
 		<!-- end main -->
 		
+		<!-- 수량 확인 -->
 		<script type="text/javascript">
 		function change(num){
 			
 			var x = $('#spinner').val();
 			var y = Number(x)+num;
 			
-			if(x==1) $('#spinner').val(1);
-			$('#spinner').val(y);
-		
-			
-			
+			if(x==1 & num<0) {
+				$('#spinner').val('1');}
+			else{$('#spinner').val(y);}
 		}
 		
+		//게시판 눌렀을 때 ajax로 변환
+		$('.detail-board-list a').click(function() {
+			var liurl = $(this).attr('data-url');
+	
+			$.ajax({
+				type :'get',
+				url : liurl,
+        		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+				success : function(data){
+					$('.detail-boardmenu').html(data);
+				},
+				err: function(err){console.log(err)}
+			});
 		
+		})
 		
-		
+
 		</script>
 		
 	</body>

@@ -252,7 +252,15 @@
 	  
       // Jquery 시작
       $(document).ready(function () {
-
+		
+    	// 세션 아이디 변수 sessionId에 저장
+      	var sessionId = '<%=session.getAttribute("login")%>';
+      	
+      	if(sessionId == '' || sessionId == 'null'){ /* 세션이 만료되면 main.jsp로 이동 */
+      		alert("로그인 시간을 초과했습니다. 다시 로그인 해주세요.");
+      		location.href = "main.jsp"; 
+      	}    
+    	  
         // 검색을 위해 전역변수 선언
         var dataList;
 
@@ -328,7 +336,7 @@
 
               $(".viewTopfive").append(
             	/* a 태그 클릭 시 productDetail 로 이동 */	 
-                '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -336,7 +344,7 @@
                 + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
                 + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
                 + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</li>'
+                + '</a></li>'
               )
             }
           },
@@ -370,7 +378,7 @@
 
               $(".viewTopSalesedItem").append(
             	/* a 태그 클릭 시 productDetail 로 이동 */	 
-                '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -378,7 +386,7 @@
                 + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
                 + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
                 + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</li>'
+                + '</a></li>'
               )
             }
           },

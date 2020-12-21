@@ -252,7 +252,15 @@
 	  
       // Jquery 시작
       $(document).ready(function () {
-
+    	  
+    	// 세션 아이디 변수 sessionId에 저장
+        var sessionId = '<%=session.getAttribute("login")%>';
+        
+        if(sessionId != 'null'){ /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */ 
+        	location.href = "mainAfterLogin.do"; 
+        }
+    	  
+        
         // 검색을 위해 전역변수 선언
         var dataList;
 

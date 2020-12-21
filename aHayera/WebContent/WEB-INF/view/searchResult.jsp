@@ -36,6 +36,12 @@
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <style>
+      /* a태그 기본 style 유지 */
+      a { 
+      	color: inherit;
+      	text-decoration: none;
+      } 
+      
       .fa-heart {
         color: #F74933;
       }
@@ -222,12 +228,16 @@
         height: 40px;
       }
 
-      .ui-menu li span {
-        font-size: 2em;
+      .ui-menu li span { /* 자동완성 목록 양식 설정 */
+        font-size: 1em;
         padding: 0 0 10px 10px;
         margin: 0 0 10px 0 !important;
         white-space: nowrap;
       }
+      .spanBrand { /* 자동완성 목록 내 브랜드 */
+      	color: #BFBFBF;
+      }
+      
     </style>
     <script type="text/javascript">
 
@@ -242,7 +252,15 @@
 	  
       // Jquery 시작
       $(document).ready(function () {
-
+		
+    	// 세션 아이디 변수 sessionId에 저장
+        var sessionId = '<%=session.getAttribute("login")%>';
+        	
+        if(sessionId == '' || sessionId == 'null'){ /* 세션이 만료되면 main.jsp로 이동 */
+        	alert("로그인 시간을 초과했습니다. 다시 로그인 해주세요.");
+        	location.href = "main.jsp"; 
+        }    
+        
         // 검색을 위해 전역변수 선언
         var dataList;
 		
@@ -283,7 +301,7 @@
         })
 
           .autocomplete("instance")._renderItem = function (ul, item) {
-            return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span></div></li>').appendTo(ul);
+        	return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span><span class="spanBrand">' + item.brand + '</span></div></li>').appendTo(ul);
           };
 
         // 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
@@ -435,11 +453,10 @@
 
             </div><!-- /.navbar-collapse -->
             <!-- 검색 -->
-            <form action="" class="navbar-form navbar-right navbar-search-form" role="search">
+            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">
               <div class="form-group">
                 <fieldset>
-                  <!-- 크롬 자동완성 안뜨기 종료 -->
-                  <input type="search" id="search" placeholder="검색하기">
+                  <input type="search" id="search" name="search" placeholder="검색하기">
                   <button type="submit" id="searchBtn">
                     <i class="fa fa-search">
                     </i>

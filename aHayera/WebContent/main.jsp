@@ -532,7 +532,7 @@
                 </li>
                 <li>
                   <!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
-                  <a href="login.jsp">
+                  <a href="login.do">
                     <i class="pe-7s-user"></i>
                     <p>로그인</p>
                   </a>

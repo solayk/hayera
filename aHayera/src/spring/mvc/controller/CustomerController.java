@@ -34,7 +34,7 @@ public class CustomerController {
 	
 	
 	// 로그인 하기
-	@RequestMapping(value="/login.do",produces = "application/text;charset=utf-8")
+	@RequestMapping(value="/logingo.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public String login(CustomerVO vo, HttpSession session) {
 	CustomerVO result = customerserive.login(vo);

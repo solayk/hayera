@@ -96,7 +96,7 @@
         	$.ajax({
         		type :'post',
         		async : true,
-        		url : "login.do", // login.do로 요청
+        		url : "logingo.do", // login.do로 요청
         		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
         		data : {
         			'customer_id':$('#customer_id').val(),

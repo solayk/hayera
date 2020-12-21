@@ -18,6 +18,5 @@ public class MypageServiceImple implements MypageService {
 		return result;
 	}
 	
-	
 
 }

@@ -9,5 +9,4 @@ from customer
 where customer_id=#{customer_id}
 </select>
 
-
 </mapper>

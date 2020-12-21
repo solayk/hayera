@@ -41,8 +41,10 @@
 				$('input[type="tel"]','#addrInput').val("");
 				$('input[type="email"]','#addrInput').val("");
 				// 배송지_ 회원 정보와 동일 선택 시 회원 정보 받아와 채우기. - 세션으로 가져와야 하낭
-			} else{
-				$("#recipientName").val();
+			}else{
+				$("#recipientName").val("${info.name}");
+				$('input[type="tel"]','#addrInput').val("${info.tel}");
+				$('input[type="email"]','#addrInput').val("${info.email}");
 			}
 		});
 	})
@@ -101,9 +103,9 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <a style="color: cornflowerblue; font-size: 18px; font-weight: bold;">기본</a> <span value="${sessionScope.name}">홍길동</span> 
-                <div>[우편번호]<span value="${sessionScope.addr }"></span> <a>주소</a> </div>
-                <div>연락처 <span value="${sessionScope.tel }">010-xxxx-xxxx</span></div>
+                <a style="color: cornflowerblue; font-size: 18px; font-weight: bold;">기본</a> <span>${info.name}</span> 
+                <div>[우편번호] <span>${info.address}</span> </div>
+                <div>연락처 <span>${info.tel}</span></div>
               </div>
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               	<div id="addrCheck">
@@ -119,7 +121,7 @@
                 <p></p>
                 <div id="addrInput">
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">받는 사람</span>
-	                <input type="text" id="recipientName">
+	                <input type="text" id="recipientName" value="${info.name}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
 	                <input type="text" placeholder="우편번호" id="zonecode">
@@ -131,10 +133,10 @@
 	                <input type="text" placeholder="동" id="extraAddr">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">연락처</span>
-	                <input type="tel" id="tel">
+	                <input type="tel" id="tel" value="${info.tel}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">이메일</span>
-	                <input type="email" id="email">
+	                <input type="email" id="email" value="${info.email}">
                 </div>
               </div>
             </div>
@@ -208,7 +210,7 @@
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample3">
           <div class="accordion-body">
-            <div>적립금<p>(사용 가능: <span value="${sessionScope.point }">원</span>)</p></div>
+            <div>적립금<p>(사용 가능: ${info.points}원)</p></div>
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="n원" aria-label="?" aria-describedby="button-addon">
               <button class="btn btn-outline-primary" type="button" id="button-addon">전액사용</button>
@@ -231,7 +233,7 @@
               <input type="text" placeholder="n원" style="float: right; text-align: right;">
             </p>
             <p>할인
-              <input type="text" placeholder="${sessionScope.point }원" style="float: right; text-align: right;">
+              <input type="text" placeholder="n원" style="float: right; text-align: right;">
             </p>
             <p>배송비
               <input type="text" placeholder="n원" style="float: right; text-align: right;">

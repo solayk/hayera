@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -8,7 +9,7 @@
 	<link href="css/bootstrap.css" rel="stylesheet" />
 	<link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<link href="css/ct-navbar.css" rel="stylesheet" />
-	<script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
 	 <script src="js/bootstrap.js" type="text/javascript"></script>
 	<script src="js/ct-navbar.js"></script>
 	<!--     Font Awesome     -->
@@ -74,10 +75,11 @@
 				
 			}
 		</style>
-
 	<title>상세페이지</title>
+	<% 
+	String id = (String) session.getAttribute("login");
+	%>
 	<script type="text/javascript">
-
 		// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
 		Number.prototype.formatNumber = function () {
         if (this == 0) return 0;
@@ -86,7 +88,16 @@
         while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
         return nstr;
       	};
-	
+      	
+      	// 바로 결제하기 클릭 시
+      	function clickGopay(){
+/*       		alert(${info.name});
+      		if(${info.customer_id}==null){
+      			location.replace("login.do");
+      		}else{
+      		} */
+      		location.replace("getInfo.do?customer_id=${sessionScope.login}");
+      	}
 	</script>
       
     </head>
@@ -161,7 +172,6 @@
 			​
 		</div>
 		<!-- end menu-dropdown -->
-		​ ​
 		<div class="main">
 			<div class="container tim-container category_main" style="max-width: 800px; padding-top: 20px">
 				<br> <br> <br> <br> <br>
@@ -175,7 +185,7 @@
 							<h3>${productSelected.prod_name }</h3>
 						</div>
 						<div class="detail-product-volume_price">
-							${productSelected.capacity }ml / <span class="detail-product-price">${productSelected.price }</span>원
+							${productSelected.capacity }ml / <span class="detail-product-price">${productSelected.price}</span>원
 						</div>
 						<br>
 						<div>
@@ -212,8 +222,8 @@
 								</tbody>
 							</table>
 							<div>
-								<input class='detail_button' type="button" value="장바구니 추가"> 
-								<input class='detail_button' type="button" value="바로 결제하기">
+								<input class='detail_button' type="button" value="장바구니 추가" onclick="addCart()"> 
+								<input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()">
 							</div>
 							
 						</div>

@@ -46,7 +46,14 @@ public class MypageController {
 		return "redirect:/mypage.jsp";
 		
 	}
-
+	
+	// 주문/결제로 넘어갈 때 로그인 한 고객 정보 받아갈 것 임.
+	@RequestMapping("/getInfo.do")
+	public String getInfo(CustomerVO vo, Model m) {
+		CustomerVO info = service.getAllById(vo);
+		m.addAttribute("info", info);
+		return "orderCheck";
+	}
 
 	}
 				

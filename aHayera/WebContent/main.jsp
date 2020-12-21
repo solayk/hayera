@@ -497,12 +497,6 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right">
-                <!-- <li>
-                        <a href="javascript:void(0);" data-toggle="search" class="hidden-xs">
-                            <i class="pe-7s-search"></i>
-                            <p>Search</p>
-                        </a>
-                    </li> -->
 
                 <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
                 <li class="dropdown">

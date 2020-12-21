@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,18 +35,29 @@
     </style>
     <script type="text/javascript">
     $(function () {
+    	//alert("${info.address}");
     	// 배송지_ 새로운 배송지 선택 시 입력값 초기화.
     	$("#addrCheck input").on('change', function () {
 			if($('input[name="inlineRadioOptions"]:checked', '#addrCheck').val()=="option2"){
 				$('input[type="text"]','#addrInput').val("");
 				$('input[type="tel"]','#addrInput').val("");
 				$('input[type="email"]','#addrInput').val("");
-				// 배송지_ 회원 정보와 동일 선택 시 회원 정보 받아와 채우기. - 세션으로 가져와야 하낭
+				// 배송지_ 회원 정보와 동일 선택 시 회원 정보 받아와 채우기.
 			}else{
 				$("#recipientName").val("${info.name}");
 				$('input[type="tel"]','#addrInput').val("${info.tel}");
 				$('input[type="email"]','#addrInput').val("${info.email}");
 			}
+		});
+    	// 할인_ 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨.
+    	$("#button-addon").on('click',function(){
+    		$(".form-control").val("${info.points}원");
+    		$("#collapseFour p:eq(1)>input[type='text']").val("${info.points}원");
+    	});
+    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게.
+    	$(".form-control").on('change', function () {
+    		var pointUse = $(".form-control").val();
+			$("#collapseFour p:eq(1)>input[type='text']").val(pointUse+"원");
 		});
 	})
     </script>
@@ -104,7 +116,7 @@
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <a style="color: cornflowerblue; font-size: 18px; font-weight: bold;">기본</a> <span>${info.name}</span> 
-                <div>[우편번호] <span>${info.address}</span> </div>
+                <div id="zonecode1">[zonecode] <span>${info.address}</span> </div>
                 <div>연락처 <span>${info.tel}</span></div>
               </div>
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -124,7 +136,7 @@
 	                <input type="text" id="recipientName" value="${info.name}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
-	                <input type="text" placeholder="우편번호" id="zonecode">
+	                <input type="text" placeholder="우편번호" id="zonecode2">
 	                <input type="button" value="주소찾기" id="findAddr">
 	                <div>
 	                  &emsp;&emsp;&emsp;&emsp;<input type="text" size="35" placeholder="도로명주소 또는 지번주소" id="addr">
@@ -169,6 +181,7 @@
                 <td>가격</td>
                 <td>배송비</td>
               </tr>
+              <!-- 동적 테이블 들어와야 함. -->
               <tr>
                 <td>1</td>
                 <td>
@@ -212,7 +225,7 @@
           <div class="accordion-body">
             <div>적립금<p>(사용 가능: ${info.points}원)</p></div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="n원" aria-label="?" aria-describedby="button-addon">
+              <input type="text" class="form-control" placeholder="${info.points}원" aria-label="?" aria-describedby="button-addon">
               <button class="btn btn-outline-primary" type="button" id="button-addon">전액사용</button>
             </div>
           </div>
@@ -228,18 +241,18 @@
           </button>
         </h2>
         <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample4">
-          <div class="accordion-body">
+          <div class="accordion-body" id="paymentInfo">
             <p>주문상품
-              <input type="text" placeholder="n원" style="float: right; text-align: right;">
+              <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
             </p>
             <p>할인
-              <input type="text" placeholder="n원" style="float: right; text-align: right;">
+              <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
             </p>
             <p>배송비
-              <input type="text" placeholder="n원" style="float: right; text-align: right;">
+              <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
             </p>
             <span class="badge bg-primary" style="font-size: 18px;">총 결제 금액</span>
-            <input type="text" placeholder="n원" style="float: right; text-align: right;">
+            <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
           </div>
         </div>
       </div>

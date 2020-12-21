@@ -238,7 +238,7 @@ login_wrap {
 							</td>
 						</tr>
 						<br>
-						<br>
+						<br>   
 						<tr>
 							<td>e-mail: <input name="email" type="text" value='${result.email}'>
 							</td>
@@ -247,13 +247,12 @@ login_wrap {
 						<br>
 						<span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
 						<input type="text" placeholder="우편번호" id="zonecode"> 
-						<input type="button" value="주소찾기" id="findAddr">
+						<input type="button" value="주소찾기" id="mypageAddr">
 						
 						<input type="text"	&emsp;&emsp;&emsp;&emsp;>
 						<input type="text" size="35"
 								placeholder="도로명주소 또는 지번주소" id="addr"&emsp;&emsp;&emsp;&emsp;>
-						
-						
+									
 						<input type="text" placeholder="상세 주소란" id="detailAddr"> 
 							<input type="text" placeholder="동" id="extraAddr">
 						<br>

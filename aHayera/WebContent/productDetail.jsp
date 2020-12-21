@@ -274,7 +274,7 @@
 			if(x==1) $('#spinner').val(1);
 			$('#spinner').val(y);
 		
-		
+			
 			
 		}
 		

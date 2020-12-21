@@ -100,7 +100,7 @@
         #search,
         #searchBtn {
           position: relative;
-          width: 200px;
+          width: 300px;
           padding: 0;
           display: inline-block;
           float: left;
@@ -155,8 +155,8 @@
           z-index: 3;
           top: 25%;
           -webkit-transform: translate(-190px, 0);
-          -ms-transform: translate(-190px, 0);
-          transform: translate(-190px, 0);
+          -ms-transform: translate(-290px, 0);
+          transform: translate(-290px, 0);
           -webkit-transition-duration: 0.3s;
           transition-duration: 0.3s;
           -webkit-transition: all 0.1s ease-in-out;
@@ -166,21 +166,18 @@
 
         #ui-id-1 {
           list-style: none;
-          width: 300px;
+          width: 390px;
         }
-
-        /* http://docs.jquery.com/UI/Autocomplete#theming*/
         .ui-autocomplete {
           position: absolute;
           cursor: default;
-          background: #CCC;
+          background: white;
+          border-color: white;
         }
-
         /* workarounds */
         html .ui-autocomplete {
           width: 1px;
         }
-
         /* without this, the menu expands to 100% in IE6 */
         .ui-menu {
           list-style: none;
@@ -200,7 +197,7 @@
           zoom: 1;
           float: left;
           clear: left;
-          width: 140%;
+          width: 100%;
         }
 
         .ui-menu .ui-menu-item a {
@@ -289,7 +286,7 @@
             source: dataList,
             minLength: 1,
             select: function (event, ui) {
-              /*
+              /* 클릭시 페이지 이동
               var url = ui.item.id;
               if(url != '') {
                 location.href = '...' + url;
@@ -299,8 +296,8 @@
             html: true,
             open: function (event, ui) {
               $(".ui-autocomplete").css("z-index", 1000);
-
-            }
+            },
+            position: { my : "center top", at: "center bottom" }
           })
 
           .autocomplete("instance")._renderItem = function (ul, item) {

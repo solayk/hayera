@@ -10,5 +10,7 @@ public interface ViewMainpageService {
 	
 	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo);
 	
-	public List<ProductVO> viewAllproduct(ProductVO vo); 
+	public List<ProductVO> viewAllproduct(ProductVO vo);
+	
+	public ProductVO productSelected(ProductVO vo);
 }

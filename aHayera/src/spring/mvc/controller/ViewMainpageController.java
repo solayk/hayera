@@ -25,7 +25,6 @@ public class ViewMainpageController {
 	@RequestMapping("/viewTopSalesedItem.do")
 	@ResponseBody
 	public List<ProductVO> viewTopSalesedItem(ProductVO vo) {
-		System.out.println("---- viewTopSalesedItem.do 요청 됨");
 		List<ProductVO> list = viewMainpageService.selectMaxTotalsalesProduct(vo);
 		return list;
 	}
@@ -33,7 +32,6 @@ public class ViewMainpageController {
 	@RequestMapping("/viewTopfiveSalesdProduct")
 	@ResponseBody
 	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo){
-		System.out.println("---- viewTopfiveSalesdProduct.do 요청 됨");
 		List<ProductVO> list = viewMainpageService.viewTopfiveSalesdProduct(vo);
 		return list;
 	}
@@ -42,9 +40,15 @@ public class ViewMainpageController {
 	@RequestMapping("/viewAllProduct.do")
 	@ResponseBody
 	public List<ProductVO> viewAllproduct(ProductVO vo)	{ 
-		System.out.println("---- main.do 요청 됨"); 
 		List<ProductVO> list = viewMainpageService.viewAllproduct(vo); 
 		return list;
 	}
+	
+	@RequestMapping("/productSelected.do")
+	public String productDetail(ProductVO vo, Model model) {
+		model.addAttribute("productSelected",viewMainpageService.productSelected(vo));
+		return "productDetail";
+	}
+	
 	
 }

@@ -16,15 +16,16 @@ public class ViewMainpageServiceImpl implements ViewMainpageService {
 		return viewMainDAO.selectMaxTotalsalesProduct(vo);
 	}
 
-	@Override
 	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo) {
 		return viewMainDAO.viewTopfiveSalesdProduct(vo);
 	}
 	
-	@Override
 	public List<ProductVO> viewAllproduct(ProductVO vo) {
 		return viewMainDAO.viewAllproduct(vo);
 	}
-
+	
+	public ProductVO productSelected(ProductVO vo) {
+		return viewMainDAO.productSelected(vo);
+	}
 		
 }

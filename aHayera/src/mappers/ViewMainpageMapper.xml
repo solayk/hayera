@@ -30,5 +30,13 @@
 	ORDER BY totalsales desc
 	]]>
 	</select>
+	
+	<select id="productSelected" parameterType="product" resultType="product">
+	<![CDATA[
+	SELECT * 
+	FROM PRODUCT
+	WHERE PROD_NO = #{prod_no}
+	]]>
+	</select>
 
 </mapper>

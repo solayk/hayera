@@ -236,7 +236,8 @@
         while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
         return nstr;
       };
-
+	  
+      // Jquery 시작
       $(document).ready(function () {
 
         // 검색을 위해 전역변수 선언
@@ -268,13 +269,13 @@
               else star = 1;
 
               $('.viewAllProduct').append(
-                '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<div class="item-price">' + data[i].price + '원</div>'
+                + '<div class="item-price">' + data[i].price.formatNumber() + '원</div>'
                 + '<div class="item-price-ml">ml당' + '원</div>'
                 + '<div class="item-sale-remaining">세일 2일 남음</div>'
-                + '</li>'
+                + '</a></li>'
               )
               // 검색 자동완성 인식을 위해 JSON 데이터 추가
               data[i].value = data[i].prod_name;
@@ -436,10 +437,12 @@
             $('li.dropdown').removeClass('open');
           }
         });
-        // 메인페이지 상품 이미지 클릭 시 이벤트
-        $(document).on("click", ".item-img", function (event) {
+        
+     // 메인페이지 상품 이미지 클릭 시 이벤트 => 변경 또는 삭제예정
+        /* $(document).on("click", ".item-img", function (event) {
           confirm("가라 장바구니로- 실패~");
-        });
+        }); */
+        
       });
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
@@ -629,7 +632,6 @@
               <ul class="product-top viewAllProduct">
               </ul>
             </div>
-
 
         </div>
 

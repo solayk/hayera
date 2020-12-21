@@ -76,7 +76,20 @@
 		</style>
 
 	<title>상세페이지</title>
-	</head>
+	<script type="text/javascript">
+
+		// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
+		Number.prototype.formatNumber = function () {
+        if (this == 0) return 0;
+        let regex = /(^[+-]?\d+)(\d{3})/;
+        let nstr = (this + '');
+        while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+        return nstr;
+      	};
+	
+	</script>
+      
+    </head>
 
 	<body>
 		<div id="navbar-full">
@@ -154,15 +167,15 @@
 				<br> <br> <br> <br> <br>
 				<div class='detail_product'>
 					<div class="detail_product-img">
-						<img src="./images/product/1.jpg">
+						<img src="/aHayera/resources/upload/${productSelected.img_url }">
 					</div>
 					<div class="detail-product-list">
-						<div class="detail_product-brand">이니스프리 (innisfree)</div>
+						<div class="detail_product-brand">${productSelected.brand }</div>
 						<div class="detail-product-product_name">
-							<h3>그린티 씨드 에센스 인 로션</h3>
+							<h3>${productSelected.prod_name }</h3>
 						</div>
 						<div class="detail-product-volume_price">
-							100ml / <span class="detail-product-price">20,000</span>원
+							${productSelected.capacity }ml / <span class="detail-product-price">${productSelected.price }</span>원
 						</div>
 						<br>
 						<div>
@@ -171,6 +184,8 @@
 									<tr class="detail-table-info">
 										<th class="info__th"><span class="title">설명</span></th>
 										<td class="info__td">
+											
+											<!-- DB 추가 필요 -->
 											<div class="info__description">
 												뷰티 그린티의 풍부한 수분감이 오랜시간 지속되는 이중 수분잠금막 에센스인로션<br> <br>-
 												에센스와 로션의 농축된 영양감을 전달하여 촉촉한 피부 선사<br>- 초밀착 밀크텍스처로 이중 수분

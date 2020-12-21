@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="spring.mvc.domain.ObjectVO"%>
   <!DOCTYPE html>
   <html>
 
@@ -7,13 +6,23 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link href="css/bootstrap.css" rel="stylesheet" />
+	<!-- 추후 CSS 정리 통합 예정 -->
+    <link href="css/hayera.css" rel="stylesheet" />
     <!-- ↓ 장바구니 화살표 아이콘 -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link href="css/ct-navbar.css" rel="stylesheet" />
     
-    <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+          <!-- 검색 autocomplete 목적-->
+      <link href="autocomplete/jquery-ui.min.css" rel="stylesheet" />
+      <link href="autocomplete/jquery-ui.structure.min.css" rel="stylesheet" />
+      <link href="autocomplete/jquery-ui.theme.min.css" rel="stylesheet" />
+    <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+    <!-- 검색 autocomplete 목적-->
+      <script src="autocomplete/jquery-ui.min.js"></script>
+    
+    
   	<script src="js/bootstrap.js" type="text/javascript"></script>
 
  	<script src="js/ct-navbar.js"></script>
@@ -64,8 +73,152 @@
       .panel-body {
         float: right;
       }
+      
+      /* 검색창 */
+        .navbar-search-form fieldset {
+          position: relative;
+          display: inline-block;
+          padding: 0 0 0 40px;
+          background: #fff;
+          border: none;
+          border-radius: 5px;
+        }
+
+        #search,
+        #searchBtn {
+          position: relative;
+          width: 300px;
+          padding: 0;
+          display: inline-block;
+          float: left;
+        }
+
+        #search {
+          color: #666;
+          z-index: 2;
+          border: 0 none;
+          height: 51px;
+        }
+
+        #search:focus {
+          outline: 0 none;
+        }
+
+        #search:focus+#searchBtn {
+          -webkit-transform: translate(0, 0);
+          -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+          -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+        }
+
+        #search:focus+#searchBtn .fa {
+          -webkit-transform: translate(0px, 0);
+          -ms-transform: translate(0px, 0);
+          transform: translate(0px, 0);
+          -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+          color: #fff;
+        }
+
+        #searchBtn {
+          z-index: 1;
+          width: 50px;
+          border: 0 none;
+          height: 50px;
+          background: #084A83;
+          cursor: pointer;
+          border-radius: 0 5px 5px 0;
+          -webkit-transform: translate(-50px, 0);
+          -ms-transform: translate(-50px, 0);
+          transform: translate(-50px, 0);
+          -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+        }
+
+        .fa-search {
+          font-size: 1.4rem;
+          color: #084A83;
+          z-index: 3;
+          top: 25%;
+          -webkit-transform: translate(-190px, 0);
+          -ms-transform: translate(-290px, 0);
+          transform: translate(-290px, 0);
+          -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+          -webkit-transition: all 0.1s ease-in-out;
+          transition: all 0.1s ease-in-out;
+        }
+
+
+        #ui-id-1 {
+          list-style: none;
+          width: 390px;
+        }
+        .ui-autocomplete {
+          position: absolute;
+          cursor: default;
+          background: white;
+          border-color: white;
+        }
+        /* workarounds */
+        html .ui-autocomplete {
+          width: 1px;
+        }
+        /* without this, the menu expands to 100% in IE6 */
+        .ui-menu {
+          list-style: none;
+          padding: 2px;
+          margin: 0;
+          display: block;
+          float: left;
+        }
+
+        .ui-menu .ui-menu {
+          margin-top: -3px;
+        }
+
+        .ui-menu .ui-menu-item {
+          margin: 0;
+          padding: 0;
+          zoom: 1;
+          float: left;
+          clear: left;
+          width: 100%;
+        }
+
+        .ui-menu .ui-menu-item a {
+          text-decoration: none;
+          display: block;
+          padding: .2em .4em;
+          line-height: 1.5;
+          zoom: 1;
+        }
+
+        .ui-menu .ui-menu-item a.ui-state-hover,
+        .ui-menu .ui-menu-item a.ui-state-active {
+          font-weight: normal;
+          margin: -1px;
+        }
+
+        /* 검색 이미지 표기 */
+        .ui-menu img {
+          width: 40px;
+          height: 40px;
+        }
+
+        .ui-menu li span {
+          font-size: 2em;
+          padding: 0 0 10px 10px;
+          margin: 0 0 10px 0 !important;
+          white-space: nowrap;
+        }
+      
+      
+      
     </style>
     <script type="text/javascript">
+    
     // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
     Number.prototype.formatNumber = function(){
         if(this==0) return 0;
@@ -74,32 +227,58 @@
         while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
         return nstr;
     };
+    
     $(document).ready(function(){
-    	// No.1 salesed Item
-    	$.ajax({
-			type : 'post',
-			url : 'viewTopSalesedItem.do',
-			dataType : 'json',
-			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-			success : function(data){
-				for(i=0;i<data.length;i++){
-					$(".viewTopSalesedItem").append(
-						'<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
-		                  + '<div class="item-brand">' + data[i].brand +'</div>'
-		                  + '<div class="item-reviewno"><img src="./images/star_4.5.png">' + data[i].avg_rating + '</div>'
-		                  + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-		                  + '<span class="item-discount_price">'+data[i].discount_price.formatNumber()+'원</span>'
-		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-		                  + '<div class="item-price-ml">ML당 ' + (data[i].discount_price/data[i].capacity).formatNumber()+' 원</div>'
-		                  + '</li>'		
-					)
-				}
-			},
-			error : function (err) {
-				console.log(err);
-			}
-		});
+
+    	// 검색을 위해 전역변수 선언
+        var dataList;
+        
+        // mainAfterLogin => 나중에 main.jsp 에도 추가 필요
+        // 전체상품목록
+        $.ajax({
+          url: 'viewAllProduct.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
+          success: function (data) {
+            
+            // 상품목록 배열 처리
+            for (i = 0; i < data.length; i++) {
+              /* 별점 0.5 단위 표기 */
+              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
+              var rating = parseFloat(data[i].avg_rating).toFixed(1);
+              var star = 0;
+              if (rating >= 4.9) { star = 5; }
+              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
+              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
+              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
+              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
+              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
+              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
+              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
+              else star = 1;
+
+              $('.viewAllProduct').append(
+                '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                + '<div class="item-title">' + data[i].prod_name + '</div>'
+                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
+                + '<div class="item-price">' + data[i].price + '원</div>'
+                + '<div class="item-price-ml">ml당' + '원</div>'
+                + '<div class="item-sale-remaining">세일 2일 남음</div>'
+                + '</li>'
+              )
+              // 검색 자동완성 인식을 위해 JSON 데이터 추가
+              data[i].value = data[i].prod_name;
+            }
+            
+        	  // 검색을 위한 데이터 저장
+            dataList = data;
+          },
+          error: function (e) {
+            alert(e);
+          }
+        }); // --- end of $.ajax 전체상품목록
+    	
     	// 누적 판매 베스트 5
     	$.ajax({
 			type : 'post',
@@ -108,11 +287,26 @@
 			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 			success : function(data){
 				for(i=0;i<data.length;i++){
+					
+					/* 별점 0.5 단위 표기 */
+		              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
+		              var rating = parseFloat(data[i].avg_rating).toFixed(1);
+		              var star = 0;
+		              if (rating >= 4.9) { star = 5; }
+		              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
+		              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
+		              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
+		              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
+		              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
+		              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
+		              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
+		              else star = 1;
+					
 					$(".viewTopfive").append(
 						'<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
 		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
 		                  + '<div class="item-brand">' + data[i].brand +'</div>'
-		                  + '<div class="item-reviewno"><img src="./images/star_4.5.png">' + data[i].avg_rating + '</div>'
+		                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
 		                  + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
 		                  + '<span class="item-discount_price">'+data[i].discount_price.formatNumber()+'원</span>'
 		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
@@ -125,6 +319,72 @@
 				console.log(err);
 			}
 		});
+    	
+    	// No.1 salesed Item
+    	$.ajax({
+			type : 'post',
+			url : 'viewTopSalesedItem.do',
+			dataType : 'json',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			success : function(data){
+				for(i=0;i<data.length;i++){
+					
+					/* 별점 0.5 단위 표기 */
+		              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
+		              var rating = parseFloat(data[i].avg_rating).toFixed(1);
+		              var star = 0;
+		              if (rating >= 4.9) { star = 5; }
+		              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
+		              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
+		              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
+		              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
+		              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
+		              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
+		              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
+		              else star = 1;
+					
+					$(".viewTopSalesedItem").append(
+						'<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+		                  + '<div class="item-title">' + data[i].prod_name +'</div>'
+		                  + '<div class="item-brand">' + data[i].brand +'</div>'
+		                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
+		                  + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
+		                  + '<span class="item-discount_price">'+data[i].discount_price.formatNumber()+'원</span>'
+		                  + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
+		                  + '<div class="item-price-ml">ML당 ' + (data[i].discount_price/data[i].capacity).formatNumber()+' 원</div>'
+		                  + '</li>'		
+					)
+				}
+			},
+			error : function (err) {
+				console.log(err);
+			}
+		});
+				
+        // 검색 자동완성
+        $("#search").autocomplete({
+          source: dataList,
+          minLength: 1,
+          select: function (event, ui) {
+            /* 클릭시 페이지 이동
+            var url = ui.item.id;
+            if(url != '') {
+              location.href = '...' + url;
+            }
+            */
+          },
+          html: true,
+          open: function (event, ui) {
+            $(".ui-autocomplete").css("z-index", 1000);
+          },
+          position: { my : "center top", at: "center bottom" }
+        })
+
+        .autocomplete("instance")._renderItem = function (ul, item) {
+          return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span></div></li>').appendTo(ul);
+        };
+    	
+    	
     	// 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
     	$.ajax({
     		type : 'post',
@@ -154,6 +414,7 @@
 				console.log(err);
 			}
     	});
+    	
     	// 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
     	$('li.dropdown a').on('click', function (event) {
     	    $(this).parent().toggleClass('open');
@@ -170,11 +431,13 @@
     	$(document).on("click",".item-img",function(event){
         	confirm("가라 장바구니로- 실패~");
           });
-    })    
+    });    
+    
     // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
     function clickGopay(){
       window.location.href="orderCheck.jsp";
     }
+    
     </script>
   </head>
 
@@ -273,13 +536,20 @@
               </ul>
 
             </div><!-- /.navbar-collapse -->
-            <form class="navbar-form navbar-right navbar-search-form" role="search">
-              <div class="form-group">
-                <!-- <i class="pe-7s-search"></i> -->
-                <input type="text" value="" class="form-control" placeholder=" 검색하기">
-              </div>
-              <br>
-            </form>
+            <!-- 검색 -->
+              <form class="navbar-form navbar-right navbar-search-form" role="search">
+                <div class="form-group">
+                  <fieldset>
+                    <!-- 크롬 자동완성 안뜨기 종료 -->
+                    <input type="search" id="search" placeholder="검색하기">
+                    <button type="submit" id="searchBtn">
+                      <i class="fa fa-search">
+                      </i>
+                    </button>
+                  </fieldset>
+                </div>
+                <br>
+              </form>
 
           </div><!-- /.container-fluid -->
 
@@ -321,40 +591,7 @@
       </div> <!-- /.filter-window -->
       <div class="container tim-container" style="max-width:800px; padding-top:20px">
         <br>
-
         <br>
-        <hr>
-        <h3 class="text-center hayera">지금 가장 핫한 상품<br>
-          <small class="subtitle">이번주 가장 많이 판매된 5가지 상품입니다.</a></small>
-        </h3>
-        <div class="product">
-          <ul class="product-top">
-            <li>
-              <div class="item-img"><img src="./images/product/1.jpg"></div>
-              <div class="item-title">이니스프리</div>
-              <div class="item-reviewno"><img src="./images/star_4.png"> 231</div>
-              <div class="item-price">12,000원</div>
-              <div class="item-price-ml">ml당 1,000원</div>
-              <div class="item-sale-remaining">세일 2일 남음</div>
-            </li>
-            <li>
-              <img src="./images/product/2.png">
-              <div class="item-title">더 심플 데일리 로션</div>
-              <div class="item-reviewno"><img src="./images/star_5.png"> 231</div>
-              <div class="item-price">18,000원</div>
-              <div class="item-price-ml">ml당 1,200원</div>
-              <div class="item-sale-remaining">세일 3일 남음</div>
-            </li>
-            <li>
-              <img src="./images/product/3.jpeg">
-              <div class="item-title">세라마이드 하이드라 플루이드</div>
-              <div class="item-reviewno"><img src="./images/star_4.png"> 231</div>
-              <div class="item-price">36,000원</div>
-              <div class="item-price-ml">ml당 3,000원</div>
-              <div class="item-sale-remaining">세일 1일 남음</div>
-            </li>
-          </ul>
-        </div>
           <br>
           <hr>
         <div class="col-md-12">
@@ -376,27 +613,13 @@
           <br>
           <br>
           <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-
+          
+		<h3 class="text-center hayera">전체 상품 목록<br>
+              <br>
+              <div class="product">
+                <ul class="product-top viewAllProduct">
+                </ul>
+              </div>
 
 
         </div>

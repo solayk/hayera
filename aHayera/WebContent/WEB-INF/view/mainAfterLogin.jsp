@@ -35,6 +35,12 @@
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <style>
+      /* a태그 기본 style 유지 */
+      a { 
+      	color: inherit;
+      	text-decoration: none;
+      } 
+      
       .fa-heart {
         color: #F74933;
       }
@@ -221,12 +227,16 @@
         height: 40px;
       }
 
-      .ui-menu li span {
-        font-size: 2em;
+      .ui-menu li span { /* 자동완성 목록 양식 설정 */
+        font-size: 1em;
         padding: 0 0 10px 10px;
         margin: 0 0 10px 0 !important;
         white-space: nowrap;
       }
+      .spanBrand { /* 자동완성 목록 내 브랜드 */
+      	color: #BFBFBF;
+      }
+      
     </style>
     
     <script type="text/javascript">
@@ -396,7 +406,7 @@
         })
 
           .autocomplete("instance")._renderItem = function (ul, item) {
-            return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span></div></li>').appendTo(ul);
+        	return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span><span class="spanBrand">' + item.brand + '</span></div></li>').appendTo(ul);
           };
 
         // 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)

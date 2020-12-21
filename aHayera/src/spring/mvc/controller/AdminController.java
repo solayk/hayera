@@ -1,5 +1,7 @@
 package spring.mvc.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +27,14 @@ public class AdminController {
 	
 	@RequestMapping(value="/adminLogin.do", method=RequestMethod.POST, produces="application/text;charset=utf-8")
 	@ResponseBody
-	public String adminLogin(AdminVO vo) {
+	public String adminLogin(AdminVO vo, HttpSession session) {
 		AdminVO result = adminService.adminLogin(vo);
 		if(result!=null) {
-			if(result.getManager_password().equals(vo.getManager_password())) return "1";
+			if(result.getManager_password().equals(vo.getManager_password())) {
+				session.setAttribute("admin_id", result.getManager_id());
+				System.out.println(session.getAttribute("admin_id"));	// 로그인 성공 시 관리자 아이디 admin_id에 저장
+				return "1";
+			}
 			else return "-1";
 		}
 		else return "0";

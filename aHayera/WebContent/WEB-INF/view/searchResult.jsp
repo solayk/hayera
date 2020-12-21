@@ -551,10 +551,11 @@
 
             </div><!-- /.navbar-collapse -->
             <!-- 검색 -->
-            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">
+            <form action="" class="navbar-form navbar-right navbar-search-form" role="search">
               <div class="form-group">
                 <fieldset>
-                  <input type="search" id="search" name="search" placeholder="검색하기">
+                  <!-- 크롬 자동완성 안뜨기 종료 -->
+                  <input type="search" id="search" placeholder="검색하기">
                   <button type="submit" id="searchBtn">
                     <i class="fa fa-search">
                     </i>

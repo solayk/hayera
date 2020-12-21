@@ -27,5 +27,8 @@ public class ViewMainpageServiceImpl implements ViewMainpageService {
 	public ProductVO productSelected(ProductVO vo) {
 		return viewMainDAO.productSelected(vo);
 	}
-		
+	
+	public List<ProductVO> searchResult(String search){
+		return viewMainDAO.searchResult(search);
+	}
 }

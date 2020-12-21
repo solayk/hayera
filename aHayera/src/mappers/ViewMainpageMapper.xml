@@ -38,5 +38,13 @@
 	WHERE PROD_NO = #{prod_no}
 	]]>
 	</select>
+	
+	<select id="searchResult" parameterType="String" resultType="product">
+	<![CDATA[
+	SELECT * 
+	FROM PRODUCT
+	WHERE PROD_NAME LIKE '%'||#{value}||'%'
+	]]>
+	</select>
 
 </mapper>

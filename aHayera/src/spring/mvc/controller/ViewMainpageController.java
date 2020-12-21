@@ -1,18 +1,10 @@
 package spring.mvc.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
-import spring.mvc.domain.ObjectVO;
+import org.springframework.web.bind.annotation.*;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.ViewMainpageService;
 
@@ -50,5 +42,11 @@ public class ViewMainpageController {
 		return "productDetail";
 	}
 	
+	@RequestMapping("/searchResult.do")
+	public void searchResult(String search, Model model) {
+//		model.addAttribute("searchResult",viewMainpageService.searchResult(search));
+		List<ProductVO> list = viewMainpageService.searchResult(search);
+		System.out.println(list.size());
+	}
 	
 }

@@ -12,8 +12,13 @@
 
 <table border="1" width='700px'>
 	<tr height='50px'>
-		<th bgcolor="lightblue" width='200px'>별점을 선택해주세요</th>
-		<td><img align="middle" alt="평점5점" src="../images/star_5.png"></td>
+		<th bgcolor="lightblue" width='200px'>점수를 선택해주세요</th>
+		<td><input type='radio' name='score' value='1'>1 
+		<input type='radio' name='score' value='2'>2
+		<input type='radio' name='score' value='3'>3
+		<input type='radio' name='score' value='4'>4
+		<input type='radio' name='score' value='5'>5
+		</td>
 	</tr>
 
 	<tr height='200px'>

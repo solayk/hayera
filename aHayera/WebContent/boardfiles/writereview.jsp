@@ -19,7 +19,7 @@
 	<tr height='200px'>
 		<th bgcolor="lightblue" width='200px'>상품 후기를 남겨주세요</th>
 		<td>
-	<textarea  placeholder="입력하세요" style="width:480px; height:190px">
+	<textarea  placeholder="입력하세요" style="width:500px; height:200px">
 	</textarea>
 	</td>	
 	</tr>

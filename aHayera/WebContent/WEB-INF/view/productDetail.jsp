@@ -248,6 +248,7 @@
 					<div style="clear: both;"></div>
 					<article class="detail-boardmenu">
 					<div class="detail-board-content">
+						<input type="button" value="리뷰 작성하기" id="writereview">
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
 								<li class="detail-filter" role="presentation">
@@ -259,7 +260,7 @@
 							</ul>
 						</div>
 						<div style="clear: both;"></div>
-						<div>
+						</div>
 						<ul>
 							<li class="detail-review-list">
 								<div class="list-item">
@@ -293,9 +294,8 @@
 		<!-- end main -->
 		
 		<script type="text/javascript">
-		<% String customer_id = (String)session.getAttribute("login"); %>
 		function change(num){
-			
+			alert(customer_id)
 			var x = $('#spinner').val();
 			var y = Number(x)+num;
 			
@@ -319,23 +319,24 @@
 				err: function(err){console.log(err)}
 			});
 		
-		})
+		});
 		
 		//리뷰 작성하기 누르면 작성할 수 있는 textarea나오기 + 로그인여부확인
 		$('#writereview').click(function(){
+			var id  = '<%=(String)session.getAttribute("login")%>';
 			
 			$.ajax({
 				
 				url :"boardfiles/writereview.jsp",
-				contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
 				success : function(data){
-					if(customer_id!=null){
-						alert("성공");
-					$('#reviewgo').html(data);
+					if(id=='null'){
+						alert("로그인하세요")
+					
+					}else{
+						$('#reviewgo').html(data);
+						
 					}
-					else{
-						alert("실패")
-					}
+					
 				},
 				err: function(err){console.log(err)}
 				

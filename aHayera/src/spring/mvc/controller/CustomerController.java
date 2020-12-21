@@ -56,7 +56,7 @@ public class CustomerController {
 	
 	
 	// 회원가입하기
-	@RequestMapping(value="/join.do",produces = "application/text;charset=utf-8")
+	@RequestMapping(value="/joingo.do",produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public String join(CustomerVO vo) {
 		int result = customerserive.insertCustomer(vo);

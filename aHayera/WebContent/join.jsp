@@ -304,7 +304,7 @@ $('#joinbtn').click(function () {
 	$.ajax({
 		type :'post',
 		async :true,
-		url : "join.do",
+		url : "joingo.do",
 		contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
 		data : {
 			'customer_id':$('#customer_id').val(),

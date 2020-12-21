@@ -64,7 +64,7 @@
                     <div class="modal-footer">
                         <div class="forgot login-footer">
                             <span>Looking to
-                                 <a href="">create an account</a>
+                                 <a href="join.do">create an account</a>
                             ?</span>
                         </div>
                         <div class="forgot register-footer" style="display:none">

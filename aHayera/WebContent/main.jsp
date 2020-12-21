@@ -2,6 +2,8 @@
   <!DOCTYPE html>
   <html>
 
+
+
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -226,6 +228,7 @@
         white-space: nowrap;
       }
     </style>
+    
     <script type="text/javascript">
 
       // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
@@ -396,7 +399,6 @@
             return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span></div></li>').appendTo(ul);
           };
 
-
         // 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
         $.ajax({
           type: 'post',
@@ -439,13 +441,7 @@
             $('li.dropdown').removeClass('open');
           }
         });
-        
-     // 메인페이지 상품 이미지 클릭 시 이벤트 => 변경 또는 삭제예정
-        /* $(document).on("click", ".item-img", function (event) {
-          confirm("가라 장바구니로- 실패~");
-        }); */
-        
-      });
+      }); // --- end of jquery
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
       function clickGopay() {
@@ -550,6 +546,13 @@
               </ul>
 
             </div><!-- /.navbar-collapse -->
+            
+            
+            
+            
+            
+            
+            
             <!-- 검색 -->
             <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">
               <div class="form-group">
@@ -569,9 +572,6 @@
         </nav>
 
         <div class="blurred-container">
-          <!-- <div class="event-open text-center">
-            지금 가입하시고 포인트 1,000원 받아가세요! >
-          </div> -->
           <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
         </div>
       </div><!--  end navbar -->

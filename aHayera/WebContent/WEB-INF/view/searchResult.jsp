@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
   <!DOCTYPE html>
   <html>
@@ -490,7 +491,11 @@
         <br>
         <br>
         <div class="col-md-12">
-          <h3 class="text-center hayera">" ${searchTerm} "에 대한 검색 결과입니다.<br>
+        
+        <!-- 검색결과 -->  
+          <!-- 검색결과 유무에 따라 -->
+          <c:if test="${fn:length(searchResult) > 0}"><h3 class="text-center hayera">" ${searchTerm} "에 대한 검색 결과입니다.<br></c:if>
+          <c:if test="${fn:length(searchResult) eq 0}"><h3 class="text-center hayera">" ${searchTerm} "에 대한 검색 결과가 없습니다.<br></c:if>
 		  <hr>
             <br>
             <br>

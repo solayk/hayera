@@ -228,6 +228,7 @@
         white-space: nowrap;
       }
     </style>
+    
     <script type="text/javascript">
 
       // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
@@ -271,6 +272,7 @@
               else star = 1;
 
               $('.viewAllProduct').append(
+            		  /* a 태그 클릭 시 productDetail 로 이동 */	 
             		  '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                       + '<div class="item-title">' + data[i].prod_name + '</div>'
                       + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -315,6 +317,7 @@
               else star = 1;
 
               $(".viewTopfive").append(
+            	/* a 태그 클릭 시 productDetail 로 이동 */	 
                 '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
@@ -356,6 +359,7 @@
               else star = 1;
 
               $(".viewTopSalesedItem").append(
+            	/* a 태그 클릭 시 productDetail 로 이동 */	 
                 '<li>' + '<div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
@@ -374,18 +378,15 @@
         });
 
         // 검색 자동완성
-        console.log("dataList 길이 : " + dataList.length);
-        console.log(dataList[0].img_url);
         $("#search").autocomplete({
           source: dataList,
           minLength: 1,
           select: function (event, ui) {
-            /* 클릭시 페이지 이동
-            var url = ui.item.id;
-            if(url != '') {
-              location.href = '...' + url;
+        	  /* 클릭시 페이지 이동*/
+              var url = ui.item.prod_no;
+              if(url != '') {
+                location.href = 'productSelected.do?prod_no=' + url + '';
             }
-            */
           },
           html: true,
           open: function (event, ui) {
@@ -439,14 +440,8 @@
           ) {
             $('li.dropdown').removeClass('open');
           }
-        });
-        
-        // 메인페이지 상품 이미지 클릭 시 이벤트 => 변경 또는 삭제예정
-        /* $(document).on("click", ".item-img", function (event) {
-          confirm("가라 장바구니로- 실패~");
-        }); */
-        
-      }); 
+        }); 
+      }); // --- end of jquery
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
       function clickGopay() {
@@ -557,12 +552,12 @@
               </ul>
 
             </div><!-- /.navbar-collapse -->
+            
             <!-- 검색 -->
-            <form class="navbar-form navbar-right navbar-search-form" role="search">
+            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">
               <div class="form-group">
                 <fieldset>
-                  <!-- 크롬 자동완성 안뜨기 종료 -->
-                  <input type="search" id="search" placeholder="검색하기">
+                  <input type="search" id="search" name="search" placeholder="검색하기">
                   <button type="submit" id="searchBtn">
                     <i class="fa fa-search">
                     </i>
@@ -577,9 +572,6 @@
         </nav>
 
         <div class="blurred-container">
-          <!-- <div class="event-open text-center">
-            지금 가입하시고 포인트 1,000원 받아가세요! >
-          </div> -->
           <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
         </div>
       </div><!--  end navbar -->

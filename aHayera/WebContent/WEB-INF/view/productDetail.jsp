@@ -246,7 +246,7 @@
 					</div>
 					<br>
 					<div style="clear: both;"></div>
-
+					<article class="detail-boardmenu">
 					<div class="detail-board-content">
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
@@ -276,6 +276,8 @@
 								</div>
 							</li>
 						</ul>
+						<div id="reviewgo"></div>
+						</article>
 						​ </div>​
 					</div>
 					​ ​
@@ -291,6 +293,7 @@
 		<!-- end main -->
 		
 		<script type="text/javascript">
+		<% String customer_id = (String)session.getAttribute("login"); %>
 		function change(num){
 			
 			var x = $('#spinner').val();
@@ -300,9 +303,46 @@
 			$('#spinner').val(y);
 		
 			
-			
 		}
+
+		//게시판 눌렀을 때 ajax로 변환
+		$('.detail-board-list a').click(function() {
+			var liurl = $(this).attr('data-url');
+	
+			$.ajax({
+				type :'get',
+				url : liurl,
+        		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+				success : function(data){
+					$('.detail-boardmenu').html(data);
+				},
+				err: function(err){console.log(err)}
+			});
 		
+		})
+		
+		//리뷰 작성하기 누르면 작성할 수 있는 textarea나오기 + 로그인여부확인
+		$('#writereview').click(function(){
+			
+			$.ajax({
+				
+				url :"boardfiles/writereview.jsp",
+				contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+				success : function(data){
+					if(customer_id!=null){
+						alert("성공");
+					$('#reviewgo').html(data);
+					}
+					else{
+						alert("실패")
+					}
+				},
+				err: function(err){console.log(err)}
+				
+			})
+			
+			
+		})
 		
 		
 		

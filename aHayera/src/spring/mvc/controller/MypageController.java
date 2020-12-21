@@ -40,7 +40,11 @@ public class MypageController {
 	   @RequestMapping("/getInfo.do")
 	   public String getInfo(CustomerVO vo, Model m) {
 	      CustomerVO info = service.getAllById(vo);
+	      String add = info.getAddress();
+	      String[] addAry = add.split("/");
+	      
 	      m.addAttribute("info", info);
+	      m.addAttribute("addr",addAry);
 	      return "orderCheck";
 	   }
 	   

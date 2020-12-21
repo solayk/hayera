@@ -36,15 +36,19 @@
     <script type="text/javascript">
     $(function () {
     	//alert("${info.address}");
-    	// 배송지_ 새로운 배송지 선택 시 입력값 초기화.
+    	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
     	$("#addrCheck input").on('change', function () {
 			if($('input[name="inlineRadioOptions"]:checked', '#addrCheck').val()=="option2"){
 				$('input[type="text"]','#addrInput').val("");
 				$('input[type="tel"]','#addrInput').val("");
 				$('input[type="email"]','#addrInput').val("");
-				// 배송지_ 회원 정보와 동일 선택 시 회원 정보 받아와 채우기.
+			// 배송지_ '회원 정보와 동일' 선택 시 회원 정보 받아와 채우기.
 			}else{
 				$("#recipientName").val("${info.name}");
+				$("#zonecode2").val("${addr[0]}")
+				$("#addr").val("${addr[1]}")
+				$("#detailAddr").val("${addr[2]}")
+				$("#extraAddr").val("${addr[3]}")
 				$('input[type="tel"]','#addrInput').val("${info.tel}");
 				$('input[type="email"]','#addrInput').val("${info.email}");
 			}
@@ -59,6 +63,7 @@
     		var pointUse = $(".form-control").val();
 			$("#collapseFour p:eq(1)>input[type='text']").val(pointUse+"원");
 		});
+    	// 주문 상품 정보 받아 오기
 	})
     </script>
 </head>
@@ -116,7 +121,7 @@
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <a style="color: cornflowerblue; font-size: 18px; font-weight: bold;">기본</a> <span>${info.name}</span> 
-                <div id="zonecode1">[zonecode] <span>${info.address}</span> </div>
+                <div id="zonecode1">[${addr[0]}] <span>${addr[1]}${addr[2]}${addr[3]}</span> </div>
                 <div>연락처 <span>${info.tel}</span></div>
               </div>
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">

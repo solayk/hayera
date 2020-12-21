@@ -91,12 +91,13 @@
       	
       	// 바로 결제하기 클릭 시
       	function clickGopay(){
-/*       		alert(${info.name});
-      		if(${info.customer_id}==null){
-      			location.replace("login.do");
-      		}else{
-      		} */
-      		location.replace("getInfo.do?customer_id=${sessionScope.login}");
+			var id = '<%=(String)session.getAttribute("login")%>'
+			if(id=='null'){
+				alert('로그인해주세요');
+			}else{
+	      		location.replace("getInfo.do?customer_id=${sessionScope.login}");
+			}
+
       	}
 	</script>
       

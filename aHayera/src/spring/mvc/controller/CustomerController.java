@@ -43,11 +43,6 @@ public class CustomerController {
 			return "0"; 
 	}else {
 		session.setAttribute("login", result.getCustomer_id());	
-		session.setAttribute("name", result.getName());	
-		session.setAttribute("addr", result.getAddress());	
-		session.setAttribute("tel", result.getTel());	
-		session.setAttribute("email", result.getEmail());	
-		session.setAttribute("point", result.getPoints());	
 			return "1";
 		}
 	}
@@ -56,11 +51,6 @@ public class CustomerController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
         session.removeAttribute("login");
-        session.removeAttribute("name");
-        session.removeAttribute("addr");
-        session.removeAttribute("tel");
-        session.removeAttribute("email");
-        session.removeAttribute("point");
 		return "redirect:/main.jsp";
 	} // ----- end of logout.do
 	

@@ -24,6 +24,15 @@
 	src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 	<!-- 주소찾기 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 제이쿼리 순서 중요 먼저 있어야 아래를 읽을 수가 있다. -->
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+
+<!-- mypage 절대 경로 -->
+<script src="js/mypageAddr.js"></script>
+
+<script src="js/bootstrap.js" type="text/javascript"></script>
+​
+<script src="js/ct-navbar.js"></script>
 <style>
 .fa-heart {
 	color: #F74933;
@@ -108,6 +117,13 @@ login_wrap {
     	  $('#frm').submit();
       });
         
+      $('#password').click(function(){
+    	  alert('비밀번호를 변경하였습니다');
+    	  
+    	  $('#frm').submit();
+    	  
+      });
+      
       }) //무조건 function 안에서 실행
       
     </script>
@@ -216,20 +232,24 @@ login_wrap {
 						<개인정보수정> <br>
 						<br>
 						<tr>
-							<td>아이디: <input type="text" value="${result.customer_id}">
+							<td>아이디:<input type="text" value="${result.customer_id}" disabled>
 							</td>
 						</tr>
 						<br>
 						<br>
 						<tr>
-							<td>이름: <input type="text" naem="name" value='${result.name}'>
+							<td>이름:<input type="text" name="name" value="${result.name}" disabled>
 							</td>
 						</tr>
 						<br>
 						<br>
 						<tr>
-							<td>비밀번호: <input type="button" value="비밀번호변경하기">
+						 <a>
+							<td>비밀번호: 
+							<input type="text">
+							<input type="button" id="password" value="변경">
 							</td>
+						 </a>
 						</tr>
 						<br>
 						<br>
@@ -244,17 +264,16 @@ login_wrap {
 							</td>
 						</tr>
 						<br>
-						<br>
+					
+						<br><!-- 문자열 파싱 고고  split 메서드 사용하여 문자열 구분하자-->
 						<span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
-						<input type="text" placeholder="우편번호" id="zonecode"> 
-						<input type="button" value="주소찾기" id="mypageAddr">
-						
-						<input type="text"	&emsp;&emsp;&emsp;&emsp;>
+						<input type="text" placeholder="우편번호" id="zonecode" value='${juso[0]}'> 
+						<input type="button" value="주소찾기" id="mypageAddr"> 
 						<input type="text" size="35"
-								placeholder="도로명주소 또는 지번주소" id="addr"&emsp;&emsp;&emsp;&emsp;>
+								placeholder="도로명주소 또는 지번주소" id="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;>
 									
-						<input type="text" placeholder="상세 주소란" id="detailAddr"> 
-							<input type="text" placeholder="동" id="extraAddr">
+						<input type="text" placeholder="상세 주소란" id="detailAddr" value='${juso[2]}'> 
+							<input type="text" placeholder="동" id="extraAddr" value='${juso[3]}'>
 						<br>
 						<br>
 						<br>
@@ -285,10 +304,6 @@ login_wrap {
 	<!-- end main -->
 	​
 </body>
-​
-<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="js/bootstrap.js" type="text/javascript"></script>
-​
-<script src="js/ct-navbar.js"></script>
+
 
 </html>

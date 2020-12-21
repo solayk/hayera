@@ -496,6 +496,18 @@
             <br>
             <div class="product">
               <ul class="product-top viewAllProduct">
+              	<c:forEach var="vo" items="${searchResult}">
+              		<li>
+              			<a href="productSelected.do?prod_no=${vo.prod_no}">
+              				<div class="item-img"><img src="/aHayera/resources/upload/${vo.img_url}"></div>
+                			<div class="item-title">${vo.prod_name}</div>
+                			<div class="item-reviewno"><img src="./images/star_4.png"></div>
+                			<div class="item-price">${vo.price} 원</div>
+                			<div class="item-price-ml">ml당' + '원</div>
+                			<div class="item-sale-remaining">세일 2일 남음</div>
+                		</a>
+                	</li>
+              	</c:forEach>
               </ul>
             </div>
 

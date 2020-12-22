@@ -14,54 +14,38 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.service.MypageServiceImple;
 
 @Controller
-public class MypageController {  
-	
+public class MypageController {
+
 	@Autowired
 	private MypageServiceImple service;
-	
-	//마이페이지 기존의 저장값 불러오기
-	@RequestMapping("/mypage.do")
-	public void getAllById(CustomerVO vo, Model m){
-		
 
-	   CustomerVO result= service.getAllById(vo);
-	   String add = result.getAddress();
-	   String[] addAry = add.split("/");
-	   
-	   for(String juso : addAry) {
-		  // System.out.println(juso);
-	   }
-	  	   m.addAttribute("result", result);
-	       m.addAttribute("juso",addAry);
-	 
-		}  
-	   
-	//마이페이지 글 수정하기
+	// 마이페이지 기존의 저장값 불러오기
+	@RequestMapping("/mypage.do")
+	public void getAllById(CustomerVO vo, Model m) {
+
+		CustomerVO result = service.getAllById(vo);
+		String add = result.getAddress();
+		String[] addAry = add.split("/");
+
+		for (String juso : addAry) {
+			// System.out.println(juso);
+		}
+		m.addAttribute("result", result);
+		m.addAttribute("juso", addAry);
+
+	}
+
+	// 마이페이지 글 수정하기
 	@RequestMapping("/updateMypage.do")
 	public String updateMypage(CustomerVO vo, Model m) {
-		
-		System.out.println("updateMypageContriller");
-		
-		service.updateMypage(vo);
 
-	//	m.addAttribute("result", vo);
-		
+		System.out.println("updateMypageContriller");
+
+		CustomerVO cvo = service.updateMypage(vo);
+
+		m.addAttribute("result", cvo);
+
 		return "redirect://mypage.do";
-		
+
 	}
 }
-	
-	
-	
-	
-	
-	
-
-
-	
-				
-				
-
-		
-	
-

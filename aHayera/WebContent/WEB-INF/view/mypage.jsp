@@ -227,13 +227,13 @@ login_wrap {
 						<개인정보수정> <br>
 						<br>
 						<tr>
-							<td>아이디:<input type="text" value="${result.customer_id}" disabled>
+							<td>아이디:<input name = "customer_id" type="text" value="${result.customer_id}" readonly>
 							</td>
 						</tr>
 						<br>
 						<br>
 						<tr>
-							<td>이름:<input type="text" value="${result.name}" disabled>
+							<td>이름:<input name = "name" type="text" value="${result.name}"  readonly>
 							</td>
 						</tr>
 						<br>

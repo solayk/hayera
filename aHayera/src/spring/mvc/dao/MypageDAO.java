@@ -10,4 +10,5 @@ public interface MypageDAO {
 	//수정시 받아오기
 	public CustomerVO updateMypage(CustomerVO vo);
 	
+		
 }

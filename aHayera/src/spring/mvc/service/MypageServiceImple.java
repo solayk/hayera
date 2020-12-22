@@ -1,5 +1,6 @@
 package spring.mvc.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,14 @@ public class MypageServiceImple implements MypageService {
 	}
 	
 	
-	//수정시에 데이터 받아와야하는데,,, 리턴값 엉망진창 .. 생각중..
+
 	@Override
 	public CustomerVO updateMypage(CustomerVO vo) {
 		
 		CustomerVO modify = mypagedao.updateMypage(vo);
 		
-		System.out.println("mypageserviceImplt 호출");
+		System.out.println("mypageserviceImplt 와라좀");
+		
 		return modify;
 		
 		

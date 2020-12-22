@@ -11,6 +11,7 @@
 		<typeAlias alias="product" type="spring.mvc.domain.ProductVO" />
 		<typeAlias alias="review" type="spring.mvc.domain.ReviewVO"/>
 		<typeAlias alias="order" type="spring.mvc.domain.OrderListVO"/>
+		<typeAlias alias="order_product" type="spring.mvc.domain.Order_ProductVO"/>
 	</typeAliases>
 
 </configuration>

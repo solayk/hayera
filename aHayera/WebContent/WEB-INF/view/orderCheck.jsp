@@ -104,8 +104,12 @@
     	);
     	// 결제 버튼 클릭 시
         $("#payment").click(function(){
-          var form = document.pay
-          form.submit();
+        	var pointUse = $(".form-control").val();
+        	var money = (goodsCount*price)-pointUse;
+        	var totalSum = money.formatNumber();
+        	confirm(totalSum+"원 결제하시겠습니까?");
+          	var form = document.pay
+          	form.submit();
         });
 	})
     </script>
@@ -317,7 +321,7 @@
       </div>
     </div>
     <div class="d-grid gap-2">
-      <button class="btn btn-primary" type="button" id="payment">n원 결제하기</button>
+      <button class="btn btn-primary" type="button" id="payment"></button>
     </div>
   </div>
 </form>

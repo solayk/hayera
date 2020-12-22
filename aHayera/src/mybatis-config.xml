@@ -9,6 +9,7 @@
 		<typeAlias alias="admin" type="spring.mvc.domain.AdminVO" />		
 		<typeAlias alias="customer" type="spring.mvc.domain.CustomerVO" />
 		<typeAlias alias="product" type="spring.mvc.domain.ProductVO" />
+		<typeAlias alias="review" type="spring.mvc.domain.ReviewVO"/>
 	</typeAliases>
 
 </configuration>

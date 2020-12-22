@@ -1,6 +1,9 @@
 package spring.mvc.dao;
 
+import java.util.List;
+
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.ReviewVO;
 
 public interface CustomerDAO {
 
@@ -9,4 +12,6 @@ public interface CustomerDAO {
 	public int insertCustomer(CustomerVO vo);
 	
 	public CustomerVO idCheck(CustomerVO vo);
+	
+	public List<ReviewVO> selectReview(ReviewVO vo);
 }

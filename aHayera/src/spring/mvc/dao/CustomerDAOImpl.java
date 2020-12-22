@@ -1,10 +1,14 @@
 package spring.mvc.dao;
 
+import java.util.List;
+
+import org.apache.catalina.valves.RemoteIpValve;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.ReviewVO;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -33,6 +37,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public CustomerVO idCheck(CustomerVO vo) {
 		System.out.println("mybatis idCheck 호출");
 		return mybatis.selectOne("CustomerDAO.login", vo);
+	}
+
+
+
+	
+	public List<ReviewVO> selectReview(ReviewVO vo) {
+		System.out.println("mybatis selectreview 호출");
+		return mybatis.selectList("CustomerDAO.selectReview", vo);
 	}
 
 }

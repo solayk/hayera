@@ -225,7 +225,7 @@
 					<div style="clear: both;"></div>
 					<article class="detail-boardmenu">
 					<div class="detail-board-content">
-						<input type="button" value="리뷰 작성하기" id="writereview">
+						
 						
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
@@ -256,7 +256,7 @@
 								</div>
 							</li>
 						</ul>
-						<div id="reviewgo"></div>
+						
 						</article>
 						​ </div>​
 					</div>
@@ -300,29 +300,7 @@
 		
 		})
 		
-		//리뷰 작성하기 누르면 작성할 수 있는 textarea나오기 + 로그인여부확인
-		$('#writereview').click(function(){
-			var id  = '<%=(String)session.getAttribute("login")%>';
-			
-			$.ajax({
-
-				url :"boardfiles/writereview.jsp?prod_no=1", 
-				contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-				success : function(data){
-					/* if(id=='null'){
-						location.replace("login.do");
-					
-					}else{ */
-						$('#reviewgo').html(data);
-						
-					//}
-				},
-				err: function(err){console.log(err)}
-				
-			})
-			
-			
-		})
+	
 		
 
 		</script>

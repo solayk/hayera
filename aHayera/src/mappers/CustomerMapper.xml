@@ -18,5 +18,12 @@
 	 VALUES(#{customer_id},#{tel},#{password},#{name},#{email},#{address},#{birthday},#{skintype},#{gender})
 	
 	</insert>
+	
+	<select id="selectReview" resultType="review">
+	<![CDATA[
+		SELECT * FROM review ORDER BY writeday DESC
+		]]>
+	
+	</select>
 
 </mapper>

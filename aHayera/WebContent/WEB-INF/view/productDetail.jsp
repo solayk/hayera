@@ -82,7 +82,9 @@
 				height: 50px;
 				font-size: 17px;
 				color: white;
-				
+			}
+			.detail-board-list a{
+				cursor: pointer;
 			}
 		</style>
 	<title>상세페이지</title>
@@ -298,10 +300,10 @@
 				<div class='detail-board'>
 					<div class='detail-board-list'>
 						<div>
-							<a href=''><span>리뷰게시판</span></a>
+							<a data-url="/aHayera/boardfiles/reviewboard.jsp"><span>리뷰게시판</span></a>
 						</div>
 						<div>
-							<a href=''><span>문의게시판</span></a>
+							<a data-url="/aHayera/boardfiles/qnaboard.jsp"><span>문의게시판</span></a>
 						</div>
 					</div>
 					<br>
@@ -339,8 +341,7 @@
 						</ul>
 						<div id="reviewgo"></div>
 						</article>
-						​ </div>​
-					</div>
+						
 					​ ​
 				</div>
 				​ ​ <br /> <br /> ​
@@ -390,10 +391,10 @@
 			
 			$.ajax({
 				
-				url :"boardfiles/writereview.jsp",
+				url :"boardfiles/writereview.jsp?prod_no=<%=request.getParameter("prod_no")%>",
 				success : function(data){
 					if(id=='null'){
-						alert("로그인하세요")
+						location.replace("login.do");
 					
 					}else{
 						$('#reviewgo').html(data);
@@ -402,16 +403,10 @@
 					
 				},
 				err: function(err){console.log(err)}
-				
 			})
-			
-			
 		})
-		
-		
-		
+
 		</script>
-		
 	</body>
 
 

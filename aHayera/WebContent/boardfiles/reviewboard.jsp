@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
 <div class="detail-board-content">
+<input type="button" value="리뷰 작성하기" id="writereview">
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
 								<li class="detail-filter" role="presentation">
@@ -29,3 +38,35 @@
 								</div>
 							</li>
 						</ul>
+							<div id="reviewgo"></div>
+						
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+//리뷰 작성하기 누르면 작성할 수 있는 textarea나오기 + 로그인여부확인
+$('#writereview').click(function(){
+	var id  = '<%=(String)session.getAttribute("login")%>';
+	
+	$.ajax({
+		
+		url :"/aHayera/boardfiles/writereview.jsp?prod_no=<%=request.getParameter("prod_no")%>",
+		success : function(data){
+			if(id=='null'){
+				location.replace("login.do");
+			
+			}else{
+				
+				$('#reviewgo').html(data);
+				
+			}
+			
+		},
+		err: function(err){console.log(err)}
+	})
+})
+
+
+</script>
+
+</body>
+</html>

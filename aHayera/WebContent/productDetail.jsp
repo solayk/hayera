@@ -306,16 +306,16 @@
 			
 			$.ajax({
 
-				url :"boardfiles/writereview.jsp?prod_no=<%=request.getParameter("prod_no")%>", 
+				url :"boardfiles/writereview.jsp?prod_no=1", 
 				contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
 				success : function(data){
-					if(id=='null'){
+					/* if(id=='null'){
 						location.replace("login.do");
 					
-					}else{
+					}else{ */
 						$('#reviewgo').html(data);
 						
-					}
+					//}
 				},
 				err: function(err){console.log(err)}
 				

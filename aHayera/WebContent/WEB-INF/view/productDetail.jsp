@@ -1,5 +1,7 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -57,7 +59,15 @@
 			​ .com {
 				color: #999;
 			}
-			
+			/* KOSMO : 장바구니 CSS */
+		    .table {
+		        width: 750px;
+		        text-align: center;
+		    }
+			.panel-body{
+				float: right;
+			}
+			/* 여기까지 */
 			.detail-radio-filter{
 				list-style: none;
 				float:right;
@@ -76,9 +86,6 @@
 			}
 		</style>
 	<title>상세페이지</title>
-	<% 
-	String id = (String) session.getAttribute("login");
-	%>
 	<script type="text/javascript">
 		// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
 		Number.prototype.formatNumber = function () {
@@ -93,12 +100,26 @@
       	function clickGopay(){
 			var id = '<%=(String)session.getAttribute("login")%>'
 			if(id=='null'){
-				alert('로그인해주세요');
+				location.replace("login.do");
 			}else{
-	      		location.replace("getInfo.do?customer_id=${sessionScope.login}");
+	      		location.replace("goOrderFromProductDetail.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}");
 			}
-
       	}
+      	// Jquery 시작
+      	$(document).ready(function () {
+      		// 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
+            $('li.dropdown a').on('click', function (event) {
+              $(this).parent().toggleClass('open');
+            });
+            $('body').on('click', function (e) {
+              if (!$('li.dropdown').is(e.target)
+                && $('li.dropdown').has(e.target).length === 0
+                && $('.open').has(e.target).length === 0
+              ) {
+                $('li.dropdown').removeClass('open');
+              }
+            });
+		})
 	</script>
       
     </head>
@@ -119,7 +140,7 @@
 								<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
 									class="icon-bar"></span> <span class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
+							<a class="navbar-brand navbar-brand-logo" href="main.jsp">
 								<div class="logo">
 									<img src="./images/logo_only_transparent_small.png">
 								</div>
@@ -141,24 +162,62 @@
 							<ul class="nav navbar-nav navbar-right">
 								​
 								<!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
-								<li><a href="#"> <i class="pe-7s-shopbag"> <span class="label">2</span>
-										</i>
-										<p>장바구니</p>
-									</a></li>
-								<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i
-											class="pe-7s-user"></i>
-										<p>
-											내 계정 <b class="caret"></b>
-										</p>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a href="#">로그인</a></li>
-										<li><a href="#">주문목록</a></li>
-										<li><a href="#">마이페이지</a></li>
-										<!-- <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li> -->
-									</ul>
-								</li>
+				                <li class="dropdown">
+				                  <a href="#" class="dropdown-toggle">
+				                    <i class="pe-7s-shopbag">
+				                      <span class="label">2</span>
+				                    </i>
+				                    <p>장바구니</p>
+				                  </a>
+				                  <ul class="dropdown-menu">
+				                    <table class="main_cart">
+				                      <th>선택</th>
+				                      <th>이미지</th>
+				                      <th>상품명</th>
+				                      <th>수량</th>
+				                      <th>가격</th>
+				                      <th>합계</th>
+				                      <th>삭제</th>
+				                      <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
+				                    </table>
+				                    <div class="panel panel-info">
+				                      <div class="panel-heading">
+				                        <h3 class="panel-title">총 결제금액</h3>
+				                      </div>
+				                      <div class="panel-body">
+				                        (합산 기능 구현 필요) 원 &emsp;&emsp;
+				                        <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
+				                        <button type="button" class="btn btn-primary" onclick="clickGopay()">바로 결제</button>
+				                      </div>
+				                    </div>
+				                  </ul>
+				                </li>
+								<!-- 로그인 세션이 존재하지 않으면 -->
+			                    <c:if test="${login eq null}">
+			                      <li>
+			                        <!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
+			                        <a href="login.do">
+			                          <i class="pe-7s-user"></i>
+			                          <p>로그인</p>
+			                        </a>
+			                      </li>
+			                    </c:if>
+			
+			                    <!-- 로그인 세션이 존재하면 -->
+			                    <c:if test="${login ne null}">
+			                      <li class="dropdown">
+			                        <a href="#" class="dropdown-toggle">
+			                          <i class="pe-7s-user"></i>
+			                          <p>내 계정 <b class="caret"></b></p>
+			                        </a>
+			                        <ul class="dropdown-menu">
+			                          <!-- mainAfterLogin 에만 해당 -->
+			                          <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
+			                          <li><a href="#">주문목록</a></li>
+			                          <li><a href="logout.do">로그아웃</a></li>
+			                        </ul>
+			                      </li>
+			                    </c:if>
 							</ul>
 							​
 						</div>

@@ -35,18 +35,6 @@ public class MypageController {
 	       m.addAttribute("juso",addAry);
 	 
 		}  
-	
-	   // 주문/결제로 넘어갈 때 로그인 한 고객 정보 받아갈 것 임.
-	   @RequestMapping("/getInfo.do")
-	   public String getInfo(CustomerVO vo, Model m) {
-	      CustomerVO info = service.getAllById(vo);
-	      String add = info.getAddress();
-	      String[] addAry = add.split("/");
-	      
-	      m.addAttribute("info", info);
-	      m.addAttribute("addr",addAry);
-	      return "orderCheck";
-	   }
 	   
 	   /*//마이페이지 글 수정하기
 	@RequestMapping("/updateMypage.do")

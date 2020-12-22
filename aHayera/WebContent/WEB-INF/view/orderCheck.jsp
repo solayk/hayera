@@ -33,9 +33,20 @@
         text-align: center;
     }
     </style>
+    
     <script type="text/javascript">
+    
+ 	// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
+    Number.prototype.formatNumber = function () {
+      if (this == 0) return 0;
+      let regex = /(^[+-]?\d+)(\d{3})/;
+      let nstr = (this + '');
+      while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+      return nstr;
+    };
+    
+    //Jquery 시작
     $(function () {
-    	//alert("${info.address}");
     	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
     	$("#addrCheck input").on('change', function () {
 			if($('input[name="inlineRadioOptions"]:checked', '#addrCheck').val()=="option2"){
@@ -64,15 +75,21 @@
 			$("#collapseFour p:eq(1)>input[type='text']").val(pointUse+"원");
 		});
     	// 주문 상품 정보 받아 오기
-    	$(".table table-striped").append(
-    		'<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'<img src="/aHayera/resources/upload/'+img_url+'"width="80" height="80">'+'</td>'
-    		+'<td>'+'<a href="#">'+prod_name+'</a>'+'</td>'+'<td>'+수량+'</td>'+'<td>'+가격+'</td>'+'<td>'+배송비+'</td>'+'</tr>'    	
+    	$("#orderProduct").append(
+    		'<tr>'+
+    		'<td>'+'1'+'</td>'+
+    		'<td>'+'<img src="/aHayera/resources/upload/${productInfo.img_url}" width="80" height="80">'+'</td>'+
+    		'<td>'+'${productInfo.prod_name}'+'</td>'+
+    		'<td>'+'1'+'</td>'+
+    		'<td>'+'${productInfo.discount_price}'+'</td>'+
+    		'<td>'+'0'+'</td>'+
+    		'</tr>'    	
     	);
     	// 총 결제 금액 (미완성)
-    	var priceSum = $("#priceSum").val();
+    	/* var priceSum = $("#priceSum").val();
     	var discount = $("#discount").val();
     	var deliveryCharge = $("#deliveryCharge").val();
-    	$("#totalSum").val(priceSum-discount+deliveryChage);
+    	$("#totalSum").val(priceSum-discount+deliveryChage); */
 	})
     </script>
 </head>
@@ -186,7 +203,7 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
           <div class="accordion-body" id="orderlist">
-            <table class="table table-striped">
+            <table class="table table-striped" id="orderProduct">
                 <th>번호</th>
                 <th>이미지</th>
                 <th>상품명</th>
@@ -194,7 +211,7 @@
                 <th>가격</th>
                 <th>배송비</th>
               <!-- 동적 테이블 들어와야 함. -->
-              <tr>
+              <!-- <tr>
                 <td>1</td>
                 <td>
                   <img src="images/product/a.png" width="80" height="80">
@@ -219,7 +236,7 @@
                   24,500원
                 </td>
                 <td>무료배송</td>
-              </tr>
+              </tr> -->
             </table>
           </div>
         </div>

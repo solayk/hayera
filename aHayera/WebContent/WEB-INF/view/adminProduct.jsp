@@ -130,7 +130,8 @@
                       + '<td>' + data[i].scent_rating + '</td>'
                       + '<td>' + data[i].feel + '</td>'
                       + '<td>' + data[i].feel_rating + '</td>'
-                      + '<td><input type="button" value="수정"></td>'
+                      + '<td><input type="button" value="수정" class="editProduct">'
+                      + '<input type="button" value="완료" class="editConfirm" style="display:none"></td>'
                       + '</tr>'
                     )
                     data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
@@ -175,7 +176,7 @@
                       for (i = 0; i < data.length; i++) {
                         $('.viewAllProduct').append(
                           '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
-                          + '<td>' + data[i].prod_no + '</td>'
+                          + '<td class="prod_no">' + data[i].prod_no + '</td>'
                           + '<td>' + data[i].prod_name + '</td>'
                           + '<td>' + data[i].brand + '</td>'
                           + '<td>' + data[i].category + '</td>'
@@ -190,7 +191,8 @@
                           + '<td>' + data[i].scent_rating + '</td>'
                           + '<td>' + data[i].feel + '</td>'
                           + '<td>' + data[i].feel_rating + '</td>'
-                          + '<td><input type="button" value="수정"></td>'
+                          + '<td><input type="button" value="수정" class="editProduct">'
+                          + '<input type="button" value="완료" class="editConfirm" style="display:none"></td>'
                           + '</tr>'
                         )
                       }
@@ -201,8 +203,57 @@
                   });
 
                 }
+              }); // --- end of keyup of search for product
+              
+              // 수정 버튼 클릭 시 (동적 추가 버튼 이벤트를 걸기 위해 이 방식 사용)
+              $(document).on('click','.editProduct',function(){
+            	  
+            	  // 완료버튼 활성화
+            	  $(this).hide();
+            	  $(this).next().show();
+            	  
+            	  // 이름
+            	  var temp = $(this).parent().parent().children().eq(2).text();
+            	  $(this).parent().parent().children().eq(2).empty();
+            	  $(this).parent().parent().children().eq(2).append('<input type="text" name="prod_name" class="" required>');
+            	  $(this).parent().parent().children().eq(2).children('input').val(temp);
+            	  // 브랜드
+            	  var temp = $(this).parent().parent().children().eq(3).text();
+            	  $(this).parent().parent().children().eq(3).empty();
+            	  $(this).parent().parent().children().eq(3).append('<input type="text" name="brand" class="" required>');
+            	  $(this).parent().parent().children().eq(3).children('input').val(temp);
+            	  // 카테고리
+            	  var temp = $(this).parent().parent().children().eq(4).text();
+            	  $(this).parent().parent().children().eq(4).empty();
+            	  $(this).parent().parent().children().eq(4).append('<select name="category">'
+                          + '<option value="모이스처라이저">모이스처라이저</option>'
+                          + '<option value="선크림">선크림</option>'
+                          + '</select>');
+            	  $(this).parent().parent().children().eq(4).children('select').val(temp);
+            	  // 가격
+            	  var temp = $(this).parent().parent().children().eq(5).text();
+            	  $(this).parent().parent().children().eq(5).empty();
+            	  $(this).parent().parent().children().eq(5).append('<input type="text" name="price" class="" style="width:50%;" required>');
+            	  $(this).parent().parent().children().eq(5).children('input').val(temp);
+            	  // 원가
+            	  var temp = $(this).parent().parent().children().eq(6).text();
+            	  $(this).parent().parent().children().eq(6).empty();
+            	  $(this).parent().parent().children().eq(6).append('<input type="text" name="cost_price" class="" style="width:50%;" required>');
+            	  $(this).parent().parent().children().eq(6).children('input').val(temp);
+            	  // 할인가
+            	  var temp = $(this).parent().parent().children().eq(7).text();
+            	  $(this).parent().parent().children().eq(7).empty();
+            	  $(this).parent().parent().children().eq(7).append('<input type="text" name="discount_price" class="" style="width:50%;" required>');
+            	  $(this).parent().parent().children().eq(7).children('input').val(temp);
+            	  // 용량
+            	  var temp = $(this).parent().parent().children().eq(8).text();
+            	  $(this).parent().parent().children().eq(8).empty();
+            	  $(this).parent().parent().children().eq(8).append('<input type="text" name="capacity" class="" style="width:50%;" required>');
+            	  $(this).parent().parent().children().eq(8).children('input').val(temp);
+            	  
               });
-            });
+              
+            }); // --- end of document ready
 
           </script>
 
@@ -462,6 +513,7 @@
                                   <th>재고</th>
                                   <th colspan="2">향</th>
                                   <th colspan="2">촉감</th>
+                                  <th></th>
                                   <th></th>
                                 </tr>
                               </thead>

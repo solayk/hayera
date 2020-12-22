@@ -273,7 +273,6 @@
 		<!-- end main -->
 		
 		<!-- 수량 확인 -->
-		<% String customer_id = (String)session.getAttribute("login"); %>
 		<script type="text/javascript">
 		function change(num){
 			
@@ -303,18 +302,19 @@
 		
 		//리뷰 작성하기 누르면 작성할 수 있는 textarea나오기 + 로그인여부확인
 		$('#writereview').click(function(){
+			var id  = '<%=(String)session.getAttribute("login")%>';
 			
 			$.ajax({
-				
-				url :"boardfiles/writereview.jsp",
+
+				url :"boardfiles/writereview.jsp?prod_no=<%=request.getParameter("prod_no")%>", 
 				contentType:'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
 				success : function(data){
-					if(customer_id!=null){
-						alert("성공");
-					$('#reviewgo').html(data);
-					}
-					else{
-						alert("실패")
+					if(id=='null'){
+						location.replace("login.do");
+					
+					}else{
+						$('#reviewgo').html(data);
+						
 					}
 				},
 				err: function(err){console.log(err)}

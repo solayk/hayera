@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.ReviewVO;
 import spring.mvc.service.CustomerService;
 
 @Controller
@@ -62,5 +63,14 @@ public class CustomerController {
 		int result = customerserive.insertCustomer(vo);
 		if(result==1)  return "1";
 		return "0";
+	}
+	
+	
+	@RequestMapping(value= "/reviewgo.do",produces = "application/text;charset=utf-8")
+	public String review(ReviewVO vo) {
+		System.out.println(vo.getCustomer_id());
+		System.out.println(vo.getContents());
+		System.out.println(vo.getRate());
+		return "redirect:main.jsp";
 	}
 }

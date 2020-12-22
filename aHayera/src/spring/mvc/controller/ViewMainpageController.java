@@ -48,4 +48,11 @@ public class ViewMainpageController {
 		model.addAttribute("searchTerm",search);
 	}
 	
+	@RequestMapping("/category.do")
+	public String categoryList(ProductVO vo, Model model) {
+		model.addAttribute("categoryList",viewMainpageService.categoryList(vo));
+		model.addAttribute("categoryName",vo.getCategory());
+		return "category";
+	}
+	
 }

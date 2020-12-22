@@ -46,5 +46,13 @@
 	WHERE PROD_NAME LIKE '%'||#{value}||'%'
 	]]>
 	</select>
+	
+	<select id="categoryList" parameterType="product" resultType="product">
+	<![CDATA[
+	SELECT * 
+	FROM PRODUCT
+	WHERE CATEGORY = #{category}
+	]]>
+	</select>
 
 </mapper>

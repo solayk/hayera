@@ -31,4 +31,8 @@ public class ViewMainpageServiceImpl implements ViewMainpageService {
 	public List<ProductVO> searchResult(String search){
 		return viewMainDAO.searchResult(search);
 	}
+	
+	public List<ProductVO> categoryList(ProductVO vo){
+		return viewMainDAO.categoryList(vo);
+	}
 }

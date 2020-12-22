@@ -16,4 +16,6 @@ public interface ViewMainpageDAO {
 	
 	public List<ProductVO> searchResult(String search);
 	
+	public List<ProductVO> categoryList(ProductVO vo);
+	
 }

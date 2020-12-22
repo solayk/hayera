@@ -33,4 +33,7 @@ public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 		return mybatis.selectList("ViewMainPageDAO.searchResult",search);
 	}
 	
+	public List<ProductVO> categoryList(ProductVO vo){
+		return mybatis.selectList("ViewMainPageDAO.categoryList",vo);
+	}
 }

@@ -15,4 +15,6 @@ public interface ViewMainpageService {
 	public ProductVO productSelected(ProductVO vo);
 	
 	public List<ProductVO> searchResult(String search);
+	
+	public List<ProductVO> categoryList(ProductVO vo);
 }

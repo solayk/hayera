@@ -102,7 +102,7 @@
       	function clickGopay(){
 			var id = '<%=(String)session.getAttribute("login")%>'
 			if(id=='null'){
-				location.href("login.do");
+				location.href="login.do";
 			}else{
 	      		var form = document.goodsCountform;
 	      		form.submit();

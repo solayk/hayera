@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-  <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <!DOCTYPE html>
     <html class="perfect-scrollbar-on">
@@ -72,6 +74,10 @@
           .uploadPreview>img {
             width: 2 00px;
           }
+          
+          .adminProduct_tableHeader {
+          }
+          
         </style>
         
         <script type="text/javascript">
@@ -96,14 +102,8 @@
                   $(".uploadPreview > img").attr("src", e.target.result);
                 }
                 reader.readAsDataURL(f);
-                
-                console.log($('#file').val());
-                $('#file').val('C:\fakepath\6.PNG');
-                
               });
-              
             });
-            
           });
 
           function getCurrentDate() {
@@ -193,7 +193,7 @@
                     <span class="navbar-toggler-bar bar3"></span>
                   </button>
                 </div>
-                <a class="navbar-brand" href="#pablo">Dashboard</a>
+                <a class="navbar-brand" href="" style="font-size: 30px">상품 등록</a>
               </div>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                 aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -253,16 +253,119 @@
           </div>
           <div class="content">
             <div class="row">
+            
+            <div class="col-md-12">
+                <div class="card .adminProduct_addTable">
+                  <!-- .adminProduct_addTable 클래스 추가 -->
+                  <div class="card-header">
+                    <h4 class="card-title"> 새 상품 등록하기 </h4>
+                    <p class=""> 
+                     - 새로운 상품을 등록하세요.<br> 
+                     - 수량 변경은 다른 메뉴를 이용하시기 바랍니다.
+                    </p>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <form action="insertProduct.do" method='post' enctype='multipart/form-data'>
+                        <table class="table">
+                          <thead class="adminProduct_tableHeader">
+                          <tr>
+                            <th>제품번호</th>
+                            <th>이름</th>
+                            <th>브랜드</th>
+                            <th>카테고리</th>
+                            <th>가격</th>
+                            <th>매입가</th>
+                            <th>할인가</th>
+                            <th>용량</th>
+                            <th>수량</th>
+                            <th>향</th>
+                            <th>촉감</th>
+                          </tr>
+                          </thead>
+                          <tr>
+                          	<c:set var="length" value="${fn:length(productList)}"/>
+                          	<c:set var="nextProd_no" value="${length + 1}"/>
+                            <td><input type="text" name="prod_no" class=".adminProduct_input" value="<c:out value='${nextProd_no}'/>" style="border: none; " readonly></td>
+                            <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
+                            <td><input type="text" name="brand" class=".adminProduct_input" required></td>
+                            <td>
+                              <select name="category">
+                                <option value="모이스처라이저">모이스처라이저</option>
+                                <option value="선크림">선크림</option>
+                              </select>
+                            </td>
+                            <td><input type="text" name="price" class=".adminProduct_input" required></td>
+                            <td><input type="text" name="cost_price" class=".adminProduct_input" required></td>
+                            <td><input type="text" name="discount_price" class=".adminProduct_input" required></td>
+                            <td><input type="text" name="capacity" class=".adminProduct_input" required></td>
+                            <td><input type="text" name="stock" class=".adminProduct_input" required></td>
+                            <td>
+                              <select name="scent" required>
+                                <option value="무향">무향</option>
+                                <option value="꽃">꽃</option>
+                                <option value="오이">오이</option>
+                                <option value="원료">원료</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select name="feel" required>
+                                <option value="흐름">흐름</option>
+                                <option value="부드러움">부드러움</option>
+                                <option value="매트">매트</option>
+                                <option value="하드">하드</option>
+                              </select>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>설명</td>
+                            <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
+                                required></td>
+                          </tr>
+                          <tr>
+                            <td>사진업로드</td>
+                            <td colspan="3"><input type="file" name="file" id="file" required></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td align="center"><input type="submit" value="등록" /></td>
+                          </tr>
+                        </table>
+                      </form>
+
+                      <!-- 미리보기 사진 띄우기 -->
+                      <div class="uploadPreview"><img src=""></div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title"> 상품현황 </h4>
+                    <h4 class="card-title"> 
+                    <form>
+                  <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search...">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <i class="now-ui-icons ui-1_zoom-bold"></i>
+                      </div>
+                    </div>
+                  </div>
+                </form> </h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
                       <form action="" method='post' enctype='multipart/form-data'>
                         <table class="table">
-                          <thead class="text-primary">
+                          <thead class="adminProduct_tableHeader">
                             <tr>
                               <th>제품</th>
                               <th></th>
@@ -276,11 +379,9 @@
                               <th>평균평점</th>
                               <th>총판매량</th>
                               <th>재고</th>
-                              <th>향</th>
-                              <th>향 평가</th>
-                              <th>촉감</th>
-                              <th>촉감 평가</th>
-                              <th>수정</th>
+                              <th colspan="2">향</th>
+                              <th colspan="2">촉감</th>
+                              <th></th>
                             </tr>
                           </thead>
 
@@ -322,76 +423,9 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
-                <div class="card .adminProduct_addTable">
-                  <!-- .adminProduct_addTable 클래스 추가 -->
-                  <div class="card-header">
-                    <h4 class="card-title"> 새상품등록 </h4>
-                    <p class="category"> 새로운 상품을 등록하세요. 수량 변경은 다른 메뉴를 이용하시기 바랍니다.</p>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <form action="insertProduct.do" method='post' enctype='multipart/form-data'>
-                        <table class="table">
-                          <tr>
-                            <th>제품번호</th>
-                            <th>이름</th>
-                            <th>브랜드</th>
-                            <th>카테고리</th>
-                            <th>가격</th>
-                            <th>매입가</th>
-                            <th>할인가</th>
-                            <th>용량</th>
-                            <th>수량</th>
-                            <th>향</th>
-                            <th>촉감</th>
-                          </tr>
-                          <tr>
-                            <td><input type="text" name="prod_no" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="brand" class=".adminProduct_input" required></td>
-                            <td>
-                              <select name="category">
-                                <option value="모이스처라이저">모이스처라이저</option>
-                                <option value="선크림">선크림</option>
-                              </select>
-                            </td>
-                            <td><input type="text" name="price" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="cost_price" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="discount_price" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="capacity" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="stock" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="scent" class=".adminProduct_input" required></td>
-                            <td><input type="text" name="feel" class=".adminProduct_input" required></td>
-                          </tr>
-                          <tr>
-                            <td>설명</td>
-                            <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
-                                required></td>
-                          </tr>
-                          <tr>
-                            <td>사진업로드</td>
-                            <td colspan="3"><input type="file" name="file" id="file" required></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td align="center"><input type="submit" value="등록" /></td>
-                          </tr>
-                        </table>
-                      </form>
-
-                      <!-- 미리보기 사진 띄우기 -->
-                      <div class="uploadPreview"><img src=""></div>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+              
+              
+              
             </div>
           </div>
 

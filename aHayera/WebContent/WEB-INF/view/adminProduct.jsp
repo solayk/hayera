@@ -257,7 +257,6 @@
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title"> 상품현황 </h4>
-                    <input class="adminProduct_add" type="button" value="추가">
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">

@@ -220,7 +220,7 @@ login_wrap {
 					</a>
 				<br> <br> <br> <br>
 				<br>
-				<form id="frm" method="get" action="">
+				<form id="frm" method="get" action="updateMypage.do">
 			  		<table>	
 					<p class="costomer">
 						

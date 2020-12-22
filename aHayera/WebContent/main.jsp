@@ -7,11 +7,11 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
+
     <!-- 타이틀 바 -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png" >
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
     <title>하예라</title>
-    
+
     <link href="css/bootstrap.css" rel="stylesheet" />
     <!-- 추후 CSS 정리 통합 예정 -->
     <link href="css/hayera.css" rel="stylesheet" />
@@ -41,11 +41,11 @@
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <style>
       /* a태그 기본 style 유지 */
-      a { 
-      	color: inherit;
-      	text-decoration: none;
-      } 
-    
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
       .fa-heart {
         color: #F74933;
       }
@@ -232,19 +232,27 @@
         height: 40px;
       }
 
-      .ui-menu li span { /* 자동완성 목록 양식 설정 */
+      .ui-menu li span {
+        /* 자동완성 목록 양식 설정 */
         font-size: 1em;
         padding: 0 0 10px 10px;
         margin: 0 0 10px 0 !important;
         white-space: nowrap;
       }
-      .spanBrand { /* 자동완성 목록 내 브랜드 */
-      	color: #BFBFBF;
+
+      .spanBrand {
+        /* 자동완성 목록 내 브랜드 */
+        color: #BFBFBF;
       }
-      
     </style>
-    
+
     <script type="text/javascript">
+      // 세션 아이디 변수 sessionId에 저장
+      var sessionId = '<%=session.getAttribute("login")%>';
+
+      if (sessionId != 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
+        location.href = "mainAfterLogin.do";
+      }
 
       // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
       Number.prototype.formatNumber = function () {
@@ -254,18 +262,10 @@
         while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
         return nstr;
       };
-	  
+
       // Jquery 시작
       $(document).ready(function () {
-    	  
-    	// 세션 아이디 변수 sessionId에 저장
-        var sessionId = '<%=session.getAttribute("login")%>';
-        
-        if(sessionId != 'null'){ /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */ 
-        	location.href = "mainAfterLogin.do"; 
-        }
-    	  
-        
+
         // 검색을 위해 전역변수 선언
         var dataList;
 
@@ -295,7 +295,7 @@
               else star = 1;
 
               $('.viewAllProduct').append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	  
+                /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
@@ -340,7 +340,7 @@
               else star = 1;
 
               $(".viewTopfive").append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	  
+                /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
@@ -382,7 +382,7 @@
               else star = 1;
 
               $(".viewTopSalesedItem").append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	  
+                /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
@@ -407,7 +407,7 @@
           select: function (event, ui) {
             /* 클릭시 페이지 이동*/
             var url = ui.item.prod_no;
-            if(url != '') {
+            if (url != '') {
               location.href = 'productSelected.do?prod_no=' + url + '';
             }
           },
@@ -563,15 +563,16 @@
               </ul>
 
             </div><!-- /.navbar-collapse -->
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
             <!-- 검색 -->
-            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">
+            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search"
+              method="get">
               <div class="form-group">
                 <fieldset>
                   <input type="search" id="search" name="search" placeholder="검색하기">
@@ -652,7 +653,7 @@
             </div>
 
         </div>
-		<br>
+        <br>
         <br>
         <br>
         <p class="text-right legal-info">
@@ -660,10 +661,9 @@
           대표: 김영권 외 3명 / 사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈<br>
           메일: admin@hayera.com / Copyright &copy;2020 hayera<br>
           <!-- 관리자 로그인 진입 버튼 -->
-          <a href="adminLogin.jsp" style="color: white;">관리자</a> 
+          <a href="adminLogin.jsp" style="color: white;">관리자</a>
         </p>
-        <br>
-          <!-- end container -->
+        <!-- end container -->
       </div>
       <!-- end main -->
 

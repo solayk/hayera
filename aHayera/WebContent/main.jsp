@@ -487,7 +487,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
+              <a class="navbar-brand navbar-brand-logo" href="main.jsp">
                 <div class="logo">
                   <img src="./images/logo_only_transparent_small.png">
                 </div>

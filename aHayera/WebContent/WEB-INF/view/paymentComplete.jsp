@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HAYERA!</title>
+<title>하예라</title>
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="js/bootstrap.js" type="text/javascript"></script>
   <script src="js/orderHistoryScripts.js"></script>
@@ -21,11 +21,6 @@
   <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     
   <script type="text/javascript">
-      /*$(document).ready(function(){
-          $(window).scroll(function(){
-              $('#orderHistory').css('top', $(document).scrollTop());
-          });
-      })*/
       // 장바구니에서 바로 결제 클릭 시
       function clickGopay(){
           window.location.href="orderCheck.jsp";
@@ -83,6 +78,14 @@
     	text-align: center;
     }
   </style>
+  <script type="text/javascript">
+      function clickGohome(){
+          location.href="main.jsp";
+      };
+      function clickGoHistory(){
+          location.href="orderHistory.jsp";
+      };
+  </script>
 </head>
 <body>
 <div id="navbar-full">
@@ -294,103 +297,17 @@
       </ul> <!-- /.filter-feeling -->
     </div> <!-- /.filter-window -->
     <div class="container tim-container" style="max-width:800px; padding-top:20px">
-        <h3 class="text-center hayera">주문 내역</h3>
+        <h3 class="text-center hayera">주문 성공!</h3>
        <hr/>
-       <div class="orderHistory">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default hayera" id="today">오늘</button>
-            <button type="button" class="btn btn-default hayera" id="1week">1주일</button>
-            <button type="button" class="btn btn-default hayera" id="1month">1개월</button>
-            <button type="button" class="btn btn-default hayera" id="3month">3개월</button>
-            <button type="button" class="btn btn-default hayera" id="6month">6개월</button>
-        </div>
-        <input type="date" id="startDate"> ~ <input type="date" id="endDate">
-        <button type="button" class="btn btn-default hayera" id="view">조회</button>
-        <br/><br/>
-        <div>
-            <li class="hayera">기본적으로 최근 3개월간의 자료가 조회됩니다.</li>
-            <li class="hayera">상품정보를 클릭하시면 해당 상품에 대한 상세 페이지를 확인하실 수 있습니다.</li>
-        </div>
-        <hr/>
-        <h3 class="hayera">주문 상품 정보</h3>
-        <hr/>
-        <div id="orderHistory">
-            <table class="table table-striped" id="orderHistoryTable">
-                <th>주문일자[주문번호]</th>
-                <th>이미지</th>
-                <th>상품명</th>
-                <th>수량</th>
-                <th>가격</th>
-                <th>주문처리상태</th>
-                <th>리뷰</th>
-                <tr>
-                    <td>
-                      <div>
-                        <p>
-                          2020-12-07
-                        </p>
-                        [2020120755AC3F]
-                      </div>
-                    </td>
-                    <td>
-                        <img src="images/product/a.png" width="80" height="80">
-                    </td>
-                    <td>
-                        <a href="#">테라비코스 엔자임 워싱 파우더</a>
-                    </td>
-                    <td>
-                        1   
-                    </td>
-                    <td>
-                        28,000원
-                    </td>
-                    <td>
-                        배송완료
-                    </td>
-                    <td>
-                    	<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview"> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                      <div>
-                        <p>
-                          2020-12-07
-                        </p>
-                        [2020120755AC3F]
-                      </div>
-                    </td>
-                    <td>
-                        <img src="images/product/b.jpg" width="80" height="80">
-                    </td>
-                    <td>
-                        <a href="#">맨 바이오 에센스 컨디셔닝 145ml</a>
-                    </td>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                    24,500원
-                    </td>
-                    <td>
-                        배송완료
-                    </td>
-                    <td>
-                    	<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview"> 
-                    </td>
-                </tr>
-            </table>
-            <ul class="pagination">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
-        </div>
+       <div style="text-align: center; padding-top: 35px">
+       	<img src="images/complete.PNG" style="padding-bottom: 60px"><br/>
+       	<p>
+		  <button type="button" class="btn btn-primary btn-lg" onclick="clickGohome()">홈으로</button>
+		  <button type="button" class="btn btn-success btn-lg" onclick="clickGoHistory()">주문내역보기</button>
+		</p>
+		<hr/>
        </div>
+       
        <br>
        <br>
        <br>
@@ -405,11 +322,6 @@
        <br>
        <br>
        <br> 
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
        <br>
        <br>
        <br>

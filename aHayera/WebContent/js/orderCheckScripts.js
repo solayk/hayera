@@ -52,10 +52,4 @@ $(function(){
         }
       }).open();
     });
-
-    // 결제 버튼 클릭 시
-    $("#payment").click(function(){
-      var winObj = window.open("paymentComplete.jsp","","width=450, height=450");
-      winObj.moveTo(screen.availWidth/5, screen.availHeight/2);
-    });
   })

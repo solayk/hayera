@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 주문 테이블, 주문-제품 테이블 관련된 쿼리 짜볼거야 -->
+<mapper namespace="OrderDAO">
+
+<insert id="insertOrder" parameterType="order">
+	<![CDATA[
+	INSERT INTO orderlist 
+	VALUES (#{order_no},#{customer_id},#{receive},#{order_address},sysdate,#{order_price},#{discount_price},#{delivery_price},#{payment_price},#{order_status},#{pay_date},#{delivery_date},#{delivery_status})
+	]]>
+</insert>
+</mapper>

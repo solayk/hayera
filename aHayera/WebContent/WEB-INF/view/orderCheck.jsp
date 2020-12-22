@@ -102,6 +102,11 @@
     		'<td>'+'무료배송'+'</td>'+
     		'</tr>'    	
     	);
+    	// 결제 버튼 클릭 시
+        $("#payment").click(function(){
+          var form = document.pay
+          form.submit();
+        });
 	})
     </script>
 </head>
@@ -136,8 +141,8 @@
         </div>
       </nav>
     </div>
-  </div>
-  
+</div>
+<form action="paymentComplete.do" method="get" name="pay">  
   <div class="container tim-container" style="max-width:800px; padding-top:20px">
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
@@ -315,6 +320,6 @@
       <button class="btn btn-primary" type="button" id="payment">n원 결제하기</button>
     </div>
   </div>
-
+</form>
 </body>
 </html>

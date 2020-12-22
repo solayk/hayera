@@ -43,25 +43,12 @@
       while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
       return nstr;
     };
-    <%-- // 수량 getParameter 하기
-    function Request(){
-	var requestParam ="";
-        this.getParameter = function(param){
-    	var url = unescape(location.href); //현재 주소를 decoding
-        var paramArr = (url.substring(url.indexOf("?")+1,url.length)).split("&"); //파라미터만 자르고, 다시 &그분자를 잘라서 배열에 넣는다. 
-        for(var i = 0 ; i < paramArr.length ; i++){
-            var temp = paramArr[i].split("="); //파라미터 변수명을 담음
-            if(temp[0].toUpperCase() == param.toUpperCase()){
-            	requestParam = paramArr[i].split("=")[1]; // 변수명과 일치할 경우 데이터 삽입
-                break;
-            }
-        }
-        return requestParam;
-    	};
-	}
-	var request = new Request();
+    // 주문/결제 페이지 내 숫자 표시에 사용한 변수.
    	var goodsCount = '<%=request.getParameter("goodsCount")%>';
-   	alert(<%=request.getParameter("goodsCount")%>); --%>
+   	var price = ${productInfo.discount_price};
+   	var totalPrice = (goodsCount*price).formatNumber();
+   	var point = ${info.points};
+   	var points = point.formatNumber();
     //Jquery 시작
     $(function () {
     	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
@@ -81,15 +68,28 @@
 				$('input[type="email"]','#addrInput').val("${info.email}");
 			}
 		});
-    	// 할인_ 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨.
+    	// 총 결제 금액 (미완성. 일단 배송비 무료다..ㅋ)
+    	$("#priceSum").val(totalPrice+"원");
+    	$("#totalSum").val(totalPrice+"원");
+    	$("#payment").text(totalPrice+"원 결제하기");
+    	
+    	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
     	$("#button-addon").on('click',function(){
-    		$(".form-control").val("${info.points}원");
-    		$("#collapseFour p:eq(1)>input[type='text']").val("${info.points}원");
+    		$(".form-control").val(points+"원");
+    		$("#discount").val(points+"원");
+    		var money = (goodsCount*price)-point;
+    		var totalSum = money.formatNumber();
+    		$("#totalSum").val(totalSum+"원");
+    		$("#payment").text(totalSum+"원 결제하기");
     	});
-    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게.
+    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게.
     	$(".form-control").on('change', function () {
     		var pointUse = $(".form-control").val();
-			$("#collapseFour p:eq(1)>input[type='text']").val(pointUse+"원");
+			$("#discount").val(pointUse+"원");
+			var money = (goodsCount*price)-pointUse;
+			var totalSum = money.formatNumber();
+			$("#totalSum").val(totalSum+"원");
+    		$("#payment").text(totalSum+"원 결제하기");
 		});
     	// 주문 상품 정보 받아 오기
     	$("#orderProduct").append(
@@ -97,16 +97,11 @@
     		'<td>'+'1'+'</td>'+
     		'<td>'+'<img src="/aHayera/resources/upload/${productInfo.img_url}" width="80" height="80">'+'</td>'+
     		'<td>'+'${productInfo.prod_name}'+'</td>'+
-    		'<td>'+'<%=request.getParameter("goodsCount")%>'+'</td>'+
-    		'<td>'+'${productInfo.discount_price}'+'</td>'+
-    		'<td>'+'0'+'</td>'+
+    		'<td>'+goodsCount+'</td>'+
+    		'<td>'+totalPrice+'</td>'+
+    		'<td>'+'무료배송'+'</td>'+
     		'</tr>'    	
     	);
-    	// 총 결제 금액 (미완성)
-    	/* var priceSum = $("#priceSum").val();
-    	var discount = $("#discount").val();
-    	var deliveryCharge = $("#deliveryCharge").val();
-    	$("#totalSum").val(priceSum-discount+deliveryChage); */
 	})
     </script>
 </head>
@@ -220,7 +215,7 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
           <div class="accordion-body" id="orderlist">
-            <table class="table table-striped" id="orderProduct">
+            <table class="table table-striped" id="orderProduct" style="vertical-align: middle;">
                 <th>번호</th>
                 <th>이미지</th>
                 <th>상품명</th>
@@ -238,20 +233,6 @@
                 </td>
                 <td>1</td>
                 <td>28,000원</td>
-                <td>무료배송</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>
-                  <img src="images/product/b.jpg" width="80" height="80">
-                </td>
-                <td>
-                  <a href="#">맨 바이오 에센스 컨디셔닝 145ml</a>
-                </td>
-                <td>1</td>
-                <td>
-                  24,500원
-                </td>
                 <td>무료배송</td>
               </tr> -->
             </table>
@@ -271,7 +252,7 @@
           <div class="accordion-body">
             <div>적립금<p>(사용 가능: <span style="font-weight: bold;">${info.points}원</span>)</p></div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="${info.points}원" aria-label="?" aria-describedby="button-addon">
+              <input type="text" class="form-control" aria-label="?" aria-describedby="button-addon">
               <button class="btn btn-outline-primary" type="button" id="button-addon">전액사용</button>
             </div>
           </div>
@@ -289,16 +270,16 @@
         <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample4">
           <div class="accordion-body" id="paymentInfo">
             <p>주문상품
-              <input type="text" placeholder="n원" style="float: right; text-align: right;" id="priceSum" disabled>
+              <input type="text" style="float: right; text-align: right;" id="priceSum" disabled>
             </p>
             <p>할인
-              <input type="text" placeholder="n원" style="float: right; text-align: right;" id="discount" disabled>
+              <input type="text" placeholder="0원" style="float: right; text-align: right;" id="discount" disabled>
             </p>
             <p>배송비
-              <input type="text" placeholder="n원" style="float: right; text-align: right;" id="deliveryCharge" disabled>
+              <input type="text" placeholder="0원" style="float: right; text-align: right;" id="deliveryCharge" disabled>
             </p>
             <span class="badge bg-primary" style="font-size: 18px; font-weight: bold;">총 결제 금액</span>
-            <input type="text" placeholder="n원" style="float: right; text-align: right;" id="totalSum" disabled>
+            <input type="text" style="float: right; text-align: right;" id="totalSum" disabled>
           </div>
         </div>
       </div>

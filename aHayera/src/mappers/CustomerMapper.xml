@@ -21,7 +21,7 @@
 	
 	<select id="selectReview" resultType="review">
 	<![CDATA[
-		SELECT * FROM review ORDER BY writeday DESC
+		SELECT * FROM review where prod_no=#{prod_no} ORDER BY writeday DESC
 		]]>
 	
 	</select>

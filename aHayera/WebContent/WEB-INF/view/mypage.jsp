@@ -210,9 +210,7 @@ login_wrap {
 			<br>
 			<h3 class="text-center hayera">마이페이지</h3>
 			<div class="mypage_window">
-				<tr>
-					<td>
-					<a class="mypage_table" href="#"> 
+			  <a class="mypage_table" href="#"> 
 							<i class="pe-7s-wallet  pe-5x"></i> 
 							<label class="pe-4x">　　　　 </label> 
 							<i class="pe-7s-id pe-5x"></i> 
@@ -220,8 +218,7 @@ login_wrap {
 							<label class="pe-4x">　　　</label> 
 							<label class="pe-4x">개인정보수정</label>
 					</a>
-					</td>
-				</tr>
+			  <table>	
 				<br> <br> <br> <br>
 				<br>
 				<form id="frm" method="get" action="">
@@ -281,6 +278,7 @@ login_wrap {
 							<td><input type="button" id="ok_btn" value="확인"> <input
 								type="button" id="cancle_btn" value="취소"></td>
 						</tr>
+				</table>
 			</div>
 
 			</form>

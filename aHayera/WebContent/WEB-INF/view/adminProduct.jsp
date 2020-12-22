@@ -37,9 +37,12 @@
           <!-- CSS adminProduct Only => 추후 css 파일에 통합 -->
           <style type="text/css">
             .adminProduct_Img {
-              width: 50px;
+              max-width: 50px;
+              min-width: 50px;
             }
-
+			.viewAllProduct td:nth-child(3) {
+			  min-width: 300px;
+			}
             .card-header>h4 {
               text-align: left;
             }

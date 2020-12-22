@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<form action="reviewgo.do?prod_no=1">
-
+<form action="reviewgo.do">
+<input type="hidden" name="prod_no" value="1">
 <table border="1" width='700px'>
 	<tr height='50px'>
 		<th bgcolor="lightblue" width='200px'>점수를 선택해주세요</th>

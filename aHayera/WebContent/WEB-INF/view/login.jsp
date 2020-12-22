@@ -3,7 +3,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>HAYERA 고객 로그인</title>
+
+	<!-- 타이틀 바 -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png" >
+    <title>하예라 - 로그인</title>
 
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

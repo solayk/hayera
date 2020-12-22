@@ -6,7 +6,9 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	
-	<title>회원가입</title>
+	<!-- 타이틀 바 -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png" >
+	<title>하예라 - 회원가입</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />

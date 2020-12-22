@@ -11,7 +11,7 @@
         
         <!-- 타이틀 바 -->
     	<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png" >
-    	<title>카테고리</title>
+    	<title>카테고리 - ${categoryName}</title>
         
         <link href="css/bootstrap.css" rel="stylesheet" />
         <!-- 추후 CSS 정리 통합 예정 -->

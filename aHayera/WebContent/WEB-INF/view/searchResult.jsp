@@ -8,6 +8,11 @@
       <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        
+        <!-- 타이틀 바 -->
+    	<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png" >
+    	<title>하예라 - 검색결과</title>
+        
         <link href="css/bootstrap.css" rel="stylesheet" />
         <!-- 추후 CSS 정리 통합 예정 -->
         <link href="css/hayera.css" rel="stylesheet" />

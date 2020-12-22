@@ -20,11 +20,12 @@ public class MypageDAOImpl implements MypageDAO{
 	}
 	
 	//수정하고 받은 값. 리턴값 맞지 않음.. 고민중...ㅠㅠ
-	public int udateMypage(CustomerVO vo) {
+	public  CustomerVO  updateMypage(CustomerVO vo) {
 		System.out.println("mybatis updateMypage 호출");
-		return mybatis.update("MygateDAO.updateMypage",vo);
+		return null;
 	}
-	
+
+
 	
 
 }

@@ -218,14 +218,12 @@ login_wrap {
 							<label class="pe-4x">　　　</label> 
 							<label class="pe-4x">개인정보수정</label>
 					</a>
-			  <table>	
 				<br> <br> <br> <br>
 				<br>
 				<form id="frm" method="get" action="">
+			  		<table>	
 					<p class="costomer">
-						<br>
-						<br>
-						<br>
+						
 						<개인정보수정> <br>
 						<br>
 						<tr>
@@ -235,7 +233,7 @@ login_wrap {
 						<br>
 						<br>
 						<tr>
-							<td>이름:<input type="text" name="name" value="${result.name}" disabled>
+							<td>이름:<input type="text" value="${result.name}" disabled>
 							</td>
 						</tr>
 						<br>
@@ -244,7 +242,7 @@ login_wrap {
 						 <a>
 							<td>비밀번호: 
 							<input type="text">
-							<input type="button" id="password" value="변경">
+							<input type="button" name="password" id="password" value="변경">
 							</td>
 						 </a>
 						</tr>

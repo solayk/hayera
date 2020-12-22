@@ -33,7 +33,6 @@
         text-align: center;
     }
     </style>
-    
     <script type="text/javascript">
     
  	// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
@@ -44,7 +43,25 @@
       while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
       return nstr;
     };
-    
+    <%-- // 수량 getParameter 하기
+    function Request(){
+	var requestParam ="";
+        this.getParameter = function(param){
+    	var url = unescape(location.href); //현재 주소를 decoding
+        var paramArr = (url.substring(url.indexOf("?")+1,url.length)).split("&"); //파라미터만 자르고, 다시 &그분자를 잘라서 배열에 넣는다. 
+        for(var i = 0 ; i < paramArr.length ; i++){
+            var temp = paramArr[i].split("="); //파라미터 변수명을 담음
+            if(temp[0].toUpperCase() == param.toUpperCase()){
+            	requestParam = paramArr[i].split("=")[1]; // 변수명과 일치할 경우 데이터 삽입
+                break;
+            }
+        }
+        return requestParam;
+    	};
+	}
+	var request = new Request();
+   	var goodsCount = '<%=request.getParameter("goodsCount")%>';
+   	alert(<%=request.getParameter("goodsCount")%>); --%>
     //Jquery 시작
     $(function () {
     	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
@@ -80,7 +97,7 @@
     		'<td>'+'1'+'</td>'+
     		'<td>'+'<img src="/aHayera/resources/upload/${productInfo.img_url}" width="80" height="80">'+'</td>'+
     		'<td>'+'${productInfo.prod_name}'+'</td>'+
-    		'<td>'+'1'+'</td>'+
+    		'<td>'+'<%=request.getParameter("goodsCount")%>'+'</td>'+
     		'<td>'+'${productInfo.discount_price}'+'</td>'+
     		'<td>'+'0'+'</td>'+
     		'</tr>'    	

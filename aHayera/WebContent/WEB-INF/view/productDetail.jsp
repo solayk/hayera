@@ -104,7 +104,9 @@
 			if(id=='null'){
 				location.replace("login.do");
 			}else{
-	      		location.replace("goOrderFromProductDetail.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}");
+	      		var form = document.goodsCountform;
+	      		form.submit();
+				location.replace("goOrderFromProductDetail.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}");
 			}
       	}
       	// Jquery 시작
@@ -269,7 +271,8 @@
 										<th class="info__th"><span class="title">수량</span></th>
 										<td class="info__td">
 											<div class="countcheck">
-												​ ​ <input id="spinner" type="text" value="1" />
+												<form action="orderCheck.jsp" name="goodsCountform" method="post">
+												​ ​ <input id="spinner" type="text" value="1" name="goodsCount" />
 												<button type="button" id='countup' class="btn btn-primary btn-xs" onclick="change(1)">
                           					  	<span class="glyphicon glyphicon-chevron-up"></span>
                          						 </button>
@@ -286,6 +289,7 @@
 							<div>
 								<input class='detail_button' type="button" value="장바구니 추가" onclick="addCart()"> 
 								<input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()">
+												</form>
 							</div>
 							
 						</div>

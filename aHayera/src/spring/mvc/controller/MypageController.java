@@ -29,7 +29,7 @@ public class MypageController {
 	   String[] addAry = add.split("/");
 	   
 	   for(String juso : addAry) {
-		   System.out.println(juso);
+		  // System.out.println(juso);
 	   }
 	  	   m.addAttribute("result", result);
 	       m.addAttribute("juso",addAry);
@@ -39,6 +39,8 @@ public class MypageController {
 	//마이페이지 글 수정하기
 	@RequestMapping("/updateMypage.do")
 	public String updateMypage(CustomerVO vo, Model m) {
+		
+		System.out.println("updateMypageContriller");
 		
 		service.updateMypage(vo);
 

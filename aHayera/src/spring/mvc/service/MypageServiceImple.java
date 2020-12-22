@@ -25,7 +25,10 @@ public class MypageServiceImple implements MypageService {
 		
 		CustomerVO modify = mypagedao.updateMypage(vo);
 		
+		System.out.println("mypageserviceImplt 호출");
 		return modify;
+		
+		
 	}
 	
 	

@@ -504,14 +504,14 @@
 
               <ul class="nav navbar-nav navbar-center">
                 <li>
-                  <a href="#">
+                  <a href="category.do?category=모이스처라이저">
                     <i class="pe-7s-drop">
                     </i>
                     <p>모이스처라이저</p>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="category.do?category=선크림">
                     <i class="pe-7s-sun">
                     </i>
                     <p>선크림</p>

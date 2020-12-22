@@ -42,13 +42,11 @@ public class AdminController {
 	
 	@RequestMapping("/adminProduct.do")
 	public void adminProduct(ProductVO vo, Model model) {
-		System.out.println(" === adminProduct.do 수신 === ");
 		model.addAttribute("productList",adminService.adminProduct(vo));
 	}
 	
 	@RequestMapping("insertProduct.do")
 	public String insertProduct(ProductVO vo) {
-		System.out.println(" == insertProduct // controller 진입 == ");
 		adminService.insertProduct(vo);
 		return "redirect:/adminProduct.do";
 	}

@@ -1,30 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
   <!DOCTYPE html>
   <html>
-
-	<!-- 삭제 전 어느 것이 최신인지 반드시 확인 후 MERGE -->
-	
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-	<!-- 임시. WebContent 아래 있는 파일에 작업할 것. 이 파일은 추후 교체 예정 -->
-
+  
   <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="./images/apple-icon.png">
-    <link rel="icon" type="image/png" href="./img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-      HAYERA 관리자
-    </title>
+    
+    <!-- 타이틀 바 -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
+    <title>관리자 메인</title>
+    
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
       name='viewport' />
     <!--     Fonts and icons     -->
@@ -36,23 +23,32 @@
     <link href="./css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="./demo/demo.css" rel="stylesheet" />
+    
+    <!-- 검색 autocomplete 목적-->
+    <link href="autocomplete/jquery-ui.min.css" rel="stylesheet" />
+    <link href="autocomplete/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="autocomplete/jquery-ui.theme.min.css" rel="stylesheet" />
+    <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+    <!-- 검색 autocomplete 목적-->
+    <script src="autocomplete/jquery-ui.min.js"></script>
+    
   </head>
 
   <body class="">
     <div class="wrapper ">
       <div class="sidebar" data-color="blue">
         <div class="logo">
-          <a href="" class="simple-text logo-mini">
+          <a href="adminLogin.jsp" class="simple-text logo-mini">
             <img src="./images/logo_only_transparent_small.png">
           </a>
-          <a href="" class="simple-text logo-normal">
-            HAYERA 관리자
+          <a href="adminLogin.jsp" class="simple-text logo-normal">
+            하예라 관리자
           </a>
         </div>
         <div class="sidebar-wrapper" id="sidebar-wrapper">
           <ul class="nav">
             <li class="active ">
-              <a href="./admin_main.html">
+              <a href="adminLogin.jsp">
                 <i class="now-ui-icons design_app"></i>
                 <p>관리자 메인</p>
               </a>
@@ -71,19 +67,19 @@
               </a>
             </li>
             <li>
-              <a href="./admin_stock.html">
+              <a href="">
                 <i class="now-ui-icons files_paper"></i>
                 <p>재고 관리</p>
               </a>
             </li>
             <li>
-              <a href="./admin_order.html">
+              <a href="">
                 <i class="now-ui-icons shopping_delivery-fast"></i>
                 <p>주문 관리</p>
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="adminProduct.do">
                 <i class="now-ui-icons shopping_bag-16"></i>
                 <p>상품 등록</p>
               </a>

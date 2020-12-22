@@ -4,12 +4,15 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<!-- <link rel="apple-touch-icon" sizes="76x76" href="images/logo_only_transparent_small.png">
+   		<link rel="icon" type="image/png" href="images/logo_only_transparent_small.png"> -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 		<!-- 타이틀 바 -->
 		<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
 		<title>하예라 관리자 로그인</title>
 		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		
 
 
 		<style type="text/css">

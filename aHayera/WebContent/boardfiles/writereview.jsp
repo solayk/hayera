@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="reviewgo.do">
+<form action="reviewgo.do?prod_no=1">
 
 <table border="1" width='700px'>
 	<tr height='50px'>

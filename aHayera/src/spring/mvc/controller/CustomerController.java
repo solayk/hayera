@@ -1,5 +1,7 @@
 package spring.mvc.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +68,12 @@ public class CustomerController {
 	}
 	
 	
-	@RequestMapping(value= "/reviewgo.do",produces = "application/text;charset=utf-8")
+	@RequestMapping(value= "boardfiles/reviewgo.do",produces = "application/text;charset=utf-8")
 	public String review(ReviewVO vo) {
-		System.out.println(vo.getCustomer_id());
+
+		System.out.println(vo.getProd_no());
 		System.out.println(vo.getContents());
 		System.out.println(vo.getRate());
-		return "redirect:main.jsp";
+		return "redirect:/main.jsp";
 	}
 }

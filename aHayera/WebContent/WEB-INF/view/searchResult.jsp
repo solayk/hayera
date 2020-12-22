@@ -253,13 +253,13 @@
       // Jquery 시작
       $(document).ready(function () {
 		
-    	// 세션 아이디 변수 sessionId에 저장
-        var sessionId = '<%=session.getAttribute("login")%>';
+    	// 세션 아이디 변수 sessionId에 저장 >>> 검색 결과는 로그인 하지 않아도 보여야 함
+        <%-- var sessionId = '<%=session.getAttribute("login")%>';
         	
         if(sessionId == '' || sessionId == 'null'){ /* 세션이 만료되면 main.jsp로 이동 */
         	alert("로그인 시간을 초과했습니다. 다시 로그인 해주세요.");
         	location.href = "main.jsp"; 
-        }    
+        }     --%>
         
         // 검색을 위해 전역변수 선언
         var dataList;
@@ -506,16 +506,13 @@
       </div> <!-- /.filter-window -->
       <div class="container tim-container" style="max-width:800px; padding-top:20px">
         <br>
-        <br>
         <div class="col-md-12">
         
         <!-- 검색결과 -->  
           <!-- 검색결과 유무에 따라 -->
           <c:if test="${fn:length(searchResult) > 0}"><h3 class="text-center hayera">" ${searchTerm} "에 대한 검색 결과입니다.<br></c:if>
           <c:if test="${fn:length(searchResult) eq 0}"><h3 class="text-center hayera">" ${searchTerm} "에 대한 검색 결과가 없습니다.<br></c:if>
-		  <hr>
-            <br>
-            <br>
+            <br><br>
             <div class="product">
               <ul class="product-top viewAllProduct">
               	<c:forEach var="vo" items="${searchResult}">
@@ -532,7 +529,11 @@
               	</c:forEach>
               </ul>
             </div>
-
+            <hr>
+            <br><br>
+            <c:if test="${fn:length(searchResult) eq 0}"><h3 class="text-center hayera"> 이런 제품은 어떠세요? <br></c:if>
+			<br><br>
+			<br><br>
         </div>
 
         <p class="text-right legal-info">

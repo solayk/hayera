@@ -263,23 +263,27 @@ login_wrap {
 						<br>
 					
 						<br><!-- 문자열 파싱 고고  split 메서드 사용하여 문자열 구분하자-->
-						<span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
+						<tr>
+						<td>
+							주소: <div class="costomer" style="font-size: 18px;"></div>
 						<input type="text" placeholder="우편번호" id="zonecode" value='${juso[0]}'> 
-						<input type="button" value="주소찾기" id="mypageAddr"> 
+						<input type="button" value="주소찾기" id="mypageAddr"><br>
 						<input type="text" size="35"
-								placeholder="도로명주소 또는 지번주소" id="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;>
+								placeholder="도로명주소 또는 지번주소" id="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;><br>
 									
 						<input type="text" placeholder="상세 주소란" id="detailAddr" value='${juso[2]}'> 
 							<input type="text" placeholder="동" id="extraAddr" value='${juso[3]}'>
+							</td>
+							</tr>
 						<br>
 						<br>
 						<br>
 						<tr>
-							<td><input type="button" id="ok_btn" value="확인"> <input
-								type="button" id="cancle_btn" value="취소"></td>
+							<td><input type="button" id="ok_btn" value="확인"> 
+							<input type="button" id="cancle_btn" value="취소"></td>
 						</tr>
 				</table>
-			</div>
+			
 
 			</form>
 			</p>

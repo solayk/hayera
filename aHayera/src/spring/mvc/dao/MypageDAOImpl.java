@@ -12,11 +12,19 @@ public class MypageDAOImpl implements MypageDAO{
 	@Autowired
 	private SqlSessionTemplate mybatis;  
 	
+	//기존애 저장 정보 받아오기
 	public CustomerVO getAllById(CustomerVO vo) {
 		System.out.println("mybatis getAllById 호출");
 		return mybatis.selectOne("MypageDAO.getAllById",vo);
 		
 	}
+	
+	//수정하고 받은 값. 리턴값 맞지 않음.. 고민중...ㅠㅠ
+	public int udateMypage(CustomerVO vo) {
+		System.out.println("mybatis updateMypage 호출");
+		return mybatis.update("MygateDAO.updateMypage",vo);
+	}
+	
 	
 
 }

@@ -18,5 +18,16 @@ public class MypageServiceImple implements MypageService {
 		return result;
 	}
 	
+	
+	//수정시에 데이터 받아와야하는데,,, 리턴값 엉망진창 .. 생각중..
+	@Override
+	public CustomerVO updateMypage(CustomerVO vo) {
+		
+		CustomerVO modify = mypagedao.updateMypage(vo);
+		
+		return modify;
+	}
+	
+	
 
 }

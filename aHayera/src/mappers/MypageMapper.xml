@@ -9,4 +9,11 @@ from customer
 where customer_id=#{customer_id}
 </select>
 
+
+<update id="updateMypage" parameterType="product">
+
+	UPDATE customer SET TEL = #{tel}, EMAIL = #{email}, ADDRESS =#{addreess} WHERE tel = #{tel} and email = #{email} and address = #{address}
+	
+</update>
+
 </mapper>

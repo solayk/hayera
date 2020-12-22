@@ -36,13 +36,17 @@ public class MypageController {
 	 
 		}  
 	   
-	   /*//마이페이지 글 수정하기
+	//마이페이지 글 수정하기
 	@RequestMapping("/updateMypage.do")
-	public String updateMypage(CustomerVO vo) {
-	//	MypageDAO.updateMypage(vo);
-		return "redirect:/mypage.jsp";
+	public String updateMypage(CustomerVO vo, Model m) {
 		
-	}*/
+		service.updateMypage(vo);
+
+	//	m.addAttribute("result", vo);
+		
+		return "redirect://mypage.do";
+		
+	}
 }
 	
 	

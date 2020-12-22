@@ -652,11 +652,17 @@
             </div>
 
         </div>
-
+		<br>
+        <br>
+        <br>
         <p class="text-right legal-info">
           HAYERA 하예라 서울특별시 금천구 가산디지털2로 123 월드메르디앙벤처센터<br>
-          대표: 김영권 외 3명 / 사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈 <br>
-          메일: admin@hayera.com / Copyright &copy;2020 hayera
+          대표: 김영권 외 3명 / 사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈<br>
+          메일: admin@hayera.com / Copyright &copy;2020 hayera<br>
+          <!-- 관리자 로그인 진입 버튼 -->
+          <a href="adminLogin.jsp" style="color: white;">관리자</a> 
+        </p>
+        <br>
           <!-- end container -->
       </div>
       <!-- end main -->

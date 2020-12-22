@@ -39,11 +39,11 @@ public class MypageController {
 	@RequestMapping("/updateMypage.do")
 	public String updateMypage(CustomerVO vo, Model m) {
 
-		System.out.println("updateMypageContriller");
+		//System.out.println("updateMypageContriller");
 
-		CustomerVO cvo = service.updateMypage(vo);
+		service.updateMypage(vo);
 
-		m.addAttribute("result", cvo);
+//		m.addAttribute("result", vo);
 
 		return "redirect://mypage.do";
 

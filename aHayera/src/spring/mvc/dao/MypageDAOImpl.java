@@ -14,18 +14,18 @@ public class MypageDAOImpl implements MypageDAO{
 	
 	//기존애 저장 정보 받아오기
 	public CustomerVO getAllById(CustomerVO vo) {
-		System.out.println("mybatis getAllById 호출");
+		//System.out.println("mybatis getAllById 호출");
 		return mybatis.selectOne("MypageDAO.getAllById",vo);
 		
 	}
 	
 	//수정하고 받은 값. 리턴값 맞지 않음.. 고민중...ㅠㅠ
 	public  CustomerVO  updateMypage(CustomerVO vo) {
-		System.out.println("mybatis updateMypage 호호출");
+		//System.out.println("mybatis updateMypage 호호출");
 		mybatis.update("MypageDAO.updateMypage", vo);  //update는 int로 return 값을 받는다 주의
 		
 		CustomerVO result = mybatis.selectOne("MypageDAO.getAllById", vo);
-		System.out.println("result"+result);
+		//System.out.println("result"+result);
 		return result;//
 	}
 

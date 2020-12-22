@@ -615,7 +615,7 @@
         <ul class="filter-favor">
           향
           <li><input type="checkbox" name="favor" id="no"> 무향</li>
-          <li><input type="checkbox" name="favor" id="flower"> 꽃</li>
+          <li><input type="checkbox" name="favor" id="flower"> 꽃</li>ㅋ
           <li><input type="checkbox" name="favor" id="oe"> 오이</li>
           <li><input type="checkbox" name="favor" id="chem"> 화학제품</li>
         </ul> <!-- /.filter-feeling -->

@@ -14,17 +14,14 @@ public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 	private SqlSessionTemplate mybatis;
 	
 	public List<ProductVO> selectMaxTotalsalesProduct(ProductVO vo) {
-		System.out.println("===> Mybatis selectMaxTotalsalesProduct() 호출");
 		return mybatis.selectList("ViewMainPageDAO.selectMaxTotalsalesProduct",vo);
 	}
 
 	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo) {
-		System.out.println("===> Mybatis viewTopfiveSalesdProduct() 호출");
 		return mybatis.selectList("ViewMainPageDAO.viewTopfiveSalesdProduct",vo);
 	}
 
 	public List<ProductVO> viewAllproduct(ProductVO vo) {
-		System.out.println("===> Mybatis viewAllproduct() 호출");
 		return mybatis.selectList("ViewMainPageDAO.viewAllProduct",vo);
 	}
 	

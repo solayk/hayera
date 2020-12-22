@@ -45,7 +45,7 @@
 			// 배송지_ '회원 정보와 동일' 선택 시 회원 정보 받아와 채우기.
 			}else{
 				$("#recipientName").val("${info.name}");
-				$("#zonecode2").val("${addr[0]}")
+				$("#zonecode").val("${addr[0]}")
 				$("#addr").val("${addr[1]}")
 				$("#detailAddr").val("${addr[2]}")
 				$("#extraAddr").val("${addr[3]}")
@@ -64,6 +64,15 @@
 			$("#collapseFour p:eq(1)>input[type='text']").val(pointUse+"원");
 		});
     	// 주문 상품 정보 받아 오기
+    	$(".table table-striped").append(
+    		'<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'<img src="/aHayera/resources/upload/'+img_url+'"width="80" height="80">'+'</td>'
+    		+'<td>'+'<a href="#">'+prod_name+'</a>'+'</td>'+'<td>'+수량+'</td>'+'<td>'+가격+'</td>'+'<td>'+배송비+'</td>'+'</tr>'    	
+    	);
+    	// 총 결제 금액 (미완성)
+    	var priceSum = $("#priceSum").val();
+    	var discount = $("#discount").val();
+    	var deliveryCharge = $("#deliveryCharge").val();
+    	$("#totalSum").val(priceSum-discount+deliveryChage);
 	})
     </script>
 </head>
@@ -120,9 +129,9 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <a style="color: cornflowerblue; font-size: 18px; font-weight: bold;">기본</a> <span>${info.name}</span> 
-                <div id="zonecode1">[${addr[0]}] <span>${addr[1]}${addr[2]}${addr[3]}</span> </div>
-                <div>연락처 <span>${info.tel}</span></div>
+                <span style="color: cornflowerblue; font-size: 18px; font-weight: bold;">받는 사람</span> <span style="font-weight: bold;">${info.name}</span><br/> 
+                <span style="color: cornflowerblue; font-size: 18px; font-weight: bold;">주소</span> <span style="font-weight: bold;">[${addr[0]}] ${addr[1]} ${addr[2]} ${addr[3]}</span><br/>
+                <span style="color: cornflowerblue; font-size: 16px; font-weight: bold;">연락처</span> <span style="font-weight: bold;">${info.tel}</span>
               </div>
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               	<div id="addrCheck">
@@ -141,13 +150,13 @@
 	                <input type="text" id="recipientName" value="${info.name}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
-	                <input type="text" placeholder="우편번호" id="zonecode2">
+	                <input type="text" placeholder="우편번호" id="zonecode" value="${addr[0]}">
 	                <input type="button" value="주소찾기" id="findAddr">
 	                <div>
-	                  &emsp;&emsp;&emsp;&emsp;<input type="text" size="35" placeholder="도로명주소 또는 지번주소" id="addr">
+	                  &emsp;&emsp;&emsp;&emsp;<input type="text" size="35" placeholder="도로명주소 또는 지번주소" id="addr" value="${addr[1]}">
 	                </div>
-	                &emsp;&emsp;&emsp;&emsp;<input type="text" placeholder="상세 주소란" id="detailAddr">    
-	                <input type="text" placeholder="동" id="extraAddr">
+	                &emsp;&emsp;&emsp;&emsp;<input type="text" placeholder="상세 주소란" id="detailAddr" value="${addr[2]}">    
+	                <input type="text" placeholder="동" id="extraAddr" value="${addr[3]}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">연락처</span>
 	                <input type="tel" id="tel" value="${info.tel}">
@@ -178,14 +187,12 @@
         <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
           <div class="accordion-body" id="orderlist">
             <table class="table table-striped">
-              <tr>
-                <td>번호</td>
-                <td>이미지</td>
-                <td>상품명</td>
-                <td>수량</td>
-                <td>가격</td>
-                <td>배송비</td>
-              </tr>
+                <th>번호</th>
+                <th>이미지</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>가격</th>
+                <th>배송비</th>
               <!-- 동적 테이블 들어와야 함. -->
               <tr>
                 <td>1</td>
@@ -228,7 +235,7 @@
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample3">
           <div class="accordion-body">
-            <div>적립금<p>(사용 가능: ${info.points}원)</p></div>
+            <div>적립금<p>(사용 가능: <span style="font-weight: bold;">${info.points}원</span>)</p></div>
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="${info.points}원" aria-label="?" aria-describedby="button-addon">
               <button class="btn btn-outline-primary" type="button" id="button-addon">전액사용</button>
@@ -248,16 +255,16 @@
         <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample4">
           <div class="accordion-body" id="paymentInfo">
             <p>주문상품
-              <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
+              <input type="text" placeholder="n원" style="float: right; text-align: right;" id="priceSum" disabled>
             </p>
             <p>할인
-              <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
+              <input type="text" placeholder="n원" style="float: right; text-align: right;" id="discount" disabled>
             </p>
             <p>배송비
-              <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
+              <input type="text" placeholder="n원" style="float: right; text-align: right;" id="deliveryCharge" disabled>
             </p>
-            <span class="badge bg-primary" style="font-size: 18px;">총 결제 금액</span>
-            <input type="text" placeholder="n원" style="float: right; text-align: right;" disabled>
+            <span class="badge bg-primary" style="font-size: 18px; font-weight: bold;">총 결제 금액</span>
+            <input type="text" placeholder="n원" style="float: right; text-align: right;" id="totalSum" disabled>
           </div>
         </div>
       </div>

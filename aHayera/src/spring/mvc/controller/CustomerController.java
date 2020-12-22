@@ -3,6 +3,7 @@ package spring.mvc.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,11 +69,12 @@ public class CustomerController {
 		return "0";
 	}
 	
-	
-	@RequestMapping(value= "/reviewList.do",produces = "application/text;charset=utf-8")
-	public String selectReview(ReviewVO vo, Model m) {
+	//리뷰 목록 불러오기
+	@RequestMapping(value= "/productDetail.do",produces = "application/text;charset=utf-8")
+	public void selectReview(ReviewVO vo, Model m, HttpSession session) {
 		
-		customerserive.selectReview(vo);
-		return "redirect:/main.jsp";
+		
+		m.addAttribute("reviewList",customerserive.selectReview(vo));
+		
 	}
 }

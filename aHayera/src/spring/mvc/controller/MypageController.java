@@ -21,8 +21,10 @@ public class MypageController {
 
 	// 마이페이지 기존의 저장값 불러오기
 	@RequestMapping("/mypage.do")
-	public void getAllById(CustomerVO vo, Model m) {
-
+	public void getAllById(CustomerVO vo, Model m,HttpSession session) {	
+		
+		vo.setCustomer_id((String)session.getAttribute("login"));
+		
 		CustomerVO result = service.getAllById(vo);
 		String add = result.getAddress();
 		String[] addAry = add.split("/");
@@ -41,9 +43,9 @@ public class MypageController {
 
 		//System.out.println("updateMypageContriller");
 
-		service.updateMypage(vo);
+		CustomerVO cvo = service.updateMypage(vo);
 
-//		m.addAttribute("result", vo);
+		m.addAttribute("result",cvo);
 
 		return "redirect:/mypage.do";
 

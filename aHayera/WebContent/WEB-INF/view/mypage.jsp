@@ -271,7 +271,7 @@ login_wrap {
 						<input type="text" size="35"
 								placeholder="도로명주소 또는 지번주소" id="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;><br>
 									
-						<input type="text" placeholder="상세 주소란" id="detailAddr" value='${juso[2]}'> 
+						<input type="text" placeholder="상세 주소란" id="detailAddr" name='address' value='${juso[2]}'> 
 							<input type="text" placeholder="동" id="extraAddr" value='${juso[3]}'>
 							</td>
 							</tr>

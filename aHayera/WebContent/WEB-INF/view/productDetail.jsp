@@ -12,7 +12,7 @@
 	<link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<link href="css/ct-navbar.css" rel="stylesheet" />
 	<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-	 <script src="js/bootstrap.js" type="text/javascript"></script>
+ 	<script src="js/bootstrap.js" type="text/javascript"></script>
 	<script src="js/ct-navbar.js"></script>
 	<!--     Font Awesome     -->
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -354,16 +354,19 @@
 		<!-- end main -->
 		
 		<script type="text/javascript">
+		// 수량 변경
 		function change(num){
-			alert(customer_id)
 			var x = $('#spinner').val();
 			var y = Number(x)+num;
 			
 			if(x==1) $('#spinner').val(1);
 			$('#spinner').val(y);
-		
-			
-		}
+			// 수량에 1 이상만 들어올 수 있게
+			if(y<1){
+				alert("한 개 이상 가능합니다.");
+				$("#spinner").val(1);
+			}
+		} // end of change(num)
 
 		//게시판 눌렀을 때 ajax로 변환
 		$('.detail-board-list a').click(function() {

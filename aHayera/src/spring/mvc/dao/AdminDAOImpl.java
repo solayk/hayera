@@ -19,8 +19,8 @@ public class AdminDAOImpl implements AdminDAO {
 		return (AdminVO) mybatis.selectOne("AdminDAO.adminLogin",vo);
 	}
 	
-	public List<ProductVO> adminProduct(ProductVO vo) {
-		return mybatis.selectList("AdminDAO.adminProduct",vo);
+	public List<ProductVO> adminSearchProduct(String search) {
+		return mybatis.selectList("AdminDAO.adminSearchProduct",search);
 	}
 	
 	public void insertProduct(ProductVO vo) {

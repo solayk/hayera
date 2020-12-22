@@ -19,8 +19,8 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminLogin(vo);
 	}
 	
-	public List<ProductVO> adminProduct(ProductVO vo) {
-		return adminDAO.adminProduct(vo);
+	public List<ProductVO> adminSearchProduct(String search) {
+		return adminDAO.adminSearchProduct(search);
 	}
 	
 	public void insertProduct(ProductVO vo) {

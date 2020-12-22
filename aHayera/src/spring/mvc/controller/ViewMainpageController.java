@@ -31,7 +31,7 @@ public class ViewMainpageController {
 //	전체 상품 목록 보여주기
 	@RequestMapping("/viewAllProduct.do")
 	@ResponseBody
-	public List<ProductVO> viewAllproduct(ProductVO vo)	{ 
+	public List<ProductVO> viewAllproduct(ProductVO vo, Model model)	{ 
 		List<ProductVO> list = viewMainpageService.viewAllproduct(vo); 
 		return list;
 	}

@@ -69,13 +69,9 @@
               width: 100%;
             }
 
-            .table td>select {}
-
             .uploadPreview>img {
-              width: 2 00px;
+              width: 200px;
             }
-
-            .adminProduct_tableHeader {}
           </style>
 
           <script type="text/javascript">
@@ -114,7 +110,29 @@
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
                 success: function (data) {
 
+                  $('#nextProd_no').val(data.length + 1);
+
                   for (i = 0; i < data.length; i++) {
+                    $('.viewAllProduct').append(
+                      '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
+                      + '<td>' + data[i].prod_no + '</td>'
+                      + '<td>' + data[i].prod_name + '</td>'
+                      + '<td>' + data[i].brand + '</td>'
+                      + '<td>' + data[i].category + '</td>'
+                      + '<td>' + data[i].price + '</td>'
+                      + '<td>' + data[i].cost_price + '</td>'
+                      + '<td>' + data[i].discount_price + '</td>'
+                      + '<td>' + data[i].capacity + '</td>'
+                      + '<td>' + data[i].avg_rating + '</td>'
+                      + '<td>' + data[i].totalsales + '</td>'
+                      + '<td>' + data[i].stock + '</td>'
+                      + '<td>' + data[i].scent + '</td>'
+                      + '<td>' + data[i].scent_rating + '</td>'
+                      + '<td>' + data[i].feel + '</td>'
+                      + '<td>' + data[i].feel_rating + '</td>'
+                      + '<td><input type="button" value="수정"></td>'
+                      + '</tr>'
+                    )
                     data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
                   }
                   dataList = data; // 검색을 위한 데이터 저장
@@ -138,31 +156,53 @@
                 position: { my: "center top", at: "center bottom" }
               }) /* ---- end of 상품 검색 자동완성 */
 
-              $('#search-product').keyup(function (e) {
-                if (e.keyCode == 13) {
-                  alert("1");
+              $('#search-product').keyup(function (key) {
+                if (key.keyCode == 13) {
+
+                  $('.viewAllProduct').empty();
+
+                  var info = {
+                    search: $('#search-product').val()
+                  }
+
+                  $.ajax({
+                    type: "POST",
+                    data: info,
+                    dataType: "json",
+                    url: "adminSearchProduct.do",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+                    success: function (data) {
+                      for (i = 0; i < data.length; i++) {
+                        $('.viewAllProduct').append(
+                          '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
+                          + '<td>' + data[i].prod_no + '</td>'
+                          + '<td>' + data[i].prod_name + '</td>'
+                          + '<td>' + data[i].brand + '</td>'
+                          + '<td>' + data[i].category + '</td>'
+                          + '<td>' + data[i].price + '</td>'
+                          + '<td>' + data[i].cost_price + '</td>'
+                          + '<td>' + data[i].discount_price + '</td>'
+                          + '<td>' + data[i].capacity + '</td>'
+                          + '<td>' + data[i].avg_rating + '</td>'
+                          + '<td>' + data[i].totalsales + '</td>'
+                          + '<td>' + data[i].stock + '</td>'
+                          + '<td>' + data[i].scent + '</td>'
+                          + '<td>' + data[i].scent_rating + '</td>'
+                          + '<td>' + data[i].feel + '</td>'
+                          + '<td>' + data[i].feel_rating + '</td>'
+                          + '<td><input type="button" value="수정"></td>'
+                          + '</tr>'
+                        )
+                      }
+                    },
+                    error: function (err) {
+                      alert("에러가 발생했습니다: adminProduct.jsp --- 검색결과 불러오기 에러"); /* 에러 발생시 메시지 */
+                    }
+                  });
+
                 }
-              })
-
+              });
             });
-
-            function getCurrentDate() {
-              var today = new Date();
-              var dd = today.getDate();
-              var mm = today.getMonth() + 1; //January is 0
-              var yyyy = today.getFullYear();
-
-              if (dd < 10) {
-                dd = "0" + dd
-              }
-
-              if (mm < 10) {
-                mm = "0" + mm
-              }
-
-              today = mm + "-" + dd + "-" + yyyy;
-              return today;
-            }
 
           </script>
 
@@ -324,10 +364,8 @@
                                 </tr>
                               </thead>
                               <tr>
-                                <c:set var="length" value="${fn:length(productList)}" />
-                                <c:set var="nextProd_no" value="${length + 1}" />
-                                <td><input type="text" name="prod_no" class=".adminProduct_input"
-                                    value="<c:out value='${nextProd_no}'/>" style="border: none; " readonly></td>
+                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="nextProd_no"
+                                    value="" style="border: none;" readonly></td>
                                 <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
                                 <td><input type="text" name="brand" class=".adminProduct_input" required></td>
                                 <td>
@@ -389,20 +427,21 @@
 
                   <div class="col-md-12">
                     <div class="card">
-                      <div class="card-header">
 
-                          <h4 class="card-title">
-                            <div class="input-group no-border">
-                              <input type="search" value="" class="form-control search-product" id="search-product" placeholder="Search...">
-                              <div class="input-group-append">
-                                <div class="input-group-text">
-                                  <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                </div>
+                      <div class="card-header">
+                        <h4 class="card-title">
+                          <div class="input-group no-border">
+                            <input type="search" value="" class="form-control search-product" id="search-product"
+                              placeholder="Search...">
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <i class="now-ui-icons ui-1_zoom-bold"></i>
                               </div>
                             </div>
-                          </h4>
-
+                          </div>
+                        </h4>
                       </div>
+
                       <div class="card-body">
                         <div class="table-responsive">
                           <form action="" method='post' enctype='multipart/form-data'>
@@ -427,31 +466,8 @@
                                 </tr>
                               </thead>
 
-                              <tbody>
-                                <c:forEach items="${productList }" var="product">
-                                  <tr>
-                                    <td><img class="adminProduct_Img"
-                                        src="/aHayera/resources/upload/${product.img_url }">
-                                    </td>
-                                    <td>${product.prod_no }</td>
-                                    <td>${product.prod_name }</td>
-                                    <td>${product.brand }</td>
-                                    <td>${product.category }</td>
-                                    <td>${product.price }</td>
-                                    <td>${product.cost_price }</td>
-                                    <td>${product.discount_price }</td>
-                                    <td>${product.capacity }</td>
-                                    <td>${product.avg_rating }</td>
-                                    <td>${product.totalsales }</td>
-                                    <td>${product.stock }</td>
-                                    <td>${product.scent }</td>
-                                    <td>${product.scent_rating }</td>
-                                    <td>${product.feel }</td>
-                                    <td>${product.feel_rating }</td>
-                                    <td><input type="button" value="수정"></td>
-                                  </tr>
-                                </c:forEach>
-
+                              <!-- 상품 전체 목록 띄우는 곳 -->
+                              <tbody class="viewAllProduct">
                               </tbody>
 
                             </table>
@@ -465,10 +481,6 @@
                       </div>
                     </div>
                   </div>
-
-
-
-
                 </div>
               </div>
 

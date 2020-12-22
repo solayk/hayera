@@ -43,10 +43,11 @@ public class AdminController {
 		else return "0";
 	}
 	
-	@RequestMapping("/adminProduct.do")
-	public void adminProduct(ProductVO vo, Model model) {
-		List<ProductVO> list = adminService.adminProduct(vo);
-		model.addAttribute("productList",list);
+	@RequestMapping("/adminSearchProduct.do")
+	@ResponseBody
+	public List<ProductVO> adminSearchProduct(String search) {
+		List<ProductVO> list = adminService.adminSearchProduct(search);
+		return list;
 	}
 	
 	@RequestMapping("insertProduct.do")

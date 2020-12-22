@@ -119,7 +119,6 @@
 
 		<script type="text/javascript">
 			$('#adminLoginBtn').click(function () {
-				console.log();
 				var info = {
 					manager_id: $('#manager_id').val(),
 					manager_password: $('#manager_password').val()
@@ -148,7 +147,7 @@
 						}
 					},
 					error: function (err) {
-						alert("에러가 발생했습니다: adminLogin.jsp"); /* 에러 발생시 처리방법 고민해보기 */
+						alert("에러가 발생했습니다: adminLogin.jsp --- 관리자 로그인 에러"); /* 에러 발생시 메시지 */
 					}
 				});
 			});

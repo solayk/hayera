@@ -14,7 +14,7 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.service.MypageServiceImple;
 
 @Controller
-public class MypageController {
+public class MypageController { 
 
 	@Autowired
 	private MypageServiceImple service;
@@ -45,7 +45,7 @@ public class MypageController {
 
 //		m.addAttribute("result", vo);
 
-		return "redirect://mypage.do";
+		return "redirect:/mypage.do";
 
 	}
 }

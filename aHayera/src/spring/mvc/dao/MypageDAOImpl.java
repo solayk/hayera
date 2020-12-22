@@ -9,7 +9,7 @@ import spring.mvc.domain.CustomerVO;
 @Repository
 public class MypageDAOImpl implements MypageDAO{
 	
-	@Autowired
+	@Autowired 
 	private SqlSessionTemplate mybatis;  
 	
 	//기존애 저장 정보 받아오기
@@ -22,11 +22,11 @@ public class MypageDAOImpl implements MypageDAO{
 	//수정하고 받은 값. 리턴값 맞지 않음.. 고민중...ㅠㅠ
 	public  CustomerVO  updateMypage(CustomerVO vo) {
 		//System.out.println("mybatis updateMypage 호호출");
-		mybatis.update("MypageDAO.updateMypage", vo);  //update는 int로 return 값을 받는다 주의
+		mybatis.update("MypageDAO.updateMypage", vo); 
 		
 		CustomerVO result = mybatis.selectOne("MypageDAO.getAllById", vo);
-		//System.out.println("result"+result);
-		return result;//
+
+		return result;
 	}
 
 

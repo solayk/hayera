@@ -11,7 +11,7 @@ import spring.mvc.domain.CustomerVO;
 public class MypageServiceImple implements MypageService {  
 
 	@Autowired
-	private MypageDAOImpl mypagedao;
+	private MypageDAOImpl mypagedao; 
 	@Override
 	public CustomerVO getAllById(CustomerVO vo) {
 		CustomerVO result = mypagedao.getAllById(vo);

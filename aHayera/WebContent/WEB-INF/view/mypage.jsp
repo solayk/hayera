@@ -114,6 +114,8 @@ login_wrap {
         });
         
       $('#ok_btn').click(function(){
+    	  alert('수정되었습니다.')
+    	  
     	  $('#frm').submit();
       });
         
@@ -253,7 +255,7 @@ login_wrap {
 							</td>
 						</tr>
 						<br>
-						<br>   
+						<br>    
 						<tr>
 							<td>e-mail: <input name="email" type="text" value='${result.email}'>
 							</td>

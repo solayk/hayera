@@ -1,5 +1,7 @@
 package spring.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.sf.json.JSONArray;
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.AdminService;
@@ -42,7 +45,8 @@ public class AdminController {
 	
 	@RequestMapping("/adminProduct.do")
 	public void adminProduct(ProductVO vo, Model model) {
-		model.addAttribute("productList",adminService.adminProduct(vo));
+		List<ProductVO> list = adminService.adminProduct(vo);
+		model.addAttribute("productList",list);
 	}
 	
 	@RequestMapping("insertProduct.do")

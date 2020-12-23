@@ -1,0 +1,81 @@
+/* 하예라 전용 CSS */
+
+/* adminProduct.jsp */
+/* adminProduct.jsp */
+/* adminProduct.jsp */
+
+.adminProduct_Img {
+	max-width: 50px;
+	min-width: 50px;
+}
+
+.card-header > h4 {
+	text-align: left;
+}
+
+.card-header > input {
+	float: right;
+}
+
+.table td > input {
+	width: 100%;
+}
+
+.table>thead>tr>th {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.uploadPreview > img {
+	width: 200px;
+}
+
+.configBtns > button {
+	background-color: transparent;
+	border-color: transparent;
+	border: 0;
+	outline: 0;
+	display: inline-block;
+}
+
+.btnRegister,
+.btnEdit {
+	float: right;
+	height: 30px;
+	font-weight: bold;
+	font-size: 12px;
+	text-shadow: none;
+	min-width: 100px;
+	border-radius: 50px;
+	line-height: 13px;
+	color: #fff;
+	background-color: #22456C;
+	border-color: transparent;
+}
+
+/* 파일 업로드 버튼 양식 */
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: white;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #1A385C;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: 50px;
+}
+
+.filebox input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}

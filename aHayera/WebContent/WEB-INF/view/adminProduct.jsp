@@ -14,12 +14,10 @@
           <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
           <title>관리자 - 상품관리</title>
 
-          <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-            name='viewport' />
+          <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
           <!--     Fonts and icons     -->
           <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-            integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
           <!-- CSS Files -->
           <link href="./css/bootstrap.min.css" rel="stylesheet" />
           <link href="./css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
@@ -34,86 +32,15 @@
           <!-- 검색 autocomplete 목적-->
           <script src="autocomplete/jquery-ui.min.js"></script>
           <!-- Data Table -->
+          <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css"/>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
-          <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
           <script src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/stringMonthYear.js"></script>
           <!-- 추가 아이콘 -->
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-          <!-- CSS adminProduct Only => 추후 css 파일에 통합 -->
-          <style type="text/css">
-            .adminProduct_Img {
-              max-width: 50px;
-              min-width: 50px;
-            }
-
-            .card-header>h4 {
-              text-align: left;
-            }
-
-            .card-header>input {
-              float: right;
-            }
-
-            adminProduct_addTable,
-            adminProduct_editTable {
-              background: transparent;
-              box-shadow: none;
-            }
-
-            adminProduct_addTable card-header,
-            adminProduct_addTable card-footer,
-            adminProduct_editTable card-header,
-            adminProduct_editTable card-footer {
-              margin-left: 0;
-              margin-right: 0;
-              background-color: transparent;
-            }
-
-            adminProduct_addTable .card-body,
-            adminProduct_editTable .card-body {
-              padding-left: 2px;
-              padding-right: 2px;
-            }
-
-            .table td>input {
-              width: 100%;
-            }
-
-            .uploadPreview>img {
-              width: 200px;
-            }
-
-            .configBtns>button {
-              background-color: transparent;
-              border-color: transparent;
-              border: 0;
-              outline: 0;
-              display: inline-block;
-            }
-
-            /* sort 클릭 시 이벤트 */
-            .sorting_asc {
-              color: blue;
-            }
-
-            .btnRegister,
-            .btnEdit {
-              float: right;
-              height: 30px;
-              font-weight: bold;
-              font-size: 12px;
-              text-shadow: none;
-              min-width: 100px;
-              border-radius: 50px;
-              line-height: 13px;
-              color: #fff;
-              background-color: #22456C;
-              border-color: transparent;
-            }
-            
-          </style>
+          <!-- 전용 CSS 연결 -->
+          <link href="./css/hayera.css" rel="stylesheet" />
 
           <script type="text/javascript">
             $(document).ready(function () {
@@ -355,8 +282,9 @@
                     </form>
                     <ul class="navbar-nav">
                       <li class="nav-item">
-                        <a class="nav-link" href="adminLogout.do" data-toggle="tooltip" data-placement="top" title="로그아웃">
-                          <i class="now-ui-icons users_circle-08"></i>
+                        <a class="nav-link" href="adminLogout.do" data-toggle="tooltip" data-placement="top"
+                          title="로그아웃">
+                          <i class="now-ui-icons users_circle-08"></i> LOGOUT
                           <p>
                             <span class="d-lg-none d-md-block">Account</span>
                           </p>
@@ -447,7 +375,7 @@
                               </tr>
                               <tr>
                                 <td>사진업로드</td>
-                                <td colspan="3"><input type="file" name="file" id="file" required></td>
+                                <td colspan="3"><div class="filebox"><label for="file">업로드</label><input type="file" name="file" id="file" required></div></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -543,8 +471,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btnEdit" value="등록"><i
-                                      class="fa fa-plus"></i> 수정하기</button></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnEdit" value="수정"> 수정하기</button></td>
                               </tr>
                             </table>
                           </form>
@@ -578,24 +505,24 @@
                           <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
-                                <tr>
+                                <tr class="viewAllProductTH">
+                                  <th scope="col">제품</th>
+                                  <th scope="col" style="max-width: 40px; min-width: 40px;">번호</th>
+                                  <th scope="col" style="width: 150px; min-width: 150px;">이름</th>
+                                  <th scope="col" style="max-width: 80px; min-width: 80px;">브랜드</th>
+                                  <th scope="col" style="max-width: 80px; min-width: 80px;">카테고리</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">가격</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">원가</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">할인가</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">용량</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">평점</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">판매</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">재고</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">향</th>
                                   <th scope="col"></th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">번호</th>
-                                  <th scope="col" style="width: 300px; min-width: 200px;">이름</th>
-                                  <th scope="col">브랜드</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">카테고리</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">가격</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">원가</th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">할인가</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">용량</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">평점</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">판매</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">재고</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">향</th>
+                                  <th scope="col" style="max-width: 50px;min-width: 50px;">촉감</th>
                                   <th scope="col"></th>
-                                  <th scope="col" style="max-width: 70px;min-width: 70px;">촉감</th>
-                                  <th scope="col"></th>
-                                  <th scope="col" style="width: 100px; max-width: 100px;min-width: 100px;"></th>
+                                  <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>
 

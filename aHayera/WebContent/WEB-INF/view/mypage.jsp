@@ -11,6 +11,7 @@
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
  <script src="js/bootstrap.js" type="text/javascript"></script>
 <link href="css/bootstrap.css" rel="stylesheet" />
+
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link href="css/ct-navbar.css" rel="stylesheet" />
 
@@ -150,12 +151,11 @@ login_wrap {
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand navbar-brand-logo"
-							href="http://www.creative-tim.com">
-							<div class="logo">
-								<img src="./images/logo_only_transparent_small.png">
-							</div>
-							<div class="brand">HAYERA</div>
+						 <a class="navbar-brand navbar-brand-logo" href="main.jsp">
+                <div class="logo">
+                  <img src="./images/logo_only_transparent_small.png">
+                </div>
+                <div class="brand"> HAYERA </div>
 						</a>
 					</div>
 					<!-- Collect the nav links, forms, and other content for toggling -->

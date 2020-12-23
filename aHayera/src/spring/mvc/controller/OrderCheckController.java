@@ -41,7 +41,7 @@ public class OrderCheckController {
 		m.addAttribute("addr",addrAry);
 		return "orderCheck";
 	}
-	// 주문 (현재는 로그인 한 회원의 정보를 주문 테이블 데이터로 저장하는 메소드가 되어버렸음.. 즉, 기본 배송지 설정 or '회원 정보와 동일' 선택 후 주문 시 적용)
+	// 주문 (현재는 로그인 한 회원의 정보를 주문 테이블 데이터로 저장하는 메소드가 되어버렸음.. 즉, 기본 배송지 설정 or '회원 정보와 동일' 선택한 상태의 주문 정보 저장임.)
 	// '주문/결제 페이지'에서 결제하기 눌렀을 때 고객&제품 정보들을 갖고 넘어가 (어디로? -> paymentComplete.jsp로) 면서 orderlist, orderlist_product 테이블에 데이터 저장할거야. 
 	@RequestMapping("/paymentComplete.do")
 	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, HttpSession session){
@@ -75,6 +75,10 @@ public class OrderCheckController {
 		op.setOrder_no(order_no);
 		
 		orderService.insertOrder_Product(op);
+	}
+	@RequestMapping("/orderHistory.do")
+	public void orderHistory() {
+		
 	}
 	
 

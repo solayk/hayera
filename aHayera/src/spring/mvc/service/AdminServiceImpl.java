@@ -34,4 +34,8 @@ public class AdminServiceImpl implements AdminService {
 	public void adminEditProduct (ProductVO vo) {
 		adminDAO.adminEditProduct(vo);
 	}
+	
+	public void adminRemoveProduct(String prod_no) {
+		adminDAO.adminRemoveProduct(prod_no);
+	}
 }

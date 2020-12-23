@@ -42,6 +42,12 @@ public class AdminController {
 		else return "0";
 	}
 	
+	@RequestMapping("/adminLogout.do")
+	public String logout(HttpSession session) {
+        session.removeAttribute("admin_id");
+		return "redirect:/main.jsp";
+	} // ----- end of adminLogout.do
+	
 	// 상품 추가하기	
 	@RequestMapping("insertProduct.do")
 	public String insertProduct(ProductVO vo, String s_price, String s_cost_price, String s_discount_price, String s_capacity, String s_stock) {
@@ -85,5 +91,11 @@ public class AdminController {
 		return "redirect:/adminProduct.do";
 	}
 	
+	// 상품 삭제하기
+	@RequestMapping("/adminRemoveProduct.do")
+	@ResponseBody
+	public void adminRemoveProduct(String prod_no) {
+		adminService.adminRemoveProduct(prod_no);
+	}
 	
 }

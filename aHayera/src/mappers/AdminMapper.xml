@@ -38,5 +38,13 @@
 		, DISCOUNT_PRICE = #{discount_price}, CAPACITY = #{capacity}, SCENT = #{scent}, FEEL = #{feel}, PRODUCT_EXPLAIN = #{product_explain} WHERE PROD_NO = #{prod_no}
 		]]>
 	</update>
+	
+	<select id="adminRemoveProduct" parameterType="String">
+		<![CDATA[
+		DELETE 
+		FROM PRODUCT
+		WHERE PROD_NO = #{value}
+		]]>
+	</select>
 
 </mapper>

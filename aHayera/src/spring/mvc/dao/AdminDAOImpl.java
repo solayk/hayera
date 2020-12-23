@@ -34,4 +34,8 @@ public class AdminDAOImpl implements AdminDAO {
 	public void adminEditProduct (ProductVO vo) {
 		mybatis.update("AdminDAO.adminEditProduct", vo);
 	}
+	
+	public void adminRemoveProduct (String prod_no) {
+		mybatis.delete("AdminDAO.adminRemoveProduct", prod_no);
+	}
 }

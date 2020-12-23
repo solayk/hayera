@@ -16,4 +16,6 @@ public interface AdminService {
 	public ProductVO adminEditTarget (ProductVO vo);
 	
 	public void adminEditProduct (ProductVO vo);
+	
+	public void adminRemoveProduct(String prod_no);
 }

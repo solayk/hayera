@@ -9,7 +9,11 @@ public interface AdminDAO {
 	
 	public AdminVO adminLogin(AdminVO vo);
 	
+	public void insertProduct(ProductVO vo);
+
 	public List<ProductVO> adminSearchProduct(String search);
 	
-	public void insertProduct(ProductVO vo);
+	public ProductVO adminEditTarget(ProductVO vo);
+	
+	public void adminEditProduct (ProductVO vo);
 }

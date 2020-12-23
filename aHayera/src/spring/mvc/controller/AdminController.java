@@ -42,6 +42,19 @@ public class AdminController {
 		else return "0";
 	}
 	
+	// 상품 추가하기	
+	@RequestMapping("insertProduct.do")
+	public String insertProduct(ProductVO vo, String s_price, String s_cost_price, String s_discount_price, String s_capacity, String s_stock) {
+		vo.setPrice(Integer.parseInt(s_price.replaceAll(",", "")));
+		vo.setCost_price(Integer.parseInt(s_cost_price.replaceAll(",", "")));
+		vo.setDiscount_price(Integer.parseInt(s_discount_price.replaceAll(",", "")));
+		vo.setCapacity(Integer.parseInt(s_capacity.replaceAll(",", "")));
+		vo.setStock(Integer.parseInt(s_stock.replaceAll(",", "")));
+		adminService.insertProduct(vo);
+		return "redirect:/adminProduct.do";
+	}
+
+	// 상품 : AJAX로 자동완성
 	@RequestMapping("/adminSearchProduct.do")
 	@ResponseBody
 	public List<ProductVO> adminSearchProduct(String search) {
@@ -49,9 +62,26 @@ public class AdminController {
 		return list;
 	}
 	
-	@RequestMapping("insertProduct.do")
-	public String insertProduct(ProductVO vo) {
-		adminService.insertProduct(vo);
+	// 수정할 상품 정보 가져오기
+	@RequestMapping("/adminEditTarget.do")
+	@ResponseBody
+	public ProductVO adminEditTarget(ProductVO vo) {
+		ProductVO data = adminService.adminEditTarget(vo);
+		return data;
+	}
+	
+	// 상품 수정하기
+	@RequestMapping("/adminEditProduct.do")
+	public String adminEditProduct(ProductVO vo, String prod_no, String s_price, String s_cost_price, String s_discount_price, String s_capacity, String s_stock) {
+		System.out.println(prod_no);
+		System.out.println(vo.getProd_no());
+		vo.setPrice(Integer.parseInt(s_price.replaceAll(",", "")));
+		vo.setCost_price(Integer.parseInt(s_cost_price.replaceAll(",", "")));
+		vo.setDiscount_price(Integer.parseInt(s_discount_price.replaceAll(",", "")));
+		vo.setCapacity(Integer.parseInt(s_capacity.replaceAll(",", "")));
+		vo.setStock(Integer.parseInt(s_stock.replaceAll(",", "")));
+		System.out.println(vo.getProd_name());
+		adminService.adminEditProduct(vo);
 		return "redirect:/adminProduct.do";
 	}
 	

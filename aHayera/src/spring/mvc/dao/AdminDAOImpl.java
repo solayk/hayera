@@ -16,15 +16,22 @@ public class AdminDAOImpl implements AdminDAO {
 	private SqlSessionTemplate mybatis;
 	
 	public AdminVO adminLogin(AdminVO vo) {
-		return (AdminVO) mybatis.selectOne("AdminDAO.adminLogin",vo);
-	}
-	
-	public List<ProductVO> adminSearchProduct(String search) {
-		return mybatis.selectList("AdminDAO.adminSearchProduct",search);
+		return (AdminVO) mybatis.selectOne("AdminDAO.adminLogin", vo);
 	}
 	
 	public void insertProduct(ProductVO vo) {
-		mybatis.insert("AdminDAO.insertProduct",vo);
+		mybatis.insert("AdminDAO.insertProduct", vo);
 	}
 
+	public List<ProductVO> adminSearchProduct(String search) {
+		return mybatis.selectList("AdminDAO.adminSearchProduct", search);
+	}
+
+	public ProductVO adminEditTarget(ProductVO vo) {
+		return mybatis.selectOne("AdminDAO.adminEditTarget", vo);
+	}
+	
+	public void adminEditProduct (ProductVO vo) {
+		mybatis.update("AdminDAO.adminEditProduct", vo);
+	}
 }

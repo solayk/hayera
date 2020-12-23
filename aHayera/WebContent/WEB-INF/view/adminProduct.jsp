@@ -35,11 +35,12 @@
           <script src="autocomplete/jquery-ui.min.js"></script>
           <!-- Data Table -->
           <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
           <script src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/stringMonthYear.js"></script>
           <!-- 추가 아이콘 -->
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-          
+
           <!-- CSS adminProduct Only => 추후 css 파일에 통합 -->
           <style type="text/css">
             .adminProduct_Img {
@@ -55,7 +56,8 @@
               float: right;
             }
 
-            .adminProduct_addTable, .adminProduct_editTable {
+            .adminProduct_addTable,
+            .adminProduct_editTable {
               background: transparent;
               box-shadow: none;
             }
@@ -70,7 +72,7 @@
             }
 
             .adminProduct_addTable .card-body,
-            .adminProduct_editTable .card-body{
+            .adminProduct_editTable .card-body {
               padding-left: 0;
               padding-right: 0;
             }
@@ -82,20 +84,34 @@
             .uploadPreview>img {
               width: 200px;
             }
-            
-            .configBtns > button{
+
+            .configBtns>button {
               background-color: transparent;
               border-color: transparent;
               border: 0;
               outline: 0;
               display: inline-block;
             }
-            
+
             /* sort 클릭 시 이벤트 */
             .sorting_asc {
               color: blue;
             }
-            
+
+            .btnRegister,
+            .btnEdit {
+              float: right;
+              height: 30px;
+              font-weight: bold;
+              font-size: 12px;
+              text-shadow: none;
+              min-width: 100px;
+              border-radius: 50px;
+              line-height: 13px;
+              color: #fff;
+              background-color: #22456C;
+              border-color: transparent;
+            }
           </style>
 
           <script type="text/javascript">
@@ -133,9 +149,10 @@
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
                 success: function (data) {
-
+				  
+                  /* 다음 등록 상품 번호 자동 입력 */
                   $('#nextProd_no').val(data.length + 1);
-
+                  
                   for (i = 0; i < data.length; i++) {
                     $('.viewAllProduct').append(
                       '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
@@ -143,13 +160,13 @@
                       + '<td>' + data[i].prod_name + '</td>'
                       + '<td>' + data[i].brand + '</td>'
                       + '<td>' + data[i].category + '</td>'
-                      + '<td data-table-header="가격">' + data[i].price + '</td>'
-                      + '<td>' + data[i].cost_price + '</td>'
-                      + '<td>' + data[i].discount_price + '</td>'
-                      + '<td>' + data[i].capacity + '</td>'
+                      + '<td data-table-header="가격">' + numberWithCommas(String(data[i].price)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].cost_price)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].discount_price)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].capacity)) + '</td>'
                       + '<td>' + data[i].avg_rating + '</td>'
-                      + '<td>' + data[i].totalsales + '</td>'
-                      + '<td>' + data[i].stock + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].totalsales)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].stock)) + '</td>'
                       + '<td>' + data[i].scent + '</td>'
                       + '<td>' + data[i].scent_rating + '</td>'
                       + '<td>' + data[i].feel + '</td>'
@@ -183,17 +200,47 @@
               /* 불필요한 정보 삭제 */
               $('#sortTable_wrapper > div:eq(0)').remove();
               $('#sortTable_wrapper > div:eq(1)').remove();
-              
+
               /* 수정버튼 클릭 시 */
               $(document).on('click', '.editProduct', function () {
-            	  $(this).parent().parent().css("background-color","#C6E5F3");
-            	  $('.editProduct').attr("disabled", "disabled");
+                $(this).parent().parent().css("background-color", "#C6E5F3");
+
+                /* DB에서 AJAX로 데이터 가져오기 */
+                var info = {
+                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
+                }
+                $.ajax({
+                  type: "POST",
+                  data: info,
+                  dataType: "json",
+                  url: "adminEditTarget.do",
+                  contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+                  success: function (data) {
+                	  console.log(data.product_explain);
+                    $('#editProductItems > td:nth-child(1) > input').val(data.prod_no);
+                    $('#editProductItems > td:nth-child(2) > input').val(data.prod_name);
+                    $('#editProductItems > td:nth-child(3) > input').val(data.brand);
+                    $('#editProductItems > td:nth-child(4) > select').val(data.category);
+                    $('#editProductItems > td:nth-child(5) > input').val(numberWithCommas(String(data.price)));
+                    $('#editProductItems > td:nth-child(6) > input').val(numberWithCommas(String(data.cost_price)));
+                    $('#editProductItems > td:nth-child(7) > input').val(numberWithCommas(String(data.discount_price)));
+                    $('#editProductItems > td:nth-child(8) > input').val(numberWithCommas(String(data.capacity)));
+                    $('#editProductItems > td:nth-child(9) > input').val(numberWithCommas(String(data.stock)));
+                    $('#editProductItems > td:nth-child(10) > select').val(data.scent);
+                    $('#editProductItems > td:nth-child(11) > select').val(data.feel);
+                    $('#editProductExplain').val(data.product_explain);
+                  },
+                  error: function (err) {
+                    alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
+                  }
+                });
+
+
+                $('.editProduct').attr("disabled", "disabled");
               });
-              
-             
 
             }); // --- end of document ready
-
+            
           </script>
 
         </head>
@@ -323,10 +370,10 @@
               </div>
               <div class="content">
                 <div class="row">
-				
-				<!-- 새 상품 등록 -->
+
+                  <!-- 새 상품 등록 -->
                   <div class="col-md-12">
-                    <div class="card .adminProduct_editTable">
+                    <div class="card .adminProduct_addTable">
                       <div class="card-header">
                         <h4 class="card-title"> 새 상품 등록</h4>
                         <p class="">
@@ -354,8 +401,7 @@
                                 </tr>
                               </thead>
                               <tr>
-                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="nextProd_no"
-                                    value="" style="border: none;" readonly></td>
+                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="nextProd_no" style="border: none;" readonly></td>
                                 <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
                                 <td><input type="text" name="brand" class=".adminProduct_input" required></td>
                                 <td>
@@ -364,11 +410,11 @@
                                     <option value="선크림">선크림</option>
                                   </select>
                                 </td>
-                                <td><input type="text" name="price" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="cost_price" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="discount_price" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="capacity" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="stock" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="s_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_cost_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_discount_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_capacity" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_stock" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td>
                                   <select name="scent" required>
                                     <option value="무향">무향</option>
@@ -399,8 +445,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td align="center"><input type="submit" value="등록" /></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i
+                                      class="fa fa-plus"></i> 등록하기</button></td>
                               </tr>
                             </table>
                           </form>
@@ -410,19 +456,16 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- 상품 수정 -->
                   <div class="col-md-12">
-                    <div class="card .adminProduct_addTable">
+                    <div class="card .adminProduct_editTable">
                       <div class="card-header">
                         <h4 class="card-title"> 상품 수정 </h4>
-                        <p class="">
-                          - 선택한 상품을 수정하세요.<br>
-                        </p>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <form action="insertProduct.do" method='post' enctype='multipart/form-data'>
+                          <form action="adminEditProduct.do" method='post' enctype='multipart/form-data'>
                             <table class="table">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
@@ -439,9 +482,8 @@
                                   <th>촉감</th>
                                 </tr>
                               </thead>
-                              <tr>
-                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="nextProd_no"
-                                    value="" style="border: none;" readonly></td>
+                              <tr id="editProductItems">
+                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="editProd_no" style="border: none;" readonly></td>
                                 <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
                                 <td><input type="text" name="brand" class=".adminProduct_input" required></td>
                                 <td>
@@ -450,11 +492,11 @@
                                     <option value="선크림">선크림</option>
                                   </select>
                                 </td>
-                                <td><input type="text" name="price" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="cost_price" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="discount_price" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="capacity" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="stock" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="s_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_cost_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_discount_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_capacity" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_stock" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td>
                                   <select name="scent" required>
                                     <option value="무향">무향</option>
@@ -474,8 +516,7 @@
                               </tr>
                               <tr>
                                 <td>설명</td>
-                                <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
-                                    required></td>
+                                <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input" id="editProductExplain" required></td>
                               </tr>
                               <tr>
                                 <td></td>
@@ -487,8 +528,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td align="center"><input type="submit" value="수정" /></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnEdit" value="등록"><i
+                                      class="fa fa-plus"></i> 수정하기</button></td>
                               </tr>
                             </table>
                           </form>
@@ -567,14 +608,13 @@
                     &copy;
                     <script>
                       document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-                    </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                    <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                    </script>, Designed by <a href="" target="_blank">HAYERA</a>.
                   </div>
                 </div>
               </footer>
             </div>
           </div>
-          <!--   Core JS Files   -->
+          <!-- Core JS Files   -->
           <script src="./js/popper.min.js"></script>
           <script src="./js/bootstrap.min.js"></script>
           <script src="./js/perfect-scrollbar.jquery.min.js"></script>
@@ -586,6 +626,8 @@
           <script src="./js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
           <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
           <script src="./demo/demo.js"></script>
+          <!-- 하예라 전용 JS Files   -->
+          <script src="./js/hayera.js"></script>
         </body>
 
         </html>

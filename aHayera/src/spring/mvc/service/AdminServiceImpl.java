@@ -19,12 +19,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminLogin(vo);
 	}
 	
+	public void insertProduct(ProductVO vo) {
+		adminDAO.insertProduct(vo);
+	}
+
 	public List<ProductVO> adminSearchProduct(String search) {
 		return adminDAO.adminSearchProduct(search);
 	}
 	
-	public void insertProduct(ProductVO vo) {
-		System.out.println(" == insertProduct // service 진입 == ");
-		adminDAO.insertProduct(vo);
+	public ProductVO adminEditTarget (ProductVO vo) {
+		return adminDAO.adminEditTarget(vo);
+	}
+	
+	public void adminEditProduct (ProductVO vo) {
+		adminDAO.adminEditProduct(vo);
 	}
 }

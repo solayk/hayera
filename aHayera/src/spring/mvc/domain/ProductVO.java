@@ -46,7 +46,6 @@ public class ProductVO {
 			} catch (IOException e) {e.printStackTrace();}
 		}
 	}
-	
 	public String getProd_no() {
 		return prod_no;
 	}

@@ -9,6 +9,15 @@
 		]]>
 	</select>
 
+	<insert id="insertProduct" parameterType="product">
+		<![CDATA[
+		INSERT INTO PRODUCT(PROD_NO,PROD_NAME,BRAND,CATEGORY,PRICE,COST_PRICE,DISCOUNT_PRICE
+		,CAPACITY,SCENT,SCENT_RATING,FEEL,FEEL_RATING,AVG_RATING,TOTALSALES,STOCK,IMG_URL,MANAGER_ID,PRODUCT_EXPLAIN) 
+		VALUES (#{prod_no}, #{prod_name}, #{brand}, #{category}, #{price}, #{cost_price}, #{discount_price}
+		, #{capacity}, #{scent}, 0, #{feel}, 0, 0, #{totalsales}, #{stock}, #{img_url}, 'admin', #{product_explain})
+		]]>
+	</insert>
+	
 	<select id="adminSearchProduct" parameterType="String" resultType="product">
 		<![CDATA[
 		SELECT * 
@@ -16,14 +25,18 @@
 		WHERE PROD_NAME LIKE '%'||#{value}||'%'
 		]]>
 	</select>
-
-	<insert id="insertProduct" parameterType="product">
+	
+	<select id="adminEditTarget" parameterType="product" resultType="product">
 		<![CDATA[
-		INSERT INTO PRODUCT(PROD_NO,PROD_NAME,BRAND,CATEGORY,PRICE,COST_PRICE,DISCOUNT_PRICE
-		,CAPACITY,SCENT,SCENT_RATING,FEEL,FEEL_RATING,AVG_RATING,TOTALSALES,STOCK,IMG_URL,MANAGER_ID) 
-		VALUES (#{prod_no}, #{prod_name}, #{brand}, #{category}, #{price}, #{cost_price}, #{discount_price}
-		, #{capacity}, #{scent}, 0, #{feel}, 0, 0, #{totalsales}, #{stock}, #{img_url}, 'admin')
+		SELECT * FROM PRODUCT WHERE PROD_NO = #{prod_no}
 		]]>
-	</insert>
+	</select>
+	
+	<update id="adminEditProduct">
+		<![CDATA[
+		UPDATE PRODUCT SET PROD_NAME = #{prod_name}, BRAND = #{brand}, CATEGORY = #{category}, PRICE = #{price}, COST_PRICE = #{cost_price}
+		, DISCOUNT_PRICE = #{discount_price}, CAPACITY = #{capacity}, SCENT = #{scent}, FEEL = #{feel}, PRODUCT_EXPLAIN = #{product_explain} WHERE PROD_NO = #{prod_no}
+		]]>
+	</update>
 
 </mapper>

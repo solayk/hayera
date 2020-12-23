@@ -305,10 +305,10 @@
 				<div class='detail-board'>
 					<div class='detail-board-list'>
 						<div>
-							<a data-url="/aHayera/boardfiles/reviewboard.jsp"><span>리뷰게시판</span></a>
+							<a ><span id='reviewboard'>리뷰게시판</span></a>
 						</div>
 						<div>
-							<a data-url="/aHayera/boardfiles/qnaboard.jsp"><span>문의게시판</span></a>
+							<a ><span id='qnaboard'>문의게시판</span></a>
 						</div>
 					</div>
 					<br>
@@ -337,8 +337,8 @@
 												<span class="reviewgogo">
 														<span id="customer_id">${review.customer_id}</span>
 														<span id='birthday'>${review.gender }</span>
-														<span id='skintype'>· ${review.skintype }   </span>
-														<span id='rate'> ·${review.rate }</span>
+														<span id='skintype'>· ${review.skintype }  </span>
+														<span id='rate'> · <img src="/aHayera/images/star_${review.rate }.png"></span>
 														<span style='float:right' id='writeday'>· ${review.writeday} 시간 전</span>
 												</span>
 											</p>
@@ -349,6 +349,9 @@
 							</li>
 						</ul>
 						</c:forEach>
+						</article>
+						<article class="detail-boardmenu-qna">
+						qna 시작
 						</article>
 						
 					​ ​
@@ -378,30 +381,24 @@
 			}
 		} // end of change(num)
 
-		//게시판 눌렀을 때 ajax로 변환
-		$('.detail-board-list a').click(function() {
-			var liurl = $(this).attr('data-url');
-	
-			$.ajax({
-				type :'get',
-				url : liurl,
-        		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-				success : function(data){
-					$('.detail-boardmenu').html(data);
-				},
-				err: function(err){console.log(err)}
-			});
+		//qna게시판 눌렀을 때 qna로 
+		$('#qnaboard').click(function() {
+			$('.detail-boardmenu').hide();
+			$('.detail-boardmenu-qna').show();
 		
 		});
 		
-		//시작하자마자 나이,시간, 평점 계산
-		$(function() {
-			//alert($('#birthday').text());
-			var today = new Date(); 
-			var tohour = today.getFullYear(); //오늘 년도
+		//review게시판 눌렀을 때 review로
+		$('#reviewboard').click(function () {
+			$('.detail-boardmenu-qna').hide();
+			$('.detail-boardmenu').show();
+		});
+		
+		//처음화면은 review
+		 $(function() {
+			$('.detail-boardmenu-qna').hide();
 			
-			
-		})
+		}) 
 		
 		</script>
 	</body>

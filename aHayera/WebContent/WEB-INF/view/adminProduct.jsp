@@ -81,6 +81,10 @@
             .uploadPreview>img {
               width: 200px;
             }
+            
+            .editProduct {
+              width: 10px;
+            }
           </style>
 
           <script type="text/javascript">
@@ -139,8 +143,8 @@
                       + '<td>' + data[i].scent_rating + '</td>'
                       + '<td>' + data[i].feel + '</td>'
                       + '<td>' + data[i].feel_rating + '</td>'
-                      + '<td><input type="button" value="수정" class="editProduct">'
-                      + '<input type="button" value="완료" class="editConfirm" style="display:none"></td>'
+                      + '<td><button class="editProduct" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="pe-7s-pen"></i></button>'
+                      + '<button class="editConfirm" type="button" data-toggle="tooltip" data-placement="top" title="완료"><i class="now-ui-icon shopping_basket"/></i></button></td>'
                       + '</tr>'
                     )
                     data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
@@ -157,7 +161,7 @@
                   { type: 'date', targets: [3] }
                 ],
               });
-
+              
               /* 상품 검색 자동완성 */
               /* $('#search-product').autocomplete({
                 source: dataList,
@@ -178,9 +182,13 @@
                 });
               }); // --- end of #myInput keyup search for product              
 
-
-              // 수정 버튼 클릭 시 (동적 추가 버튼 이벤트를 걸기 위해 이 방식 사용)
+			  
               $(document).on('click', '.editProduct', function () {
+            	  console.log("1");
+              });
+              
+              // 수정 버튼 클릭 시 (동적 추가 버튼 이벤트를 걸기 위해 이 방식 사용)
+              /* $(document).on('click', '.editProduct', function () {
 
                 // 완료버튼 활성화
                 $(this).hide();
@@ -225,7 +233,7 @@
                 $(this).parent().parent().children().eq(8).append('<input type="text" name="capacity" class="" style="width:50%;" required>');
                 $(this).parent().parent().children().eq(8).children('input').val(temp);
 
-              });
+              }); */
 
             }); // --- end of document ready
 

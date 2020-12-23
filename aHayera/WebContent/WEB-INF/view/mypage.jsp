@@ -12,6 +12,10 @@
  <script src="js/bootstrap.js" type="text/javascript"></script>
 <link href="css/bootstrap.css" rel="stylesheet" />
 
+<!-- css -->
+	<link rel="stylesheet" type="text/css" href="css/mypage_util.css">
+	<link rel="stylesheet" type="text/css" href="css/mypage_modify.css">
+	
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link href="css/ct-navbar.css" rel="stylesheet" />
 
@@ -117,18 +121,18 @@ login_wrap {
           $('.costomer').css('top', '-500px');
         });
         
-      /* $('#ok_btn').click(function(){
+       $('#ok_btn').click(function(){
     	  alert('수정되었습니다.')
     	  
     	  $('#frm').submit();
-      }); */
+      }); 
         
-      /* $('#password').click(function(){
+      $('#password').click(function(){
     	  alert('비밀번호를 변경하였습니다');
     	  
     	  $('#frm').submit();
     	  
-      }); */
+      }); 
       
       }) //무조건 function 안에서 실행
       
@@ -228,58 +232,45 @@ login_wrap {
 				<form id="frm" method="get" action="updateMypage.do">
 			  		<table>	
 					<p class="costomer">
-						
-						<개인정보수정> <br>
-						
-						<tr>
-							<td>아이디:<input name = "customer_id" type="text" value="${result.customer_id}" readonly>
-							</td>
-						</tr>
 					
-						<tr>
-							<td>이름:<input name = "name" type="text" value="${result.name}" readonly>
-							</td>
-						</tr>
-						
-						<!-- <tr>
-						 <a>
-							<td>비밀번호: 
-							<input type="text">
-							<input type="button" name="password" id="password" value="변경">
-							</td>
-						 </a>
-						</tr>
-						 -->
-						<tr>
-							<td>전화번호: <input name="tel" type="text" value='${result.tel}'>
-							</td>
-						</tr>
-						
-						<tr>
-							<td>e-mail: <input name="email" type="text" value='${result.email}'>
-							</td>
-						</tr>
-					
-						<tr>
-						<td>
-							주소: <div class="costomer" style="font-size: 18px;"></div>
-						<input type="text" placeholder="우편번호" id="zonecode" name="zonecode" value='${juso[0]}'> 
-						<input type="button" value="주소찾기" id="mypageAddr"><br>
-						<input type="text" size="35"
-								placeholder="도로명주소 또는 지번주소" id="addr" name="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;><br>
-									
-						<input type="text" placeholder="상세 주소란" id="detailAddr" name="detailAddr" value='${juso[2]}'> 
-							<input type="text" placeholder="동" id="extraAddr" name="extraAddr" value='${juso[3]}'>
-							</td>
-							</tr>
-						
+			<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">아이디</span>
+						<input class="input100" type="text" name = "customer_id" type="text" value="${result.customer_id}" readonly >
+						<span class="focus-input100"></span>
+					</div>
+								<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">이름</span>
+						<input class="input100" type="text" name= name = "name" type="text" value="${result.name}" readonly>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">비밀번호</span>
+						<input class="input100" type="button" name="password" id="password"  placeholder="*************">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="Username is required">
+						<span class="label-input100">전화번호</span>
+						<input class="input100" type="text" name="tel" value='${result.tel}'>
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Email</span>
+						<input class="input100" name="email" type="text" value='${result.email}'>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">주소</span>
+						<span class="focus-input100"></span>
+						<input class="input100"type="text" placeholder="우편번호" id="zonecode" name="zonecode" value='${juso[0]} ${juso[1]} ${juso[2]}'>
+					    <input  type="button" value="주소찾기" id="mypageAddr"><br>
+						<span class="focus-input100"></span>
 						<tr>
 							<td><input type="submit" id="ok_btn" value="확인"> 
 							<input type="button" id="cancle_btn" value="취소"></td>
 						</tr>
 				</table>
-			
-
 			</form>
 			</p>
 

@@ -3,15 +3,15 @@
 
   <!DOCTYPE html>
   <html>
-  
+
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
+
     <!-- 타이틀 바 -->
     <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
     <title>관리자 메인</title>
-    
+
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
       name='viewport' />
     <!--     Fonts and icons     -->
@@ -23,7 +23,7 @@
     <link href="./css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="./demo/demo.css" rel="stylesheet" />
-    
+
     <!-- 검색 autocomplete 목적-->
     <link href="autocomplete/jquery-ui.min.css" rel="stylesheet" />
     <link href="autocomplete/jquery-ui.structure.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
     <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
     <!-- 검색 autocomplete 목적-->
     <script src="autocomplete/jquery-ui.min.js"></script>
-    
+
   </head>
 
   <body class="">
@@ -47,35 +47,16 @@
         </div>
         <div class="sidebar-wrapper" id="sidebar-wrapper">
           <ul class="nav">
-            <li class="active ">
+            <li class="active">
               <a href="adminLogin.jsp">
                 <i class="now-ui-icons design_app"></i>
                 <p>관리자 메인</p>
               </a>
             </li>
             <li>
-              <a href="">
-                <i class="now-ui-icons business_chart-pie-36"></i>
-                <p>매출 분석</p>
-              </a>
-            </li>
-            <li>
-            <li>
-              <a href="">
-                <i class="now-ui-icons users_single-02"></i>
-                <p>회원 관리</p>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="now-ui-icons files_paper"></i>
-                <p>재고 관리</p>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="now-ui-icons shopping_delivery-fast"></i>
-                <p>주문 관리</p>
+              <a href="adminCustomer.do">
+                <i class="logoutIcon now-ui-icons users_single-02"></i>
+                <p>고객 관리</p>
               </a>
             </li>
             <li>
@@ -85,6 +66,23 @@
               </a>
             </li>
             <li>
+              <a href="adminStock.do">
+                <i class="now-ui-icons files_paper"></i>
+                <p>재고 관리</p>
+              </a>
+            </li>
+            <li>
+              <a href="adminOrder.do">
+                <i class="now-ui-icons shopping_delivery-fast"></i>
+                <p>주문 관리</p>
+              </a>
+            </li>
+            <li>
+              <a href="adminSales.do">
+                <i class="now-ui-icons business_chart-pie-36"></i>
+                <p>매출 분석</p>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

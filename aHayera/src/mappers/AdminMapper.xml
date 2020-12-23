@@ -46,5 +46,11 @@
 		WHERE PROD_NO = #{value}
 		]]>
 	</select>
+	
+	<select id="viewAllCustomer" resultType="customer">
+		<![CDATA[
+		SELECT * FROM CUSTOMER
+		]]>
+	</select>
 
 </mapper>

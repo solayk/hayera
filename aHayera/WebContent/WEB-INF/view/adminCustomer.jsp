@@ -12,7 +12,7 @@
 
           <!-- 타이틀 바 -->
           <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
-          <title>관리자 - 상품관리</title>
+          <title>관리자 - 고객관리</title>
 
           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
             name='viewport' />
@@ -48,62 +48,38 @@
           <script type="text/javascript">
             $(document).ready(function () {
 
+              $('.adminProduct_addTable').hide();
               $('.adminProduct_editTable').hide();
 
-              $('#file').on('change', function (e) {
-                var files = e.target.files;
-                var filesArr = Array.prototype.slice.call(files);
-
-                var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
-
-                filesArr.forEach(function (f) {
-                  if (!f.type.match(reg)) {
-                    alert("확장자는 이미지 확장자만 가능합니다.");
-                    return;
-                  }
-
-                  sel_file = f;
-
-                  var reader = new FileReader();
-                  reader.onload = function (e) {
-                    $(".uploadPreview > img").attr("src", e.target.result);
-                  }
-                  reader.readAsDataURL(f);
-                });
-              });
-
-              // 검색을 위해 전역변수 선언
+              // 검색을 위해 전역변수 선언 -- 안쓰면 추후 삭제
               var dataList;
 
-              // 전체상품목록
+              // 전체 고객 목록
               $.ajax({
-                url: 'viewAllProduct.do',
+                url: 'viewAllCustomer.do',
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
                 success: function (data) {
 
-                  /* 다음 등록 상품 번호 자동 입력 */
-                  $('#nextProd_no').val(data.length + 1);
-
                   for (i = 0; i < data.length; i++) {
-                    $('.viewAllProduct').append(
-                      '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
-                      + '<td style="text-align:right;">' + data[i].prod_no + '</td>'
-                      + '<td>' + data[i].prod_name + '</td>'
-                      + '<td>' + data[i].brand + '</td>'
-                      + '<td>' + data[i].category + '</td>'
-                      + '<td data-table-header="가격">' + numberWithCommas(String(data[i].price)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].cost_price)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].discount_price)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].capacity)) + '</td>'
-                      + '<td>' + data[i].avg_rating + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].totalsales)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].stock)) + '</td>'
-                      + '<td>' + data[i].scent + '</td>'
-                      + '<td>' + data[i].scent_rating + '</td>'
-                      + '<td>' + data[i].feel + '</td>'
-                      + '<td>' + data[i].feel_rating + '</td>'
+                    $('.viewAllCustomer').append(
+                      '<tr>' + '<td></td>'
+                      + '<td>' + data[i].customer_id + '</td>'
+                      + '<td>' + data[i].tel + '</td>'
+                      + '<td>' + data[i].name + '</td>'
+                      + '<td>' + data[i].email + '</td>'
+                      + '<td>' + data[i].address + '</td>'
+                      + '<td>' + data[i].birthday + '</td>'
+                      + '<td>' + data[i].skintype + '</td>'
+                      + '<td>' + data[i].points + '</td>'
+                      + '<td>' + data[i].gender + '</td>'
+                      + '<td></td>'
+                      + '<td></td>'
+                      + '<td></td>'
+                      + '<td></td>'
+                      + '<td></td>'
+                      + '<td></td>'
                       + '<td class="configBtns"><button class="editProduct" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
                       + '<button class="deleteProduct" type="button" data-toggle="tooltip" data-placement="top" title="삭제"><i class="material-icons">&#xE872;</i></button></td>'
                       + '</tr>'
@@ -125,7 +101,7 @@
 
               $('#search-product').on("keyup", function () {
                 var value = $(this).val().toLowerCase();
-                $('.viewAllProduct > tr').filter(function () {
+                $('.viewAllCustomer > tr').filter(function () {
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
               }); // --- end of #myInput keyup search for product              
@@ -137,8 +113,8 @@
               /* 수정버튼 클릭 시 */
               $(document).on('click', '.editProduct', function () {
 
-                $('.adminProduct_editTable').show();
-                $('.adminProduct_addTable').hide();
+                /* $('.adminProduct_editTable').show();
+                $('.adminProduct_addTable').hide(); */
 
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
@@ -177,9 +153,9 @@
               $(document).on('click', '.deleteProduct', function () {
                 /* DB에서 AJAX로 데이터 삭제하기 */
                 var info = {
-                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
+                  customer_id: $(this).parent().parent('tr').find('td:nth-child(2)').text()
                 }
-                $.ajax({
+                /* $.ajax({
                   type: "POST",
                   data: info,
                   url: "adminRemoveProduct.do",
@@ -190,7 +166,7 @@
                   error: function (err) {
                     alert("에러가 발생했습니다: adminProduct.jsp --- .deleteProduct 에러");
                   }
-                });
+                }); */
               }); // --- end of .deleteProduct click
 
             }); // --- end of document ready
@@ -218,13 +194,13 @@
                       <p>관리자 메인</p>
                     </a>
                   </li>
-                  <li>
+                  <li class="active">
                     <a href="adminCustomer.do">
                       <i class="logoutIcon now-ui-icons users_single-02"></i>
                       <p>고객 관리</p>
                     </a>
                   </li>
-                  <li class="active">
+                  <li>
                     <a href="adminProduct.do">
                       <i class="now-ui-icons shopping_bag-16"></i>
                       <p>상품 등록</p>
@@ -263,7 +239,7 @@
                         <span class="navbar-toggler-bar bar3"></span>
                       </button>
                     </div>
-                    <a class="navbar-brand" href="" style="font-size: 30px">상품 관리</a>
+                    <a class="navbar-brand" href="" style="font-size: 30px">고객 관리</a>
                   </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                     aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -376,11 +352,10 @@
                                     required></td>
                               </tr>
                               <tr>
-                                <td>사진업로드</td>
-                                <td colspan="3">
-                                  <div class="filebox"><label for="file">업로드</label><input type="file" name="file"
-                                      id="file" required></div>
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -391,8 +366,6 @@
                               </tr>
                             </table>
                           </form>
-                          <!-- 미리보기 사진 띄우기 -->
-                          <div class="uploadPreview"><img src=""></div>
                         </div>
                       </div>
                     </div>
@@ -512,28 +485,28 @@
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
                                 <tr class="viewAllProductTH">
-                                  <th scope="col">제품</th>
-                                  <th scope="col" style="max-width: 40px; min-width: 40px;">번호</th>
-                                  <th scope="col" style="width: 150px; min-width: 150px;">이름</th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">브랜드</th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">카테고리</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">가격</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">원가</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">할인가</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">용량</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">평점</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">판매</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">재고</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">향</th>
                                   <th scope="col"></th>
-                                  <th scope="col" style="max-width: 50px;min-width: 50px;">촉감</th>
-                                  <th scope="col"></th>
+                                  <th scope="col" style="max-width: 80px; min-width: 80px;">아이디</th>
+                                  <th scope="col" style="width: 100px; min-width: 100px;">전화번호</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">이름</th>
+                                  <th scope="col" style="max-width: 80px; min-width: 80px;">이메일</th>
+                                  <th scope="col" style="max-width: 150px; min-width: 150px;">주소</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">생일</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">피부타입</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">포인트</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">성별</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">주문</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">방문</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">리뷰</th>
+                                  <th scope="col">평점</th>
+                                  <th scope="col" style="max-width: 50px;min-width: 50px;">문의</th>
+                                  <th scope="col">답변</th>
                                   <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>
 
-                              <!-- 상품 전체 목록 띄우는 곳 -->
-                              <tbody class="viewAllProduct">
+                              <!-- 고객 전체 목록 띄우는 곳 -->
+                              <tbody class="viewAllCustomer">
                               </tbody>
 
                             </table>

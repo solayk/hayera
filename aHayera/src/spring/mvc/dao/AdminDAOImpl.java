@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.AdminVO;
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.ProductVO;
 
 @Repository
@@ -37,5 +38,9 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	public void adminRemoveProduct (String prod_no) {
 		mybatis.delete("AdminDAO.adminRemoveProduct", prod_no);
+	}
+	
+	public List<ProductVO> viewAllCustomer(CustomerVO vo){
+		return mybatis.selectList("AdminDAO.viewAllCustomer", vo);
 	}
 }

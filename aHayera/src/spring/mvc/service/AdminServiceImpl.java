@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import spring.mvc.dao.AdminDAO;
 import spring.mvc.domain.AdminVO;
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.ProductVO;
 
 @Service
@@ -37,5 +38,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	public void adminRemoveProduct(String prod_no) {
 		adminDAO.adminRemoveProduct(prod_no);
+	}
+	
+	public List<ProductVO> viewAllCustomer(CustomerVO vo){
+		return adminDAO.viewAllCustomer(vo);
 	}
 }

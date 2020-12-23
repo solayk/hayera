@@ -3,6 +3,7 @@ package spring.mvc.service;
 import java.util.List;
 
 import spring.mvc.domain.AdminVO;
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.ProductVO;
 
 public interface AdminService {
@@ -18,4 +19,6 @@ public interface AdminService {
 	public void adminEditProduct (ProductVO vo);
 	
 	public void adminRemoveProduct(String prod_no);
+	
+	public List<ProductVO> viewAllCustomer(CustomerVO vo);
 }

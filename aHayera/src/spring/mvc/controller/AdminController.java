@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import net.sf.json.JSONArray;
 import spring.mvc.domain.AdminVO;
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.AdminService;
 
@@ -48,6 +48,8 @@ public class AdminController {
 		return "redirect:/main.jsp";
 	} // ----- end of adminLogout.do
 	
+	
+	// ===== adminProduct.jsp =====	
 	// 상품 추가하기	
 	@RequestMapping("insertProduct.do")
 	public String insertProduct(ProductVO vo, String s_price, String s_cost_price, String s_discount_price, String s_capacity, String s_stock) {
@@ -98,4 +100,13 @@ public class AdminController {
 		adminService.adminRemoveProduct(prod_no);
 	}
 	
+	
+	// ===== adminCustomer.jsp =====
+	//	전체 고객 목록 보여주기
+	@RequestMapping("/viewAllCustomer.do")
+	@ResponseBody
+	public List<ProductVO> viewAllCustomer(CustomerVO vo, Model model)	{ 
+		List<ProductVO> data = adminService.viewAllCustomer(vo); 
+		return data;
+	}
 }

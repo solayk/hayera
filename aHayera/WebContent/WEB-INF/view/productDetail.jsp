@@ -351,7 +351,23 @@
 						</c:forEach>
 						</article>
 						<article class="detail-boardmenu-qna">
-						qna 시작
+						 	<table border='1'>
+						 		<tr>
+						 			<th bgcolor='lightblue' width='150'>작성자</th>
+						 			<th bgcolor='lightblue' width='200'>제목</th>
+						 			<th bgcolor='lightblue' width='300'>내용</th>
+						 			<th bgcolor='lightblue' width='150'>등록일</th>
+						 		</tr>
+						 		<tr>
+						 			<td>testt</td>
+						 			<td>문의드려요</td>
+						 			<td>민감성인데 잘 맞을까요?</td>
+						 			<td>2020/12/23</td>
+						 		
+						 		</tr>
+						 	
+						 	
+						 	</table>
 						</article>
 						
 					​ ​

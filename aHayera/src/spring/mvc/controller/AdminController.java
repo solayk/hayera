@@ -81,14 +81,11 @@ public class AdminController {
 	// 상품 수정하기
 	@RequestMapping("/adminEditProduct.do")
 	public String adminEditProduct(ProductVO vo, String prod_no, String s_price, String s_cost_price, String s_discount_price, String s_capacity, String s_stock) {
-		System.out.println(prod_no);
-		System.out.println(vo.getProd_no());
 		vo.setPrice(Integer.parseInt(s_price.replaceAll(",", "")));
 		vo.setCost_price(Integer.parseInt(s_cost_price.replaceAll(",", "")));
 		vo.setDiscount_price(Integer.parseInt(s_discount_price.replaceAll(",", "")));
 		vo.setCapacity(Integer.parseInt(s_capacity.replaceAll(",", "")));
 		vo.setStock(Integer.parseInt(s_stock.replaceAll(",", "")));
-		System.out.println(vo.getProd_name());
 		adminService.adminEditProduct(vo);
 		return "redirect:/adminProduct.do";
 	}
@@ -105,8 +102,24 @@ public class AdminController {
 	//	전체 고객 목록 보여주기
 	@RequestMapping("/viewAllCustomer.do")
 	@ResponseBody
-	public List<ProductVO> viewAllCustomer(CustomerVO vo, Model model)	{ 
-		List<ProductVO> data = adminService.viewAllCustomer(vo); 
+	public List<CustomerVO> viewAllCustomer(CustomerVO vo, Model model)	{ 
+		List<CustomerVO> data = adminService.viewAllCustomer(vo); 
 		return data;
+	}
+	
+	// 수정할 고객 정보 가져오기
+	@RequestMapping("/adminCustomerEditTarget.do")
+	@ResponseBody
+	public CustomerVO adminCustomerEditTarget(CustomerVO vo) {
+		CustomerVO data = adminService.adminCustomerEditTarget(vo);
+		return data;
+	}
+	
+	// 고객 정보 수정하기
+	@RequestMapping("/adminEditCustomer.do")
+	public String adminEditCustomer(CustomerVO vo) {
+		System.out.println(vo.getSkintype());
+		adminService.adminEditCustomer(vo);
+		return "redirect:/adminCustomer.do";
 	}
 }

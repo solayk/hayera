@@ -118,27 +118,24 @@
 
                 /* DB에서 AJAX로 데이터 가져오기 */
                 var info = {
-                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
+                  customer_id: $(this).parent().parent('tr').find('td:nth-child(2)').text()
                 }
                 $.ajax({
                   type: "POST",
                   data: info,
                   dataType: "json",
-                  url: "adminEditTarget.do",
+                  url: "adminCustomerEditTarget.do",
                   contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
                   success: function (data) {
-                    $('#editProductItems > td:nth-child(1) > input').val(data.prod_no);
-                    $('#editProductItems > td:nth-child(2) > input').val(data.prod_name);
-                    $('#editProductItems > td:nth-child(3) > input').val(data.brand);
-                    $('#editProductItems > td:nth-child(4) > select').val(data.category);
-                    $('#editProductItems > td:nth-child(5) > input').val(numberWithCommas(String(data.price)));
-                    $('#editProductItems > td:nth-child(6) > input').val(numberWithCommas(String(data.cost_price)));
-                    $('#editProductItems > td:nth-child(7) > input').val(numberWithCommas(String(data.discount_price)));
-                    $('#editProductItems > td:nth-child(8) > input').val(numberWithCommas(String(data.capacity)));
-                    $('#editProductItems > td:nth-child(9) > input').val(numberWithCommas(String(data.stock)));
-                    $('#editProductItems > td:nth-child(10) > select').val(data.scent);
-                    $('#editProductItems > td:nth-child(11) > select').val(data.feel);
-                    $('#editProductExplain').val(data.product_explain);
+                    $('#editProductItems > td:nth-child(1) > input').val(data.customer_id);
+                    $('#editProductItems > td:nth-child(2) > input').val(data.tel);
+                    $('#editProductItems > td:nth-child(3) > input').val(data.name);
+                    $('#editProductItems > td:nth-child(4) > input').val(data.email);
+                    $('#editProductItems > td:nth-child(5) > input').val(data.address);
+                    $('#editProductItems > td:nth-child(6) > input').val(data.birthday);
+                    $('#editProductItems > td:nth-child(7) > select').val(data.skintype);
+                    $('#editProductItems > td:nth-child(8) > input').val(data.points);
+                    $('#editProductItems > td:nth-child(9) > input').val(data.gender);
                   },
                   error: function (err) {
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
@@ -281,69 +278,45 @@
                   <div class="col-md-12">
                     <div class="card adminCustomer_editTable">
                       <div class="card-header">
-                        <h4 class="card-title"> 상품 수정 </h4>
+                        <h4 class="card-title"> 고객 정보 수정 </h4>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <form action="adminEditProduct.do" method='post' enctype='multipart/form-data'>
+                          <form action="adminEditCustomer.do" method='post' enctype='multipart/form-data'>
                             <table class="table">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
-                                  <th>제품번호</th>
+                                  <th>아이디</th>
+                                  <th>전화번호</th>
                                   <th>이름</th>
-                                  <th>브랜드</th>
-                                  <th>카테고리</th>
-                                  <th>가격</th>
-                                  <th>매입가</th>
-                                  <th>할인가</th>
-                                  <th>용량</th>
-                                  <th>수량</th>
-                                  <th>향</th>
-                                  <th>촉감</th>
+                                  <th>이메일</th>
+                                  <th>주소</th>
+                                  <th>생일</th>
+                                  <th>피부타입</th>
+                                  <th>포인트</th>
+                                  <th>성별</th>
                                 </tr>
                               </thead>
                               <tr id="editProductItems">
-                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="editProd_no"
-                                    style="border: none;" readonly></td>
-                                <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="brand" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="customer_id" class=".adminProduct_input"
+                                    id="editCustomer_id" style="border: none;" readonly></td>
+                                <td><input type="text" name="tel" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="name" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="email" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="address" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="birthday" class=".adminProduct_input" required></td>
                                 <td>
-                                  <select name="category">
-                                    <option value="모이스처라이저">모이스처라이저</option>
-                                    <option value="선크림">선크림</option>
+                                  <select name="skintype" required>
+                                    <option value="건성">건성</option>
+                                    <option value="지성">지성</option>
+                                    <option value="복합성">복합성</option>
+                                    <option value="민감성">민감성</option>
+                                    <option value="중성">중성</option>
+                                    <option value="악건성">악건성</option>
                                   </select>
                                 </td>
-                                <td><input type="text" name="s_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_cost_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_discount_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_capacity" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_stock" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td>
-                                  <select name="scent" required>
-                                    <option value="무향">무향</option>
-                                    <option value="꽃">꽃</option>
-                                    <option value="오이">오이</option>
-                                    <option value="원료">원료</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <select name="feel" required>
-                                    <option value="흐름">흐름</option>
-                                    <option value="부드러움">부드러움</option>
-                                    <option value="매트">매트</option>
-                                    <option value="하드">하드</option>
-                                  </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>설명</td>
-                                <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
-                                    id="editProductExplain" required></td>
+                                <td><input type="text" name="points" class=".adminProduct_input" required></td>
+                                <td><input type="text" name="gender" class=".adminProduct_input" required></td>
                               </tr>
                               <tr>
                                 <td></td>

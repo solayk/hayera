@@ -74,21 +74,5 @@ public class CustomerVO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
-	
-
-
-	
 
 }
-
-//CUSTOMER_ID VARCHAR2(20) NOT NULL, /* 고객ID */
-//TEL VARCHAR2(13) NOT NULL, /* 전화번호 */
-//PASSWORD VARCHAR2(30) NOT NULL, /* 비밀번호 */
-//NAME VARCHAR2(10) NOT NULL, /* 이름 */
-//EMAIL VARCHAR2(30) NOT NULL, /* 이메일주소 */
-//ADDRESS VARCHAR2(100) NOT NULL, /* 주소 */
-//BIRTHDAY VARCHAR2(10) NOT NULL, /* 생일 */
-//SKINTYPE VARCHAR2(10) NOT NULL, /* 피부타입 */
-//POINTS NUMBER /* 적립금 */
-//GENDER VARCHAR2(10) /*성별*/

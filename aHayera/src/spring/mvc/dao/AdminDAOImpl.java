@@ -40,7 +40,15 @@ public class AdminDAOImpl implements AdminDAO {
 		mybatis.delete("AdminDAO.adminRemoveProduct", prod_no);
 	}
 	
-	public List<ProductVO> viewAllCustomer(CustomerVO vo){
+	public List<CustomerVO> viewAllCustomer(CustomerVO vo){
 		return mybatis.selectList("AdminDAO.viewAllCustomer", vo);
+	}
+	
+	public CustomerVO adminCustomerEditTarget(CustomerVO vo) {
+		return mybatis.selectOne("AdminDAO.adminCustomerEditTarget", vo);
+	}
+	
+	public void adminEditCustomer (CustomerVO vo) {
+		mybatis.update("AdminDAO.adminEditCustomer", vo);
 	}
 }

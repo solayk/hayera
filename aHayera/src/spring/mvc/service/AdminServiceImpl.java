@@ -40,7 +40,15 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.adminRemoveProduct(prod_no);
 	}
 	
-	public List<ProductVO> viewAllCustomer(CustomerVO vo){
+	public List<CustomerVO> viewAllCustomer(CustomerVO vo){
 		return adminDAO.viewAllCustomer(vo);
+	}
+	
+	public CustomerVO adminCustomerEditTarget (CustomerVO vo) {
+		return adminDAO.adminCustomerEditTarget(vo);
+	}
+	
+	public void adminEditCustomer (CustomerVO vo) {
+		adminDAO.adminEditCustomer(vo);
 	}
 }

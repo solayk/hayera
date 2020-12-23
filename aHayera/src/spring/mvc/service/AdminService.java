@@ -20,5 +20,9 @@ public interface AdminService {
 	
 	public void adminRemoveProduct(String prod_no);
 	
-	public List<ProductVO> viewAllCustomer(CustomerVO vo);
+	public List<CustomerVO> viewAllCustomer(CustomerVO vo);
+	
+	public CustomerVO adminCustomerEditTarget (CustomerVO vo);
+	
+	public void adminEditCustomer (CustomerVO vo);
 }

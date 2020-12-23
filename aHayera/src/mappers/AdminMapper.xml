@@ -32,7 +32,7 @@
 		]]>
 	</select>
 	
-	<update id="adminEditProduct">
+	<update id="adminEditProduct" parameterType="product">
 		<![CDATA[
 		UPDATE PRODUCT SET PROD_NAME = #{prod_name}, BRAND = #{brand}, CATEGORY = #{category}, PRICE = #{price}, COST_PRICE = #{cost_price}
 		, DISCOUNT_PRICE = #{discount_price}, CAPACITY = #{capacity}, SCENT = #{scent}, FEEL = #{feel}, PRODUCT_EXPLAIN = #{product_explain} WHERE PROD_NO = #{prod_no}
@@ -52,5 +52,25 @@
 		SELECT * FROM CUSTOMER
 		]]>
 	</select>
+	
+	<select id="adminCustomerEditTarget" parameterType="customer" resultType="customer">
+		<![CDATA[
+		SELECT * FROM CUSTOMER WHERE CUSTOMER_ID = #{customer_id}
+		]]>
+	</select>
+	
+	<update id="adminEditCustomer" parameterType="customer">
+		<![CDATA[
+		UPDATE CUSTOMER SET TEL = #{tel}, NAME = #{name}, EMAIL = #{email}, ADDRESS = #{address}, BIRTHDAY = #{birthday}, SKINTYPE = #{skintype}, POINTS = #{points}, GENDER = #{gender} WHERE CUSTOMER_ID = #{customer_id}
+		]]>
+	</update>
+	
+	<!-- <select id="adminRemoveCustomer" parameterType="String">
+		<![CDATA[
+		DELETE 
+		FROM CUSTOMER
+		WHERE CUSTOMER_ID = #{customer_id}
+		]]>
+	</select> -->
 
 </mapper>

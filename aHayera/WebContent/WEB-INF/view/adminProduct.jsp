@@ -171,6 +171,8 @@
                   }
                 });
                 $('.editProduct').attr("disabled", "disabled");
+                $('.deleteProduct').attr("disabled", "disabled");
+
               }); // --- end of .editProduct click
 
               /* 삭제버튼 클릭 시 */

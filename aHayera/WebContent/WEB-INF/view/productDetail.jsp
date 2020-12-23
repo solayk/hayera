@@ -334,9 +334,13 @@
 									<div class="user">
 										<div class="user-info">
 											<p class="txt">
-												<span class="name"><span class="user-name">${review.customer_id}</span>
-												</span> <span class="info"><span class="txt">${review.birthday }
-														· ${review.skintype }   </span><span> ·${review.rate }</span><span>· ${review.writeday }</span> </span>
+												<span class="reviewgogo">
+														<span id="customer_id">${review.customer_id}</span>
+														<span id='birthday'>${review.gender }</span>
+														<span id='skintype'>· ${review.skintype }   </span>
+														<span id='rate'> ·${review.rate }</span>
+														<span style='float:right' id='writeday'>· ${review.writeday} 시간 전</span>
+												</span>
 											</p>
 										</div>
 									</div>
@@ -390,6 +394,14 @@
 		
 		});
 		
+		//시작하자마자 나이,시간, 평점 계산
+		$(function() {
+			//alert($('#birthday').text());
+			var today = new Date(); 
+			var tohour = today.getFullYear(); //오늘 년도
+			
+			
+		})
 		
 		</script>
 	</body>

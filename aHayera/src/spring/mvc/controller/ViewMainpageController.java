@@ -47,7 +47,6 @@ public class ViewMainpageController {
 	public String productDetail(ProductVO vo, Model model, ReviewVO rvo) {
 		model.addAttribute("productSelected",viewMainpageService.productSelected(vo));
 		rvo.setProd_no(vo.getProd_no());
-		System.out.println(rvo.getProd_no());
 		model.addAttribute("reviewList",customerservice.selectReview(rvo));
 		return "productDetail";
 	}

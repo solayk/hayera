@@ -23,11 +23,11 @@
 	
 	<select id="selectReview" resultType="review" parameterType="review">
 	<![CDATA[
-		select c.birthday birthday, c.skintype skintype, c.customer_id customer_id, r.writeday writeday, r.contents contents
+		select  c.birthday birthday, c.gender , c.skintype skintype, c.customer_id customer_id, trunc(((sysdate-writeday)*30) ,0) writeday, r.contents contents, r.rate rate
 		from customer c, review r
 		where c.customer_id=r.customer_id
 		and r.prod_no=#{prod_no}
-		order by writeday desc
+		order by writeday 
 		]]>
 	
 	</select>

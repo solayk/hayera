@@ -127,12 +127,12 @@ login_wrap {
     	  $('#frm').submit();
       }); 
         
-      $('#password').click(function(){
+  /*     $('#password').click(function(){
     	  alert('비밀번호를 변경하였습니다');
     	  
     	  $('#frm').submit();
     	  
-      }); 
+      }); */ 
       
       }) //무조건 function 안에서 실행
       
@@ -256,7 +256,8 @@ login_wrap {
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<span class="label-input100">Email</span>
-						<input class="input100" name="email" type="text" value='${result.email}'>
+						<%-- <input class="input100" type="text" name="email"  value='${result.email}'> --%>
+						<input class="input100" type="text" name="email" value="${result.email}">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -267,7 +268,7 @@ login_wrap {
 					    <input  type="button" value="주소찾기" id="mypageAddr"><br>
 						<span class="focus-input100"></span>
 						<tr>
-							<td><input type="submit" id="ok_btn" value="확인"> 
+							<td><input type="button" id="ok_btn" value="확인"> 
 							<input type="button" id="cancle_btn" value="취소"></td>
 						</tr>
 				</table>

@@ -19,9 +19,15 @@
 	
 	</insert>
 	
-	<select id="selectReview" resultType="review">
+	
+	
+	<select id="selectReview" resultType="review" parameterType="review">
 	<![CDATA[
-		SELECT * FROM review where prod_no=#{prod_no} ORDER BY writeday DESC
+		select c.birthday birthday, c.skintype skintype, c.customer_id customer_id, r.writeday writeday, r.contents contents
+		from customer c, review r
+		where c.customer_id=r.customer_id
+		and r.prod_no=#{prod_no}
+		order by writeday desc
 		]]>
 	
 	</select>

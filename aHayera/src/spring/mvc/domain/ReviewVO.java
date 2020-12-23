@@ -8,8 +8,30 @@ public class ReviewVO {
 	private String customer_id;
 	private String contents;
 	private String order_no;
+	private String writeday;
+	private String birthday;
+	private String skintype;
 	
 	
+	
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	public String getSkintype() {
+		return skintype;
+	}
+	public void setSkintype(String skintype) {
+		this.skintype = skintype;
+	}
+	public String getWriteday() {
+		return writeday;
+	}
+	public void setWriteday(String writeday) {
+		this.writeday = writeday;
+	}
 	public String getReview_id() {
 		return review_id;
 	}

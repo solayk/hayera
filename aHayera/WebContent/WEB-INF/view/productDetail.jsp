@@ -327,22 +327,24 @@
 						</div>
 						<div style="clear: both;"></div>
 						</div>
+						<c:forEach items="${reviewList }" var="review">
 						<ul>
 							<li class="detail-review-list">
 								<div class="list-item">
 									<div class="user">
 										<div class="user-info">
 											<p class="txt">
-												<span class="name"><span class="user-name">로니카</span>
-												</span> <span class="info"><span class="txt">30세
-														· 복합성 </span> </span>
+												<span class="name"><span class="user-name">${review.customer_id}</span>
+												</span> <span class="info"><span class="txt">${review.birthday }
+														· ${review.skintype }   </span><span> ·${review.rate }</span><span>· ${review.writeday }</span> </span>
 											</p>
 										</div>
 									</div>
-									<p class="review">순하고 좋은거 같아요 몸에도 바르는데 촉촉하고 무향인게 맘에듭니다</p>
+									<p class="review">${review.contents}</p>
 								</div>
 							</li>
 						</ul>
+						</c:forEach>
 						</article>
 						
 					​ ​

@@ -248,47 +248,49 @@
 							<h3>${productSelected.prod_name }</h3>
 						</div>
 						<div class="detail-product-volume_price">
-							${productSelected.capacity }ml / <span class="detail-product-price">${productSelected.price}</span>원
+							${productSelected.capacity }ml / 정가: <span class="detail-product-price">${productSelected.price}</span>원<br/>
+							<span style="font-size: 20px; font-weight: bold;">할인가 :</span>
+							<input type="text" value="${productSelected.discount_price}" name="discount_price" style="text-align: center; font-weight: bold; width:65px;" disabled>원
 						</div>
 						<br>
 						<div>
-							<table class="detail-info-table">
-								<tbody>​
-									<tr class="detail-table-info">
-										<th class="info__th"><span class="title">설명</span></th>
-										<td class="info__td">
-											
-											<!-- DB 추가 필요 -->
-											<div class="info__description">
-												뷰티 그린티의 풍부한 수분감이 오랜시간 지속되는 이중 수분잠금막 에센스인로션<br> <br>-
-												에센스와 로션의 농축된 영양감을 전달하여 촉촉한 피부 선사<br>- 초밀착 밀크텍스처로 이중 수분
-												잠금효과 선사 <br>- 에센스의 긴 수분 지속력과 로션의 부드러운 발림의 에센스로션
-											</div>
-										</td>
-									</tr>​
-									<tr class="detail-table-count">
-										<th class="info__th"><span class="title">수량</span></th>
-										<td class="info__td">
-											<div class="countcheck">
-												<form action="goOrderFromProductDetail.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}" name="goodsCountform" method="post">
-												​ ​ <input id="spinner" type="text" value="1" name="goodsCount" />
-												<button type="button" id='countup' class="btn btn-primary btn-xs" onclick="change(1)">
-                          					  	<span class="glyphicon glyphicon-chevron-up"></span>
-                         						 </button>
-                          						<button type="button" id='countdown' class="btn btn-primary btn-xs" onclick="change(-1)">
-                           						<span class="glyphicon glyphicon-chevron-down"></span>
-                          						</button>
-												​
-											</div>
-										</td>
-									</tr>
-									<!---->
-								</tbody>
-							</table>
+							<form action="goOrderFromProductDetail.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}" name="goodsCountform" method="post">
+								<table class="detail-info-table">
+									<tbody>​
+										<tr class="detail-table-info">
+											<th class="info__th"><span class="title">설명</span></th>
+											<td class="info__td">
+												
+												<!-- DB 추가 필요 -->
+												<div class="info__description">
+													뷰티 그린티의 풍부한 수분감이 오랜시간 지속되는 이중 수분잠금막 에센스인로션<br> <br>-
+													에센스와 로션의 농축된 영양감을 전달하여 촉촉한 피부 선사<br>- 초밀착 밀크텍스처로 이중 수분
+													잠금효과 선사 <br>- 에센스의 긴 수분 지속력과 로션의 부드러운 발림의 에센스로션
+												</div>
+											</td>
+										</tr>​
+										<tr class="detail-table-count">
+											<th class="info__th"><span class="title">수량</span></th>
+											<td class="info__td">
+												<div class="countcheck">
+													​ ​ <input id="spinner" type="text" value="1" name="goodsCount" />
+													<button type="button" id='countup' class="btn btn-primary btn-xs" onclick="change(1)">
+	                          					  	<span class="glyphicon glyphicon-chevron-up"></span>
+	                         						 </button>
+	                          						<button type="button" id='countdown' class="btn btn-primary btn-xs" onclick="change(-1)">
+	                           						<span class="glyphicon glyphicon-chevron-down"></span>
+	                          						</button>
+													​
+												</div>
+											</td>
+										</tr>
+										<!---->
+									</tbody>
+								</table>
+							</form>
 							<div>
 								<input class='detail_button' type="button" value="장바구니 추가" onclick="addCart()"> 
 								<input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()">
-												</form>
 							</div>
 							
 						</div>

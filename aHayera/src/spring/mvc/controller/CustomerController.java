@@ -69,12 +69,15 @@ public class CustomerController {
 		return "0";
 	}
 	
-	//리뷰 목록 불러오기
-	@RequestMapping(value= "/productDetail.do",produces = "application/text;charset=utf-8")
-	public void selectReview(ReviewVO vo, Model m, HttpSession session) {
-		System.out.println(vo.getProd_no());
-		
-		m.addAttribute("reviewList",customerserive.selectReview(vo));
-		
-	}
+	/*
+	 * //리뷰 목록 불러오기
+	 * 
+	 * @RequestMapping(value= "/productDetail.do",produces =
+	 * "application/text;charset=utf-8") public void selectReview(ReviewVO vo, Model
+	 * m, HttpSession session) { System.out.println(vo.getProd_no());
+	 * 
+	 * m.addAttribute("reviewList",customerserive.selectReview(vo));
+	 * 
+	 * }
+	 */
 }

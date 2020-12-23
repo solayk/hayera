@@ -5,7 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator;
+
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.ReviewVO;
+import spring.mvc.service.CustomerService;
 import spring.mvc.service.ViewMainpageService;
 
 @Controller
@@ -13,6 +17,9 @@ public class ViewMainpageController {
 	
 	@Autowired
 	private ViewMainpageService viewMainpageService;
+	@Autowired
+	private CustomerService customerservice;
+	
 //  판매량 1위 상품 보여주기	
 	@RequestMapping("/viewTopSalesedItem.do")
 	@ResponseBody
@@ -36,9 +43,13 @@ public class ViewMainpageController {
 		return list;
 	}
 	
+	//상품누르면 prod_no받아서 리뷰 넘기기
 	@RequestMapping("/productSelected.do")
-	public String productDetail(ProductVO vo, Model model) {
+	public String productDetail(ProductVO vo, Model model, ReviewVO rvo) {
 		model.addAttribute("productSelected",viewMainpageService.productSelected(vo));
+		rvo.setProd_no(vo.getProd_no());
+		System.out.println(rvo.getProd_no());
+		model.addAttribute("reviewList",customerservice.selectReview(rvo));
 		return "productDetail";
 	}
 	

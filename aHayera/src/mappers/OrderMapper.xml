@@ -7,7 +7,7 @@
 <insert id="insertOrder" parameterType="order">
 	<![CDATA[
 	INSERT INTO orderlist 
-	VALUES (#{order_no},#{customer_id},#{receive},#{order_address},sysdate,#{order_price},#{discount_price},#{delivery_price},#{payment_price},#{order_status},#{pay_date},#{delivery_date},#{delivery_status})
+	VALUES (#{order_no},#{customer_id},#{receive},#{order_address},sysdate,#{order_price},#{discount_price},0,#{payment_price},'결제완료',sysdate,sysdate+2,'배송준비중')
 	]]>
 </insert>
 

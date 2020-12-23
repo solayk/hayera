@@ -49,8 +49,11 @@
    	var totalPrice = (goodsCount*price).formatNumber();
    	var point = ${info.points};
    	var points = point.formatNumber();
+   	
     //Jquery 시작
     $(function () {
+    	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
+    	$("#order_price").val(goodsCount*price);
     	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
     	$("#addrCheck input").on('change', function () {
 			if($('input[name="inlineRadioOptions"]:checked', '#addrCheck').val()=="option2"){
@@ -71,7 +74,7 @@
     	// 총 결제 금액 (미완성. 일단 배송비 무료다..ㅋ)
     	$("#priceSum").val(totalPrice+"원");
     	$("#totalSum").val(totalPrice+"원");
-    	$("#payment").text(totalPrice+"원 결제하기");
+    	$("#payment").val(totalPrice+"원 결제하기");
     	
     	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
     	$("#button-addon").on('click',function(){
@@ -79,8 +82,10 @@
     		$("#discount").val(points+"원");
     		var money = (goodsCount*price)-point;
     		var totalSum = money.formatNumber();
+    		$("#discount_price").val(point); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
     		$("#totalSum").val(totalSum+"원");
-    		$("#payment").text(totalSum+"원 결제하기");
+    		$("#payment").val(totalSum+"원 결제하기");
+    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
     	});
     	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게.
     	$(".form-control").on('change', function () {
@@ -88,8 +93,10 @@
 			$("#discount").val(pointUse+"원");
 			var money = (goodsCount*price)-pointUse;
 			var totalSum = money.formatNumber();
+			$("#discount_price").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
 			$("#totalSum").val(totalSum+"원");
-    		$("#payment").text(totalSum+"원 결제하기");
+    		$("#payment").val(totalSum+"원 결제하기");
+    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
 		});
     	// 주문 상품 정보 받아 오기
     	$("#orderProduct").append(
@@ -108,8 +115,6 @@
         	var money = (goodsCount*price)-pointUse;
         	var totalSum = money.formatNumber();
         	confirm(totalSum+"원 결제하시겠습니까?");
-          	var form = document.pay
-          	form.submit();
         });
 	})
     </script>
@@ -146,7 +151,7 @@
       </nav>
     </div>
 </div>
-<form action="paymentComplete.do" method="get" name="pay">  
+<form action="paymentComplete.do" method="post" name="pay">  
   <div class="container tim-container" style="max-width:800px; padding-top:20px">
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
@@ -159,7 +164,7 @@
           <div class="accordion-body">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">최근 배송지</a>
+                <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">기본 배송지</a>
               </li>
               <li class="nav-item" role="presentation">
                 <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">직접 입력</a>
@@ -185,22 +190,22 @@
                 <p></p>
                 <div id="addrInput">
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">받는 사람</span>
-	                <input type="text" id="recipientName" value="${info.name}">
+	                <input type="text" id="recipientName" name="receive" value="${info.name}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">주소</span>
-	                <input type="text" placeholder="우편번호" id="zonecode" value="${addr[0]}">
+	                <input type="text" placeholder="우편번호" id="zonecode" name="zonecode" value="${addr[0]}">
 	                <input type="button" value="주소찾기" id="findAddr">
 	                <div>
-	                  &emsp;&emsp;&emsp;&emsp;<input type="text" size="35" placeholder="도로명주소 또는 지번주소" id="addr" value="${addr[1]}">
+	                  &emsp;&emsp;&emsp;&emsp;<input type="text" size="35" placeholder="도로명주소 또는 지번주소" id="addr" name="addr" value="${addr[1]}">
 	                </div>
-	                &emsp;&emsp;&emsp;&emsp;<input type="text" placeholder="상세 주소란" id="detailAddr" value="${addr[2]}">    
-	                <input type="text" placeholder="동" id="extraAddr" value="${addr[3]}">
+	                &emsp;&emsp;&emsp;&emsp;<input type="text" placeholder="상세 주소란" id="detailAddr" name="detailAddr" value="${addr[2]}">    
+	                <input type="text" placeholder="동" id="extraAddr" name="extraAddr" value="${addr[3]}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">연락처</span>
-	                <input type="tel" id="tel" value="${info.tel}">
+	                <input type="tel" id="tel" name="tel" value="${info.tel}">
 	                <p></p>
 	                <span class="badge bg-light text-dark" style="font-size: 18px;">이메일</span>
-	                <input type="email" id="email" value="${info.email}">
+	                <input type="email" id="email" name="email" value="${info.email}">
                 </div>
               </div>
             </div>
@@ -261,7 +266,7 @@
           <div class="accordion-body">
             <div>적립금<p>(사용 가능: <span style="font-weight: bold;">${info.points}원</span>)</p></div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" aria-label="?" aria-describedby="button-addon">
+              <input type="text" class="form-control" aria-label="?" aria-describedby="button-addon" name="usedPoints">
               <button class="btn btn-outline-primary" type="button" id="button-addon">전액사용</button>
             </div>
           </div>
@@ -280,15 +285,30 @@
           <div class="accordion-body" id="paymentInfo">
             <p>주문상품
               <input type="text" style="float: right; text-align: right;" id="priceSum" disabled>
+              <!-- '주문금액 = 제품 금액(할인가)*수량' 이, orderlist 테이블의 order_price 컬럼에 저장되게함.-->
+              <input type="hidden" id="order_price" name="order_price">
             </p>
             <p>할인
               <input type="text" placeholder="0원" style="float: right; text-align: right;" id="discount" disabled>
+              <!-- '할인금액 = 포인트 사용액' 이, orderlist 테이블의 discount_price 컬럼에 저장되게함.-->
+              <input type="hidden" id="discount_price" name="discount_price">
             </p>
             <p>배송비
               <input type="text" placeholder="0원" style="float: right; text-align: right;" id="deliveryCharge" disabled>
+              <!-- '배송비 = ' 이, orderlist 테이블의 delivery_price 컬럼에 저장되게함.-->
+              <!-- <input type="hidden" value="" name="delivery_price"> -->
             </p>
             <span class="badge bg-primary" style="font-size: 18px; font-weight: bold;">총 결제 금액</span>
             <input type="text" style="float: right; text-align: right;" id="totalSum" disabled>
+            <!-- '결제 금액 = 제품 금액(할인가)*수량 - 포인트 사용액' 이, orderlist 테이블의 payment_price 컬럼에 저장되게함.-->
+            <input type="hidden" id="payment_price" name="payment_price">
+            
+            <!-- 제품상세페이지에서 가져온, 제품 번호(prod_no)가 orderlist 테이블의 prod_no 컬럼에 저장되게함. -->
+            <input type="hidden" value="${productInfo.prod_no}" name="prod_no">
+            
+            <!-- 제품상세페이지에서 가져온, 제품 수량(goodsCount)이 orderlist_product 테이블의 each_qty 컬럼에 저장되게함. -->
+            <input type="hidden" value="<%=request.getParameter("goodsCount")%>" name="each_qty">
+            
           </div>
         </div>
       </div>
@@ -321,7 +341,7 @@
       </div>
     </div>
     <div class="d-grid gap-2">
-      <button class="btn btn-primary" type="button" id="payment"></button>
+      <input class="btn btn-primary" type="submit" id="payment"></button>
     </div>
   </div>
 </form>

@@ -48,8 +48,7 @@
           <script type="text/javascript">
             $(document).ready(function () {
 
-              $('.adminProduct_addTable').hide();
-              $('.adminProduct_editTable').hide();
+              $('.adminCustomer_editTable').hide();
 
               // 검색을 위해 전역변수 선언 -- 안쓰면 추후 삭제
               var dataList;
@@ -80,7 +79,7 @@
                       + '<td></td>'
                       + '<td></td>'
                       + '<td></td>'
-                      + '<td class="configBtns"><button class="editProduct" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
+                      + '<td class="configBtns"><button class="editCustomer" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
                       + '<button class="deleteProduct" type="button" data-toggle="tooltip" data-placement="top" title="삭제"><i class="material-icons">&#xE872;</i></button></td>'
                       + '</tr>'
                     )
@@ -111,10 +110,9 @@
               $('#sortTable_wrapper > div:eq(1)').remove();
 
               /* 수정버튼 클릭 시 */
-              $(document).on('click', '.editProduct', function () {
+              $(document).on('click', '.editCustomer', function () {
 
-                /* $('.adminProduct_editTable').show();
-                $('.adminProduct_addTable').hide(); */
+                $('.adminCustomer_editTable').show();
 
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
@@ -146,7 +144,7 @@
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
                   }
                 });
-                $('.editProduct').attr("disabled", "disabled");
+                $('.editCustomer').attr("disabled", "disabled");
               }); // --- end of .editProduct click
 
               /* 삭제버튼 클릭 시 */
@@ -279,101 +277,9 @@
               <div class="content">
                 <div class="row">
 
-                  <!-- 새 상품 등록 -->
-                  <div class="col-md-12">
-                    <div class="card adminProduct_addTable">
-                      <div class="card-header">
-                        <h4 class="card-title"> 새 상품 등록</h4>
-                        <p class="">
-                          - 새로운 상품을 등록하세요.<br>
-                          - 수량 변경은 다른 메뉴를 이용하시기 바랍니다.
-                        </p>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                          <form action="insertProduct.do" method='post' enctype='multipart/form-data'>
-                            <table class="table">
-                              <thead class="adminProduct_tableHeader">
-                                <tr>
-                                  <th>제품번호</th>
-                                  <th>이름</th>
-                                  <th>브랜드</th>
-                                  <th>카테고리</th>
-                                  <th>가격</th>
-                                  <th>매입가</th>
-                                  <th>할인가</th>
-                                  <th>용량</th>
-                                  <th>수량</th>
-                                  <th>향</th>
-                                  <th>촉감</th>
-                                </tr>
-                              </thead>
-                              <tr>
-                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="nextProd_no"
-                                    style="border: none;" readonly></td>
-                                <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="brand" class=".adminProduct_input" required></td>
-                                <td>
-                                  <select name="category">
-                                    <option value="모이스처라이저">모이스처라이저</option>
-                                    <option value="선크림">선크림</option>
-                                  </select>
-                                </td>
-                                <td><input type="text" name="s_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_cost_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_discount_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_capacity" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_stock" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td>
-                                  <select name="scent" required>
-                                    <option value="무향">무향</option>
-                                    <option value="꽃">꽃</option>
-                                    <option value="오이">오이</option>
-                                    <option value="원료">원료</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <select name="feel" required>
-                                    <option value="흐름">흐름</option>
-                                    <option value="부드러움">부드러움</option>
-                                    <option value="매트">매트</option>
-                                    <option value="하드">하드</option>
-                                  </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>설명</td>
-                                <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
-                                    required></td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i
-                                      class="fa fa-plus"></i> 등록하기</button></td>
-                              </tr>
-                            </table>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   <!-- 상품 수정 -->
                   <div class="col-md-12">
-                    <div class="card adminProduct_editTable">
+                    <div class="card adminCustomer_editTable">
                       <div class="card-header">
                         <h4 class="card-title"> 상품 수정 </h4>
                       </div>

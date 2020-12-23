@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,4 +45,24 @@ public class MypageController {
 
 		return "redirect:/mypage.do";
 	}
+	
+	
+	  //마이페이지로부터 비밀번호 변경 팝업창 띄우기
+	  @RequestMapping("/POP_changePw.do") 
+	  public void popup_pw(CustomerVO vo,Model m) {
+		  m.addAttribute("id",vo);
+	  }
+	  
+	  //팝업창으로부터 값 받아와서 비밀번호 변경
+	  @RequestMapping("/update_pw.do") 
+	  public String update_pw(CustomerVO vo) {
+		//  System.out.println("비번 왔니? :"+vo.getPassword());
+		  service.pw_update(vo);
+		  return "redirect:/mypage.do";
+		  
+	  }
+	  
+	 
+	
+	
 }

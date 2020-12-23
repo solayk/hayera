@@ -1,6 +1,7 @@
 package spring.mvc.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,12 @@ public class MypageDAOImpl implements MypageDAO{
 	public void updateMypage(CustomerVO vo) {
 		
 		mybatis.update("MypageDAO.updateMypage", vo);
+	}
+
+	public void pw_update(CustomerVO vo) {
+	//	 System.out.println("여기는 다오? :"+vo.getPassword());
+		mybatis.update("MypageDAO.updatePassword", vo);
+		
 	}
 
 }

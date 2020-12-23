@@ -122,10 +122,10 @@ login_wrap {
 <script type="text/javascript">
   $(function () {   //클래스 costomer 이름 변경(2020-12-18)
    
-  $('#frm').hide();
+  $('#frm').hide();  //숨어있다
   
    $('.pe-7s-id').click(function () {
-	   		$('#frm').toggle();
+	   		$('#frm').toggle();   //클릭시 마이페이지 변경 정보 나옴
           $('.costomer').css("top", "500px");
           $('.costomer').css("left", "500px");
         });
@@ -137,14 +137,13 @@ login_wrap {
         });
         
         
-        $("#pop_btn").click(function(){  //팝업창 띄우기 POP_changePw.do 연결
+     /*    $("#pop_btn").click(function(){  //팝업창 띄우기 POP_changePw.do 연결
             
-            var popUrl ="POP_changePw.do";
+            var popUrl ="POP_changePw.do?;
             var popOption = "width=650px, height=550px, resizable=no, location=no, top=300px, left=300px;"
-               
                window.open(popUrl,"비밀번호변경팝업 ",popOption);    
            
-           });
+           }); */
         
        
        
@@ -268,7 +267,7 @@ login_wrap {
 							<span class="label-input100">비밀번호</span>
 							<span
 								class="focus-input100"></span> 
-								<input type="button" id="pop_btn" value="변경팝업" onclick="showPopup();"/> <!-- 비밀번호 변경 팝업창 -->							
+								<a href="POP_changePw.do?customer_id=${result.customer_id}"><input type="button" id="pop_btn" value="변경" onclick="showPopup();"/></a> <!-- 비밀번호 변경 팝업창 -->							
 								<span class="focus-input100"></span>
 							</div>
 						

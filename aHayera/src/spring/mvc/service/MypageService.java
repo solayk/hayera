@@ -9,6 +9,9 @@ public interface MypageService {
 
 	//고객 전화번호, 이메일, 주소 수정하기
 	public void updateMypage(CustomerVO vo);
+	
+	//비밀번호 변경하기
+	public void pw_update(CustomerVO vo);
 
 	
 }

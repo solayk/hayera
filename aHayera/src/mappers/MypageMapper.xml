@@ -10,10 +10,17 @@ where customer_id=#{customer_id}
 </select>
 
 <update id="updateMypage" parameterType="customer">
-	<![CDATA[
+	<![CDATA[   
 	UPDATE customer SET TEL = #{tel}, EMAIL = #{email} , ADDRESS =#{address} WHERE customer_id = #{customer_id}
 	]]>
 </update>
+
+<update id="updatePassword" parameterType="customer">
+
+	UPDATE customer SET password = #{password_new} WHERE customer_id = #{customer_id}
+
+</update>
+
                 
 
 </mapper>

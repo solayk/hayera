@@ -10,5 +10,7 @@ public interface MypageDAO {
 	//수정시 받아오기
 	public void updateMypage(CustomerVO vo);
 	
+	//변경된 비밀번호 받아오기
+	public void pw_update(CustomerVO vo);
 		
 }

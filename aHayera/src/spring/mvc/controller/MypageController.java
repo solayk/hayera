@@ -21,14 +21,14 @@ public class MypageController {
 
 	// 마이페이지 기존의 저장값 불러오기
 	@RequestMapping("/mypage.do")
-	public void getAllById(CustomerVO vo, Model m,HttpSession session) {	
+	public void getAllById(CustomerVO vo, Model m, HttpSession session) {	
 		
 		vo.setCustomer_id((String)session.getAttribute("login"));
 		CustomerVO result = service.getAllById(vo);
 		
 		String add = result.getAddress();
 		String[] addAry = add.split("/");
-		System.out.println(result.getTel());
+	//	System.out.println(result.getTel());
 		
 		m.addAttribute("result", result);
 		m.addAttribute("juso", addAry);

@@ -4,6 +4,7 @@ public class CustomerVO {
 	
 	private String customer_id;
 	private String password;
+	private String password_new;
 	private String tel;
 	private String name;
 	private String email;
@@ -25,6 +26,12 @@ public class CustomerVO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPassword_new() {
+		return password_new;
+	}
+	public void setPassword_new(String password_new) {
+		this.password_new = password_new;
 	}
 	public String getTel() {
 		return tel;

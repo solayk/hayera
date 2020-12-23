@@ -104,7 +104,12 @@ login_wrap {
 }
 ​
 
+ .mypageAddr{
+ 	background:rgba(0,0,0,0);
+ 	color:skyblue;
+ 	padding:5px;
  
+ }
 
 ​
 
@@ -132,12 +137,24 @@ login_wrap {
         });
         
         
+        $("#pop_btn").click(function(){  //팝업창 띄우기 POP_changePw.do 연결
+            
+            var popUrl ="POP_changePw.do";
+            var popOption = "width=650px, height=550px, resizable=no, location=no, top=300px, left=300px;"
+               
+               window.open(popUrl,"비밀번호변경팝업 ",popOption);    
+           
+           });
+        
+       
+       
        $('#ok_btn').click(function(){
     	  alert('수정되었습니다.')
     	  
     	  $('#frm').submit();
       }); 
 
+    
       
       }) //무조건 function 안에서 실행
       
@@ -220,11 +237,11 @@ login_wrap {
 		<div class="container tim-container category_main"
 			style="max-width: 800px; padding-top: 20px">
 			<br> <br> <br> <br>
-			<h3 class="text-center hayera">마이페이지</h3>
+		<!-- 	<h3 class="text-center hayera">마이페이지</h3> -->
 			<div class="mypage_window">
 				<a class="mypage_table" href="#"> <i class="pe-7s-wallet  pe-5x"></i>
-					<label class="pe-4x"> 　　　</label> <i class="pe-7s-id pe-5x"></i> <label
-					class="pe-4x">주문관리</label> <label class="pe-4x"></label> 　　　　　　　　<label
+					<label class="pe-4x"> 　　　　</label> <i class="pe-7s-id pe-5x"></i> <label
+					class="pe-4x">주문관리</label> <label class="pe-4x"></label> 　　　　　　　　　　　　<label
 					class="pe-4x">개인정보수정</label>
 				</a> <br> <br> <br> <br> <br>
 				<form id="frm" method="get" action="updateMypage.do">
@@ -244,14 +261,18 @@ login_wrap {
 								value="${result.name}" readonly> <span
 								class="focus-input100"></span>
 						</div>
+						
 
 						<div class="wrap-input100 validate-input"
 							data-validate="Password is required">
-							<span class="label-input100">비밀번호</span> <input class="input100"
-								type="button" name="password" id="password"
-								placeholder="*************"> <span
-								class="focus-input100"></span>
-						</div>
+							<span class="label-input100">비밀번호</span>
+							<span
+								class="focus-input100"></span> 
+								<input type="button" id="pop_btn" value="변경팝업" onclick="showPopup();"/> <!-- 비밀번호 변경 팝업창 -->							
+								<span class="focus-input100"></span>
+							</div>
+						
+						
 						<div class="wrap-input100 validate-input"
 							data-validate="Username is required">
 							<span class="label-input100">전화번호</span> <input class="input100"
@@ -269,21 +290,22 @@ login_wrap {
 						<div class="wrap-input100 validate-input"
 							data-validate="Password is required">
 							<span class="label-input100">주소</span> <span
-								class="focus-input100"></span> <input type="button" value="주소변경"
+								class="focus-input100"></span> <input class="mypageAddr" type="button" value="변경"
 								id="mypageAddr"> <input class="input100"
 								type="text" placeholder="우편번호" id="zonecode" name="zonecode"
 								value="${juso[0]}">
 							<div>
-								&emsp;&emsp;&emsp;&emsp; <input type="text" size="35"
+							<input type="text" size="35"
 									placeholder="도로명주소 또는 지번주소" id="addr" value="${juso[1]}">
 							</div>
-							&emsp;&emsp;&emsp;&emsp; <input type="text" placeholder="상세 주소란"
+							<input type="text" placeholder="상세 주소란"
 								id="detailAddr" value="${juso[2]}"> <input
 								class="input100" type="text" placeholder="동" id="extraAddr"
 								value="${juso[3]}"> <span class="focus-input100"></span>
 						<tr>
-							<td><input type="button" id="ok_btn" value="확인"> <input
-								type="button" id="cancle_btn" value="취소"></td>
+							<td><input type="button" id="ok_btn" value="확인"> 
+							<input type="button" id="cancle_btn" value="취소">
+							
 						</tr>
 						</p>
 					</table>

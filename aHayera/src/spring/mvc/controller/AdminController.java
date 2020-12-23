@@ -35,7 +35,6 @@ public class AdminController {
 		if(result!=null) {
 			if(result.getManager_password().equals(vo.getManager_password())) {
 				session.setAttribute("admin_id", result.getManager_id());
-				System.out.println(session.getAttribute("admin_id"));	// 로그인 성공 시 관리자 아이디 admin_id에 저장
 				return "1";
 			}
 			else return "-1";

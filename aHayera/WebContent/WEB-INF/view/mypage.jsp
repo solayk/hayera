@@ -113,18 +113,18 @@ login_wrap {
           $('.costomer').css('top', '-500px');
         });
         
-      $('#ok_btn').click(function(){
+      /* $('#ok_btn').click(function(){
     	  alert('수정되었습니다.')
     	  
     	  $('#frm').submit();
-      });
+      }); */
         
-      $('#password').click(function(){
+      /* $('#password').click(function(){
     	  alert('비밀번호를 변경하였습니다');
     	  
     	  $('#frm').submit();
     	  
-      });
+      }); */
       
       }) //무조건 function 안에서 실행
       
@@ -238,7 +238,7 @@ login_wrap {
 							</td>
 						</tr>
 						
-						<tr>
+						<!-- <tr>
 						 <a>
 							<td>비밀번호: 
 							<input type="text">
@@ -246,7 +246,7 @@ login_wrap {
 							</td>
 						 </a>
 						</tr>
-						
+						 -->
 						<tr>
 							<td>전화번호: <input name="tel" type="text" value='${result.tel}'>
 							</td>
@@ -260,13 +260,13 @@ login_wrap {
 						<tr>
 						<td>
 							주소: <div class="costomer" style="font-size: 18px;"></div>
-						<input type="text" placeholder="우편번호" id="zonecode" value='${juso[0]}'> 
+						<input type="text" placeholder="우편번호" id="zonecode" name="zonecode" value='${juso[0]}'> 
 						<input type="button" value="주소찾기" id="mypageAddr"><br>
 						<input type="text" size="35"
-								placeholder="도로명주소 또는 지번주소" id="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;><br>
+								placeholder="도로명주소 또는 지번주소" id="addr" name="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;><br>
 									
-						<input type="text" placeholder="상세 주소란" id="detailAddr" name="address" value='${juso[2]}'> 
-							<input type="text" placeholder="동" id="extraAddr" value='${juso[3]}'>
+						<input type="text" placeholder="상세 주소란" id="detailAddr" name="detailAddr" value='${juso[2]}'> 
+							<input type="text" placeholder="동" id="extraAddr" name="extraAddr" value='${juso[3]}'>
 							</td>
 							</tr>
 						

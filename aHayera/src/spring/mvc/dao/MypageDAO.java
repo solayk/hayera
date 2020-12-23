@@ -8,7 +8,7 @@ public interface MypageDAO {
 	public CustomerVO getAllById(CustomerVO vo);
 	
 	//수정시 받아오기
-	public CustomerVO updateMypage(CustomerVO vo);
+	public void updateMypage(CustomerVO vo);
 	
 		
 }

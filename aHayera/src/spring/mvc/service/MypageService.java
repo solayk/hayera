@@ -8,7 +8,7 @@ public interface MypageService {
 	public CustomerVO getAllById(CustomerVO vo);
 
 	//고객 전화번호, 이메일, 주소 수정하기
-	public CustomerVO updateMypage(CustomerVO vo);
+	public void updateMypage(CustomerVO vo);
 
 	
 }

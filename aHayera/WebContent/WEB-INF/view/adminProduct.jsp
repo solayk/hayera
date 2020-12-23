@@ -33,16 +33,22 @@
           <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
           <!-- 검색 autocomplete 목적-->
           <script src="autocomplete/jquery-ui.min.js"></script>
-
+          <!-- Data Table -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+          <script src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/stringMonthYear.js"></script>
           <!-- CSS adminProduct Only => 추후 css 파일에 통합 -->
           <style type="text/css">
             .adminProduct_Img {
               max-width: 50px;
               min-width: 50px;
             }
-			.viewAllProduct td:nth-child(3) {
-			  min-width: 300px;
-			}
+
+            .viewAllProduct td:nth-child(3) {
+              min-width: 300px;
+            }
+
             .card-header>h4 {
               text-align: left;
             }
@@ -122,7 +128,7 @@
                       + '<td>' + data[i].prod_name + '</td>'
                       + '<td>' + data[i].brand + '</td>'
                       + '<td>' + data[i].category + '</td>'
-                      + '<td>' + data[i].price + '</td>'
+                      + '<td data-table-header="가격">' + data[i].price + '</td>'
                       + '<td>' + data[i].cost_price + '</td>'
                       + '<td>' + data[i].discount_price + '</td>'
                       + '<td>' + data[i].capacity + '</td>'
@@ -146,9 +152,14 @@
                 }
               }); // --- end of $.ajax 전체상품목록
 
+              $("#sortTable").DataTable({
+                columnDefs: [
+                  { type: 'date', targets: [3] }
+                ],
+              });
 
               /* 상품 검색 자동완성 */
-              $('#search-product').autocomplete({
+              /* $('#search-product').autocomplete({
                 source: dataList,
                 minLength: 1,
                 select: function (event, ui) {
@@ -158,104 +169,64 @@
                   $(".ui-autocomplete").css("z-index", 1000);
                 },
                 position: { my: "center top", at: "center bottom" }
-              }) /* ---- end of 상품 검색 자동완성 */
+              }) */ /* ---- end of 상품 검색 자동완성 */
 
-              $('#search-product').keyup(function (key) {
-                if (key.keyCode == 13) {
+              $('#search-product').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('.viewAllProduct > tr').filter(function () {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              }); // --- end of #myInput keyup search for product              
 
-                  $('.viewAllProduct').empty();
 
-                  var info = {
-                    search: $('#search-product').val()
-                  }
-
-                  $.ajax({
-                    type: "POST",
-                    data: info,
-                    dataType: "json",
-                    url: "adminSearchProduct.do",
-                    contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-                    success: function (data) {
-                      for (i = 0; i < data.length; i++) {
-                        $('.viewAllProduct').append(
-                          '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
-                          + '<td class="prod_no">' + data[i].prod_no + '</td>'
-                          + '<td>' + data[i].prod_name + '</td>'
-                          + '<td>' + data[i].brand + '</td>'
-                          + '<td>' + data[i].category + '</td>'
-                          + '<td>' + data[i].price + '</td>'
-                          + '<td>' + data[i].cost_price + '</td>'
-                          + '<td>' + data[i].discount_price + '</td>'
-                          + '<td>' + data[i].capacity + '</td>'
-                          + '<td>' + data[i].avg_rating + '</td>'
-                          + '<td>' + data[i].totalsales + '</td>'
-                          + '<td>' + data[i].stock + '</td>'
-                          + '<td>' + data[i].scent + '</td>'
-                          + '<td>' + data[i].scent_rating + '</td>'
-                          + '<td>' + data[i].feel + '</td>'
-                          + '<td>' + data[i].feel_rating + '</td>'
-                          + '<td><input type="button" value="수정" class="editProduct">'
-                          + '<input type="button" value="완료" class="editConfirm" style="display:none"></td>'
-                          + '</tr>'
-                        )
-                      }
-                    },
-                    error: function (err) {
-                      alert("에러가 발생했습니다: adminProduct.jsp --- 검색결과 불러오기 에러"); /* 에러 발생시 메시지 */
-                    }
-                  });
-
-                }
-              }); // --- end of keyup of search for product
-              
               // 수정 버튼 클릭 시 (동적 추가 버튼 이벤트를 걸기 위해 이 방식 사용)
-              $(document).on('click','.editProduct',function(){
-            	  
-            	  // 완료버튼 활성화
-            	  $(this).hide();
-            	  $(this).next().show();
-            	  
-            	  // 이름
-            	  var temp = $(this).parent().parent().children().eq(2).text();
-            	  $(this).parent().parent().children().eq(2).empty();
-            	  $(this).parent().parent().children().eq(2).append('<input type="text" name="prod_name" class="" required>');
-            	  $(this).parent().parent().children().eq(2).children('input').val(temp);
-            	  // 브랜드
-            	  var temp = $(this).parent().parent().children().eq(3).text();
-            	  $(this).parent().parent().children().eq(3).empty();
-            	  $(this).parent().parent().children().eq(3).append('<input type="text" name="brand" class="" required>');
-            	  $(this).parent().parent().children().eq(3).children('input').val(temp);
-            	  // 카테고리
-            	  var temp = $(this).parent().parent().children().eq(4).text();
-            	  $(this).parent().parent().children().eq(4).empty();
-            	  $(this).parent().parent().children().eq(4).append('<select name="category">'
-                          + '<option value="모이스처라이저">모이스처라이저</option>'
-                          + '<option value="선크림">선크림</option>'
-                          + '</select>');
-            	  $(this).parent().parent().children().eq(4).children('select').val(temp);
-            	  // 가격
-            	  var temp = $(this).parent().parent().children().eq(5).text();
-            	  $(this).parent().parent().children().eq(5).empty();
-            	  $(this).parent().parent().children().eq(5).append('<input type="text" name="price" class="" style="width:50%;" required>');
-            	  $(this).parent().parent().children().eq(5).children('input').val(temp);
-            	  // 원가
-            	  var temp = $(this).parent().parent().children().eq(6).text();
-            	  $(this).parent().parent().children().eq(6).empty();
-            	  $(this).parent().parent().children().eq(6).append('<input type="text" name="cost_price" class="" style="width:50%;" required>');
-            	  $(this).parent().parent().children().eq(6).children('input').val(temp);
-            	  // 할인가
-            	  var temp = $(this).parent().parent().children().eq(7).text();
-            	  $(this).parent().parent().children().eq(7).empty();
-            	  $(this).parent().parent().children().eq(7).append('<input type="text" name="discount_price" class="" style="width:50%;" required>');
-            	  $(this).parent().parent().children().eq(7).children('input').val(temp);
-            	  // 용량
-            	  var temp = $(this).parent().parent().children().eq(8).text();
-            	  $(this).parent().parent().children().eq(8).empty();
-            	  $(this).parent().parent().children().eq(8).append('<input type="text" name="capacity" class="" style="width:50%;" required>');
-            	  $(this).parent().parent().children().eq(8).children('input').val(temp);
-            	  
+              $(document).on('click', '.editProduct', function () {
+
+                // 완료버튼 활성화
+                $(this).hide();
+                $(this).next().show();
+
+                // 이름
+                var temp = $(this).parent().parent().children().eq(2).text();
+                $(this).parent().parent().children().eq(2).empty();
+                $(this).parent().parent().children().eq(2).append('<input type="text" name="prod_name" class="" required>');
+                $(this).parent().parent().children().eq(2).children('input').val(temp);
+                // 브랜드
+                var temp = $(this).parent().parent().children().eq(3).text();
+                $(this).parent().parent().children().eq(3).empty();
+                $(this).parent().parent().children().eq(3).append('<input type="text" name="brand" class="" required>');
+                $(this).parent().parent().children().eq(3).children('input').val(temp);
+                // 카테고리
+                var temp = $(this).parent().parent().children().eq(4).text();
+                $(this).parent().parent().children().eq(4).empty();
+                $(this).parent().parent().children().eq(4).append('<select name="category">'
+                  + '<option value="모이스처라이저">모이스처라이저</option>'
+                  + '<option value="선크림">선크림</option>'
+                  + '</select>');
+                $(this).parent().parent().children().eq(4).children('select').val(temp);
+                // 가격
+                var temp = $(this).parent().parent().children().eq(5).text();
+                $(this).parent().parent().children().eq(5).empty();
+                $(this).parent().parent().children().eq(5).append('<input type="text" name="price" class="" style="width:50%;" required>');
+                $(this).parent().parent().children().eq(5).children('input').val(temp);
+                // 원가
+                var temp = $(this).parent().parent().children().eq(6).text();
+                $(this).parent().parent().children().eq(6).empty();
+                $(this).parent().parent().children().eq(6).append('<input type="text" name="cost_price" class="" style="width:50%;" required>');
+                $(this).parent().parent().children().eq(6).children('input').val(temp);
+                // 할인가
+                var temp = $(this).parent().parent().children().eq(7).text();
+                $(this).parent().parent().children().eq(7).empty();
+                $(this).parent().parent().children().eq(7).append('<input type="text" name="discount_price" class="" style="width:50%;" required>');
+                $(this).parent().parent().children().eq(7).children('input').val(temp);
+                // 용량
+                var temp = $(this).parent().parent().children().eq(8).text();
+                $(this).parent().parent().children().eq(8).empty();
+                $(this).parent().parent().children().eq(8).append('<input type="text" name="capacity" class="" style="width:50%;" required>');
+                $(this).parent().parent().children().eq(8).children('input').val(temp);
+
               });
-              
+
             }); // --- end of document ready
 
           </script>
@@ -482,6 +453,7 @@
                   <div class="col-md-12">
                     <div class="card">
 
+                      <!-- 검색 -->
                       <div class="card-header">
                         <h4 class="card-title">
                           <div class="input-group no-border">
@@ -499,25 +471,26 @@
                       <div class="card-body">
                         <div class="table-responsive">
                           <form action="" method='post' enctype='multipart/form-data'>
-                            <table class="table">
+                            <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
-                                  <th>제품</th>
-                                  <th></th>
-                                  <th>이름</th>
-                                  <th>브랜드</th>
-                                  <th>카테고리</th>
-                                  <th>가격</th>
-                                  <th>원가</th>
-                                  <th>할인가</th>
-                                  <th>용량</th>
-                                  <th>평균평점</th>
-                                  <th>총판매량</th>
-                                  <th>재고</th>
-                                  <th colspan="2">향</th>
-                                  <th colspan="2">촉감</th>
-                                  <th></th>
-                                  <th></th>
+                                  <th scope="col">제품</th>
+                                  <th scope="col"></th>
+                                  <th scope="col">이름</th>
+                                  <th scope="col">브랜드</th>
+                                  <th scope="col">카테고리</th>
+                                  <th scope="col">가격</th>
+                                  <th scope="col">원가</th>
+                                  <th scope="col">할인가</th>
+                                  <th scope="col">용량</th>
+                                  <th scope="col">평균평점</th>
+                                  <th scope="col">총판매량</th>
+                                  <th scope="col">재고</th>
+                                  <th scope="col">향</th>
+                                  <th scope="col"></th>
+                                  <th scope="col">촉감</th>
+                                  <th scope="col"></th>
+                                  <th scope="col"></th>
                                 </tr>
                               </thead>
 
@@ -564,7 +537,6 @@
           <script src="./js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
           <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
           <script src="./demo/demo.js"></script>
-
         </body>
 
         </html>

@@ -12,27 +12,16 @@ public class MypageServiceImple implements MypageService {
 
 	@Autowired
 	private MypageDAOImpl mypagedao; 
+	
 	@Override
 	public CustomerVO getAllById(CustomerVO vo) {
 		CustomerVO result = mypagedao.getAllById(vo);
-		
 		return result;
 	}
-	
-	
 
 	@Override
-	public CustomerVO updateMypage(CustomerVO vo) {
-		
-		CustomerVO modify = mypagedao.updateMypage(vo);
-		
-		System.out.println("mypageserviceImplt 와라좀");
-		
-		return modify;
-		
-		
+	public void updateMypage(CustomerVO vo) {
+		mypagedao.updateMypage(vo);
 	}
-	
-	
 
 }

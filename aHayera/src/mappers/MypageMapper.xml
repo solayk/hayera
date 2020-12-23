@@ -3,14 +3,16 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MypageDAO">
-<select id="getAllById" parameterType="Customer" resultType="Customer">
+<select id="getAllById" parameterType="customer" resultType="customer">
 select  *
 from customer
 where customer_id=#{customer_id} 
 </select>
 
 <update id="updateMypage" parameterType="customer">
-	UPDATE customer SET TEL =#{tel}, EMAIL = #{email} , ADDRESS =#{address} WHERE customer_id = #{customer_id}
+	<![CDATA[
+	UPDATE customer SET TEL = #{tel}, EMAIL = #{email} , ADDRESS =#{address} WHERE customer_id = #{customer_id}
+	]]>
 </update>
                 
 

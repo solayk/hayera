@@ -24,32 +24,24 @@ public class MypageController {
 	public void getAllById(CustomerVO vo, Model m,HttpSession session) {	
 		
 		vo.setCustomer_id((String)session.getAttribute("login"));
-		
 		CustomerVO result = service.getAllById(vo);
+		
 		String add = result.getAddress();
 		String[] addAry = add.split("/");
-
-		for (String juso : addAry) {
-			// System.out.println(juso);
-		}
+		System.out.println(result.getTel());
+		
 		m.addAttribute("result", result);
 		m.addAttribute("juso", addAry);
-
 	}
 
 	// 마이페이지 글 수정하기
 	@RequestMapping("/updateMypage.do")
-	public String updateMypage(CustomerVO vo, Model m) {
+	public String updateMypage(CustomerVO vo, String zonecode, String addr, String detailAddr,String extraAddr,Model m) {
+		
+		String address = zonecode + "/" + addr + "/" + detailAddr + "/" + extraAddr;
+		vo.setAddress(address);
+		service.updateMypage(vo);
 
-		System.out.println("updateMypageContriller");
-		System.out.println("updateMapage() : " + vo.getCustomer_id());
-		System.out.println("updateMapage() : " + vo.getTel());
-
-		 service.updateMypage(vo);
-
-		//m.addAttribute("result",cvo);
-
-		return "redirect:/updateMypage.do";
-
+		return "redirect:/mypage.do";
 	}
 }

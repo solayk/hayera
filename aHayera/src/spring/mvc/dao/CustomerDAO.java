@@ -14,4 +14,6 @@ public interface CustomerDAO {
 	public CustomerVO idCheck(CustomerVO vo);
 	
 	public List<ReviewVO> selectReview(ReviewVO vo);
+	
+	public List<ReviewVO> selecthighrate(ReviewVO vo);
 }

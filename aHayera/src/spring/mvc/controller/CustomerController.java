@@ -2,6 +2,8 @@ package spring.mvc.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
@@ -69,15 +71,13 @@ public class CustomerController {
 		return "0";
 	}
 	
-	/*
-	 * //리뷰 목록 불러오기
-	 * 
-	 * @RequestMapping(value= "/productDetail.do",produces =
-	 * "application/text;charset=utf-8") public void selectReview(ReviewVO vo, Model
-	 * m, HttpSession session) { System.out.println(vo.getProd_no());
-	 * 
-	 * m.addAttribute("reviewList",customerserive.selectReview(vo));
-	 * 
-	 * }
-	 */
+	// 평점높은순
+	@RequestMapping("/highrate.do")
+	@ResponseBody
+	public List<ReviewVO> highrate(ReviewVO vo,Model model) {
+		
+		List<ReviewVO> list = customerserive.selecthighrate(vo);
+		
+		return list;
+	}
 }

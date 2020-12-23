@@ -35,6 +35,13 @@ public class CustomerServicelmpl implements CustomerService {
 		
 		return customerDAO.selectReview(vo);
 	}
+
+
+	
+	public List<ReviewVO> selecthighrate(ReviewVO vo) {
+		
+		return customerDAO.selecthighrate(vo);
+	}
 	
 	
 

@@ -13,4 +13,6 @@ public interface CustomerService {
 	public CustomerVO idCheck_Login(CustomerVO vo);
 	
 	public List<ReviewVO> selectReview(ReviewVO vo);
+	
+	public List<ReviewVO> selecthighrate(ReviewVO vo);
 }

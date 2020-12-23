@@ -47,4 +47,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return mybatis.selectList("CustomerDAO.selectReview", vo);
 	}
 
+
+
+	public List<ReviewVO> selecthighrate(ReviewVO vo) {
+		System.out.println("mybatis selecthightrate 호출");
+		return mybatis.selectList("CustomerDAO.selecthighrate", vo);
+	}
+
 }

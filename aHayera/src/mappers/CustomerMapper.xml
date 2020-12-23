@@ -31,5 +31,18 @@
 		]]>
 	
 	</select>
+	
+	
+	<select id="selecthighrate" resultType="review" parameterType="review">
+	<![CDATA[
+		select  c.birthday birthday, c.gender , c.skintype skintype, c.customer_id customer_id, trunc(((sysdate-writeday)*30) ,0) writeday, r.contents contents, r.rate rate
+		from customer c, review r
+		where c.customer_id=r.customer_id
+		and r.prod_no=#{prod_no}
+		order by rate desc 
+		]]>
+	
+	</select>
+	
 
 </mapper>

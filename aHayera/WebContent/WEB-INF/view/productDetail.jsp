@@ -318,16 +318,16 @@
 						<div class="detail-review-filter">
 							<ul class="detail-radio-filter" role="radiogroup">
 								<li class="detail-filter" role="presentation">
-									<a href="" class="detail-filter:highsale" role="radio" aria-checked="true">최신순 /</a></li>
+									<a href="" class="detail-filter:highsale" id="current" aria-checked="true">최신순 /</a></li>
 								<li class="detail-filter" role="presentation">
-									<a href="" class="detail-filter:highreview" role="radio" aria-checked="false">평점 높은순 /</a></li>
+									<a href="" class="detail-filter:highreview" id="highrate" aria-checked="false">평점 높은순 /</a></li>
 								<li class="detail-filter" role="presentation">
-									<a href="" class="detail-filter:lowreview" role="radio" aria-checked="false">평점 낮은순</a></li>
+									<a href="" class="detail-filter:lowreview" id="lowrate" aria-checked="false">평점 낮은순</a></li>
 							</ul>
 						</div>
 						<div style="clear: both;"></div>
 						</div>
-						<c:forEach items="${reviewList }" var="review">
+						<c:forEach items="${reviewList }" var="review" >
 						<ul>
 							<li class="detail-review-list">
 								<div class="list-item">
@@ -399,6 +399,27 @@
 			$('.detail-boardmenu-qna').hide();
 			
 		}) 
+		
+		//평점 높은 순
+		$('#highrate').click(function () {
+		
+			$.ajax({
+				url : "highrate.do",
+	        	contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+				data :{'prod_no': ${productSelected.prod_no}},
+				success: function (list) {
+					
+					$('c').attr('items',${selecthighrate });
+					for(i=0;i<list.length;i++){
+						
+					$('#customer_id').text();
+					$('#birthday').text(); 
+					}
+				},
+	        	err: function(err){console.log(err)}
+			})
+			
+		})
 		
 		</script>
 	</body>

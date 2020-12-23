@@ -12,8 +12,6 @@
 		<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
 		<title>하예라 관리자 로그인</title>
 		<meta charset="utf-8" />
-		
-
 
 		<style type="text/css">
 			.admin_login_background {

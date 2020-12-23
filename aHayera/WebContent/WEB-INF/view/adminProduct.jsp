@@ -72,7 +72,7 @@
               // 검색을 위해 전역변수 선언
               var dataList;
 
-              // 전체상품목록 => 띄우진 않고 검색을 위해 dataList 에 저장 목적 ONLY 
+              // 전체상품목록
               $.ajax({
                 url: 'viewAllProduct.do',
                 dataType: 'json',
@@ -229,13 +229,13 @@
                     </a>
                   </li>
                   <li>
-                    <a href="./admin_stock.html">
+                    <a href="">
                       <i class="now-ui-icons files_paper"></i>
                       <p>재고 관리</p>
                     </a>
                   </li>
                   <li>
-                    <a href="./admin_order.html">
+                    <a href="">
                       <i class="now-ui-icons shopping_delivery-fast"></i>
                       <p>주문 관리</p>
                     </a>
@@ -550,7 +550,7 @@
                     &copy;
                     <script>
                       document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-                    </script>, Designed by <a href="" target="_blank">HAYERA</a>.
+                    </script> Designed by <a href="" target="_blank">HAYERA</a>.
                   </div>
                 </div>
               </footer>

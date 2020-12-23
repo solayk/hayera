@@ -14,10 +14,10 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.service.MypageServiceImple;
 
 @Controller
-public class MypageController { 
+public class MypageController {  
 
-	@Autowired
-	private MypageServiceImple service;
+	@Autowired 
+	private MypageServiceImple service; 
 
 	// 마이페이지 기존의 저장값 불러오기
 	@RequestMapping("/mypage.do")

@@ -4,9 +4,12 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head> <!--   타이틀 넣기   -->
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>HAYERA!</title>
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+ <script src="js/bootstrap.js" type="text/javascript"></script>
 <link href="css/bootstrap.css" rel="stylesheet" />
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link href="css/ct-navbar.css" rel="stylesheet" />
@@ -14,7 +17,7 @@
 <!-- Optional - Adds useful class to manipulate icon font display -->
 <link rel="stylesheet" href="css/pe-icon-7-stroke_helper.css">
 
-<!--     Font Awesome     -->
+
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">

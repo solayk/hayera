@@ -227,19 +227,17 @@ login_wrap {
 					<p class="costomer">
 						
 						<개인정보수정> <br>
-						<br>
+						
 						<tr>
 							<td>아이디:<input name = "customer_id" type="text" value="${result.customer_id}" readonly>
 							</td>
 						</tr>
-						<br>
-						<br>
+					
 						<tr>
-							<td>이름:<input name = "name" type="text" value="${result.name}"  readonly>
+							<td>이름:<input name = "name" type="text" value="${result.name}" readonly>
 							</td>
 						</tr>
-						<br>
-						<br>
+						
 						<tr>
 						 <a>
 							<td>비밀번호: 
@@ -248,21 +246,17 @@ login_wrap {
 							</td>
 						 </a>
 						</tr>
-						<br>
-						<br>
+						
 						<tr>
 							<td>전화번호: <input name="tel" type="text" value='${result.tel}'>
 							</td>
 						</tr>
-						<br>
-						<br>    
+						
 						<tr>
 							<td>e-mail: <input name="email" type="text" value='${result.email}'>
 							</td>
 						</tr>
-						<br>
 					
-						<br><!-- 문자열 파싱 고고  split 메서드 사용하여 문자열 구분하자-->
 						<tr>
 						<td>
 							주소: <div class="costomer" style="font-size: 18px;"></div>
@@ -271,15 +265,13 @@ login_wrap {
 						<input type="text" size="35"
 								placeholder="도로명주소 또는 지번주소" id="addr" value='${juso[1]}'&emsp;&emsp;&emsp;&emsp;><br>
 									
-						<input type="text" placeholder="상세 주소란" id="detailAddr" name='address' value='${juso[2]}'> 
+						<input type="text" placeholder="상세 주소란" id="detailAddr" name="address" value='${juso[2]}'> 
 							<input type="text" placeholder="동" id="extraAddr" value='${juso[3]}'>
 							</td>
 							</tr>
-						<br>
-						<br>
-						<br>
+						
 						<tr>
-							<td><input type="button" id="ok_btn" value="확인"> 
+							<td><input type="submit" id="ok_btn" value="확인"> 
 							<input type="button" id="cancle_btn" value="취소"></td>
 						</tr>
 				</table>

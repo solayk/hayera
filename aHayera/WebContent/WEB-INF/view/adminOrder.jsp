@@ -12,7 +12,7 @@
 
           <!-- 타이틀 바 -->
           <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
-          <title>관리자 - 고객관리</title>
+          <title>관리자 - 주문관리</title>
 
           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
             name='viewport' />
@@ -55,7 +55,7 @@
 
               // 전체 고객 목록
               $.ajax({
-                url: 'viewAllCustomer.do',
+                url: 'viewAllOrderlist.do',
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
@@ -117,7 +117,7 @@
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
                 /* DB에서 AJAX로 데이터 가져오기 */
-                var info = {
+                /* var info = {
                   customer_id: $(this).parent().parent('tr').find('td:nth-child(2)').text()
                 }
                 $.ajax({
@@ -141,7 +141,7 @@
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
                   }
                 });
-                $('.editCustomer').attr("disabled", "disabled");
+                $('.editCustomer').attr("disabled", "disabled"); */
               }); // --- end of .editProduct click
 
               /* 삭제버튼 클릭 시 */
@@ -154,7 +154,7 @@
                 if (test) {
                   
                   /* DB에서 AJAX로 데이터 삭제하기 */
-                  var info = {
+                  /* var info = {
                     customer_id: customer_id
                   }
                   $.ajax({
@@ -168,7 +168,7 @@
                     error: function (err) {
                       alert("에러가 발생했습니다: adminCustomer.jsp --- .deleteCustomer 에러");
                     }
-                  });
+                  }); */
 
                 }
                 else {
@@ -201,7 +201,7 @@
                       <p>관리자 메인</p>
                     </a>
                   </li>
-                  <li class="active">
+                  <li>
                     <a href="adminCustomer.do">
                       <i class="logoutIcon now-ui-icons users_single-02"></i>
                       <p>고객 관리</p>
@@ -213,7 +213,7 @@
                       <p>상품 관리</p>
                     </a>
                   </li>
-                  <li>
+                  <li class="active">
              		 <a href="adminOrder.do">
                 		<i class="now-ui-icons shopping_delivery-fast"></i>
                 		<p>주문 관리</p>
@@ -246,7 +246,7 @@
                         <span class="navbar-toggler-bar bar3"></span>
                       </button>
                     </div>
-                    <a class="navbar-brand" href="" style="font-size: 30px">고객 관리</a>
+                    <a class="navbar-brand" href="" style="font-size: 30px">주문 관리</a>
                   </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                     aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -290,7 +290,7 @@
                   <div class="col-md-12">
                     <div class="card adminCustomer_editTable">
                       <div class="card-header">
-                        <h4 class="card-title"> 고객 정보 수정 </h4>
+                        <h4 class="card-title"> 주문 수정 </h4>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -376,22 +376,19 @@
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
                                 <tr class="viewAllProductTH">
-                                  <th scope="col"></th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">아이디</th>
-                                  <th scope="col" style="width: 100px; min-width: 100px;">전화번호</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">이름</th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">이메일</th>
+                                  <th scope="col" style="max-width: 100px; min-width: 100px;">주문번호</th>
+                                  <th scope="col" style="width: 80px; min-width: 80px;">아이디</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">받는사람</th>
                                   <th scope="col" style="max-width: 150px; min-width: 150px;">주소</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">생일</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">피부타입</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">포인트</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">성별</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">주문</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">방문</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">리뷰</th>
-                                  <th scope="col">평점</th>
-                                  <th scope="col" style="max-width: 50px;min-width: 50px;">문의</th>
-                                  <th scope="col">답변</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">구매일</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">주문금액</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">할인금액</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">배송비</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">결제금액</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">상태</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">확정일</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">발송일</th>
+                                  <th scope="col" style="max-width: 50px;min-width: 50px;">배송</th>
                                   <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>

@@ -562,7 +562,7 @@
                   <ul class="dropdown-menu">
                     <!-- mainAfterLogin 에만 해당 -->
                     <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                    <li><a href="orderHistory.do?customer_id=${sessionScope.login}">주문 내역</a></li>
+                    <li><a href="orderHistory.do">주문 내역</a></li>
                     <li><a href="logout.do">로그아웃</a></li>
                   </ul>
                 </li>

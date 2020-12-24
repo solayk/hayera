@@ -244,15 +244,15 @@
                     </a>
                   </li>
                   <li>
-                    <a href="adminStock.do">
-                      <i class="now-ui-icons files_paper"></i>
-                      <p>재고 관리</p>
-                    </a>
-                  </li>
-                  <li>
                     <a href="adminOrder.do">
                       <i class="now-ui-icons shopping_delivery-fast"></i>
                       <p>주문 관리</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="adminStock.do">
+                      <i class="now-ui-icons files_paper"></i>
+                      <p>재고 관리</p>
                     </a>
                   </li>
                   <li>

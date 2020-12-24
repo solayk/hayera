@@ -79,7 +79,7 @@
                       + '<td>' + data[i].delivery_status + '</td>'
                       + '<td class="configBtns">'
                       + (data[i].order_status == "취소" ? '' :'<button class="editOrder" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
-                      + (data[i].delivery_status == "배송준비" ? '<button class="deliveryConfirm" type="button" data-toggle="tooltip" data-placement="top" title="발송처리"><i class="material-icons">check_circle</i></button>': '')) + '</td>'
+                      + (data[i].delivery_status == "배송준비" ? '<button class="deliveryConfirm" type="button" data-toggle="tooltip" data-placement="top" title="발송처리"><i class="material-icons">airport_shuttle</i></button>': '')) + '</td>'
                       + '</tr>'
                     )
                     data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
@@ -220,6 +220,12 @@
                       <p>주문 관리</p>
                     </a>
                   </li>
+                  <li>
+              		 <a href="adminStock.do">
+              		  	<i class="now-ui-icons ui-2_chat-round"></i>
+                		<p>문의 관리</p>
+              		 </a>
+            	  </li>
                   <li>
                     <a href="adminStock.do">
                       <i class="now-ui-icons files_paper"></i>

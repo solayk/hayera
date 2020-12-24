@@ -140,8 +140,12 @@ public class AdminController {
 	//	전체 주문 목록 보여주기
 	@RequestMapping("/viewAllOrderlist.do")
 	@ResponseBody
-	public List<OrderListVO> viewAllOrderlist(OrderListVO vo)	{ 
-		List<OrderListVO> data = adminService.viewAllOrderlist(vo); 
+	public List<OrderListVO> viewAllOrderlist(OrderListVO vo, ProductVO pvo, Model model)	{ 
+		List<OrderListVO> data = adminService.viewAllOrderlist(vo);
+		
+		System.out.println("1 : " + vo.getOrder_no());
+		System.out.println("2 : " + pvo.getProd_no());
+		
 		return data;
 	}
 	

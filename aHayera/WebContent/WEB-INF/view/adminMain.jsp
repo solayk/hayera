@@ -62,7 +62,7 @@
             <li>
               <a href="adminProduct.do">
                 <i class="now-ui-icons shopping_bag-16"></i>
-                <p>상품 등록</p>
+                <p>상품 관리</p>
               </a>
             </li>
             <li>

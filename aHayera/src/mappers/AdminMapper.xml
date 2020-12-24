@@ -39,13 +39,13 @@
 		]]>
 	</update>
 	
-	<select id="adminRemoveProduct" parameterType="String">
+	<delete id="adminRemoveProduct" parameterType="String">
 		<![CDATA[
 		DELETE 
 		FROM PRODUCT
 		WHERE PROD_NO = #{value}
 		]]>
-	</select>
+	</delete>
 	
 	<select id="viewAllCustomer" resultType="customer">
 		<![CDATA[
@@ -65,12 +65,12 @@
 		]]>
 	</update>
 	
-	<!-- <select id="adminRemoveCustomer" parameterType="String">
+	<delete id="adminRemoveCustomer" parameterType="String">
 		<![CDATA[
 		DELETE 
 		FROM CUSTOMER
-		WHERE CUSTOMER_ID = #{customer_id}
+		WHERE CUSTOMER_ID = #{value}
 		]]>
-	</select> -->
+	</delete>
 
 </mapper>

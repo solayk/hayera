@@ -122,4 +122,12 @@ public class AdminController {
 		adminService.adminEditCustomer(vo);
 		return "redirect:/adminCustomer.do";
 	}
+	
+	// 고객 삭제하기
+	@RequestMapping("/adminRemoveCustomer.do")
+	@ResponseBody
+	public void adminRemoveCustomer(String customer_id) {
+		adminService.adminRemoveCustomer(customer_id);
+	}
+	
 }

@@ -177,22 +177,33 @@
 
               /* 삭제버튼 클릭 시 */
               $(document).on('click', '.deleteProduct', function () {
-                /* DB에서 AJAX로 데이터 삭제하기 */
-                var info = {
-                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
+                
+            	var prod_no = $(this).parent().parent('tr').find('td:nth-child(2)').text();
+                var test = confirm(prod_no + "번 상품 정보를 삭제하시겠습니까?");  
+            	
+                /* 재확인 OK 시 삭제 진행 */
+                if (test) {
+                
+	            	/* DB에서 AJAX로 데이터 삭제하기 */
+	                var info = {
+	                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
+	                }
+	                $.ajax({
+	                  type: "POST",
+	                  data: info,
+	                  url: "adminRemoveProduct.do",
+	                  contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+	                  success: function () {
+	                    location.href = "adminProduct.do";
+	                  },
+	                  error: function (err) {
+	                    alert("에러가 발생했습니다: adminProduct.jsp --- .deleteProduct 에러");
+	                  }
+	                });
                 }
-                $.ajax({
-                  type: "POST",
-                  data: info,
-                  url: "adminRemoveProduct.do",
-                  contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-                  success: function () {
-                    location.href = "adminProduct.do";
-                  },
-                  error: function (err) {
-                    alert("에러가 발생했습니다: adminProduct.jsp --- .deleteProduct 에러");
-                  }
-                });
+                else {
+                	alert("삭제를 취소하셨습니다.");
+                }
               }); // --- end of .deleteProduct click
 
             }); // --- end of document ready
@@ -229,7 +240,7 @@
                   <li class="active">
                     <a href="adminProduct.do">
                       <i class="now-ui-icons shopping_bag-16"></i>
-                      <p>상품 등록</p>
+                      <p>상품 관리</p>
                     </a>
                   </li>
                   <li>

@@ -25,4 +25,7 @@ public interface AdminDAO {
 	public CustomerVO adminCustomerEditTarget(CustomerVO vo);
 	
 	public void adminEditCustomer (CustomerVO vo);
+	
+	public void adminRemoveCustomer (String customer_id);
+	
 }

@@ -51,4 +51,9 @@ public class AdminServiceImpl implements AdminService {
 	public void adminEditCustomer (CustomerVO vo) {
 		adminDAO.adminEditCustomer(vo);
 	}
+	
+	public void adminRemoveCustomer(String customer_id) {
+		adminDAO.adminRemoveCustomer(customer_id);
+	}
+	
 }

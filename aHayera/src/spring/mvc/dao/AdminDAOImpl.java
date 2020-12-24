@@ -51,4 +51,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public void adminEditCustomer (CustomerVO vo) {
 		mybatis.update("AdminDAO.adminEditCustomer", vo);
 	}
+	
+	public void adminRemoveCustomer (String customer_id) {
+		mybatis.delete("AdminDAO.adminRemoveCustomer", customer_id);
+	}
+	
 }

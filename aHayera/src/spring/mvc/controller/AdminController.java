@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	private static final Logger logger = LoggerFactory.getLogger( AdminController.class );
+	
 	@RequestMapping("{step}.do")
 	public String insert(@PathVariable String step) {
 		return step;
@@ -35,6 +39,7 @@ public class AdminController {
 		if(result!=null) {
 			if(result.getManager_password().equals(vo.getManager_password())) {
 				session.setAttribute("admin_id", result.getManager_id());
+				logger.info(result.getManager_id() + " 관리자 로그인");
 				return "1";
 			}
 			else return "-1";

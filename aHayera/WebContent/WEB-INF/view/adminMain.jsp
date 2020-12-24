@@ -73,6 +73,13 @@
             </li>
             <li>
               <a href="adminStock.do">
+                <i class="now-ui-icons ui-2_chat-round"></i>
+                <p>문의 관리</p>
+              </a>
+            </li>
+            <li>
+            <li>
+              <a href="adminStock.do">
                 <i class="now-ui-icons files_paper"></i>
                 <p>재고 관리</p>
               </a>

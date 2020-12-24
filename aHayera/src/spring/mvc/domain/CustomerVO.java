@@ -14,6 +14,12 @@ public class CustomerVO {
 	private int points;
 	private String gender;
 	
+	public String getPassword_new() {
+		return password_new;
+	}
+	public void setPassword_new(String password_new) {
+		this.password_new = password_new;
+	}
 	
 	public String getCustomer_id() {
 		return customer_id;
@@ -27,12 +33,7 @@ public class CustomerVO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPassword_new() {
-		return password_new;
-	}
-	public void setPassword_new(String password_new) {
-		this.password_new = password_new;
-	}
+	
 	public String getTel() {
 		return tel;
 	}

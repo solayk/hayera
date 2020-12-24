@@ -1,5 +1,7 @@
 package spring.mvc.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,12 @@ public class OrderDAOImpl implements OrderDAO {
 
 	public void insertOrder_Product(Order_ProductVO vo) {
 		mybatis.insert("OrderDAO.insertOrder_Product", vo);
+	}
+
+	public List<OrderListVO> orderHistoryView(OrderListVO vo) {
+		System.out.println("mybatis orderHistoryView 호출");
+		return mybatis.selectList("OrderDAO.orderHistoryView",vo);
+		
 	}
 
 }

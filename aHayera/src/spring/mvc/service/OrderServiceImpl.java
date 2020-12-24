@@ -1,5 +1,7 @@
 package spring.mvc.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,10 @@ public class OrderServiceImpl implements OrderService {
 	public void insertOrder_Product(Order_ProductVO vo) {
 		System.out.println("OrderserviceImpl / insertOrder_Product 호출");
 		orderDAO.insertOrder_Product(vo);
+	}
+
+	public List<OrderListVO> orderHistoryView(OrderListVO vo) {
+		return orderDAO.orderHistoryView(vo);
 	}
 
 }

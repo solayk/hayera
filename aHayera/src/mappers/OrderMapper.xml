@@ -17,4 +17,15 @@
 		VALUES (#{prod_no},#{order_no},#{each_qty})
 	]]>
 </insert>
+
+<select id="orderHistoryView" resultType="order" parameterType="order">
+	<![CDATA[
+	SELECT ol.order_no, ol.customer_id, ol.receive, ol.order_address, ol.order_date, ol.order_price, ol.discount_price, ol.delivery_price, ol.payment_price,
+		ol.order_status, ol.pay_date, ol.delivery_date, ol.delivery_status, op.prod_no, op.each_qty
+	FROM orderlist ol INNER JOIN orderlist_product op
+	ON ol.order_no=op.order_no
+	WHERE ol.customer_id=#{customer_id}
+	ORDER BY order_date DESC
+	]]>
+</select>
 </mapper>

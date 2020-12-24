@@ -2,6 +2,7 @@ package spring.mvc.controller;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
@@ -75,11 +77,20 @@ public class OrderCheckController {
 		op.setOrder_no(order_no);
 		
 		orderService.insertOrder_Product(op);
-	}
+	};
+	// 로그인한 회원 id로 주문 된 내역을 불러와 보여줌.
 	@RequestMapping("/orderHistory.do")
-	public void orderHistory() {
+	@ResponseBody
+	public List<OrderListVO> orderHistory(HttpSession session, CustomerVO cvo, OrderListVO ol) {
+		cvo.setCustomer_id((String)session.getAttribute("login")); 
+		CustomerVO info = mypageService.getAllById(cvo); 
+		String customer_id = info.getCustomer_id();
 		
-	}
+		ol.setCustomer_id(customer_id);
+		
+	 List<OrderListVO> data = orderService.orderHistoryView(ol);
+	 return data;
+	};
 	
 
 }

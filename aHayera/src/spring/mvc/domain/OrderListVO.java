@@ -14,6 +14,10 @@ public class OrderListVO {
 	private String pay_date; // 주문확정일
 	private String delivery_date; // 발송일
 	private String delivery_status; // 배송상태
+
+	// order_product 테이블과 INNER JOIN 떔에 추가 
+	private String prod_no;
+	private int each_qty;
 	
 	public String getOrder_no() {
 		return order_no;
@@ -93,6 +97,19 @@ public class OrderListVO {
 	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
 	}
+	public String getProd_no() {
+		return prod_no;
+	}
+	public void setProd_no(String prod_no) {
+		this.prod_no = prod_no;
+	}
+	public int getEach_qty() {
+		return each_qty;
+	}
+	public void setEach_qty(int each_qty) {
+		this.each_qty = each_qty;
+	}
+	
 	
 	
 }

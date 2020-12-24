@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +22,6 @@
   <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
   <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     
-  <script type="text/javascript">
-      // 장바구니에서 바로 결제 클릭 시
-      function clickGopay(){
-          window.location.href="orderCheck.jsp";
-      }
-  </script>
   <style>
     .fa-heart{
     color: #F74933;
@@ -79,11 +75,17 @@
     }
   </style>
   <script type="text/javascript">
+	  // 장바구니에서 바로 결제 클릭 시
+	  function clickGopay(){
+	      window.location.href="orderCheck.jsp";
+	  }
+	  // 홈으로 클릭 시
       function clickGohome(){
           location.href="main.jsp";
       };
+      // 주문 내역 보기 클릭 시
       function clickGoHistory(){
-          location.href="orderHistory.do";
+          location.href="orderHistory.do?customer_id=${sessionScope.login}";
       };
   </script>
 </head>

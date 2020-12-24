@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +28,86 @@
               $('#orderHistory').css('top', $(document).scrollTop());
           });
       })*/
+  	  // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
+	  Number.prototype.formatNumber = function () {
+      if (this == 0) return 0;
+      let regex = /(^[+-]?\d+)(\d{3})/;
+      let nstr = (this + '');
+      while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+      return nstr;
+      };
+      //Jquery 시작
+      $(document).ready(function(){
+    	// 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
+        $.ajax({
+          type: 'post',
+          url: 'viewTopfiveSalesdProduct.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          success: function (data) {
+            for (i = 0; i < data.length; i++) {
+              $(".main_cart").append(
+                '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
+                + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
+                + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
+                + '<td>' + "수량(구현필요)" + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+                + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
+                + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
+                + '<td>' + data[i].price.formatNumber() + '원</td>'
+                + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
+                + '<span class="glyphicon glyphicon-remove"></span>'
+                + '</button>' + '</td>'
+                + '</tr>'
+              )
+            }
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        });
+
+        // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
+        $('li.dropdown a').on('click', function (event) {
+          $(this).parent().toggleClass('open');
+        });
+        $('body').on('click', function (e) {
+          if (!$('li.dropdown').is(e.target)
+            && $('li.dropdown').has(e.target).length === 0
+            && $('.open').has(e.target).length === 0
+          ) {
+            $('li.dropdown').removeClass('open');
+          }
+       	});
+        // 주문한 상품들의 정보 받아 오기 
+        $.ajax({
+        	type : 'POST',
+        	dataType : 'json',
+        	url : 'orderHistory.do',
+        	contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+        	success : function (data) {
+				for(i=0;i<data.length;i++){
+		        	$("#orderHistoryTable").append(
+		        		'<tr>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+data[i].order_no+'</td>'+
+			        	'<td>'+'<img src="images/product/a.png" width="80" height="80">'+'</td>'+
+			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+'제품명'+'</a>'+'</td>'+
+			        	'<td>'+data[i].each_qty+'</td>'+
+			        	'<td>'+data[i].payment_price+'</td>'+
+			        	'<td>'+data[i].delivery_status+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'</tr>'
+			        );
+				}
+			},
+			err : function (err) {
+				console.log(err)
+			}	
+        });
+        
+      }) // --- end of jquery
+      
       // 장바구니에서 바로 결제 클릭 시
       function clickGopay(){
           window.location.href="orderCheck.jsp";
@@ -63,7 +145,7 @@
     }
     /* 장바구니 쪽*/
     #cart{
-        width: 600px;
+        width: 750px;
         text-align: center;
     }
     .panel-body{
@@ -100,7 +182,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
+              <a class="navbar-brand navbar-brand-logo" href="main.jsp">
                     <div class="logo">
                     <img src="images/logo_only_transparent_small.png">
                     </div>
@@ -137,115 +219,61 @@
                     
                     <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="pe-7s-shopbag">
-                                <span class="label">0</span>
-                            </i>
-                            <p>장바구니</p>
+	                    <a href="#" class="dropdown-toggle">
+	                        <i class="pe-7s-shopbag">
+	                            <span class="label">0</span>
+	                        </i>
+	                        <p>장바구니</p>
+	                    </a>
+	                    <ul class="dropdown-menu">
+	                      <table class="main_cart">
+	                      	<th>선택</th>
+	                   		<th>이미지</th>
+	               	 	 	<th>상품명</th>
+		                   	<th>수량</th>
+		                   	<th>가격</th>
+		                   	<th>합계</th>
+		                   	<th>삭제</th>
+	                  		<!-- ajax 활용한 동적 테이블 들어오는 자리. -->
+	                      </table>
+	                      <div class="panel panel-info">
+	                        <div class="panel-heading">
+	                          <h3 class="panel-title">총 결제금액</h3>
+	                        </div>
+	                        <div class="panel-body">
+	                          (합산 기능 구현 필요) 원 &emsp;&emsp;
+	                          <button type="button" class="btn btn-primary" onclick="clickGopay()">바로 결제</button>
+	                        </div>
+	                      </div>
+	                    </ul>
+                    </li> 
+                    <!-- 로그인 세션이 존재하지 않으면 -->
+                    <c:if test="${login eq null}">
+                      <li>
+                        <!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
+                        <a href="login.do">
+                          <i class="pe-7s-user"></i>
+                          <p>로그인</p>
+                        </a>
+                      </li>
+                    </c:if>
+
+                    <!-- 로그인 세션이 존재하면 -->
+                    <c:if test="${login ne null}">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                          <i class="pe-7s-user"></i>
+                          <p>내 계정 <b class="caret"></b></p>
                         </a>
                         <ul class="dropdown-menu">
-                          <table class="table table-striped" id="cart">
-                            <tr>
-                              <td>선택</td>
-                              <td>이미지</td>
-                              <td>상품명</td>
-                              <td>수량</td>
-                              <td>가격</td>
-                              <td>삭제</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" value="option1" checked>
-                                  1
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="images/product/a.png" width="55" height="55">
-                            </td>
-                            <td>
-                              <a href="#">테라비코스 엔자임 워싱 파우더</a>
-                            </td>
-                            <td>
-                              1
-                              <button type="button" class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-chevron-up"></span>
-                              </button>
-                              <button type="button" class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                              </button>
-                            </td>
-                            <td>
-                              28,000원
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-danger btn-xs">
-                                <span class="glyphicon glyphicon-remove"></span>
-                              </button>
-                            </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" value="option2" checked>
-                                  2
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="images/product/b.jpg" width="55" height="55">
-                            </td>
-                            <td>
-                              <a href="#">맨 바이오 에센스 컨디셔닝 145ml</a>
-                            </td>
-                            <td>
-                              1
-                              <button type="button" class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-chevron-up"></span>
-                              </button>
-                              <button type="button" class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                              </button>
-                            </td>
-                            <td>
-                              24,500원
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-danger btn-xs">
-                                <span class="glyphicon glyphicon-remove"></span>
-                              </button>
-                            </td>
-                            </tr>
-                          </table>
-                          <div class="panel panel-info">
-                            <div class="panel-heading">
-                              <h3 class="panel-title">총 결제금액</h3>
-                            </div>
-                            <div class="panel-body">
-                              52,500 원 &emsp;&emsp;
-                              <button type="button" class="btn btn-primary" onclick="clickGopay()">바로 결제</button>
-                            </div>
-                          </div>
+                          <!-- mainAfterLogin 에만 해당 -->
+                          <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
+                          <li><a href="orderHistory.do?customer_id=${sessionScope.login}">주문 내역</a></li>
+                          <li><a href="logout.do">로그아웃</a></li>
                         </ul>
-                    </li> 
-                    <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="pe-7s-user"></i>
-                                <p>내 계정 <b class="caret"></b></p>
-                            </a>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">로그인</a></li>
-                            <li><a href="#">주문목록</a></li>
-                            <li><a href="#">마이페이지</a></li>
-                            <!-- <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li> -->
-                          </ul>
-                    </li>
+                      </li>
+                    </c:if>
                </ul>
-
             </div><!-- /.navbar-collapse -->
             <form class="navbar-form navbar-right navbar-search-form" role="search">                  
               <div class="form-group">
@@ -273,10 +301,10 @@
     <div class="filter-window">
       <ul class="filter-review">
         평균평점
-        <li><img src="images/4star.png"> 별 4개 이상</li>
-        <li><img src="images/3star.png"> 별 3개 이상</li>
-        <li><img src="images/2star.png"> 별 2개 이상</li>
-        <li><img src="images/1star.png"> 별 1개 이상</li>
+        <li><img src="./images/star_4.png"> 별 4개 이상</li>
+        <li><img src="./images/star_3.png"> 별 3개 이상</li>
+        <li><img src="./images/star_2.png"> 별 2개 이상</li>
+        <li><img src="./images/star_1.png"> 별 1개 이상</li>
       </ul> <!-- /.filter-review -->
       <ul class="filter-feeling">
         발림성
@@ -316,6 +344,7 @@
         <hr/>
         <div id="orderHistory">
             <table class="table table-striped" id="orderHistoryTable">
+            	<tr>
                 <th>주문일자[주문번호]</th>
                 <th>이미지</th>
                 <th>상품명</th>
@@ -323,63 +352,9 @@
                 <th>가격</th>
                 <th>주문처리상태</th>
                 <th>리뷰</th>
-                <tr>
-                    <td>
-                      <div>
-                        <p>
-                          2020-12-07
-                        </p>
-                        [2020120755AC3F]
-                      </div>
-                    </td>
-                    <td>
-                        <img src="images/product/a.png" width="80" height="80">
-                    </td>
-                    <td>
-                        <a href="#">테라비코스 엔자임 워싱 파우더</a>
-                    </td>
-                    <td>
-                        1   
-                    </td>
-                    <td>
-                        28,000원
-                    </td>
-                    <td>
-                        배송완료
-                    </td>
-                    <td>
-                    	<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview"> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                      <div>
-                        <p>
-                          2020-12-07
-                        </p>
-                        [2020120755AC3F]
-                      </div>
-                    </td>
-                    <td>
-                        <img src="images/product/b.jpg" width="80" height="80">
-                    </td>
-                    <td>
-                        <a href="#">맨 바이오 에센스 컨디셔닝 145ml</a>
-                    </td>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                    24,500원
-                    </td>
-                    <td>
-                        배송완료
-                    </td>
-                    <td>
-                    	<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview"> 
-                    </td>
                 </tr>
             </table>
+            
             <ul class="pagination">
                 <li><a href="#">&laquo;</a></li>
                 <li><a href="#">1</a></li>

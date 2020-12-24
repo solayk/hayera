@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.AdminService;
 
@@ -107,7 +108,7 @@ public class AdminController {
 	//	전체 고객 목록 보여주기
 	@RequestMapping("/viewAllCustomer.do")
 	@ResponseBody
-	public List<CustomerVO> viewAllCustomer(CustomerVO vo, Model model)	{ 
+	public List<CustomerVO> viewAllCustomer(CustomerVO vo)	{ 
 		List<CustomerVO> data = adminService.viewAllCustomer(vo); 
 		return data;
 	}
@@ -123,7 +124,6 @@ public class AdminController {
 	// 고객 정보 수정하기
 	@RequestMapping("/adminEditCustomer.do")
 	public String adminEditCustomer(CustomerVO vo) {
-		System.out.println(vo.getSkintype());
 		adminService.adminEditCustomer(vo);
 		return "redirect:/adminCustomer.do";
 	}
@@ -135,4 +135,36 @@ public class AdminController {
 		adminService.adminRemoveCustomer(customer_id);
 	}
 	
+	
+	// ===== adminOrder.jsp =====
+	//	전체 주문 목록 보여주기
+	@RequestMapping("/viewAllOrderlist.do")
+	@ResponseBody
+	public List<OrderListVO> viewAllOrderlist(OrderListVO vo)	{ 
+		List<OrderListVO> data = adminService.viewAllOrderlist(vo); 
+		return data;
+	}
+	
+	// 수정할 주문 정보 가져오기
+	@RequestMapping("/adminOrderEditTarget.do")
+	@ResponseBody
+	public OrderListVO adminOrderEditTarget(OrderListVO vo) {
+		OrderListVO data = adminService.adminOrderEditTarget(vo);
+		return data;
+	}
+	
+	// 주문 정보 수정하기
+	@RequestMapping("/adminEditOrder.do")
+	public String adminEditOrder(OrderListVO vo) {
+		adminService.adminEditOrder(vo);
+		return "redirect:/adminOrder.do";
+	}
+	
+	// 배송상태 수정하기
+	@RequestMapping("/adminEditDeliveryStatus.do")
+	@ResponseBody
+	public void adminEditDeliveryStatus(OrderListVO vo) {
+		adminService.adminEditDeliveryStatus(vo); 
+	}
+		
 }

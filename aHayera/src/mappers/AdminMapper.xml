@@ -72,5 +72,29 @@
 		WHERE CUSTOMER_ID = #{value}
 		]]>
 	</delete>
+	
+	<select id="viewAllOrderlist" resultType="order">
+		<![CDATA[
+		SELECT * FROM ORDERLIST
+		]]>
+	</select>
+	
+	<select id="adminOrderEditTarget" parameterType="order" resultType="order">
+		<![CDATA[
+		SELECT * FROM ORDERLIST WHERE ORDER_NO = #{order_no}
+		]]>
+	</select>
+	
+	<update id="adminEditOrder" parameterType="order">
+		<![CDATA[
+		UPDATE ORDERLIST SET RECEIVE = #{receive}, ORDER_STATUS = #{order_status}, DELIVERY_DATE = #{delivery_date}, DELIVERY_STATUS = #{delivery_status}, ORDER_ADDRESS = #{order_address} WHERE ORDER_NO = #{order_no}
+		]]>
+	</update>
+	
+	<update id="adminEditDeliveryStatus" parameterType="order">
+		<![CDATA[
+		UPDATE ORDERLIST SET DELIVERY_DATE = SYSDATE, DELIVERY_STATUS = '발송완료' WHERE ORDER_NO = #{order_no}
+		]]>
+	</update>
 
 </mapper>

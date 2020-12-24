@@ -4,6 +4,7 @@ import java.util.List;
 
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 
 public interface AdminDAO {
@@ -28,4 +29,11 @@ public interface AdminDAO {
 	
 	public void adminRemoveCustomer (String customer_id);
 	
+	public List<OrderListVO> viewAllOrderlist(OrderListVO vo);
+	
+	public OrderListVO adminOrderEditTarget(OrderListVO vo);
+	
+	public void adminEditOrder (OrderListVO vo);
+	
+	public void adminEditDeliveryStatus (OrderListVO vo);
 }

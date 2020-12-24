@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 
 @Repository
@@ -56,4 +57,19 @@ public class AdminDAOImpl implements AdminDAO {
 		mybatis.delete("AdminDAO.adminRemoveCustomer", customer_id);
 	}
 	
+	public List<OrderListVO> viewAllOrderlist(OrderListVO vo) {
+		return mybatis.selectList("AdminDAO.viewAllOrderlist", vo);
+	}
+	
+	public OrderListVO adminOrderEditTarget(OrderListVO vo) {
+		return mybatis.selectOne("AdminDAO.adminOrderEditTarget", vo);
+	}
+	
+	public void adminEditOrder (OrderListVO vo) {
+		mybatis.update("AdminDAO.adminEditOrder", vo);
+	}
+	
+	public void adminEditDeliveryStatus (OrderListVO vo) {
+		mybatis.update("AdminDAO.adminEditDeliveryStatus", vo);
+	}
 }

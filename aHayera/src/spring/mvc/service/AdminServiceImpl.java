@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import spring.mvc.dao.AdminDAO;
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 
 @Service
@@ -56,4 +57,19 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.adminRemoveCustomer(customer_id);
 	}
 	
+	public List<OrderListVO> viewAllOrderlist(OrderListVO vo){
+		return adminDAO.viewAllOrderlist(vo);
+	}
+	
+	public OrderListVO adminOrderEditTarget (OrderListVO vo) {
+		return adminDAO.adminOrderEditTarget(vo);
+	}
+	
+	public void adminEditOrder (OrderListVO vo) {
+		adminDAO.adminEditOrder(vo);
+	}
+	
+	public void adminEditDeliveryStatus (OrderListVO vo) {
+		adminDAO.adminEditDeliveryStatus(vo);
+	}
 }

@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MypageDAO">
+
 <select id="getAllById" parameterType="customer" resultType="customer">
 select  *
 from customer
@@ -16,11 +17,10 @@ where customer_id=#{customer_id}
 </update>
 
 <update id="updatePassword" parameterType="customer">
-
 	UPDATE customer SET password = #{password_new} WHERE customer_id = #{customer_id}
-
 </update>
 
+<select id=""></select>          
                 
 
 </mapper>

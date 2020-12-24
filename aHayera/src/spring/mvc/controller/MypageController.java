@@ -46,6 +46,8 @@ public class MypageController {
 		return "redirect:/mypage.do";
 	}
 	
+	//현재
+	
 	
 	  //마이페이지로부터 비밀번호 변경 팝업창 띄우기
 	  @RequestMapping("/POP_changePw.do") 

@@ -21,7 +21,7 @@
 <select id="orderHistoryView" resultType="order" parameterType="order">
 	<![CDATA[
 	SELECT *
-	FROM orderlist ol INNER JOIN (SELECT op.order_no, op.each_qty, p.prod_name, p.img_url
+	FROM orderlist ol INNER JOIN (SELECT op.prod_no, op.order_no, op.each_qty, p.prod_name, p.img_url
     	FROM orderlist_product op INNER JOIN product p
     	ON op.prod_no = p.prod_no) op
 			ON ol.order_no=op.order_no

@@ -19,6 +19,11 @@ public class OrderListVO {
 	private String prod_no;
 	private int each_qty;
 	
+	// product_name이랑 img_url 필요해서 추가
+	private String prod_name;
+	private String img_url;
+	
+	
 	public String getOrder_no() {
 		return order_no;
 	}
@@ -109,6 +114,19 @@ public class OrderListVO {
 	public void setEach_qty(int each_qty) {
 		this.each_qty = each_qty;
 	}
+	public String getProd_name() {
+		return prod_name;
+	}
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+	public String getImg_url() {
+		return img_url;
+	}
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+	
 	
 	
 	

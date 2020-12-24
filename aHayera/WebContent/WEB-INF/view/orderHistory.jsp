@@ -86,8 +86,8 @@
         	$("#orderHistoryTable").append(
         		'<tr>'+
 	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'${history.order_no}'+']'+'</td>'+
-	        	'<td>'+'<img src="images/product/a.png" width="80" height="80">'+'</td>'+
-	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'제품명'+'</a>'+'</td>'+
+	        	'<td>'+'<img src="resources/upload/${history.img_url}" width="80" height="80">'+'</td>'+
+	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'${history.prod_name}'+'</a>'+'</td>'+
 	        	'<td>'+'${history.each_qty}'+'</td>'+
 	        	'<td>'+payment_price+'원'+'</td>'+
 	        	'<td>'+'${history.delivery_status}'+'</td>'+

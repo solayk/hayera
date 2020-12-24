@@ -20,12 +20,12 @@
 
 <select id="orderHistoryView" resultType="order" parameterType="order">
 	<![CDATA[
-	SELECT ol.order_no, ol.customer_id, ol.receive, ol.order_address, ol.order_date, ol.order_price, ol.discount_price, ol.delivery_price, ol.payment_price,
-		ol.order_status, ol.pay_date, ol.delivery_date, ol.delivery_status, op.prod_no, op.each_qty
-	FROM orderlist ol INNER JOIN orderlist_product op
-	ON ol.order_no=op.order_no
-	WHERE ol.customer_id=#{customer_id}
-	ORDER BY order_date DESC
+	SELECT *
+	FROM orderlist ol INNER JOIN (SELECT op.order_no, p.prod_name, p.img_url
+    	FROM orderlist_product op INNER JOIN product p
+    	ON op.prod_no = p.prod_no) op
+			ON ol.order_no=op.order_no
+	WHERE customer_id=#{customer_id}
 	]]>
 </select>
 </mapper>

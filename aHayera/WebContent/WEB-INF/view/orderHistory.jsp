@@ -23,11 +23,6 @@
   <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     
   <script type="text/javascript">
-      /*$(document).ready(function(){
-          $(window).scroll(function(){
-              $('#orderHistory').css('top', $(document).scrollTop());
-          });
-      })*/
   	  // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
 	  Number.prototype.formatNumber = function () {
       if (this == 0) return 0;
@@ -38,6 +33,10 @@
       };
       //Jquery 시작
       $(document).ready(function(){
+    	  // 스크롤
+    	  $(window).scroll(function(){
+              $('#orderHistory').css('top', $(document).scrollTop());
+          });
     	// 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
         $.ajax({
           type: 'post',
@@ -81,30 +80,21 @@
           }
        	});
         // 주문한 상품들의 정보 받아 오기 
-        $.ajax({
-        	type : 'POST',
-        	dataType : 'json',
-        	url : 'orderHistory.do',
-        	contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-        	success : function (data) {
-				for(i=0;i<data.length;i++){
-		        	$("#orderHistoryTable").append(
-		        		'<tr>'+
-			        	'<td>'+'<p>'+data[i].order_date+'</p>'+data[i].order_no+'</td>'+
-			        	'<td>'+'<img src="images/product/a.png" width="80" height="80">'+'</td>'+
-			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+'제품명'+'</a>'+'</td>'+
-			        	'<td>'+data[i].each_qty+'</td>'+
-			        	'<td>'+data[i].payment_price+'</td>'+
-			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
-			        	'</tr>'
-			        );
-				}
-			},
-			err : function (err) {
-				console.log(err)
-			}	
-        });
+        <c:forEach items="${orderHistory}" var="history">
+        var p =${history.payment_price};
+        var payment_price = p.formatNumber();
+        	$("#orderHistoryTable").append(
+        		'<tr>'+
+	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'${history.order_no}'+']'+'</td>'+
+	        	'<td>'+'<img src="images/product/a.png" width="80" height="80">'+'</td>'+
+	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'제품명'+'</a>'+'</td>'+
+	        	'<td>'+'${history.each_qty}'+'</td>'+
+	        	'<td>'+payment_price+'원'+'</td>'+
+	        	'<td>'+'${history.delivery_status}'+'</td>'+
+	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+	        	'</tr>'
+	        );
+		</c:forEach>
         
       }) // --- end of jquery
       
@@ -155,8 +145,8 @@
     #orderHistory{
         text-align: center;
         width: 800px;
-        /*height : 240px;
-        overflow : auto;*/
+        height : 400px;
+        overflow : auto;
     }
     table{
     	text-align: center;
@@ -349,12 +339,12 @@
                 <th>이미지</th>
                 <th>상품명</th>
                 <th>수량</th>
-                <th>가격</th>
+                <th>결제금액</th>
                 <th>주문처리상태</th>
                 <th>리뷰</th>
                 </tr>
             </table>
-            
+            <!-- 페이징 나중에
             <ul class="pagination">
                 <li><a href="#">&laquo;</a></li>
                 <li><a href="#">1</a></li>
@@ -363,7 +353,7 @@
                 <li><a href="#">4</a></li>
                 <li><a href="#">5</a></li>
                 <li><a href="#">&raquo;</a></li>
-            </ul>
+            </ul> -->
         </div>
        </div>
        <br>

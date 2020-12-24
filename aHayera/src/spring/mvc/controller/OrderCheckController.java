@@ -1,6 +1,7 @@
 package spring.mvc.controller;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -80,16 +81,12 @@ public class OrderCheckController {
 	};
 	// 로그인한 회원 id로 주문 된 내역을 불러와 보여줌.
 	@RequestMapping("/orderHistory.do")
-	@ResponseBody
-	public List<OrderListVO> orderHistory(HttpSession session, CustomerVO cvo, OrderListVO ol) {
-		cvo.setCustomer_id((String)session.getAttribute("login")); 
-		CustomerVO info = mypageService.getAllById(cvo); 
-		String customer_id = info.getCustomer_id();
-		
+	public void orderHistory(HttpSession session, OrderListVO ol, Model m) {
+		String customer_id = (String)session.getAttribute("login");  
 		ol.setCustomer_id(customer_id);
 		
-	 List<OrderListVO> data = orderService.orderHistoryView(ol);
-	 return data;
+		List<OrderListVO> orderHistory = orderService.orderHistoryView(ol);
+		m.addAttribute("orderHistory",orderHistory);
 	};
 	
 

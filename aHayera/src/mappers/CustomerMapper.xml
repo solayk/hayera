@@ -3,46 +3,46 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CustomerDAO">
 
-	<select id="login" parameterType="customer" resultType="customer">
-	
-	SELECT * from CUSTOMER WHERE CUSTOMER_ID=#{customer_id} 
-	<if test="password!=null">
-	and password=#{password}
-	</if>
-	
-	</select>
-	
-	<insert id="insert" parameterType="customer">
-	INSERT INTO 
-	CUSTOMER(CUSTOMER_ID,TEL,PASSWORD,NAME,EMAIL,ADDRESS,BIRTHDAY,SKINTYPE,GENDER)
-	 VALUES(#{customer_id},#{tel},#{password},#{name},#{email},#{address},#{birthday},#{skintype},#{gender})
-	
-	</insert>
-	
-	
-	
-	<select id="selectReview" resultType="review" parameterType="review">
-	<![CDATA[
-		select  c.birthday birthday, c.gender , c.skintype skintype, c.customer_id customer_id, trunc(((sysdate-writeday)*30) ,0) writeday, r.contents contents, r.rate rate
-		from customer c, review r
-		where c.customer_id=r.customer_id
-		and r.prod_no=#{prod_no}
-		order by writeday 
-		]]>
-	
-	</select>
-	
-	
-	<select id="selecthighrate" resultType="review" parameterType="review">
-	<![CDATA[
-		select  c.birthday birthday, c.gender , c.skintype skintype, c.customer_id customer_id, trunc(((sysdate-writeday)*30) ,0) writeday, r.contents contents, r.rate rate
-		from customer c, review r
-		where c.customer_id=r.customer_id
-		and r.prod_no=#{prod_no}
-		order by rate desc 
-		]]>
-	
-	</select>
-	
+   <select id="login" parameterType="customer" resultType="customer">
+   
+   SELECT * from CUSTOMER WHERE CUSTOMER_ID=#{customer_id} 
+   <if test="password!=null">
+   and password=#{password}
+   </if>
+   
+   </select>
+   
+   <insert id="insert" parameterType="customer">
+   INSERT INTO 
+   CUSTOMER(CUSTOMER_ID,TEL,PASSWORD,NAME,EMAIL,ADDRESS,BIRTHDAY,SKINTYPE,GENDER)
+    VALUES(#{customer_id},#{tel},#{password},#{name},#{email},#{address},#{birthday},#{skintype},#{gender})
+   
+   </insert>
+   
+   
+   
+   <select id="selectReview" resultType="review" parameterType="review">
+   <![CDATA[
+      select  c.birthday birthday, c.gender , c.skintype skintype, c.customer_id customer_id, trunc(((sysdate-writeday)*30) ,0) writeday, r.contents contents, r.rate rate
+      from customer c, review r
+      where c.customer_id=r.customer_id
+      and r.prod_no=#{prod_no}
+      order by writeday 
+      ]]>
+   
+   </select>
+   
+   
+   <select id="selecthighrate" resultType="review" parameterType="hashmap">
+   <![CDATA[
+      select  c.birthday birthday, c.gender , c.skintype skintype, c.customer_id customer_id, trunc(((sysdate-writeday)*30) ,0) writeday, r.contents contents, r.rate rate
+      from customer c, review r
+      where c.customer_id=r.customer_id
+      and r.prod_no=#{prod_no}
+      order by ${orderbyy} desc 
+      ]]>
+   
+   </select>
+   
 
 </mapper>

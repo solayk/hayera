@@ -5,75 +5,73 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
-<!--  Plugin for the Wizard -->
-<script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
-<script src="/aHayera/js/bootstrap_login.js" type="text/javascript"></script>
-<script src="/aHayera/js/login-register.js" type="text/javascript"></script>
-
-<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
-<script src="/aHayera/js/jquery.validate.min.js" type="text/javascript"></script>
-<script type="/aHayera/js/bootstrap-wizard_change_pw.js"></script>
+<script src="/aHayera/js/jquery-1.10.2.js" type="text/javascript"></script>
 
 </head>
-<!-- 새비밀번호 확인 -->
+<body>
+
+현재 비밀번호 <input name="password"  type="text" id='password'/><br/>
+새 비밀번호 <input name="password_new" id="password_new" type="text"/><br/>
+새 비밀번호 확인 <input name="password_new_ch" id="password_new_ch" type="text"/><br/>
+
+<input type="button" id="last_btn" value="변경">
+
+
 <script type="text/javascript">
 
-
-//현재 비밀번호와 새비밀번호 비교
-
-$ ("#chage_btn").click(funtion)(){
+$('#password').focusout(function () {
 	
-	alert("나오나");
 	
+ 	$.ajax({
+ 		url:"before_pw.do",
+ 		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+ 		success : function (before_pw) {
+ 			
+ 			if($('#password').val()!= before_pw){
+ 				alert("비밀번호가 일치하지않습니다")
+ 			}	else{
+ 				alert("실패")
+ 			}	
+		},
+		err : function (err) {
+			console.log(err)
+		}
+ 	})	
 
-}
+})
+
+
+
+
+$('#last_btn').click(function () {
+	 var newpass = $('#password_new').val();
+	 var newconfirm = $('#password_new_ch').val();
+	
+ if(newpass!=newconfirm) alert("비밀번호를 다시확인해주세요.")
+	
+	$.ajax({
+		url:"change_pop.do",
+		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+		data: {
+			'password_new': $('#password_new').val(),
+			'password' : $('#password').val()
+		},
+		success : function (result) {
+			alert(result);
+		},
+		err : function (err) {
+			console.log(err)
+		}
+		
+	
+	})
+	 
+})
 
 
 </script>
 
 
 
-
-
-
-<body>
-<span id="password_ck"></span>
-
-<form method="post" action="update_pw.do">
-현재 비밀번호 <input name="password"  type="text" id='password'/><br/>
-새 비밀번호 <input name="password_new" id="password_new" type="text"/><br/>
-새 비밀번호 확인 <input name="password_new_ch" type="text"/><br/>
-
-<input type="hidden" name="customer_id" id='customer_id' value="${id.customer_id}"/>
-<input type="button" id="chage_btn" value="변경"/> <!-- 나중에 submit으로 고치자 -->
-<a href="mypage.do"><input type="button" value="취소"/></a>
- </form>
-
-
 </body>
 </html>
-/* $('#password_new').focusout(function(){
-	
-
-$.ajax({
-	type:"post",
-	async: true,
-	url:'update_pw.do',  // 변경되었습니다 알림창 뜬 후 메인으로 감
-	contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-	data:{'customer_id':$('#customer_id').val(),
-		'password':$('#password').val()
-		},
-	
-	success:function(result){
-		$('#password_new').text(result);
-		
-	},
-	error: function(err){console.log(err);}
-	
-	
-	
-})
-
-}) */

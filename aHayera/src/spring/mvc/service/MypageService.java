@@ -11,7 +11,11 @@ public interface MypageService {
 	public void updateMypage(CustomerVO vo);
 	
 	//비밀번호 변경하기
-	public void pw_update(CustomerVO vo);
+	public int pw_update(CustomerVO vo);
+
+	
+	
+	
 
 	
 }

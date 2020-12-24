@@ -24,10 +24,10 @@ public class MypageDAOImpl implements MypageDAO{
 		mybatis.update("MypageDAO.updateMypage", vo);
 	}
 
-	public void pw_update(CustomerVO vo) {
+	public int pw_update(CustomerVO vo ) {
 	//	 System.out.println("여기는 다오? :"+vo.getPassword());
-		mybatis.update("MypageDAO.updatePassword", vo);
-		
+		return mybatis.update("MypageDAO.updatePassword", vo);
+		 
 	}
 
 }

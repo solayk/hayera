@@ -145,6 +145,11 @@ login_wrap {
     	  
     	  $('#frm').submit();
       }); 
+       
+       $('#pop_btn').click(function () {
+		
+    	   window.open('POP_changePw.do','비밀변호변경', 'width=5px','heigh=5px');
+	})
 
     
       
@@ -260,8 +265,8 @@ login_wrap {
 							<span class="label-input100">비밀번호</span>
 							<span
 								class="focus-input100"></span> 
-								<a href="POP_changePw.do?customer_id=${result.customer_id}">
-								<input type="button" id="pop_btn" value="변경" onclick="showPopup();"/></a> <!-- 비밀번호 변경 팝업창 -->							
+							
+								<input type="button" id="pop_btn" value="변경" > <!-- 비밀번호 변경 팝업창 -->							
 								<span class="focus-input100"></span>
 							</div>
 						

@@ -25,9 +25,9 @@ public class MypageServiceImple implements MypageService {
 	}
 
 	@Override
-	public void pw_update(CustomerVO vo) {
+	public int pw_update(CustomerVO vo) {
 		// System.out.println("여기는 서비스? :"+vo.getPassword());
-		mypagedao.pw_update(vo);
+		 return mypagedao.pw_update(vo);
 		
 		
 	}

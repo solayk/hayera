@@ -331,7 +331,6 @@
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
               $(".viewTopfive").append(
-                /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
                 + '<div class="item-img" style="position:relative;">'
                 + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')

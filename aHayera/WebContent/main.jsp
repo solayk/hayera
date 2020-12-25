@@ -402,6 +402,11 @@
         
         
         $('.filter-window').on('click',function(){
+        	
+        	$('#sortAll').on('click',function(){
+        		console.log("1");
+        	});
+        	
         	var arr_feel = [];
         	if($('#water').is(":checked")) arr_feel.push($('#water').val());
         	if($('#soft').is(":checked")) arr_feel.push($('#soft').val());
@@ -554,10 +559,11 @@
       <div class="filter-window">
         <ul class="filter-review">
           <label style="font-size:18px;">평균평점</label>
-          <li><div class="sortByStar"><img src="./images/star_4.png"> 별 4개 이상</div></li>
-          <li><div class="sortByStar"><img src="./images/star_3.png"> 별 3개 이상</li>
-          <li><div class="sortByStar"><img src="./images/star_2.png"> 별 2개 이상</li>
-          <li><div class="sortByStar"><img src="./images/star_1.png"> 별 1개 이상</li>
+          <li style="margin-bottom:4px;"><div class="sortByStar"><img src="./images/star_4.png"> 별 4개 이상</div></li>
+          <li style="margin-bottom:4px;"><div class="sortByStar"><img src="./images/star_3.png"> 별 3개 이상</li>
+          <li style="margin-bottom:4px;"><div class="sortByStar"><img src="./images/star_2.png"> 별 2개 이상</li>
+          <li style="margin-bottom:8px;"><div class="sortByStar"><img src="./images/star_1.png"> 별 1개 이상</li>
+          <li><div class="sortByStar" id="sortAll"> < 전체보기</li>
         </ul> <!-- /.filter-review -->
         <ul class="filter-feeling">
           <label style="font-size:18px;">발림성</label>

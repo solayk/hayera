@@ -287,22 +287,8 @@
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
-              $('.viewAllProduct').append(
-                /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
-                + '<div class="item-img" style="position:relative;">'
-                + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
-                + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
-                /* 할인 여부에 따라 가격 표시 다르게 */
-                + (data[i].discount_price == '0' ?
-                  '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
-                  : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
-                + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
-                + '</li>'
-              )
+              productListing(".viewAllProduct",data,star,discount,mlprice);              
+
               // 검색 자동완성 인식을 위해 JSON 데이터 추가
               data[i].value = data[i].prod_name;
             }
@@ -329,22 +315,8 @@
               var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-
-              $(".viewTopfive").append(
-                '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
-                + '<div class="item-img" style="position:relative;">'
-                + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
-                + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
-                /* 할인 여부에 따라 가격 표시 다르게 */
-                + (data[i].discount_price == '0' ?
-                  '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
-                  : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
-                + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
-                + '</li>'
-              )
+			  
+              productListing(".viewTopfive",data,star,discount,mlprice);              
             }
           },
           error: function (err) {
@@ -366,22 +338,8 @@
               var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-
-              $(".viewTopSalesedItem").append(
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
-                + '<div class="item-img" style="position:relative;">'
-                + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
-                + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
-                /* 할인 여부에 따라 가격 표시 다르게 */
-                + (data[i].discount_price == '0' ?
-                  '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
-                  : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
-                + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
-                + '</li>'
-              )
+			  
+              productListing(".viewTopSalesedItem",data,star,discount,mlprice);
             }
           },
           error: function (err) {
@@ -609,7 +567,7 @@
           <li><input type="checkbox" name="favor" id="chem"> 화학제품</li>
         </ul> <!-- /.filter-feeling -->
       </div> <!-- /.filter-window -->
-      <div class="container tim-container" style="max-width:800px; padding-top:20px">
+      <div class="container tim-container" style="max-width:1000px; padding-top:20px">
         <br>
         <div class="col-md-12">
           <h3 class="text-center hayera">누적 판매 베스트 5<br><br></h3>

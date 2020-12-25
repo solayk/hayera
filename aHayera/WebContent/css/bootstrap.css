@@ -7476,6 +7476,12 @@ td.visible-print {
   vertical-align: top;
 }
 
+.filter-review label,
+.filter-feeling label,
+.filter-favor label {
+  font-weight: normal;
+}
+
 .filter-feeling input,
 .filter-favor input {
   vertical-align: -2px;

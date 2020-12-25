@@ -7,6 +7,15 @@ function numberWithCommas(x) {
 	return x.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 정규식을 이용해서 3자리 마다 , 추가 
 }
 
+// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
+Number.prototype.formatNumber = function () {
+	if (this == 0) return 0;
+	let regex = /(^[+-]?\d+)(\d{3})/;
+	let nstr = (this + '');
+	while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+	return nstr;
+}
+
 // 리뷰 별점 표기
 function starRating(rating, star) {
 	if (rating >= 4.9) { star = 5; }
@@ -32,8 +41,8 @@ function productListing(loc,data,star,discount,mlprice) {
          + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
          + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
          + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
-           '<span class="item-price">' + data[i].price + '원</span>'
-           : '<span class="item-discount_price">' + data[i].discount_price + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+           '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+           : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
          + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice + ' 원</div>'
          + '</li>'
 	)

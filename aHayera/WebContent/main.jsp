@@ -254,22 +254,12 @@
         location.href = "mainAfterLogin.do";
       }
 
-      // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
-      Number.prototype.formatNumber = function () {
-        if (this == 0) return 0;
-        let regex = /(^[+-]?\d+)(\d{3})/;
-        let nstr = (this + '');
-        while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
-        return nstr;
-      };
-
       // Jquery 시작
       $(document).ready(function () {
 
         // 검색을 위해 전역변수 선언
         var dataList;
 
-        // mainAfterLogin => 나중에 main.jsp 에도 추가 필요
         // 전체상품목록
         $.ajax({
           url: 'viewAllProduct.do',
@@ -288,20 +278,18 @@
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
               productListing(".viewAllProduct",data,star,discount,mlprice);              
-
-              // 검색 자동완성 인식을 위해 JSON 데이터 추가
-              data[i].value = data[i].prod_name;
+              
+              data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
             }
-
-            // 검색을 위한 데이터 저장
-            dataList = data;
+            
+            dataList = data; // 검색을 위한 데이터 저장
           },
           error: function (e) {
             alert(e);
           }
         }); // --- end of $.ajax 전체상품목록
 
-        // 누적 판매 베스트 5
+        // 누적 판매 베스트 5 => 4로 변경 (현재는 모든 제품 나오는 중)
         $.ajax({
           type: 'post',
           url: 'viewTopfiveSalesdProduct.do',
@@ -411,7 +399,26 @@
             $('li.dropdown').removeClass('open');
           }
         });
-      }); // --- end of jquery
+        
+        
+        $('.filter-window').on('click',function(){
+        	var arr_feel = [];
+        	if($('#water').is(":checked")) arr_feel.push($('#water').val());
+        	if($('#soft').is(":checked")) arr_feel.push($('#soft').val());
+        	if($('#mat').is(":checked")) arr_feel.push($('#mat').val());
+        	if($('#hard').is(":checked")) arr_feel.push($('#hard').val());
+        	var arr_scent = [];
+        	if($('#no').is(":checked")) arr_scent.push($('#hard').val());
+        	if($('#flower').is(":checked")) arr_scent.push($('#hard').val());
+        	if($('#oe').is(":checked")) arr_scent.push($('#hard').val());
+        	if($('#chem').is(":checked")) arr_scent.push($('#hard').val());
+        	console.log(arr_feel.length);
+        	console.log(arr_scent.length);
+        });
+        
+        
+        
+      }); // --- end of jquery document ready
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
       function clickGopay() {
@@ -546,25 +553,25 @@
     <div class="main">
       <div class="filter-window">
         <ul class="filter-review">
-          평균평점
+          <label style="font-size:18px;">평균평점</label>
           <li><div class="sortByStar"><img src="./images/star_4.png"> 별 4개 이상</div></li>
           <li><div class="sortByStar"><img src="./images/star_3.png"> 별 3개 이상</li>
           <li><div class="sortByStar"><img src="./images/star_2.png"> 별 2개 이상</li>
           <li><div class="sortByStar"><img src="./images/star_1.png"> 별 1개 이상</li>
         </ul> <!-- /.filter-review -->
         <ul class="filter-feeling">
-          발림성
-          <li><input type="checkbox" name="feeling" id="water"> 흐름</li>
-          <li><input type="checkbox" name="feeling" id="soft"> 부드러움</li>
-          <li><input type="checkbox" name="feeling" id="mat"> 매트</li>
-          <li><input type="checkbox" name="feeling" id="hard"> 하드</li>
+          <label style="font-size:18px;">발림성</label>
+          <li><label><input type="checkbox" name="feeling" id="water" value="흐름"> 흐름</label></li>
+          <li><label><input type="checkbox" name="feeling" id="soft" value="부드러움"> 부드러움</label></li>
+          <li><label><input type="checkbox" name="feeling" id="mat" value="매트"> 매트</label></li>
+          <li><label><input type="checkbox" name="feeling" id="hard" value="하드"> 하드</label></li>
         </ul> <!-- /.filter-feeling -->
         <ul class="filter-favor">
-          향
-          <li><input type="checkbox" name="favor" id="no"> 무향</li>
-          <li><input type="checkbox" name="favor" id="flower"> 꽃</li>
-          <li><input type="checkbox" name="favor" id="oe"> 오이</li>
-          <li><input type="checkbox" name="favor" id="chem"> 화학제품</li>
+          <label style="font-size:18px;">향</label>
+          <li><label><input type="checkbox" name="favor" id="no" value="무향"> 무향</label></li>
+          <li><label><input type="checkbox" name="favor" id="flower" value="꽃"> 꽃</label></li>
+          <li><label><input type="checkbox" name="favor" id="oe" value="오이"> 오이</label></li>
+          <li><label><input type="checkbox" name="favor" id="chem" value="원료"> 원료</label></li>
         </ul> <!-- /.filter-feeling -->
       </div> <!-- /.filter-window -->
       <div class="container tim-container" style="max-width:1000px; padding-top:20px">

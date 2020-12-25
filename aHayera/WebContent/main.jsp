@@ -338,18 +338,27 @@
               else if (rating >= 1.8 && rating < 2.3) { star = 2; }
               else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
               else star = 1;
-
+			  
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price)*100);
+              
+              if(data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
+              
               $(".viewTopfive").append(
                 /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div>'
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
+                + '<div class="item-img" style="position:relative;">'
+                + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
+                + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-                + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
-                + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div></div>'
-                + '</a></li>'
+                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
+                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
+                /* 할인 여부에 따라 가격 표시 다르게 */
+                + (data[i].discount_price == '0' ?
+                	'<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+                   :'<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+                + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
+                + '</li>'
               )
             }
           },
@@ -622,9 +631,6 @@
       </div> <!-- /.filter-window -->
       <div class="container tim-container" style="max-width:800px; padding-top:20px">
         <br>
-        <br>
-        <br>
-        <hr>
         <div class="col-md-12">
           <h3 class="text-center hayera">누적 판매 베스트 5<br>
             <br>
@@ -633,6 +639,7 @@
             <ul class="product-top viewTopfive">
             </ul>
           </div>
+          <br>
           <hr>
           <h3 class="text-center hayera">★No.1 Salesed Item★<br>
             <br>
@@ -642,9 +649,7 @@
             </ul>
           </div>
           <br>
-          <br>
-          <br>
-
+		  <hr>
           <h3 class="text-center hayera">전체 상품 목록<br>
             <br>
             <div class="product">

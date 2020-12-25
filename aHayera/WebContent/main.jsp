@@ -342,13 +342,13 @@
               $(".viewTopfive").append(
                 /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
+                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
                 + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
                 + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
                 + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
+                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div></div>'
                 + '</a></li>'
               )
             }
@@ -384,13 +384,13 @@
               $(".viewTopSalesedItem").append(
                 /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
+                + '<div class="item-info"><div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
                 + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
                 + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
                 + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
+                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div></div>'
                 + '</a></li>'
               )
             }
@@ -615,7 +615,7 @@
         <ul class="filter-favor">
           향
           <li><input type="checkbox" name="favor" id="no"> 무향</li>
-          <li><input type="checkbox" name="favor" id="flower"> 꽃</li>ㅋ
+          <li><input type="checkbox" name="favor" id="flower"> 꽃</li>
           <li><input type="checkbox" name="favor" id="oe"> 오이</li>
           <li><input type="checkbox" name="favor" id="chem"> 화학제품</li>
         </ul> <!-- /.filter-feeling -->

@@ -367,7 +367,7 @@
                                 <td><input type="text" name="s_cost_price" class=".adminProduct_input"
                                     onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td><input type="text" name="s_discount_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                    onkeyup="this.value = numberWithCommas(this.value);" ></td>
                                 <td><input type="text" name="s_capacity" class=".adminProduct_input"
                                     onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td><input type="text" name="s_stock" class=".adminProduct_input"

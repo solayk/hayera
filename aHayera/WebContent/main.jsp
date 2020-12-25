@@ -280,29 +280,28 @@
 
             // 상품목록 배열 처리
             for (i = 0; i < data.length; i++) {
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
+
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
               $('.viewAllProduct').append(
                 /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<div class="item-price">' + data[i].price.formatNumber() + '원</div>'
-                + '<div class="item-price-ml">ml당' + '원</div>'
-                + '<div class="item-sale-remaining">세일 2일 남음</div>'
-                + '</a></li>'
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
+                + '<div class="item-img" style="position:relative;">'
+                + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
+                + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                + '<div class="item-brand">' + data[i].brand + '</div>'
+                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
+                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
+                /* 할인 여부에 따라 가격 표시 다르게 */
+                + (data[i].discount_price == '0' ?
+                  '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+                  : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+                + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
+                + '</li>'
               )
               // 검색 자동완성 인식을 위해 JSON 데이터 추가
               data[i].value = data[i].prod_name;
@@ -325,38 +324,25 @@
           success: function (data) {
             for (i = 0; i < data.length; i++) {
 
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
-			  
-              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price)*100);
-              
-              if(data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-              
+
               $(".viewTopfive").append(
                 /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
+                '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
                 + '<div class="item-img" style="position:relative;">'
                 + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
                 + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
+                + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
                 + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
                 /* 할인 여부에 따라 가격 표시 다르게 */
                 + (data[i].discount_price == '0' ?
-                	'<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
-                   :'<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+                  '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+                  : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
                 + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
                 + '</li>'
               )
@@ -376,31 +362,26 @@
           success: function (data) {
             for (i = 0; i < data.length; i++) {
 
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
               $(".viewTopSalesedItem").append(
-                /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-info"><div class="item-title">' + data[i].prod_name + '</div>'
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
+                + '<div class="item-img" style="position:relative;">'
+                + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
+                + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-                + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
-                + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div></div>'
-                + '</a></li>'
+                + '<div class="item-info" style="width:230px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
+                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
+                /* 할인 여부에 따라 가격 표시 다르게 */
+                + (data[i].discount_price == '0' ?
+                  '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+                  : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+                + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice.formatNumber() + ' 원</div>'
+                + '</li>'
               )
             }
           },
@@ -632,30 +613,25 @@
       <div class="container tim-container" style="max-width:800px; padding-top:20px">
         <br>
         <div class="col-md-12">
-          <h3 class="text-center hayera">누적 판매 베스트 5<br>
-            <br>
-          </h3>
+          <h3 class="text-center hayera">누적 판매 베스트 5<br><br></h3>
           <div class="product">
             <ul class="product-top viewTopfive">
             </ul>
           </div>
           <br>
           <hr>
-          <h3 class="text-center hayera">★No.1 Salesed Item★<br>
-            <br>
-          </h3>
+          <h3 class="text-center hayera">★No.1 Salesed Item★<br><br></h3>
           <div class="product">
             <ul class="product-top viewTopSalesedItem">
             </ul>
           </div>
           <br>
-		  <hr>
-          <h3 class="text-center hayera">전체 상품 목록<br>
-            <br>
-            <div class="product">
-              <ul class="product-top viewAllProduct">
-              </ul>
-            </div>
+          <hr>
+          <h3 class="text-center hayera">전체 상품 목록<br><br></h3>
+          <div class="product">
+            <ul class="product-top viewAllProduct">
+            </ul>
+          </div>
 
         </div>
         <br>
@@ -672,6 +648,8 @@
       </div>
       <!-- end main -->
 
+      <!-- 하예라 전용 JS Files   -->
+      <script src="./js/hayera.js"></script>
   </body>
 
   </html>

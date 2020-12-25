@@ -39,7 +39,7 @@
           <script
             src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
           <script src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/stringMonthYear.js"></script>
-          <!-- 추가 아이콘 -->
+          <!-- 아이콘 https://material.io/resources/icons/?style=baseline -->
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
           <!-- 전용 CSS 연결 -->

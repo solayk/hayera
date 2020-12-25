@@ -547,10 +547,10 @@
       <div class="filter-window">
         <ul class="filter-review">
           평균평점
-          <li><img src="./images/star_4.png"> 별 4개 이상</li>
-          <li><img src="./images/star_3.png"> 별 3개 이상</li>
-          <li><img src="./images/star_2.png"> 별 2개 이상</li>
-          <li><img src="./images/star_1.png"> 별 1개 이상</li>
+          <li><div class="sortByStar"><img src="./images/star_4.png"> 별 4개 이상</div></li>
+          <li><div class="sortByStar"><img src="./images/star_3.png"> 별 3개 이상</li>
+          <li><div class="sortByStar"><img src="./images/star_2.png"> 별 2개 이상</li>
+          <li><div class="sortByStar"><img src="./images/star_1.png"> 별 1개 이상</li>
         </ul> <!-- /.filter-review -->
         <ul class="filter-feeling">
           발림성

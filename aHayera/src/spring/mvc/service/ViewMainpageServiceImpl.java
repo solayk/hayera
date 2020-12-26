@@ -16,8 +16,8 @@ public class ViewMainpageServiceImpl implements ViewMainpageService {
 		return viewMainDAO.selectMaxTotalsalesProduct(vo);
 	}
 
-	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo) {
-		return viewMainDAO.viewTopfiveSalesdProduct(vo);
+	public List<ProductVO> viewTopFourSalesdProduct(ProductVO vo) {
+		return viewMainDAO.viewTopFourSalesdProduct(vo);
 	}
 	
 	public List<ProductVO> viewAllproduct(ProductVO vo) {

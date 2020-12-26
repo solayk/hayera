@@ -27,10 +27,10 @@ public class ViewMainpageController {
 		return list;
 	}
 	// 판매량 상위 5위까지 상품 보여주기
-	@RequestMapping("/viewTopfiveSalesdProduct")
+	@RequestMapping("/viewTopFourSalesdProduct")
 	@ResponseBody
 	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo){
-		List<ProductVO> list = viewMainpageService.viewTopfiveSalesdProduct(vo);
+		List<ProductVO> list = viewMainpageService.viewTopFourSalesdProduct(vo);
 		return list;
 	}
 	

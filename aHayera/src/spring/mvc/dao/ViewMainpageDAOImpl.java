@@ -17,8 +17,8 @@ public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 		return mybatis.selectList("ViewMainPageDAO.selectMaxTotalsalesProduct",vo);
 	}
 
-	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo) {
-		return mybatis.selectList("ViewMainPageDAO.viewTopfiveSalesdProduct",vo);
+	public List<ProductVO> viewTopFourSalesdProduct(ProductVO vo) {
+		return mybatis.selectList("ViewMainPageDAO.viewTopFourSalesdProduct",vo);
 	}
 
 	public List<ProductVO> viewAllproduct(ProductVO vo) {

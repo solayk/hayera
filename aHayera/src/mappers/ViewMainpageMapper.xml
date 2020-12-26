@@ -19,15 +19,11 @@
 	]]>
 	</select>
 	
-	<select id="viewTopfiveSalesdProduct" resultType="product">
+	<select id="viewTopFourSalesdProduct" resultType="product">
 	<![CDATA[
 	SELECT *
-	FROM product
-	WHERE totalsales IN (SELECT totalsales
-    	FROM (SELECT rownum AS rnum, totalsales
-        	FROM (SELECT totalsales FROM product ORDER BY totalsales desc))
-    	WHERE rnum>=1 AND rnum<=5)
-	ORDER BY totalsales desc
+	FROM (SELECT * FROM PRODUCT ORDER BY TOTALSALES DESC)
+	WHERE ROWNUM <= 4
 	]]>
 	</select>
 	

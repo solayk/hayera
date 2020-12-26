@@ -298,10 +298,10 @@
           }
         }); // --- end of $.ajax 전체상품목록
 
-        // 누적 판매 베스트 5 => 4로 변경 (현재는 모든 제품 나오는 중)
+        // 누적 판매 베스트 4로 변경 (현재는 모든 제품 나오는 중)
         $.ajax({
           type: 'post',
-          url: 'viewTopfiveSalesdProduct.do',
+          url: 'viewTopFourSalesdProduct.do',
           dataType: 'json',
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
           success: function (data) {
@@ -313,7 +313,7 @@
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
-              productListing(".viewTopfive", data, star, discount, mlprice);
+              productListing(".viewTopFour", data, star, discount, mlprice);
             }
           },
           error: function (err) {
@@ -494,7 +494,7 @@
               }
 
               $('.viewFilteredProduct').parent('div').show();
-              $('.viewTopfive').parent('div').hide();
+              $('.viewTopFour').parent('div').hide();
               $('.viewTopSalesedItem').parent('div').hide();
               $('.viewAllProduct').parent('div').hide();
 
@@ -692,8 +692,8 @@
 
           
           <div class="product">
-          <h3 class="text-center hayera">누적 판매 베스트 5<br><br></h3>
-            <ul class="product-top viewTopfive">
+          <h3 class="text-center hayera">누적 판매 베스트 4<br><br></h3>
+            <ul class="product-top viewTopFour">
             </ul>
           </div>
           <br>

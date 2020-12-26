@@ -10,6 +10,7 @@ import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.QnaVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -72,4 +73,9 @@ public class AdminServiceImpl implements AdminService {
 	public void adminEditDeliveryStatus (OrderListVO vo) {
 		adminDAO.adminEditDeliveryStatus(vo);
 	}
+	
+	public List<QnaVO> viewAllInquiry(QnaVO vo){
+		return adminDAO.viewAllInquiry(vo);
+	}
+	
 }

@@ -8,13 +8,9 @@ public class QnaVO {
 	private String title;
 	private String contents;
 	private String qnaday;
+	private String prod_name;	// 관리자 문의 관리 목적
+	private String img_url;	// 관리자 문의 관리 목적
 	
-	public String getQnaday() {
-		return qnaday;
-	}
-	public void setQnaday(String qnaday) {
-		this.qnaday = qnaday;
-	}
 	public String getInquiry_id() {
 		return inquiry_id;
 	}
@@ -45,5 +41,25 @@ public class QnaVO {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
+	public String getQnaday() {
+		return qnaday;
+	}
+	public void setQnaday(String qnaday) {
+		this.qnaday = qnaday;
+	}
+	// 관리자 문의 관리 목적
+	public String getProd_name() {
+		return prod_name;
+	}
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+	public String getImg_url() {
+		return img_url;
+	}
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+	
 	
 }

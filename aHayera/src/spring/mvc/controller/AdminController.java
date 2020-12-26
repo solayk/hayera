@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +17,7 @@ import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.QnaVO;
 import spring.mvc.service.AdminService;
 
 @Controller
@@ -140,12 +140,8 @@ public class AdminController {
 	//	전체 주문 목록 보여주기
 	@RequestMapping("/viewAllOrderlist.do")
 	@ResponseBody
-	public List<OrderListVO> viewAllOrderlist(OrderListVO vo, ProductVO pvo, Model model)	{ 
+	public List<OrderListVO> viewAllOrderlist(OrderListVO vo)	{ 
 		List<OrderListVO> data = adminService.viewAllOrderlist(vo);
-		
-		System.out.println("1 : " + vo.getOrder_no());
-		System.out.println("2 : " + pvo.getProd_no());
-		
 		return data;
 	}
 	
@@ -171,4 +167,17 @@ public class AdminController {
 		adminService.adminEditDeliveryStatus(vo); 
 	}
 		
+	
+	// ===== adminReply.jsp =====
+	//	전체 문의 목록 보여주기
+	@RequestMapping("/viewAllInquiry.do")
+	@ResponseBody
+	public List<QnaVO> viewAllInquiry(QnaVO vo)	{ 
+		List<QnaVO> data = adminService.viewAllInquiry(vo);
+		return data;
+	}
+	
+	
+	
+	
 }

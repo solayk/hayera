@@ -109,7 +109,7 @@
               $('#sortTable_wrapper > div:eq(0)').remove();
               $('#sortTable_wrapper > div:eq(1)').remove();
 
-              /* 발송처리 버튼 클릭 시 */
+              /* 수정 버튼 클릭 시 */
               $(document).on('click', '.editOrder', function () {
 
                 $('.adminCustomer_editTable').show();
@@ -145,7 +145,7 @@
                 $('.editOrder').attr("disabled", "disabled");
               }); // --- end of .editProduct click
 
-              /* 삭제버튼 클릭 시 */
+              /* 발송완료 버튼 클릭 시 */
               $(document).on('click', '.deliveryConfirm', function () {
 
                 var order_no = $(this).parent().parent('tr').find('td:nth-child(1)').text();

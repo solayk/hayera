@@ -13,6 +13,7 @@
 		<typeAlias alias="order" type="spring.mvc.domain.OrderListVO"/>
 		<typeAlias alias="order_product" type="spring.mvc.domain.Order_ProductVO"/>
 		<typeAlias alias="qna" type="spring.mvc.domain.QnaVO"/>
+		<typeAlias alias="qna_reply" type="spring.mvc.domain.Qna_ReplyVO"/>
 		
 	</typeAliases>
 

@@ -6,6 +6,7 @@ import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.QnaVO;
 
 public interface AdminDAO {
 	
@@ -36,4 +37,6 @@ public interface AdminDAO {
 	public void adminEditOrder (OrderListVO vo);
 	
 	public void adminEditDeliveryStatus (OrderListVO vo);
+	
+	public List<QnaVO> viewAllInquiry(QnaVO vo);
 }

@@ -10,6 +10,7 @@ import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.QnaVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -71,5 +72,9 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	public void adminEditDeliveryStatus (OrderListVO vo) {
 		mybatis.update("AdminDAO.adminEditDeliveryStatus", vo);
+	}
+	
+	public List<QnaVO> viewAllInquiry(QnaVO vo) {
+		return mybatis.selectList("AdminDAO.viewAllInquiry", vo);
 	}
 }

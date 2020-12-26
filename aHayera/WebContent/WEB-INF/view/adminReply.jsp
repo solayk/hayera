@@ -48,43 +48,34 @@
           <script type="text/javascript">
             $(document).ready(function () {
 
-              $('.adminCustomer_editTable').hide();
+              $('.adminInquiry_editTable').hide();
 
-              // 검색을 위해 전역변수 선언 -- 안쓰면 추후 삭제
-              var dataList;
-
-              // 전체 고객 목록
+              // 전체 문의 목록
               $.ajax({
-                url: 'viewAllOrderlist.do',
+                url: 'viewAllInquiry.do',
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
                 success: function (data) {
 
                   for (i = 0; i < data.length; i++) {
-                    $('.viewAllOrder').append(
-                      (data[i].order_status == "취소" ? '<tr class="cancelledOrder">' : '<tr>')
-                      + '<td>' + data[i].order_no + '</td>'
+                    $('.viewAllInquiry').append(
+                      '<tr>'
+                      + '<td>' + data[i].inquiry_id + '</td>'
+                      + '<td>' + data[i].prod_no + '</td>'
+                      + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
+                      + '<td>' + data[i].prod_name + '</td>'
                       + '<td>' + data[i].customer_id + '</td>'
-                      + '<td>' + data[i].receive + '</td>'
-                      + '<td>' + data[i].order_address + '</td>'
-                      + '<td>' + data[i].order_date + '</td>'
-                      + '<td style="text-align:right;">' + numberWithCommas(String(data[i].order_price)) + '</td>'
-                      + '<td style="text-align:right;">' + numberWithCommas(String(data[i].discount_price)) + '</td>'
-                      + '<td style="text-align:right;">' + numberWithCommas(String(data[i].delivery_price)) + '</td>'
-                      + '<td style="text-align:right;">' + numberWithCommas(String(data[i].payment_price)) + '</td>'
-                      + '<td>' + data[i].order_status + '</td>'
-                      + '<td>' + data[i].pay_date + '</td>'
-                      + '<td>' + data[i].delivery_date + '</td>'
-                      + '<td>' + data[i].delivery_status + '</td>'
+                      + '<td>' + data[i].title + '</td>'
+                      + '<td>' + data[i].contents + '</td>'
+                      + '<td>' + data[i].qnaday + '</td>'
+                      + '<td></td>'
                       + '<td class="configBtns">'
-                      + (data[i].order_status == "취소" ? '' :'<button class="editOrder" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
-                      + (data[i].delivery_status == "배송준비" ? '<button class="deliveryConfirm" type="button" data-toggle="tooltip" data-placement="top" title="발송처리"><i class="material-icons">airport_shuttle</i></button>': '')) + '</td>'
+                      + '<button class="editOrder" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
+                      + '<button class="deliveryConfirm" type="button" data-toggle="tooltip" data-placement="top" title="발송처리"><i class="material-icons">airport_shuttle</i></button></td>'
                       + '</tr>'
                     )
-                    data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
                   }
-                  dataList = data; // 검색을 위한 데이터 저장
                   $('.cancelledOrder > td').css("color", "#BFBFBF"); // 취소 아이템 회색 음영 표기
                 },
                 error: function (e) {
@@ -100,7 +91,7 @@
 
               $('#search-product').on("keyup", function () {
                 var value = $(this).val().toLowerCase();
-                $('.viewAllOrder > tr').filter(function () {
+                $('.viewAllInquiry > tr').filter(function () {
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
               }); // --- end of #myInput keyup search for product              
@@ -109,15 +100,15 @@
               $('#sortTable_wrapper > div:eq(0)').remove();
               $('#sortTable_wrapper > div:eq(1)').remove();
 
-              /* 발송처리 버튼 클릭 시 */
+              /* 삭제 버튼 클릭 시 */
               $(document).on('click', '.editOrder', function () {
 
-                $('.adminCustomer_editTable').show();
+                $('.adminInquiry_editTable').show();
 
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
                 /* DB에서 AJAX로 데이터 가져오기 */
-                var info = {
+                /* var info = {
                   order_no: $(this).parent().parent('tr').find('td:nth-child(1)').text()
                 }
                 $.ajax({
@@ -141,11 +132,11 @@
                   error: function (err) {
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
                   }
-                });
+                }); */
                 $('.editOrder').attr("disabled", "disabled");
               }); // --- end of .editProduct click
 
-              /* 삭제버튼 클릭 시 */
+              /* 발송완료 버튼 클릭 시 */
               $(document).on('click', '.deliveryConfirm', function () {
 
                 var order_no = $(this).parent().parent('tr').find('td:nth-child(1)').text();
@@ -155,7 +146,7 @@
                 if (test) {
 
                   /* DB에서 AJAX로 데이터 수정하기 */
-                  var info = {
+                  /* var info = {
                 	order_no: order_no
                   }
                   $.ajax({
@@ -169,7 +160,7 @@
                     error: function (err) {
                       alert("에러가 발생했습니다: adminCustomer.jsp --- .deleteCustomer 에러");
                     }
-                  });
+                  }); */
 
                 }
                 else {
@@ -253,7 +244,7 @@
                         <span class="navbar-toggler-bar bar3"></span>
                       </button>
                     </div>
-                    <a class="navbar-brand" href="" style="font-size: 30px">주문 관리</a>
+                    <a class="navbar-brand" href="" style="font-size: 30px">문의 답변 관리</a>
                   </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                     aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -295,7 +286,7 @@
 
                   <!-- 상품 수정 -->
                   <div class="col-md-12">
-                    <div class="card adminCustomer_editTable">
+                    <div class="card adminInquiry_editTable">
                       <div class="card-header">
                         <h4 class="card-title"> 주문 수정 </h4>
                       </div>
@@ -384,25 +375,21 @@
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
                                 <tr class="viewAllProductTH">
-                                  <th scope="col" style="max-width: 100px; min-width: 100px;">주문번호</th>
-                                  <th scope="col" style="width: 70px; min-width: 70px;">아이디</th>
-                                  <th scope="col" style="max-width: 70px; min-width: 70px;">받는사람</th>
-                                  <th scope="col" style="max-width: 90px; min-width: 90px;">주소</th>
-                                  <th scope="col" style="max-width: 55px; min-width: 55px;">구매일</th>
-                                  <th scope="col" style="max-width: 40px; min-width: 40px;">주문</th>
-                                  <th scope="col" style="max-width: 40px; min-width: 40px;">할인</th>
-                                  <th scope="col" style="max-width: 40px; min-width: 40px;">배송</th>
-                                  <th scope="col" style="max-width: 40px; min-width: 40px;">결제</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">상태</th>
-                                  <th scope="col" style="max-width: 55px; min-width: 55px;">확정일</th>
-                                  <th scope="col" style="max-width: 55px; min-width: 55px;">발송일</th>
-                                  <th scope="col" style="max-width: 60px;min-width: 60px;">배송</th>
+                                  <th scope="col" style="max-width: 100px; min-width: 100px;">문의번호</th>
+                                  <th scope="col" style="max-width: 70px; min-width: 70px;">제품번호</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">제품</th>
+                                  <th scope="col" style="max-width: 70px; min-width: 70px;">제품이름</th>
+                                  <th scope="col" style="max-width: 70px; min-width: 70px;">아이디</th>
+                                  <th scope="col" style="max-width: 90px; min-width: 90px;">제목</th>
+                                  <th scope="col" style="max-width: 300px; min-width: 300px;">내용</th>
+                                  <th scope="col" style="max-width: 55px; min-width: 55px;">작성일</th>
+                                  <th scope="col" style="max-width: 55px; min-width: 55px;">답변일</th>
                                   <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>
 
                               <!-- 고객 전체 목록 띄우는 곳 -->
-                              <tbody class="viewAllOrder">
+                              <tbody class="viewAllInquiry">
                               </tbody>
 
                             </table>

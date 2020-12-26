@@ -9,36 +9,36 @@ import org.springframework.stereotype.Repository;
 import spring.mvc.domain.ProductVO;
 
 @Repository
-public class ViewMainpageDAOImpl implements ViewMainpageDAO {
+public class ViewDAOImpl implements ViewDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
 	public List<ProductVO> selectMaxTotalsalesProduct(ProductVO vo) {
-		return mybatis.selectList("ViewMainPageDAO.selectMaxTotalsalesProduct",vo);
+		return mybatis.selectList("ViewDAO.selectMaxTotalsalesProduct",vo);
 	}
 
 	public List<ProductVO> viewTopFourSalesdProduct(ProductVO vo) {
-		return mybatis.selectList("ViewMainPageDAO.viewTopFourSalesdProduct",vo);
+		return mybatis.selectList("ViewDAO.viewTopFourSalesdProduct",vo);
 	}
 
 	public List<ProductVO> viewAllproduct(ProductVO vo) {
-		return mybatis.selectList("ViewMainPageDAO.viewAllProduct",vo);
+		return mybatis.selectList("ViewDAO.viewAllProduct",vo);
 	}
 	
 	public ProductVO productSelected(ProductVO vo) {
-		return mybatis.selectOne("ViewMainPageDAO.productSelected",vo);
+		return mybatis.selectOne("ViewDAO.productSelected",vo);
 	}
 
 	public List<ProductVO> searchResult(String search) {
-		return mybatis.selectList("ViewMainPageDAO.searchResult",search);
+		return mybatis.selectList("ViewDAO.searchResult",search);
 	}
 	
 	public List<ProductVO> categoryList(ProductVO vo) {
-		return mybatis.selectList("ViewMainPageDAO.categoryList",vo);
+		return mybatis.selectList("ViewDAO.categoryList",vo);
 	}
 	
 	public List<ProductVO> viewFilteredProduct(ProductVO vo) {
-		return mybatis.selectList("ViewMainPageDAO.viewFilteredProduct",vo);
+		return mybatis.selectList("ViewDAO.viewFilteredProduct",vo);
 	}
 	
 }

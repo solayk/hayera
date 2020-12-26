@@ -5,39 +5,39 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import spring.mvc.dao.ViewMainpageDAOImpl;
+import spring.mvc.dao.ViewDAOImpl;
 import spring.mvc.domain.ProductVO;
 @Service
-public class ViewMainpageServiceImpl implements ViewMainpageService {
+public class ViewServiceImpl implements ViewService {
 	@Autowired
-	private ViewMainpageDAOImpl viewMainDAO;
+	private ViewDAOImpl viewDAO;
 
 	public List<ProductVO> selectMaxTotalsalesProduct(ProductVO vo) {
-		return viewMainDAO.selectMaxTotalsalesProduct(vo);
+		return viewDAO.selectMaxTotalsalesProduct(vo);
 	}
 
 	public List<ProductVO> viewTopFourSalesdProduct(ProductVO vo) {
-		return viewMainDAO.viewTopFourSalesdProduct(vo);
+		return viewDAO.viewTopFourSalesdProduct(vo);
 	}
 	
 	public List<ProductVO> viewAllproduct(ProductVO vo) {
-		return viewMainDAO.viewAllproduct(vo);
+		return viewDAO.viewAllproduct(vo);
 	}
 	
 	public ProductVO productSelected(ProductVO vo) {
-		return viewMainDAO.productSelected(vo);
+		return viewDAO.productSelected(vo);
 	}
 	
 	public List<ProductVO> searchResult(String search) {
-		return viewMainDAO.searchResult(search);
+		return viewDAO.searchResult(search);
 	}
 	
 	public List<ProductVO> categoryList(ProductVO vo) {
-		return viewMainDAO.categoryList(vo);
+		return viewDAO.categoryList(vo);
 	}
 	
 	public List<ProductVO> viewFilteredProduct(ProductVO vo) {
-		return viewMainDAO.viewFilteredProduct(vo);
+		return viewDAO.viewFilteredProduct(vo);
 	}
 	
 }

@@ -19,13 +19,13 @@ import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.MypageService;
 import spring.mvc.service.OrderService;
-import spring.mvc.service.ViewMainpageService;
+import spring.mvc.service.ViewService;
 
 @Controller
 public class OrderCheckController {
 	
 	@Autowired
-	private ViewMainpageService viewMainpageService;
+	private ViewService viewMainpageService;
 	@Autowired
 	private MypageService mypageService;
 	@Autowired

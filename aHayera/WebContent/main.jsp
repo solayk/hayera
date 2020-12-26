@@ -678,7 +678,6 @@
         </ul> <!-- /.filter-feeling -->
       </div> <!-- /.filter-window -->
       <div class="container tim-container" style="max-width:1000px; padding-top:20px">
-        <br>
         <div class="col-md-12">
 
           
@@ -687,7 +686,6 @@
             <ul class="product-top viewFilteredProduct">
             </ul>
           </div>
-          <br>
           <hr>
 
           
@@ -696,7 +694,6 @@
             <ul class="product-top viewTopFour">
             </ul>
           </div>
-          <br>
           <hr>
 
           
@@ -705,7 +702,6 @@
             <ul class="product-top viewTopSalesedItem">
             </ul>
           </div>
-          <br>
           <hr>
 
           

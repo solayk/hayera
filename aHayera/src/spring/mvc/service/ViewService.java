@@ -4,7 +4,7 @@ import java.util.List;
 
 import spring.mvc.domain.ProductVO;
 
-public interface ViewMainpageService {
+public interface ViewService {
 	
 	public List<ProductVO> selectMaxTotalsalesProduct(ProductVO vo);
 	

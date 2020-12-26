@@ -44,7 +44,7 @@
 
           <!-- 전용 CSS 연결 -->
           <link href="./css/hayera.css" rel="stylesheet" />
-		  
+
           <script type="text/javascript">
             $(document).ready(function () {
 
@@ -66,13 +66,12 @@
                       + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
                       + '<td>' + data[i].prod_name + '</td>'
                       + '<td>' + data[i].customer_id + '</td>'
-                      + '<td>' + data[i].title + '</td>'
                       + '<td>' + data[i].contents + '</td>'
                       + '<td>' + data[i].qnaday + '</td>'
                       + '<td></td>'
+                      + '<td></td>'
                       + '<td class="configBtns">'
-                      + '<button class="editOrder" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
-                      + '<button class="deliveryConfirm" type="button" data-toggle="tooltip" data-placement="top" title="발송처리"><i class="material-icons">airport_shuttle</i></button></td>'
+                      + '<button class="replyToInquiry" type="button" data-toggle="tooltip" data-placement="top" title="답변"><i class="material-icons">question_answer</i></button>'
                       + '</tr>'
                     )
                   }
@@ -100,40 +99,33 @@
               $('#sortTable_wrapper > div:eq(0)').remove();
               $('#sortTable_wrapper > div:eq(1)').remove();
 
-              /* 삭제 버튼 클릭 시 */
-              $(document).on('click', '.editOrder', function () {
+              /* 답변 버튼 클릭 시 */
+              $(document).on('click', '.replyToInquiry', function () {
 
                 $('.adminInquiry_editTable').show();
 
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
                 /* DB에서 AJAX로 데이터 가져오기 */
-                /* var info = {
-                  order_no: $(this).parent().parent('tr').find('td:nth-child(1)').text()
+                var info = {
+                  inquiry_id: $(this).parent().parent('tr').find('td:nth-child(1)').text()
                 }
                 $.ajax({
                   type: "POST",
                   data: info,
                   dataType: "json",
-                  url: "adminOrderEditTarget.do",
+                  url: "viewAllInquiry.do",
                   contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
                   success: function (data) {
-                    $('#editOrderItems > td:nth-child(1) > input').val(data.order_no);
-                    $('#editOrderItems > td:nth-child(2) > input').val(data.customer_id);
-                    $('#editOrderItems > td:nth-child(3) > input').val(data.receive);
-                    $('#editOrderItems > td:nth-child(4) > input').val(data.order_address);
-                    $('#editOrderItems > td:nth-child(5) > input').val(data.order_date);
-                    $('#editOrderItems > td:nth-child(6) > input').val(numberWithCommas(String(data.payment_price)));
-                    $('#editOrderItems > td:nth-child(7) > select').val(data.order_status);
-                    $('#editOrderItems > td:nth-child(8) > input').val(data.pay_date);
-                    $('#editOrderItems > td:nth-child(9) > input').val(data.delivery_date);
-                    $('#editOrderItems > td:nth-child(10) > input').val(data.delivery_status);
+                    $('#replyInquiry > td:nth-child(1) > input').val(data[0].inquiry_id);
+                    $('#replyInquiry > td:nth-child(2) > input').val(data[0].prod_name);
+                    $('#replyInquiry > td:nth-child(3) > input').val(data[0].contents);
                   },
                   error: function (err) {
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
                   }
-                }); */
-                $('.editOrder').attr("disabled", "disabled");
+                });
+                $('.replyToInquiry').attr("disabled", "disabled");
               }); // --- end of .editProduct click
 
               /* 발송완료 버튼 클릭 시 */
@@ -147,7 +139,7 @@
 
                   /* DB에서 AJAX로 데이터 수정하기 */
                   /* var info = {
-                	order_no: order_no
+                  order_no: order_no
                   }
                   $.ajax({
                     type: "POST",
@@ -212,11 +204,11 @@
                     </a>
                   </li>
                   <li class="active">
-              		 <a href="adminReply.do">
-              		  	<i class="now-ui-icons ui-2_chat-round"></i>
-                		<p>문의 관리</p>
-              		 </a>
-            	  </li>
+                    <a href="adminReply.do">
+                      <i class="now-ui-icons ui-2_chat-round"></i>
+                      <p>문의 관리</p>
+                    </a>
+                  </li>
                   <li>
                     <a href="adminStock.do">
                       <i class="now-ui-icons files_paper"></i>
@@ -292,52 +284,25 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <form action="adminEditOrder.do" method='post' enctype='multipart/form-data'>
+                          <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
-                                  <th style="width: 140px; min-width: 140px;">주문번호</th>
-                                  <th style="width: 90px; min-width: 90px;">아이디</th>
-                                  <th style="width: 90px; min-width: 90px;">받는사람</th>
-                                  <th colspan="3">주소</th>
-                                  <th style="max-width: 55px; min-width: 55px;">구매일</th>
-                                  <th style="width: 90px; min-width: 90px;">결제</th>
-                                  <th style="width: 100px; min-width: 100px;">상태</th>
-                                  <th style="max-width: 55px; min-width: 55px;">확정일</th>
-                                  <th style="max-width: 55px; min-width: 55px;">발송일</th>
-                                  <th>배송</th>
+                                  <th style="max-width: 70px; min-width: 70px;">문의번호</th>
+                                  <th style="max-width: 70px; min-width: 70px;">제품이름</th>
+                                  <th style="max-width: 200px; min-width: 200px;">문의</th>
+                                  <th style="max-width: 70px; min-width: 70px;">관리자</th>
+                                  <th style="max-width: 200px; min-width: 200px;">답변</th>
                                 </tr>
                               </thead>
-                              <tr id="editOrderItems">
-                                <td><input type="text" name="order_no" class=".adminProduct_input" id="editCustomer_id" style="border: none;" readonly></td>
-                                <td><input type="text" name="customer_id" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="receive" class=".adminProduct_input" required></td>
-                                <td colspan="3"><input type="text" name="order_address" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="order_date" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="" class=".adminProduct_input" style="border: none; text-align: right;" readonly></td>
-                                <td>
-                                  <select name="order_status" required>
-                                    <option value="결제완료">결제완료</option>
-                                    <option value="취소">취소</option>
-                                  </select>
-                                </td>
-                                <td><input type="text" name="pay_date" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="delivery_date" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td>
-                                  <select name="delivery_status" required>
-                                    <option value="배송준비">배송준비</option>
-                                    <option value="발송완료">발송완료</option>
-                                  </select>
-                                </td>
+                              <tr id="replyInquiry">
+                                <td><input type="text" name="inquiry_id" class=".adminProduct_input" id="editCustomer_id" style="border: none;" readonly></td>
+                                <td><input type="text" name="" class=".adminProduct_input" style="border: none;" readonly></td>
+                                <td><input type="text" name="" class=".adminProduct_input" style="border: none;" readonly></td>
+                                <td><input type="text" name="manager_id" class=".adminProduct_input" style="border: none;" value="<%=session.getAttribute(" admin_id")%>" readonly></td>
+                                <td><input type="text" name="contents" class=".adminProduct_input" required></td>
                               </tr>
                               <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -374,17 +339,17 @@
                           <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
-                                <tr class="viewAllProductTH">
-                                  <th scope="col" style="max-width: 100px; min-width: 100px;">문의번호</th>
+                                <tr class="viewTableHeader">
+                                  <th scope="col" style="max-width: 70px; min-width: 70px;">문의번호</th>
                                   <th scope="col" style="max-width: 70px; min-width: 70px;">제품번호</th>
                                   <th scope="col" style="max-width: 50px; min-width: 50px;">제품</th>
                                   <th scope="col" style="max-width: 70px; min-width: 70px;">제품이름</th>
                                   <th scope="col" style="max-width: 70px; min-width: 70px;">아이디</th>
-                                  <th scope="col" style="max-width: 90px; min-width: 90px;">제목</th>
-                                  <th scope="col" style="max-width: 300px; min-width: 300px;">내용</th>
-                                  <th scope="col" style="max-width: 55px; min-width: 55px;">작성일</th>
-                                  <th scope="col" style="max-width: 55px; min-width: 55px;">답변일</th>
-                                  <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
+                                  <th scope="col" style="max-width: 250px; min-width: 250px;">문의</th>
+                                  <th scope="col" style="max-width: 60px; min-width: 60px;">작성일</th>
+                                  <th scope="col" style="max-width: 250px; min-width: 250px;">답변</th>
+                                  <th scope="col" style="max-width: 60px; min-width: 60px;">답변일</th>
+                                  <th scope="col" style="max-width: 30px; min-width: 30px;"></th>
                                 </tr>
                               </thead>
 

@@ -5,7 +5,6 @@ public class Qna_ReplyVO {
 	private String inquiry_reply_id;
 	private String manager_id;
 	private String inquiry_id;
-	private String title;
 	private String contents;
 	private String replyday;
 	
@@ -26,12 +25,6 @@ public class Qna_ReplyVO {
 	}
 	public void setInquiry_id(String inquiry_id) {
 		this.inquiry_id = inquiry_id;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	public String getContents() {
 		return contents;

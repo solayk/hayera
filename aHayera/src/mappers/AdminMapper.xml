@@ -97,12 +97,14 @@
 		]]>
 	</update>
 	
-	<select id="viewAllInquiry" resultType="qna">
-		<![CDATA[
+	<select id="viewAllInquiry" parameterType="qna" resultType="qna">
 		SELECT I.INQUIRY_ID INQUIRY_ID, P.PROD_NO PROD_NO, P.PROD_NAME PROD_NAME, P.IMG_URL IMG_URL, 
 		I.CUSTOMER_ID CUSTOMER_ID, I.TITLE TITLE, I.CONTENTS CONTENTS, I.QNADAY QNADAY
-		FROM INQUIRY I INNER JOIN PRODUCT P ON I.PROD_NO = P.PROD_NO ORDER BY QNADAY DESC
-		]]>
+		FROM INQUIRY I INNER JOIN PRODUCT P ON <![CDATA[I.PROD_NO = P.PROD_NO]]> 
+		<if test="inquiry_id != null">
+		<![CDATA[WHERE I.INQUIRY_ID = #{inquiry_id}]]>
+		</if>
+		ORDER BY QNADAY DESC
 	</select>
 
 </mapper>

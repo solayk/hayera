@@ -383,7 +383,7 @@
                           <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
-                                <tr class="viewAllProductTH">
+                                <tr class="viewTableHeader">
                                   <th scope="col" style="max-width: 100px; min-width: 100px;">주문번호</th>
                                   <th scope="col" style="width: 70px; min-width: 70px;">아이디</th>
                                   <th scope="col" style="max-width: 70px; min-width: 70px;">받는사람</th>

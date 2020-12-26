@@ -381,7 +381,7 @@
                           <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
-                                <tr class="viewAllProductTH">
+                                <tr class="viewTableHeader">
                                   <th scope="col"></th>
                                   <th scope="col" style="max-width: 80px; min-width: 80px;">아이디</th>
                                   <th scope="col" style="width: 100px; min-width: 100px;">전화번호</th>

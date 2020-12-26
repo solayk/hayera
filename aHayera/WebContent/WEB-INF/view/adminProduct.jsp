@@ -530,7 +530,7 @@
                           <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
-                                <tr class="viewAllProductTH">
+                                <tr class="viewTableHeader">
                                   <th scope="col">제품</th>
                                   <th scope="col" style="max-width: 40px; min-width: 40px;">번호</th>
                                   <th scope="col" style="width: 150px; min-width: 150px;">이름</th>

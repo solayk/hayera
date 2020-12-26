@@ -19,14 +19,14 @@ public class ViewMainpageController {
 	@Autowired
 	private CustomerService customerservice;
 	
-//  판매량 1위 상품 보여주기	
+	// 판매량 1위 상품 보여주기	
 	@RequestMapping("/viewTopSalesedItem.do")
 	@ResponseBody
 	public List<ProductVO> viewTopSalesedItem(ProductVO vo) {
 		List<ProductVO> list = viewMainpageService.selectMaxTotalsalesProduct(vo);
 		return list;
 	}
-//  판매량 상위 5위까지 상품 보여주기
+	// 판매량 상위 5위까지 상품 보여주기
 	@RequestMapping("/viewTopfiveSalesdProduct")
 	@ResponseBody
 	public List<ProductVO> viewTopfiveSalesdProduct(ProductVO vo){
@@ -34,7 +34,7 @@ public class ViewMainpageController {
 		return list;
 	}
 	
-//	전체 상품 목록 보여주기
+	// 전체 상품 목록 보여주기
 	@RequestMapping("/viewAllProduct.do")
 	@ResponseBody
 	public List<ProductVO> viewAllproduct(ProductVO vo, Model model)	{ 
@@ -62,6 +62,14 @@ public class ViewMainpageController {
 		model.addAttribute("categoryList",viewMainpageService.categoryList(vo));
 		model.addAttribute("categoryName",vo.getCategory());
 		return "category";
+	}
+	
+	// 필터된 상품 목록
+	@RequestMapping("/viewFilteredProduct.do")
+	@ResponseBody
+	public List<ProductVO> viewFilteredProduct(ProductVO vo, Model model)	{ 
+		List<ProductVO> list = viewMainpageService.viewFilteredProduct(vo); 
+		return list;
 	}
 	
 }

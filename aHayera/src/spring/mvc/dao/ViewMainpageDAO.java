@@ -18,4 +18,6 @@ public interface ViewMainpageDAO {
 	
 	public List<ProductVO> categoryList(ProductVO vo);
 	
+	public List<ProductVO> viewFilteredProduct(ProductVO vo);
+	
 }

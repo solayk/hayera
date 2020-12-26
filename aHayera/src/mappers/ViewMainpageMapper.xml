@@ -54,5 +54,17 @@
 	WHERE CATEGORY = #{category}
 	]]>
 	</select>
+	
+	<select id="viewFilteredProduct" parameterType="product" resultType="product">
+	SELECT * 
+	FROM PRODUCT
+	WHERE <![CDATA[AVG_RATING >= #{avg_rating}]]>
+		<if test="feel != ''">
+			AND REGEXP_LIKE(FEEL,#{feel})
+		</if>
+		<if test="scent != ''">
+			AND REGEXP_LIKE(SCENT,#{scent})
+		</if>
+	</select>
 
 </mapper>

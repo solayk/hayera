@@ -29,10 +29,11 @@
     <!-- 검색 autocomplete 목적-->
     <script src="autocomplete/jquery-ui.min.js"></script>
 
-
     <script src="js/bootstrap.js" type="text/javascript"></script>
-
     <script src="js/ct-navbar.js"></script>
+
+    <!-- 하예라 전용 JS Files   -->
+    <script src="./js/hayera.js"></script>
 
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -244,6 +245,12 @@
         /* 자동완성 목록 내 브랜드 */
         color: #BFBFBF;
       }
+
+      .liSelected>div {
+        color: #084A83;
+        font-size: 16px;
+        text-decoration: underline;
+      }
     </style>
 
     <script type="text/javascript">
@@ -256,6 +263,8 @@
 
       // Jquery 시작
       $(document).ready(function () {
+
+        $('.viewFilteredProduct').parent('div').hide();
 
         // 검색을 위해 전역변수 선언
         var dataList;
@@ -277,11 +286,11 @@
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
-              productListing(".viewAllProduct",data,star,discount,mlprice);              
-              
+              productListing(".viewAllProduct", data, star, discount, mlprice);
+
               data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
             }
-            
+
             dataList = data; // 검색을 위한 데이터 저장
           },
           error: function (e) {
@@ -303,8 +312,8 @@
               var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-			  
-              productListing(".viewTopfive",data,star,discount,mlprice);              
+
+              productListing(".viewTopfive", data, star, discount, mlprice);
             }
           },
           error: function (err) {
@@ -326,8 +335,8 @@
               var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
               if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
               else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-			  
-              productListing(".viewTopSalesedItem",data,star,discount,mlprice);
+
+              productListing(".viewTopSalesedItem", data, star, discount, mlprice);
             }
           },
           error: function (err) {
@@ -399,30 +408,106 @@
             $('li.dropdown').removeClass('open');
           }
         });
-        
-        
-        $('.filter-window').on('click',function(){
-        	
-        	$('#sortAll').on('click',function(){
-        		console.log("1");
-        	});
-        	
-        	var arr_feel = [];
-        	if($('#water').is(":checked")) arr_feel.push($('#water').val());
-        	if($('#soft').is(":checked")) arr_feel.push($('#soft').val());
-        	if($('#mat').is(":checked")) arr_feel.push($('#mat').val());
-        	if($('#hard').is(":checked")) arr_feel.push($('#hard').val());
-        	var arr_scent = [];
-        	if($('#no').is(":checked")) arr_scent.push($('#hard').val());
-        	if($('#flower').is(":checked")) arr_scent.push($('#hard').val());
-        	if($('#oe').is(":checked")) arr_scent.push($('#hard').val());
-        	if($('#chem').is(":checked")) arr_scent.push($('#hard').val());
-        	console.log(arr_feel.length);
-        	console.log(arr_scent.length);
+
+        // 필터 평균평점 클릭 시 클래스 추가
+        $('.filter-review > li').click(function () {
+          $('.filter-review > li').removeClass('liSelected');
+          $(this).addClass('liSelected');
         });
-        
-        
-        
+
+        // 필터 ajax
+        $('.filter-window').on('click', function () {
+
+          var avg_rating = 0;
+          var feel = "";
+          var scent = "";
+
+          avg_rating = $('.liSelected > div > label').text();
+
+          var arr_feel = [];
+          if ($('#water').is(":checked")) arr_feel.push($('#water').val());
+          if ($('#soft').is(":checked")) arr_feel.push($('#soft').val());
+          if ($('#mat').is(":checked")) arr_feel.push($('#mat').val());
+          if ($('#hard').is(":checked")) arr_feel.push($('#hard').val());
+
+          var arr_scent = [];
+          if ($('#no').is(":checked")) arr_scent.push($('#no').val());
+          if ($('#flower').is(":checked")) arr_scent.push($('#flower').val());
+          if ($('#oe').is(":checked")) arr_scent.push($('#oe').val());
+          if ($('#chem').is(":checked")) arr_scent.push($('#chem').val());
+
+          for (var i = 0; i < arr_feel.length; i++) {
+            if (i != arr_feel.length - 1) feel += arr_feel[i] + "|";
+            else feel += arr_feel[i];
+          }
+
+          for (var i = 0; i < arr_scent.length; i++) {
+            if (i != arr_scent.length - 1) scent += arr_scent[i] + "|";
+            else scent += arr_scent[i];
+          }
+
+          var info = {
+            avg_rating: avg_rating,
+            feel: feel,
+            scent: scent
+          }
+
+          $.ajax({
+            type: 'post',
+            data: info,
+            url: 'viewFilteredProduct.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
+            success: function (data) {
+				
+              console.log("길이: " + data.length);
+              
+              $('.viewFilteredProduct').empty();
+
+              // 상품목록 배열 처리
+              for (i = 0; i < data.length; i++) {
+
+                console.log("체크: " + data[i].prod_no);
+
+                var rating = parseFloat(data[i].avg_rating).toFixed(1);
+                var star = starRating(rating);
+                var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+                if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+                else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
+
+                $('.viewFilteredProduct').append(
+                  '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
+                  + '<div class="item-img" style="position:relative;">'
+                  + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
+                  + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                  + '<div class="item-brand">' + data[i].brand + '</div>'
+                  + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
+                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
+                  + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
+                    '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+                    : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+                  + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice + ' 원</div>'
+                  + '</li>'
+                )
+
+              }
+
+              $('.viewFilteredProduct').parent('div').show();
+              $('.viewTopfive').parent('div').hide();
+              $('.viewTopSalesedItem').parent('div').hide();
+              $('.viewAllProduct').parent('div').hide();
+
+            },
+            error: function (e) {
+              alert(e);
+            }
+          }); // --- end of $.ajax 필터
+
+        }); // --- end of 필터 ajax
+
+
+
       }); // --- end of jquery document ready
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
@@ -559,11 +644,23 @@
       <div class="filter-window">
         <ul class="filter-review">
           <label style="font-size:18px;">평균평점</label>
-          <li style="margin-bottom:4px;"><div class="sortByStar"><img src="./images/star_4.png"> 별 4개 이상</div></li>
-          <li style="margin-bottom:4px;"><div class="sortByStar"><img src="./images/star_3.png"> 별 3개 이상</li>
-          <li style="margin-bottom:4px;"><div class="sortByStar"><img src="./images/star_2.png"> 별 2개 이상</li>
-          <li style="margin-bottom:8px;"><div class="sortByStar"><img src="./images/star_1.png"> 별 1개 이상</li>
-          <li><div class="sortByStar" id="sortAll"> < 전체보기</li>
+          <li style="margin-bottom:4px;">
+            <div class="sortByStar"><img src="./images/star_4.png"> 별 <label>4</label>개 이상</div>
+          </li>
+          <li style="margin-bottom:4px;">
+            <div class="sortByStar"><img src="./images/star_3.png"> 별 <label>3</label>개 이상</div>
+          </li>
+          <li style="margin-bottom:4px;">
+            <div class="sortByStar"><img src="./images/star_2.png"> 별 <label>2</label>개 이상</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="sortByStar"><img src="./images/star_1.png"> 별 <label>1</label>개 이상</div>
+          </li>
+          <li class="liSelected">
+            <div class="sortByStar">
+              < 전체보기 <label style="visibility:hidden;">0</label>
+            </div>
+          </li>
         </ul> <!-- /.filter-review -->
         <ul class="filter-feeling">
           <label style="font-size:18px;">발림성</label>
@@ -583,22 +680,37 @@
       <div class="container tim-container" style="max-width:1000px; padding-top:20px">
         <br>
         <div class="col-md-12">
-          <h3 class="text-center hayera">누적 판매 베스트 5<br><br></h3>
+
+          
           <div class="product">
+          <h3 class="text-center hayera">필터 적용 결과<br><br></h3>
+            <ul class="product-top viewFilteredProduct">
+            </ul>
+          </div>
+          <br>
+          <hr>
+
+          
+          <div class="product">
+          <h3 class="text-center hayera">누적 판매 베스트 5<br><br></h3>
             <ul class="product-top viewTopfive">
             </ul>
           </div>
           <br>
           <hr>
-          <h3 class="text-center hayera">★No.1 Salesed Item★<br><br></h3>
+
+          
           <div class="product">
+          <h3 class="text-center hayera">★No.1 Salesed Item★<br><br></h3>
             <ul class="product-top viewTopSalesedItem">
             </ul>
           </div>
           <br>
           <hr>
-          <h3 class="text-center hayera">전체 상품 목록<br><br></h3>
+
+          
           <div class="product">
+          <h3 class="text-center hayera">전체 상품 목록<br><br></h3>
             <ul class="product-top viewAllProduct">
             </ul>
           </div>
@@ -618,8 +730,6 @@
       </div>
       <!-- end main -->
 
-      <!-- 하예라 전용 JS Files   -->
-      <script src="./js/hayera.js"></script>
   </body>
 
   </html>

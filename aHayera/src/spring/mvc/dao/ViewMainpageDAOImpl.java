@@ -29,11 +29,16 @@ public class ViewMainpageDAOImpl implements ViewMainpageDAO {
 		return mybatis.selectOne("ViewMainPageDAO.productSelected",vo);
 	}
 
-	public List<ProductVO> searchResult(String search){
+	public List<ProductVO> searchResult(String search) {
 		return mybatis.selectList("ViewMainPageDAO.searchResult",search);
 	}
 	
-	public List<ProductVO> categoryList(ProductVO vo){
+	public List<ProductVO> categoryList(ProductVO vo) {
 		return mybatis.selectList("ViewMainPageDAO.categoryList",vo);
 	}
+	
+	public List<ProductVO> viewFilteredProduct(ProductVO vo) {
+		return mybatis.selectList("ViewMainPageDAO.viewFilteredProduct",vo);
+	}
+	
 }

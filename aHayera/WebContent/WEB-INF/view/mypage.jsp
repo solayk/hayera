@@ -297,7 +297,7 @@ login_wrap {
 									placeholder="도로명주소 또는 지번주소" id="addr" name="addr" value="${juso[1]}">
 							</div>
 							<input type="text" placeholder="상세 주소를 입력하세요"
-								id="detailAddr" value="${juso[2]}"> 
+								id="detailAddr" name="detailAddr" value="${juso[2]}"> 
 								<input class="input100" name="extraAddr" type="text" placeholder="동" id="extraAddr"
 								value="${juso[3]}"> <span class="focus-input100"></span>
 						<tr>

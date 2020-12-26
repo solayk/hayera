@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.ReviewVO;
 import spring.mvc.service.CustomerService;
 import spring.mvc.service.ViewService;
@@ -44,10 +45,12 @@ public class ViewController {
 	
 	//상품누르면 prod_no받아서 리뷰 넘기기
 	@RequestMapping("/productSelected.do")
-	public String productDetail(ProductVO vo, Model model, ReviewVO rvo) {
+	public String productDetail(ProductVO vo, Model model, ReviewVO rvo,QnaVO qvo) {
 		model.addAttribute("productSelected",viewService.productSelected(vo));
 		rvo.setProd_no(vo.getProd_no());
+		qvo.setProd_no(vo.getProd_no());
 		model.addAttribute("reviewList",customerservice.selectReview(rvo));
+		model.addAttribute("qnaList", customerservice.selectQna(qvo));
 		return "productDetail";
 	}
 	

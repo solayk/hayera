@@ -377,9 +377,10 @@
                                  </c:forEach>
                               </div>
                            </div>
-                        </article>
+                           </article>
                         <article class="detail-boardmenu-qna">
-                        	<input type="button" value="문의사항 작성하기" name="wirtequna">
+                        	<input type="button" value="문의사항 작성하기" name="wirteqna">
+						<c:forEach items="${qnaList }" var="qna">
                            <table border='1'>
                               <tr>
                                  <th bgcolor='lightblue' width='150'>작성자</th>
@@ -388,15 +389,16 @@
                                  <th bgcolor='lightblue' width='150'>등록일</th>
                               </tr>
                               <tr>
-                                 <td>testt</td>
-                                 <td>문의드려요</td>
-                                 <td>민감성인데 잘 맞을까요?</td>
-                                 <td>2020/12/23</td>
-
+                                 <td>${qna.customer_id }</td>
+                                 <td>${qna.title }</td>
+                                 <td>${qna.contents }</td>
+                                 <td>${qna.qnaday}</td>
+ 
                               </tr>
 
 
                            </table>
+                           </c:forEach>
                         </article>
 
 
@@ -429,26 +431,8 @@
                   //qna게시판 눌렀을 때 qna로 
                   $('#qnaboard').click(function () {
                      $('.detail-boardmenu').hide();
+                     $('.detail-boardmenu-qna').show();
                      
-                     $.ajax({
-                    	 url : "qnalist.do",
-                    	 dataTye: "json",
-                    	 data: { 'prod_no': ${ productSelected.prod_no }},
-                    	 success : function (list) {
-
-							
-                    		 for (i = 0; i < list.length; i++) {
-                    			 alert("dd")
-                    			 
-                    		 }
-						},
-						err: function (err) {
-							console.log(err);
-						}
-                    	 
-                    	 
-                     })
-                    // $('.detail-boardmenu-qna').show();
 
                   });
 
@@ -460,7 +444,7 @@
 
                   //처음화면은 review
                   $(function () {
-                     $('.detail-boardmenu-qna').hide();
+                    $('.detail-boardmenu-qna').hide();
 
                   })
 
@@ -472,7 +456,7 @@
                         data: { 'prod_no': ${ productSelected.prod_no }},
                      dataType : "json",
                      success: function (list) {
-
+							
                         $('#appendgo').empty();
                         for (i = 0; i < list.length; i++) {
 

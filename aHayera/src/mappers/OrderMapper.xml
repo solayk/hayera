@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 주문 테이블, 주문-제품 테이블 관련된 쿼리 짜볼거야 -->
 <mapper namespace="OrderDAO">
 
 <insert id="insertOrder" parameterType="order">
@@ -18,14 +17,64 @@
 	]]>
 </insert>
 
-<select id="orderHistoryView" resultType="order" parameterType="order">
+<select id="orderHistoryViewDefault" resultType="order" parameterType="order">
 	<![CDATA[
 	SELECT *
 	FROM orderlist ol INNER JOIN (SELECT op.prod_no, op.order_no, op.each_qty, p.prod_name, p.img_url
     	FROM orderlist_product op INNER JOIN product p
     	ON op.prod_no = p.prod_no) op
 			ON ol.order_no=op.order_no
-	WHERE customer_id=#{customer_id}
+	WHERE customer_id=#{customer_id} AND TO_CHAR(order_date,'yyyymmdd') >= TO_CHAR(ADD_MONTHS(sysdate,-3),'yyyymmdd')
+	ORDER BY ol.order_date desc
 	]]>
 </select>
+
+<select id="orderHistoryViewToday" resultType="order" parameterType="order">
+	<![CDATA[
+	SELECT *
+	FROM orderlist ol INNER JOIN (SELECT op.prod_no, op.order_no, op.each_qty, p.prod_name, p.img_url
+    	FROM orderlist_product op INNER JOIN product p
+    	ON op.prod_no = p.prod_no) op
+			ON ol.order_no=op.order_no
+	WHERE customer_id=#{customer_id} AND TO_CHAR(order_date,'yyyymmdd') = TO_CHAR(sysdate,'yyyymmdd')
+	ORDER BY ol.order_date desc
+	]]>
+</select>
+
+<select id="orderHistoryView1week" resultType="order" parameterType="order">
+	<![CDATA[
+	SELECT *
+	FROM orderlist ol INNER JOIN (SELECT op.prod_no, op.order_no, op.each_qty, p.prod_name, p.img_url
+    	FROM orderlist_product op INNER JOIN product p
+    	ON op.prod_no = p.prod_no) op
+			ON ol.order_no=op.order_no
+	WHERE customer_id=#{customer_id} AND TO_CHAR(order_date,'yyyymmdd') >= TO_CHAR(sysdate-7,'yyyymmdd')
+	ORDER BY ol.order_date desc
+	]]>
+</select>
+
+<select id="orderHistoryView1month" resultType="order" parameterType="order">
+	<![CDATA[
+	SELECT *
+	FROM orderlist ol INNER JOIN (SELECT op.prod_no, op.order_no, op.each_qty, p.prod_name, p.img_url
+    	FROM orderlist_product op INNER JOIN product p
+    	ON op.prod_no = p.prod_no) op
+			ON ol.order_no=op.order_no
+	WHERE customer_id=#{customer_id} AND TO_CHAR(order_date,'yyyymmdd') >= TO_CHAR(ADD_MONTHS(sysdate,-1),'yyyymmdd')
+	ORDER BY ol.order_date desc
+	]]>
+</select>
+
+<select id="orderHistoryView6months" resultType="order" parameterType="order">
+	<![CDATA[
+	SELECT *
+	FROM orderlist ol INNER JOIN (SELECT op.prod_no, op.order_no, op.each_qty, p.prod_name, p.img_url
+    	FROM orderlist_product op INNER JOIN product p
+    	ON op.prod_no = p.prod_no) op
+			ON ol.order_no=op.order_no
+	WHERE customer_id=#{customer_id} AND TO_CHAR(order_date,'yyyymmdd') >= TO_CHAR(ADD_MONTHS(sysdate,-6),'yyyymmdd')
+	ORDER BY ol.order_date desc
+	]]>
+</select>
+
 </mapper>

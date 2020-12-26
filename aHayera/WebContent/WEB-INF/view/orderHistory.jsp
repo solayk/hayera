@@ -79,7 +79,7 @@
             $('li.dropdown').removeClass('open');
           }
        	});
-        // 주문한 상품들의 정보 받아 오기 
+        // 주문한 상품들의 정보 받아 오기 (페이지 로딩 시 기본 3개월)
         <c:forEach items="${orderHistory}" var="history">
         var p =${history.payment_price};
         var payment_price = p.formatNumber();
@@ -95,7 +95,151 @@
 	        	'</tr>'
 	        );
 		</c:forEach>
-        
+		// 오늘 클릭 시
+		$("#today").click(function () {
+			$.ajax({
+				type : 'post',
+				url : 'orderHistoryViewToday.do',
+				dataType : 'json',
+				contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+				success : function(data){
+					$("#orderHistoryTable").find("tr:gt(0)").remove();
+					for(i=0 ; i < data.length ; i++){
+						var payment_price = data[i].payment_price.formatNumber();
+						$("#orderHistoryTable").append(
+						'<tr>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+data[i].order_no+']'+'</td>'+
+			        	'<td>'+'<img src="resources/upload/'+data[i].img_url+'" width="80" height="80">'+'</td>'+
+			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+data[i].prod_name+'</a>'+'</td>'+
+			        	'<td>'+data[i].each_qty+'</td>'+
+			        	'<td>'+payment_price+'원'+'</td>'+
+			        	'<td>'+data[i].delivery_status+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'</tr>'		
+						)
+					};
+				},
+				error : function (err) {
+					console.log(err);				
+				}
+			})
+		});
+		// 1주일 클릭 시
+		$("#1week").click(function () {
+			$.ajax({
+				type : 'post',
+				url : 'orderHistoryView1week.do',
+				dataType : 'json',
+				contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+				success : function(data){
+					$("#orderHistoryTable").find("tr:gt(0)").remove();
+					for(i=0 ; i < data.length ; i++){
+						var payment_price = data[i].payment_price.formatNumber();
+						$("#orderHistoryTable").append(
+						'<tr>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+data[i].order_no+']'+'</td>'+
+			        	'<td>'+'<img src="resources/upload/'+data[i].img_url+'" width="80" height="80">'+'</td>'+
+			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+data[i].prod_name+'</a>'+'</td>'+
+			        	'<td>'+data[i].each_qty+'</td>'+
+			        	'<td>'+payment_price+'원'+'</td>'+
+			        	'<td>'+data[i].delivery_status+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'</tr>'		
+						)
+					};
+				},
+				error : function (err) {
+					console.log(err);				
+				}
+			})
+		});
+		// 1개월 클릭 시
+		$("#1month").click(function () {
+			$.ajax({
+				type : 'post',
+				url : 'orderHistoryView1month.do',
+				dataType : 'json',
+				contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+				success : function(data){
+					$("#orderHistoryTable").find("tr:gt(0)").remove();
+					for(i=0 ; i < data.length ; i++){
+						var payment_price = data[i].payment_price.formatNumber();
+						$("#orderHistoryTable").append(
+						'<tr>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+data[i].order_no+']'+'</td>'+
+			        	'<td>'+'<img src="resources/upload/'+data[i].img_url+'" width="80" height="80">'+'</td>'+
+			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+data[i].prod_name+'</a>'+'</td>'+
+			        	'<td>'+data[i].each_qty+'</td>'+
+			        	'<td>'+payment_price+'원'+'</td>'+
+			        	'<td>'+data[i].delivery_status+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'</tr>'		
+						)
+					};
+				},
+				error : function (err) {
+					console.log(err);				
+				}
+			})
+		});
+		// 3개월 클릭 시
+		$("#3month").click(function () {
+			$.ajax({
+				type : 'post',
+				url : 'orderHistoryViewDefault.do',
+				dataType : 'json',
+				contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+				success : function(data){
+					$("#orderHistoryTable").find("tr:gt(0)").remove();
+					for(i=0 ; i < data.length ; i++){
+						var payment_price = data[i].payment_price.formatNumber();
+						$("#orderHistoryTable").append(
+						'<tr>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+data[i].order_no+']'+'</td>'+
+			        	'<td>'+'<img src="resources/upload/'+data[i].img_url+'" width="80" height="80">'+'</td>'+
+			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+data[i].prod_name+'</a>'+'</td>'+
+			        	'<td>'+data[i].each_qty+'</td>'+
+			        	'<td>'+payment_price+'원'+'</td>'+
+			        	'<td>'+data[i].delivery_status+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'</tr>'		
+						)
+					};
+				},
+				error : function (err) {
+					console.log(err);				
+				}
+			})
+		});
+		// 6개월 클릭 시
+		$("#6month").click(function () {
+			$.ajax({
+				type : 'post',
+				url : 'orderHistoryView6months.do',
+				dataType : 'json',
+				contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+				success : function(data){
+					$("#orderHistoryTable").find("tr:gt(0)").remove();
+					for(i=0 ; i < data.length ; i++){
+						var payment_price = data[i].payment_price.formatNumber();
+						$("#orderHistoryTable").append(
+						'<tr>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+data[i].order_no+']'+'</td>'+
+			        	'<td>'+'<img src="resources/upload/'+data[i].img_url+'" width="80" height="80">'+'</td>'+
+			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+data[i].prod_name+'</a>'+'</td>'+
+			        	'<td>'+data[i].each_qty+'</td>'+
+			        	'<td>'+payment_price+'원'+'</td>'+
+			        	'<td>'+data[i].delivery_status+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'</tr>'		
+						)
+					};
+				},
+				error : function (err) {
+					console.log(err);				
+				}
+			})
+		});
       }) // --- end of jquery
       
       // 장바구니에서 바로 결제 클릭 시
@@ -334,7 +478,6 @@
         <hr/>
         <div id="orderHistory">
             <table class="table table-striped" id="orderHistoryTable">
-            	<tr>
                 <th>주문일자[주문번호]</th>
                 <th>이미지</th>
                 <th>상품명</th>
@@ -342,7 +485,6 @@
                 <th>결제금액</th>
                 <th>주문처리상태</th>
                 <th>리뷰</th>
-                </tr>
             </table>
             <!-- 페이징 나중에
             <ul class="pagination">

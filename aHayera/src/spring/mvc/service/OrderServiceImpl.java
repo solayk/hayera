@@ -23,8 +23,29 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.insertOrder_Product(vo);
 	}
 
-	public List<OrderListVO> orderHistoryView(OrderListVO vo) {
-		return orderDAO.orderHistoryView(vo);
+	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo) {
+		System.out.println("OrderserviceImpl / orderHistoryViewDefault 호출");
+		return orderDAO.orderHistoryViewDefault(vo);
+	}
+
+	public List<OrderListVO> orderHistoryViewToday(OrderListVO vo) {
+		System.out.println("OrderserviceImpl / orderHistoryViewToday 호출");
+		return orderDAO.orderHistoryViewToday(vo);
+	}
+
+	public List<OrderListVO> orderHistoryView1week(OrderListVO vo) {
+		System.out.println("OrderserviceImpl / orderHistoryView1week 호출");
+		return orderDAO.orderHistoryView1week(vo);
+	}
+
+	public List<OrderListVO> orderHistoryView1month(OrderListVO vo) {
+		System.out.println("OrderserviceImpl / orderHistoryView1month 호출");
+		return orderDAO.orderHistoryView1month(vo);
+	}
+
+	public List<OrderListVO> orderHistoryView6months(OrderListVO vo) {
+		System.out.println("OrderserviceImpl / orderHistoryView6months 호출");
+		return orderDAO.orderHistoryView6months(vo);
 	}
 
 }

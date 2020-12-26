@@ -79,15 +79,64 @@ public class OrderCheckController {
 		
 		orderService.insertOrder_Product(op);
 	};
-	// 로그인한 회원 id로 주문 된 내역을 불러와 보여줌.
+	// 로그인한 회원 id로 주문 된 내역을 불러와 보여줌. 기본 3개월.
 	@RequestMapping("/orderHistory.do")
 	public void orderHistory(HttpSession session, OrderListVO ol, Model m) {
 		String customer_id = (String)session.getAttribute("login");  
 		ol.setCustomer_id(customer_id);
 		
-		List<OrderListVO> orderHistory = orderService.orderHistoryView(ol);
+		List<OrderListVO> orderHistory = orderService.orderHistoryViewDefault(ol);
 		m.addAttribute("orderHistory",orderHistory);
 	};
-	
+	// 주문 내역. 오늘 클릭 시
+	@RequestMapping("/orderHistoryViewToday.do")
+	@ResponseBody
+	public List<OrderListVO> orderHistoryViewToday(HttpSession session, OrderListVO ol) {
+		String customer_id = (String) session.getAttribute("login");
+		ol.setCustomer_id(customer_id);
+		
+		List<OrderListVO> data = orderService.orderHistoryViewToday(ol);
+		return data;
+	}
+	// 주문 내역. 1주일 클릭 시
+	@RequestMapping("/orderHistoryView1week.do")
+	@ResponseBody
+	public List<OrderListVO> orderHistoryView1week(HttpSession session, OrderListVO ol) {
+		String customer_id = (String) session.getAttribute("login");
+		ol.setCustomer_id(customer_id);
+		
+		List<OrderListVO> data = orderService.orderHistoryView1week(ol);
+		return data;
+	}
+	// 주문 내역. 1개월 클릭 시
+	@RequestMapping("/orderHistoryView1month.do")
+	@ResponseBody
+	public List<OrderListVO> orderHistoryView1month(HttpSession session, OrderListVO ol) {
+		String customer_id = (String) session.getAttribute("login");
+		ol.setCustomer_id(customer_id);
+		
+		List<OrderListVO> data = orderService.orderHistoryView1month(ol);
+		return data;
+	}
+	// 주문 내역. 3개월 클릭 시
+	@RequestMapping("/orderHistoryViewDefault.do")
+	@ResponseBody
+	public List<OrderListVO> orderHistoryViewDefault(HttpSession session, OrderListVO ol) {
+		String customer_id = (String) session.getAttribute("login");
+		ol.setCustomer_id(customer_id);
+		
+		List<OrderListVO> data = orderService.orderHistoryViewDefault(ol);
+		return data;
+	}
+	// 주문 내역. 6개월 클릭 시
+	@RequestMapping("/orderHistoryView6months.do")
+	@ResponseBody
+	public List<OrderListVO> orderHistoryView6months(HttpSession session, OrderListVO ol) {
+		String customer_id = (String) session.getAttribute("login");
+		ol.setCustomer_id(customer_id);
+		
+		List<OrderListVO> data = orderService.orderHistoryView6months(ol);
+		return data;
+	}
 
 }

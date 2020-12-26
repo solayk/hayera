@@ -21,10 +21,29 @@ public class OrderDAOImpl implements OrderDAO {
 		mybatis.insert("OrderDAO.insertOrder_Product", vo);
 	}
 
-	public List<OrderListVO> orderHistoryView(OrderListVO vo) {
-		System.out.println("mybatis orderHistoryView 호출");
-		return mybatis.selectList("OrderDAO.orderHistoryView",vo);
-		
+	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo) {
+		System.out.println("mybatis orderHistoryViewDefault 호출");
+		return mybatis.selectList("OrderDAO.orderHistoryViewDefault",vo);
+	}
+
+	public List<OrderListVO> orderHistoryViewToday(OrderListVO vo) {
+		System.out.println("mybatis orderHistoryViewToday 호출");
+		return mybatis.selectList("OrderDAO.orderHistoryViewToday",vo);
+	}
+
+	public List<OrderListVO> orderHistoryView1week(OrderListVO vo) {
+		System.out.println("mybatis orderHistoryView1week 호출");
+		return mybatis.selectList("OrderDAO.orderHistoryView1week",vo);
+	}
+
+	public List<OrderListVO> orderHistoryView1month(OrderListVO vo) {
+		System.out.println("mybatis orderHistoryView1month 호출");
+		return mybatis.selectList("OrderDAO.orderHistoryView1month",vo);
+	}
+
+	public List<OrderListVO> orderHistoryView6months(OrderListVO vo) {
+		System.out.println("mybatis orderHistoryView6months 호출");
+		return mybatis.selectList("OrderDAO.orderHistoryView6months",vo);
 	}
 
 }

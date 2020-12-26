@@ -85,7 +85,7 @@
       };
       // 주문 내역 보기 클릭 시
       function clickGoHistory(){
-          location.href="orderHistory.do?customer_id=${sessionScope.login}";
+          location.href="orderHistory.do";
       };
   </script>
 </head>

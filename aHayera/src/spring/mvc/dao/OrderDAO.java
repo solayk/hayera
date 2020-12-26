@@ -11,5 +11,13 @@ public interface OrderDAO {
 	
 	public void insertOrder_Product(Order_ProductVO vo);
 	
-	public List<OrderListVO> orderHistoryView(OrderListVO vo);
+	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo);
+	
+	public List<OrderListVO> orderHistoryViewToday(OrderListVO vo);
+	
+	public List<OrderListVO> orderHistoryView1week(OrderListVO vo);
+	
+	public List<OrderListVO> orderHistoryView1month(OrderListVO vo);
+	
+	public List<OrderListVO> orderHistoryView6months(OrderListVO vo);
 }

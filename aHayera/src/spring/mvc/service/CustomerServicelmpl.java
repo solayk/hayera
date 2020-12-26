@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import spring.mvc.dao.CustomerDAO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.ReviewVO;
 
 @Service
@@ -43,6 +44,11 @@ public class CustomerServicelmpl implements CustomerService {
       
       return customerDAO.selecthighrate(map);
    }
+
+
+public List<QnaVO> selectQna(QnaVO vo) {
+	return customerDAO.selectQna(vo);
+}
    
    
 

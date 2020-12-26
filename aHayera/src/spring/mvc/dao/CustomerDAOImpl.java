@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.ReviewVO;
 
 @Repository
@@ -57,5 +58,11 @@ public class CustomerDAOImpl implements CustomerDAO {
       
       return mybatis.selectList("CustomerDAO.selecthighrate", map);
    }
+
+
+
+   public List<QnaVO> selectQna(QnaVO vo) {
+	 return mybatis.selectList("CustomerDAO.selectQna",vo);
+}
 
 }

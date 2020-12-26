@@ -44,5 +44,10 @@
    
    </select>
    
+   <select id="selectQna" parameterType="qna" resultType="qna">
+   	SELECT * FROM INQUIRY
+   	WHERE prod_no=#{prod_no}
+   </select>
+   
 
 </mapper>

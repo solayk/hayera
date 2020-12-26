@@ -379,6 +379,7 @@
                            </div>
                         </article>
                         <article class="detail-boardmenu-qna">
+                        	<input type="button" value="문의사항 작성하기" name="wirtequna">
                            <table border='1'>
                               <tr>
                                  <th bgcolor='lightblue' width='150'>작성자</th>
@@ -428,6 +429,19 @@
                   //qna게시판 눌렀을 때 qna로 
                   $('#qnaboard').click(function () {
                      $('.detail-boardmenu').hide();
+                     
+                     $.ajax({
+                    	 url : "qnalist.do",
+                    	 data: { 'prod_no': ${ productSelected.prod_no }},
+                    	 success : function (result) {
+							
+						},
+						err: function (err) {
+							console.log(err);
+						}
+                    	 
+                    	 
+                     })
                      $('.detail-boardmenu-qna').show();
 
                   });

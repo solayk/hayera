@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.ReviewVO;
 import spring.mvc.service.CustomerService;
 
@@ -96,7 +97,19 @@ public class CustomerController {
          jsonArray.add(listobj);
       }
       
-      
       return jsonArray.toString();
    }
+   
+   
+   //qna 목록 불러오기
+   @RequestMapping(value="/qnalist.do",produces = "application/text;charset=utf-8")
+   @ResponseBody
+   public List<QnaVO> selectqna(QnaVO vo) {
+	   
+	  List<QnaVO> list= customerserive.selectQna(vo);
+	  return list; 
+   }
+   
+   
+   
 }

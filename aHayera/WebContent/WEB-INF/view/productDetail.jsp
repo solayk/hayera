@@ -391,9 +391,18 @@
                               
 						<c:forEach items="${qnaList }" var="qna">
                               <ul>
+                              <div style='float:left; width:40px; height:50px;'>
+                               <i class="material-icons" style='position: relative; top: 20%; left: 20%; height:50px;'>face </i>
+                              </div>
                                  <li><span style='font-size: 18px;'> ${qna.contents }</span>
                                  <br/>
                                  ${qna.customer_id } | ${qna.qnaday} </li>
+                              </ul>
+                              <ul>
+                              	<li>${qna.reply_contents }
+                              	<br/>
+                              	${qna.replyday }
+                              	</li>
                               </ul>
                               <hr/>
                            </c:forEach>

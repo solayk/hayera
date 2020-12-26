@@ -447,7 +447,7 @@
                   //평점 높은 순
                   $('#highrate').click(function () {
                      $.ajax({
-                        url: "highrate.do?orderby=rate",
+                        url: "highrate.do?orderby=rate desc",
                         //contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
                         data: { 'prod_no': ${ productSelected.prod_no }},
                      dataType : "json",
@@ -461,16 +461,22 @@
                               '<ul>' +
                               '<li class="detail-review-list">' +
                               '<div class="list-item">' +
+                              '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
                               '<div class="user-info">' +
-                              '<span class="reviewgogo">' +
-                              '<span id="customer_id">' + list[i].customer_id + '</span>' +
+                              '<div style="float:left; width:40px; height:50px;">'+
+                              '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>'+
+                              '</div>'+
+                              '<div class="reviewgogo" style="float:left">' +
+                              '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
                               '<span id="gender">' + list[i].gender + '</span>' +
                               '<span id="skintype">·' + list[i].skintype + '</span>' +
+                              '<br>'+
                               '<span id="rate"> · <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
-                              '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
-                              '</span>' +
                               '</div>' +
+                              '</div>' +
+                              '<div style="clear: both; padding-bottom: 20px;""></div>'+
                               '<p class="contents">' + list[i].contents + '</p>' +
+                              '<br>'+
                               '</div>' +
                               '</li>' +
                               '</ul>' +
@@ -496,23 +502,29 @@
                            //$('#reviewstart').empty();
                            $('#appendgo').append(
 
-                              '<ul>' +
-                              '<li class="detail-review-list">' +
-                              '<div class="list-item">' +
-                              '<div class="user-info">' +
-                              '<span class="reviewgogo">' +
-                              '<span id="customer_id">' + list[i].customer_id + '</span>' +
-                              '<span id="gender">' + list[i].gender + '</span>' +
-                              '<span id="skintype">·' + list[i].skintype + '</span>' +
-                              '<span id="rate"> · <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
-                              '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
-                              '</span>' +
-                              '</div>' +
-                              '<p class="contents">' + list[i].contents + '</p>' +
-                              '</div>' +
-                              '</li>' +
-                              '</ul>' +
-                              '</div>'
+                        		   '<ul>' +
+                                   '<li class="detail-review-list">' +
+                                   '<div class="list-item">' +
+                                   '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
+                                   '<div class="user-info">' +
+                                   '<div style="float:left; width:40px; height:50px;">'+
+                                   '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>'+
+                                   '</div>'+
+                                   '<div class="reviewgogo" style="float:left">' +
+                                   '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
+                                   '<span id="gender">' + list[i].gender + '</span>' +
+                                   '<span id="skintype">·' + list[i].skintype + '</span>' +
+                                   '<br>'+
+                                   '<span id="rate"> · <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
+                                   '</div>' +
+                                   '</div>' +
+                                   '<div style="clear: both; padding-bottom: 20px;""></div>'+
+                                   '<p class="contents">' + list[i].contents + '</p>' +
+                                   '<br>'+
+                                   '</div>' +
+                                   '</li>' +
+                                   '</ul>' +
+                                   '</div>'
                            )
                         }
                      },

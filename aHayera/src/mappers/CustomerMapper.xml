@@ -39,7 +39,7 @@
       from customer c, review r
       where c.customer_id=r.customer_id
       and r.prod_no=#{prod_no}
-      order by ${orderbyy} desc 
+      order by ${orderbyy}
       ]]>
    
    </select>

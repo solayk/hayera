@@ -11,6 +11,7 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
+import spring.mvc.domain.Qna_ReplyVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -74,8 +75,12 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.adminEditDeliveryStatus(vo);
 	}
 	
-	public List<QnaVO> viewAllInquiry(QnaVO vo){
+	public List<QnaVO> viewAllInquiry(QnaVO vo) {
 		return adminDAO.viewAllInquiry(vo);
+	}
+	
+	public void adminReplyInquiry (Qna_ReplyVO vo) {
+		adminDAO.adminReplyInquiry(vo);
 	}
 	
 }

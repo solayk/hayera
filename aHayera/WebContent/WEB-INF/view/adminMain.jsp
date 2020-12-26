@@ -31,7 +31,17 @@
     <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
     <!-- 검색 autocomplete 목적-->
     <script src="autocomplete/jquery-ui.min.js"></script>
-
+	
+	<script type="text/javascript">
+    	
+		// 세션 아이디 변수 sessionId에 저장
+        var admin_id = '<%=session.getAttribute("admin_id")%>';
+	    if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
+        	location.href = "adminLogin.jsp";
+        }
+	    
+	</script>
+	
   </head>
 
   <body class="">

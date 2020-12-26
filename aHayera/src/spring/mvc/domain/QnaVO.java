@@ -10,6 +10,8 @@ public class QnaVO {
 	private String qnaday;
 	private String prod_name;	// 관리자 문의 관리 목적
 	private String img_url;	// 관리자 문의 관리 목적
+	private String reply_contents;	// 관리자 문의 관리 목적
+	private String replyday;	// 관리자 문의 관리 목적
 	
 	public String getInquiry_id() {
 		return inquiry_id;
@@ -60,6 +62,17 @@ public class QnaVO {
 	public void setImg_url(String img_url) {
 		this.img_url = img_url;
 	}
-	
+	public String getReply_contents() {
+		return reply_contents;
+	}
+	public void setReply_contents(String reply_contents) {
+		this.reply_contents = reply_contents;
+	}
+	public String getReplyday() {
+		return replyday;
+	}
+	public void setReplyday(String replyday) {
+		this.replyday = replyday;
+	}
 	
 }

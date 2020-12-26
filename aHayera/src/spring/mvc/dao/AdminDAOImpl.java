@@ -11,6 +11,7 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
+import spring.mvc.domain.Qna_ReplyVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -76,5 +77,9 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	public List<QnaVO> viewAllInquiry(QnaVO vo) {
 		return mybatis.selectList("AdminDAO.viewAllInquiry", vo);
+	}
+	
+	public void adminReplyInquiry (Qna_ReplyVO vo) {
+		mybatis.insert("AdminDAO.adminReplyInquiry", vo);
 	}
 }

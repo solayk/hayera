@@ -46,6 +46,13 @@
           <link href="./css/hayera.css" rel="stylesheet" />
 		  
           <script type="text/javascript">
+          
+       		// 세션 아이디 변수 sessionId에 저장
+        	var admin_id = '<%=session.getAttribute("admin_id")%>';
+	        if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
+          	location.href = "adminLogin.jsp";
+        	}  
+          
             $(document).ready(function () {
 
               $('.adminCustomer_editTable').hide();

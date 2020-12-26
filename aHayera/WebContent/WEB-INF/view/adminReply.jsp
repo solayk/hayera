@@ -46,6 +46,13 @@
           <link href="./css/hayera.css" rel="stylesheet" />
 
           <script type="text/javascript">
+          
+       		// 세션 아이디 변수 sessionId에 저장
+          	var admin_id = '<%=session.getAttribute("admin_id")%>';
+	        if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
+            	location.href = "adminLogin.jsp";
+          	}
+          
             $(document).ready(function () {
 
               $('.adminInquiry_editTable').hide();
@@ -68,10 +75,10 @@
                       + '<td>' + data[i].customer_id + '</td>'
                       + '<td>' + data[i].contents + '</td>'
                       + '<td>' + data[i].qnaday + '</td>'
-                      + '<td></td>'
-                      + '<td></td>'
+                      + '<td>' + data[i].reply_contents + '</td>'
+                      + '<td>' + data[i].replyday + '</td>'
                       + '<td class="configBtns">'
-                      + '<button class="replyToInquiry" type="button" data-toggle="tooltip" data-placement="top" title="답변"><i class="material-icons">question_answer</i></button>'
+                      + (data[i].replyday == null ? '<button class="replyToInquiry" type="button" data-toggle="tooltip" data-placement="top" title="답변"><i class="material-icons">question_answer</i></button>' : '')
                       + '</tr>'
                     )
                   }
@@ -127,38 +134,6 @@
                 });
                 $('.replyToInquiry').attr("disabled", "disabled");
               }); // --- end of .editProduct click
-
-              /* 발송완료 버튼 클릭 시 */
-              $(document).on('click', '.deliveryConfirm', function () {
-
-                var order_no = $(this).parent().parent('tr').find('td:nth-child(1)').text();
-                var test = confirm(order_no + " 주문의 배송상태를 발송완료로 변경하시겠습니까?");
-
-                /* 재확인 OK 시 발송완료 처리 진행 */
-                if (test) {
-
-                  /* DB에서 AJAX로 데이터 수정하기 */
-                  /* var info = {
-                  order_no: order_no
-                  }
-                  $.ajax({
-                    type: "POST",
-                    data: info,
-                    url: "adminEditDeliveryStatus.do",
-                    contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-                    success: function () {
-                      location.href = "adminOrder.do";
-                    },
-                    error: function (err) {
-                      alert("에러가 발생했습니다: adminCustomer.jsp --- .deleteCustomer 에러");
-                    }
-                  }); */
-
-                }
-                else {
-                  alert("배송상태 변경을 취소하셨습니다.");
-                }
-              }); // --- end of .deliveryConfirm click
 
             }); // --- end of document ready
 
@@ -284,7 +259,7 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <form action="" method='post' enctype='multipart/form-data'>
+                          <form action="adminReplyInquiry.do" method='post' enctype='multipart/form-data'>
                             <table class="table">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
@@ -292,22 +267,21 @@
                                   <th style="max-width: 70px; min-width: 70px;">제품이름</th>
                                   <th style="max-width: 200px; min-width: 200px;">문의</th>
                                   <th style="max-width: 70px; min-width: 70px;">관리자</th>
-                                  <th style="max-width: 200px; min-width: 200px;">답변</th>
+                                  <th style="max-width: 600px; min-width: 600px;">답변</th>
                                 </tr>
                               </thead>
                               <tr id="replyInquiry">
                                 <td><input type="text" name="inquiry_id" class=".adminProduct_input" id="editCustomer_id" style="border: none;" readonly></td>
                                 <td><input type="text" name="" class=".adminProduct_input" style="border: none;" readonly></td>
                                 <td><input type="text" name="" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="manager_id" class=".adminProduct_input" style="border: none;" value="<%=session.getAttribute(" admin_id")%>" readonly></td>
+                                <td><input type="text" name="manager_id" class=".adminProduct_input" style="border: none;" value="<%=session.getAttribute("admin_id")%>" readonly></td>
                                 <td><input type="text" name="contents" class=".adminProduct_input" required></td>
                               </tr>
                               <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btnEdit" value="수정">
-                                    수정하기</button></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnReply" value="수정">답변하기</button></td>
                               </tr>
                             </table>
                           </form>

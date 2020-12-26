@@ -7,6 +7,7 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
+import spring.mvc.domain.Qna_ReplyVO;
 
 public interface AdminService {
 	
@@ -39,4 +40,6 @@ public interface AdminService {
 	public void adminEditDeliveryStatus (OrderListVO vo);
 	
 	public List<QnaVO> viewAllInquiry(QnaVO vo);
+	
+	public void adminReplyInquiry (Qna_ReplyVO vo);
 }

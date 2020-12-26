@@ -18,6 +18,7 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
+import spring.mvc.domain.Qna_ReplyVO;
 import spring.mvc.service.AdminService;
 
 @Controller
@@ -174,10 +175,15 @@ public class AdminController {
 	@ResponseBody
 	public List<QnaVO> viewAllInquiry(QnaVO vo)	{ 
 		List<QnaVO> data = adminService.viewAllInquiry(vo);
+		System.out.println(data.get(0).getReply_contents());
 		return data;
 	}
 	
-	
-	
+	// 문의 답변하기
+	@RequestMapping("/adminReplyInquiry.do")
+	public String adminReplyInquiry(Qna_ReplyVO vo) {
+		adminService.adminReplyInquiry(vo);
+		return "redirect:/adminReply.do";
+	}
 	
 }

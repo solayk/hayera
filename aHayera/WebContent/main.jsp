@@ -254,9 +254,9 @@
     </style>
 
     <script type="text/javascript">
-      // 세션 아이디 변수 sessionId에 저장
+      
+      // 관리자 아이디 세션 확인 작업
       var sessionId = '<%=session.getAttribute("login")%>';
-
       if (sessionId != 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
         location.href = "mainAfterLogin.do";
       }

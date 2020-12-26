@@ -76,11 +76,20 @@ $('#last_btn').click(function () {
 		err : function (err) {
 			console.log(err)
 		}
-		
-	
+			
 	})
-	 
+	
+	
 })
+
+ 
+	$('#no_pw_btn').click(function () {
+		
+		//alert("취소")
+		window.close()
+		
+	})
+
 
 
 </script>

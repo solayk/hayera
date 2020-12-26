@@ -176,6 +176,7 @@ public class AdminController {
 	public List<QnaVO> viewAllInquiry(QnaVO vo)	{ 
 		List<QnaVO> data = adminService.viewAllInquiry(vo);
 		System.out.println(data.get(0).getReply_contents());
+		System.out.println(data.size());
 		return data;
 	}
 	

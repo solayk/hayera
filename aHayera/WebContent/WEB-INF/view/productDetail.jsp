@@ -100,6 +100,13 @@
                   .detail-review-list {
                      list-style: none;
                   }
+                  .btnqna, .writeqna{
+                  	    border-radius: 50px;
+                  	    color: #fff;
+  						background-color: #22456C;
+  						font-weight: bold;
+  						width : 150px;
+                  }
                </style>
                <title>상세페이지</title>
                <script type="text/javascript">
@@ -379,24 +386,22 @@
                            </div>
                            </article>
                         <article class="detail-boardmenu-qna">
-                        	<input type="button" value="문의사항 작성하기" id="wirteqna">
-                           <table border='1'>
-                              <tr>
-                                 <th bgcolor='lightblue' width='150'>작성자</th>
-                                 <th bgcolor='lightblue' width='300'>내용</th>
-                                 <th bgcolor='lightblue' width='150'>등록일</th>
-                              </tr>
+                        	<input type="button" value="문의하기" class="writeqna" id="writeqna" style="float: right">
+                          <br/>
+                              
 						<c:forEach items="${qnaList }" var="qna">
-                              <tr>
-                                 <td>${qna.customer_id }</td>
-                                 <td>${qna.contents }</td>
-                                 <td>${qna.qnaday}</td>
-                              </tr>
+                              <ul>
+                                 <li><span style='font-size: 18px;'> ${qna.contents }</span>
+                                 <br/>
+                                 ${qna.customer_id } | ${qna.qnaday} </li>
+                              </ul>
+                              <hr/>
                            </c:forEach>
-                           </table>
+                          
                            <div id='taappend'>
-                          <textarea id="taqna" rows="" cols="" style="width:500px; height:100px" placeholder="문의사항을 적어주세요:)"></textarea>
-            	  			<input type="button" id="btnqna" value="작성완료">
+                          <textarea id="taqna" rows="" cols="" style="width:770px; height:80px; " placeholder="문의사항을 적어주세요:)"></textarea>
+                          	<div style="clear: both; padding-bottom: 20px;""></div>
+            	  			<input type="button" class = "btnqna" id="btnqna" value="작성완료" style="float: right" >
                            </div>
                         </article>
 
@@ -472,10 +477,10 @@
                               '</div>'+
                               '<div class="reviewgogo" style="float:left">' +
                               '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
-                              '<span id="gender">' + list[i].gender + '</span>' +
+                              '<span id="gender">·' + list[i].gender + '</span>' +
                               '<span id="skintype">·' + list[i].skintype + '</span>' +
                               '<br>'+
-                              '<span id="rate"> · <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
+                              '<span id="rate">  <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
                               '</div>' +
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>'+
@@ -516,10 +521,10 @@
                                    '</div>'+
                                    '<div class="reviewgogo" style="float:left">' +
                                    '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
-                                   '<span id="gender">' + list[i].gender + '</span>' +
+                                   '<span id="gender">·' + list[i].gender + '</span>' +
                                    '<span id="skintype">·' + list[i].skintype + '</span>' +
                                    '<br>'+
-                                   '<span id="rate"> · <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
+                                   '<span id="rate">  <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
                                    '</div>' +
                                    '</div>' +
                                    '<div style="clear: both; padding-bottom: 20px;""></div>'+
@@ -537,7 +542,7 @@
          
       })
       
-      $('#wirteqna').click(function () {
+      $('#writeqna').click(function () {
     	  var id = '<%=(String)session.getAttribute("login")%>'
               if (id == 'null') {
                  location.href = "login.do";

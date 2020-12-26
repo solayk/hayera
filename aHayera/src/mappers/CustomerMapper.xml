@@ -47,7 +47,14 @@
    <select id="selectQna" parameterType="qna" resultType="qna">
    	SELECT * FROM INQUIRY
    	WHERE prod_no=#{prod_no}
+   	order by qnaday desc
    </select>
+   
+   <insert id="insertqna" parameterType="qna">
+   	INSERT INTO 
+   	INQUIRY(INQUIRY_ID, PROD_NO, CUSTOMER_ID, CONTENTS, QNADAY)
+   	VALUES(inquiry_sequence.nextval, #{prod_no}, #{customer_id},#{contents},sysdate)
+   </insert>
    
 
 </mapper>

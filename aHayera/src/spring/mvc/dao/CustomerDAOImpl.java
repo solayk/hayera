@@ -65,4 +65,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 return mybatis.selectList("CustomerDAO.selectQna",vo);
 }
 
+
+
+	public int insertqna(QnaVO vo) {
+	return mybatis.insert("CustomerDAO.insertqna", vo);
+}
+
 }

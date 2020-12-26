@@ -99,6 +99,15 @@ public class CustomerController {
       return jsonArray.toString();
    }
    
+   @RequestMapping(value="/qnawrite.do", produces = "application/text;charset=utf-8")
+   @ResponseBody
+   public String  qnawirte(QnaVO vo, HttpSession session) {
+	   vo.setCustomer_id((String)session.getAttribute("login"));
+	   
+	   String result = String.valueOf(customerserive.insertqna(vo));
+	   return result;
+   }
+   
    
 
    

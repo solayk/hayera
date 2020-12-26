@@ -46,8 +46,13 @@ public class CustomerServicelmpl implements CustomerService {
    }
 
 
-public List<QnaVO> selectQna(QnaVO vo) {
+   	public List<QnaVO> selectQna(QnaVO vo) {
 	return customerDAO.selectQna(vo);
+}
+
+
+   	public int insertqna(QnaVO vo) {
+	return customerDAO.insertqna(vo);
 }
    
    

@@ -379,26 +379,25 @@
                            </div>
                            </article>
                         <article class="detail-boardmenu-qna">
-                        	<input type="button" value="문의사항 작성하기" name="wirteqna">
-						<c:forEach items="${qnaList }" var="qna">
+                        	<input type="button" value="문의사항 작성하기" id="wirteqna">
                            <table border='1'>
                               <tr>
                                  <th bgcolor='lightblue' width='150'>작성자</th>
-                                 <th bgcolor='lightblue' width='200'>제목</th>
                                  <th bgcolor='lightblue' width='300'>내용</th>
                                  <th bgcolor='lightblue' width='150'>등록일</th>
                               </tr>
+						<c:forEach items="${qnaList }" var="qna">
                               <tr>
                                  <td>${qna.customer_id }</td>
-                                 <td>${qna.title }</td>
                                  <td>${qna.contents }</td>
                                  <td>${qna.qnaday}</td>
- 
                               </tr>
-
-
-                           </table>
                            </c:forEach>
+                           </table>
+                           <div id='taappend'>
+                          <textarea id="taqna" rows="" cols="" style="width:500px; height:100px" placeholder="문의사항을 적어주세요:)"></textarea>
+            	  			<input type="button" id="btnqna" value="작성완료">
+                           </div>
                         </article>
 
 
@@ -432,6 +431,7 @@
                   $('#qnaboard').click(function () {
                      $('.detail-boardmenu').hide();
                      $('.detail-boardmenu-qna').show();
+                     $('#taappend').hide();
                      
 
                   });
@@ -534,7 +534,37 @@
                      },
                      err: function (err) { console.log(err) }
          })
+         
       })
+      
+      $('#wirteqna').click(function () {
+    	  var id = '<%=(String)session.getAttribute("login")%>'
+              if (id == 'null') {
+                 location.href = "login.do";
+              } else {
+            	  $('#taappend').show();
+                 
+              }
+	})
+	
+	$('#btnqna').click(function () {
+		
+		
+		$.ajax({
+			data : {'contents' : $('#taqna').val(),
+				 'prod_no': ${ productSelected.prod_no }},
+			url : "qnawrite.do",
+			success: function (result) {
+				location.href = 'productSelected.do?prod_no='+${productSelected.prod_no}+''
+				$('#taqna').val("");
+			},
+			err : function (err) {
+				console.log(err);
+			}
+			
+			
+		})
+	})
 
                </script>
             </body>

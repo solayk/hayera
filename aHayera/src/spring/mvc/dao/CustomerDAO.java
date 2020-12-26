@@ -20,4 +20,6 @@ public interface CustomerDAO {
    public List<ReviewVO> selecthighrate(HashMap map);
    
    public List<QnaVO> selectQna(QnaVO vo);
+   
+   public int insertqna(QnaVO vo);
 }

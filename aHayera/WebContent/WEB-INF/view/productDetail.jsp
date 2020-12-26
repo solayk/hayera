@@ -432,9 +432,15 @@
                      
                      $.ajax({
                     	 url : "qnalist.do",
+                    	 dataTye: "json",
                     	 data: { 'prod_no': ${ productSelected.prod_no }},
-                    	 success : function (result) {
+                    	 success : function (list) {
+
 							
+                    		 for (i = 0; i < list.length; i++) {
+                    			 alert("dd")
+                    			 
+                    		 }
 						},
 						err: function (err) {
 							console.log(err);
@@ -442,7 +448,7 @@
                     	 
                     	 
                      })
-                     $('.detail-boardmenu-qna').show();
+                    // $('.detail-boardmenu-qna').show();
 
                   });
 

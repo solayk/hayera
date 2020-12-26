@@ -83,7 +83,7 @@ public class CustomerController {
    
       List<ReviewVO> list = customerserive.selecthighrate(map);
       
-      JSONObject obj = new JSONObject();
+      //JSONObject obj = new JSONObject();
       
       JSONArray jsonArray = new JSONArray();
       for(int i =0;i<list.size();i++) {
@@ -104,10 +104,20 @@ public class CustomerController {
    //qna 목록 불러오기
    @RequestMapping(value="/qnalist.do",produces = "application/text;charset=utf-8")
    @ResponseBody
-   public List<QnaVO> selectqna(QnaVO vo) {
+   public String selectqna(QnaVO vo) {
 	   
 	  List<QnaVO> list= customerserive.selectQna(vo);
-	  return list; 
+	  
+	  JSONArray qnalist = new JSONArray();
+	  for(int i =0; i<list.size();i++) {
+		  JSONObject qnaobj = new JSONObject();
+		  qnaobj.put("customer_id", list.get(i).getCustomer_id());
+		  qnaobj.put("title", list.get(i).getTitle());
+		  qnaobj.put("contents", list.get(i).getContents());
+		  qnaobj.put("qnaday", list.get(i).getQnaday());
+		  qnalist.add(qnaobj);
+	  }
+	  return qnalist.toString(); 
    }
    
    

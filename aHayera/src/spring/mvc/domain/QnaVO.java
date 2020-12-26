@@ -7,8 +7,14 @@ public class QnaVO {
 	private String customer_id;
 	private String title;
 	private String contents;
+	private String qnaday;
 	
-	
+	public String getQnaday() {
+		return qnaday;
+	}
+	public void setQnaday(String qnaday) {
+		this.qnaday = qnaday;
+	}
 	public String getInquiry_id() {
 		return inquiry_id;
 	}

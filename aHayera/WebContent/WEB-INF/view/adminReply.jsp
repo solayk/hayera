@@ -214,13 +214,13 @@
                       <p>상품 관리</p>
                     </a>
                   </li>
-                  <li class="active">
+                  <li>
                     <a href="adminOrder.do">
                       <i class="now-ui-icons shopping_delivery-fast"></i>
                       <p>주문 관리</p>
                     </a>
                   </li>
-                  <li>
+                  <li class="active">
               		 <a href="adminReply.do">
               		  	<i class="now-ui-icons ui-2_chat-round"></i>
                 		<p>문의 관리</p>

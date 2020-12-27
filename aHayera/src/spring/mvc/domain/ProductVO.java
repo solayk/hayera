@@ -24,7 +24,14 @@ public class ProductVO {
 	private String img_url;
 	private String manager_id;
 	private String product_explain;
+	private String explain_url;
 	
+	public String getExplain_url() {
+		return explain_url;
+	}
+	public void setExplain_url(String explain_url) {
+		this.explain_url = explain_url;
+	}
 	MultipartFile file;	// write.jsp에 파일첨부시 name="file"과 동일한 변수명
 	
 	public MultipartFile getFile() {

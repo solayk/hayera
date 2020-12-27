@@ -315,9 +315,11 @@
 
                </div>
                <!-- end menu-dropdown -->
+                   <div style="clear: both;"></div>
                <div class="main">
                   <div class="container tim-container category_main" style="max-width: 800px; padding-top: 20px">
                      <br> <br> <br> <br> <br>
+                 
                      <div class='detail_product'>
                         <div class="detail_product-img">
                            <img src="/aHayera/resources/upload/${productSelected.img_url }">
@@ -396,6 +398,9 @@
                            <div>
                               <a><span id='qnaboard'>문의</span></a>
                            </div>
+                           <div>
+                              <a><span id='productexplain'>상품정보</span></a>
+                           </div>
                         </div>
                         <br>
                         <div style="clear: both;"></div>
@@ -471,6 +476,12 @@
             	  			<input type="button" class = "btnqna" id="btnqna" value="작성완료" style="float: right" >
                            </div>
                         </article>
+                        <article class="detail-product-explain">
+                        	<div>
+                        		<img src=${productSelected.explain_url} >
+                        	</div>
+                        
+                        </article>
 
 
                      </div>
@@ -504,19 +515,29 @@
                      $('.detail-boardmenu').hide();
                      $('.detail-boardmenu-qna').show();
                      $('#taappend').hide();
+                     $('.detail-product-explain').hide();
                      
 
                   });
+                  
+                  //상품 정보 눌렀을 때 상품정보로
+                  $('#productexplain').click(function() {
+                	  $('.detail-boardmenu').hide();
+                	  $('.detail-boardmenu-qna').hide();
+                	  $('.detail-product-explain').show();
+              	})
 
                   //review게시판 눌렀을 때 review로
                   $('#reviewboard').click(function () {
                      $('.detail-boardmenu-qna').hide();
+                     $('.detail-product-explain').hide();
                      $('.detail-boardmenu').show();
                   });
 
                   //처음화면은 review
                   $(function () {
                     $('.detail-boardmenu-qna').hide();
+                    $('.detail-product-explain').hide();
 
                   })
 
@@ -608,7 +629,7 @@
          })
          
       })
-      
+      //문의하기 버튼 눌렀을 때 로그인 여부 확인
       $('#writeqna').click(function () {
     	  var id = '<%=(String)session.getAttribute("login")%>'
               if (id == 'null') {
@@ -619,10 +640,8 @@
                  
               }
 	})
-	
+	//문의 작성완료 버튼눌렀을때
 	$('#btnqna').click(function () {
-		
-		
 		$.ajax({
 			data : {'contents' : $('#taqna').val(),
 				 'prod_no': ${ productSelected.prod_no }},
@@ -636,9 +655,10 @@
 				console.log(err);
 			}
 			
-			
 		})
 	})
+	
+	
 
                </script>
             </body>

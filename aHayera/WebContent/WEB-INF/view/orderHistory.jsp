@@ -9,7 +9,7 @@
 <title>HAYERA!</title>
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="js/bootstrap.js" type="text/javascript"></script>
-  <script src="js/orderHistoryScripts.js"></script>
+  <script src="js/orderHistoryScripts.js" type="text/javascript"></script>
   <link href="css/bootstrap.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   
@@ -91,7 +91,7 @@
 	        	'<td>'+'${history.each_qty}'+'</td>'+
 	        	'<td>'+payment_price+'원'+'</td>'+
 	        	'<td>'+'${history.delivery_status}'+'</td>'+
-	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
 	        	'</tr>'
 	        );
 		</c:forEach>
@@ -114,7 +114,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -143,7 +143,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -172,7 +172,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -201,7 +201,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -230,7 +230,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -239,6 +239,9 @@
 					console.log(err);				
 				}
 			})
+		});
+		$("#writeReview").click(function () {
+			location.href="";
 		});
       }) // --- end of jquery
       
@@ -285,11 +288,11 @@
     .panel-body{
         float:right;
     }
-    /*주문 내역 테이블에 스크롤 만들기는 보류하고 가운데 정렬만.*/
+    /*주문 상품 정보 테이블 스크롤 만들기, 가운데 정렬만.*/
     #orderHistory{
         text-align: center;
         width: 800px;
-        height : 400px;
+        height : 450px;
         overflow : auto;
     }
     table{
@@ -401,8 +404,8 @@
                         </a>
                         <ul class="dropdown-menu">
                           <!-- mainAfterLogin 에만 해당 -->
-                          <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                          <li><a href="orderHistory.do?customer_id=${sessionScope.login}">주문 내역</a></li>
+                          <li><a href="mypage.do">마이페이지</a></li>
+                          <li><a href="orderHistory.do">주문 내역</a></li>
                           <li><a href="logout.do">로그아웃</a></li>
                         </ul>
                       </li>
@@ -486,16 +489,14 @@
                 <th>주문처리상태</th>
                 <th>리뷰</th>
             </table>
-            <!-- 페이징 나중에
-            <ul class="pagination">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul> -->
+        </div>
+        <div style="padding-left: 320px;">
+        	<!-- 페이징 나중에  -->
+	        <ul class="pagination">
+	            <li><a href="#">&laquo;</a></li>
+	            <li><a href="#">1</a></li>
+	            <li><a href="#">&raquo;</a></li>
+	        </ul>
         </div>
        </div>
        <br>

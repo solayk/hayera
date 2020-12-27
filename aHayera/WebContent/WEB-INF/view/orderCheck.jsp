@@ -85,7 +85,7 @@
     	
     	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
     	$("#button-addon").on('click',function(){
-    		$(".form-control").val(points+"원");
+    		$(".form-control").val(points);
     		$("#discount").val(points+"원");
     		var money = (goodsCount*price)-point;
     		var totalSum = money.formatNumber();
@@ -94,16 +94,24 @@
     		$("#payment").val(totalSum+"원 결제하기");
     		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
     	});
-    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게.
+    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게 + 보유 적립금 이상 입력 못하게
     	$(".form-control").on('change', function () {
     		var pointUse = $(".form-control").val();
-			$("#discount").val(pointUse+"원");
-			var money = (goodsCount*price)-pointUse;
-			var totalSum = money.formatNumber();
-			$("#discount_price").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
-			$("#totalSum").val(totalSum+"원");
-    		$("#payment").val(totalSum+"원 결제하기");
-    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
+    		if(pointUse>point){
+    			alert("사용 가능한 적립금은 최대 "+point+"원 입니다.")
+    			$(".form-control").val(0);
+    			$("#discount").val(0+"원");
+    			$("#totalSum").val(totalPrice+"원");
+	    		$("#payment").val(totalPrice+"원 결제하기");
+    		}else{
+				$("#discount").val(pointUse+"원");
+				var money = (goodsCount*price)-pointUse;
+				var totalSum = money.formatNumber();
+				$("#discount_price").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+				$("#totalSum").val(totalSum+"원");
+	    		$("#payment").val(totalSum+"원 결제하기");
+	    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
+    		}
 		});
     	// 주문 상품 정보 받아 오기
     	$("#orderProduct").append(
@@ -116,11 +124,14 @@
     		'<td>'+'무료배송'+'</td>'+
     		'</tr>'    	
     	);
-    	// 결제 버튼 클릭 시
+    	// 결제 버튼 클릭 시   _ 적립금 전액사용 버튼 클릭 후 결제 시 NaN 오류 해결 필요
         $("#payment").click(function(){
         	var pointUse = $(".form-control").val();
+        	//alert("pointUse :"+pointUse);
         	var money = (goodsCount*price)-pointUse;
+        	//alert("money :"+money);
         	var totalSum = money.formatNumber();
+        	//alert("totalSum :"+totalSum);
         	confirm(totalSum+"원 결제하시겠습니까?");
         });
 	})
@@ -132,28 +143,29 @@
       <nav class="navbar navbar-ct-blue navbar-fixed-top navbar-transparent" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand navbar-brand-logo" href="#">
+            <a class="navbar-brand navbar-brand-logo" href="main.jsp">
               <div class="logo">
                 <img src="images/logo_only_transparent_small.png">
               </div>
               <div class="brand">HAYERA _ 주문/결제</div>
             </a>
           </div>
-		    <!-- 주문/결제 페이지 상단에 내 계정 표시 (보류) 
+		    <!-- 주문/결제 페이지 상단에 내 계정 표시 (보류)
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li class="dropdown">
-		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		        	<a href="#" class="dropdown-toggle">
 			      		<i class="pe-7s-user"></i>
 			      		<p>내 계정 <b class="caret"></b></p>
 			   		</a>
 			    <ul class="dropdown-menu">
 			      mainAfterLogin 에만 해당
 			      <li><a href="mypage.do">마이페이지</a></li>
-			      <li><a href="#">주문목록</a></li>
+			      <li><a href="orderHistory.do">주문 내역</a></li>
 			      <li><a href="logout.do">로그아웃</a></li>
 			    </ul>
 			  	</li>
-		  	</ul> -->
+		  	</ul>
+		  	-->
         </div>
       </nav>
     </div>
@@ -273,7 +285,7 @@
           <div class="accordion-body">
             <div>적립금<p>(사용 가능: <span style="font-weight: bold;">${info.points}원</span>)</p></div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" aria-label="?" aria-describedby="button-addon" name="usedPoints">
+              <input type="text" class="form-control" aria-label="?" aria-describedby="button-addon" name="usedPoints" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
               <button class="btn btn-outline-primary" type="button" id="button-addon">전액사용</button>
             </div>
           </div>

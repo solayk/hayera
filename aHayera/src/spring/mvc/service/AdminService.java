@@ -4,6 +4,7 @@ import java.util.List;
 
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.InventoryVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
@@ -42,4 +43,6 @@ public interface AdminService {
 	public List<QnaVO> viewAllInquiry(QnaVO vo);
 	
 	public void adminReplyInquiry (Qna_ReplyVO vo);
+	
+	public List<InventoryVO> viewInventory(InventoryVO vo);
 }

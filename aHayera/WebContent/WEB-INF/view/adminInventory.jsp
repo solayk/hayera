@@ -79,12 +79,9 @@
                 });
               });
 
-              // 검색을 위해 전역변수 선언
-              var dataList;
-
               // 전체상품목록
               $.ajax({
-                url: 'viewAllProduct.do',
+                url: 'viewInventory.do',
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
@@ -115,9 +112,7 @@
                       + '<button class="deleteProduct" type="button" data-toggle="tooltip" data-placement="top" title="삭제"><i class="material-icons">&#xE872;</i></button></td>'
                       + '</tr>'
                     )
-                    data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
                   }
-                  dataList = data; // 검색을 위한 데이터 저장
                 },
                 error: function (e) {
                   alert(e);

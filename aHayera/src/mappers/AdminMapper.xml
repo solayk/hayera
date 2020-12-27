@@ -116,5 +116,9 @@
 		VALUES (INQUIRY_REPLY_SEQUENCE.NEXTVAL,#{manager_id},#{inquiry_id},#{contents},SYSDATE)
 		]]>
 	</insert>
+	
+	<select id="viewInventory" parameterType="inventory" resultType="inventory">
+		SELECT * FROM INVENTORY
+	</select>
 
 </mapper>

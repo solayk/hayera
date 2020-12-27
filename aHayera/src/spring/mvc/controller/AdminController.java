@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.InventoryVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
@@ -175,8 +176,6 @@ public class AdminController {
 	@ResponseBody
 	public List<QnaVO> viewAllInquiry(QnaVO vo)	{ 
 		List<QnaVO> data = adminService.viewAllInquiry(vo);
-		System.out.println(data.get(0).getReply_contents());
-		System.out.println(data.size());
 		return data;
 	}
 	
@@ -186,5 +185,15 @@ public class AdminController {
 		adminService.adminReplyInquiry(vo);
 		return "redirect:/adminReply.do";
 	}
-	
+
+	// ===== adminReply.jsp =====
+	//	전체 재고 목록 보여주기	
+	@RequestMapping("/viewInventory.do")
+	@ResponseBody
+	public List<InventoryVO> viewInventory(InventoryVO vo)	{ 
+		List<InventoryVO> data = adminService.viewInventory(vo);
+		
+		
+		return data;
+	}
 }

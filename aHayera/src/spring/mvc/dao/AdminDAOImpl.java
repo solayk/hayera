@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.InventoryVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
@@ -82,4 +83,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public void adminReplyInquiry (Qna_ReplyVO vo) {
 		mybatis.insert("AdminDAO.adminReplyInquiry", vo);
 	}
+	
+	public List<InventoryVO> viewInventory(InventoryVO vo) {
+		return mybatis.selectList("AdminDAO.viewInventory", vo);
+	}
+	
 }

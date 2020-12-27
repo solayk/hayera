@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import spring.mvc.dao.AdminDAO;
 import spring.mvc.domain.AdminVO;
 import spring.mvc.domain.CustomerVO;
+import spring.mvc.domain.InventoryVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
@@ -83,4 +84,7 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.adminReplyInquiry(vo);
 	}
 	
+	public List<InventoryVO> viewInventory(InventoryVO vo) {
+		return adminDAO.viewInventory(vo);
+	}
 }

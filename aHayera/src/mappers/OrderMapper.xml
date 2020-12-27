@@ -77,4 +77,12 @@
 	]]>
 </select>
 
+<select id="addCart" parameterType="product" resultType="product">
+	<![CDATA[
+	SELECT * 
+	FROM PRODUCT
+	WHERE PROD_NO = #{prod_no}
+	]]>
+</select>
+
 </mapper>

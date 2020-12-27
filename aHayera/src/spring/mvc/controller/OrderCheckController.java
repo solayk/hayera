@@ -1,7 +1,6 @@
 package spring.mvc.controller;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,6 +29,31 @@ public class OrderCheckController {
 	private MypageService mypageService;
 	@Autowired
 	private OrderService orderService;
+
+	// 장바구니에 상품 담기_ 장바구니 추가 누르면 해당 상품의 정보를 갖고 장바구니에 담을꺼야.
+	/*
+	@RequestMapping("/addCart.do")
+	public String addCart(ProductVO pvo, Model m) {
+		List<ProductVO> productInfo = orderService.addCart(pvo);
+		m.addAttribute("productInfo",productInfo);
+		return "productDetail";
+	}*/
+	
+	@RequestMapping("/addCart.do")
+	@ResponseBody
+	public List<ProductVO> addCart(ProductVO pvo) {
+		List<ProductVO> data = orderService.addCart(pvo);
+		return data;
+	}
+	/*
+	@RequestMapping("/addCart.do")
+	@ResponseBody
+	public List<ProductVO> addCart(ProductVO pvo, Model m) {
+		ProductVO productInfo = viewMainpageService.productSelected(pvo);
+		List<ProductVO> data = orderService.addCart(productInfo);
+		m.addAttribute("productInfo",productInfo);
+		return data;
+	}*/
 	
 	// '상품상세페이지'에서 결제하기 눌러서 넘어갈 때(orderCheck.jsp로) 고객 정보/해당 상품 정보 갖고 넘어감. 
 	@RequestMapping("/goOrderFromProductDetail.do")

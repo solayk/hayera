@@ -135,7 +135,8 @@
            			if (id == 'null') {
            				location.href = "login.do";
        				} else {
-       					location.href = "addCart.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}";
+       					location.href = "addCart.do?prod_no=${productSelected.prod_no}";
+       					// <- 제품 정보를 받아가각 장바구니에 추가. 근데 우리 장바구니는 DB 안쓰고 세션쓸꺼야. 그리고 따로 페이지 없고 상단 장바구니 클릭하면 드롭다운 되는 표에 ajax야. ajax맞나?
        				}
                	  }
                   // Jquery 시작
@@ -154,7 +155,8 @@
                      });
                      var amount = $("#spinner").val();
                   	 // 장바구니에 상품 넣기
-                  	 /*<c:forEach items="${productInfo}" var="productInfo">
+                  	 /* 이 방법은 실패..보류
+                  	 <c:forEach items="${productInfo}" var="productInfo">
                   		var discount_price = ${productInfo.discount_price};
                   		var pay_price = discount_price * amount;
                			$(".main_cart").append(
@@ -175,21 +177,22 @@
                   	 </c:forEach>*/
                   	 $.ajax({
                        type: 'post',
-                       url: 'addCart.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}',
+                       url: 'addCart.do',
                        dataType: 'json',
                        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                        success: function (data) {
                          for (i = 0; i < data.length; i++) {
+                        	var price = data[i].discount_price * amount
                            $(".main_cart").append(
                              '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
                              + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
                              + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
-                             + '<td>' + amount + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                             + '<td>' + amount+' 개'+ ' <button type="button" class="btn btn-primary btn-xs" id="countUp">'
                              + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
                              + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
                              + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
                              + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
-                             + '<td>' + data[i].price.formatNumber() + '원</td>'
+                             + '<td>' + price.formatNumber() + '원</td>'
                              + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
                              + '<span class="glyphicon glyphicon-remove"></span>'
                              + '</button>' + '</td>'

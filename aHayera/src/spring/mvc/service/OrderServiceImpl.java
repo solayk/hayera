@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import spring.mvc.dao.OrderDAO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
+import spring.mvc.domain.ProductVO;
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
@@ -46,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderListVO> orderHistoryView6months(OrderListVO vo) {
 		System.out.println("OrderserviceImpl / orderHistoryView6months 호출");
 		return orderDAO.orderHistoryView6months(vo);
+	}
+
+	public List<ProductVO> addCart(ProductVO pvo) {
+		System.out.println("OrderserviceImpl / addCart 호출");
+		return orderDAO.addCart(pvo);
 	}
 
 }

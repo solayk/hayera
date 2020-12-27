@@ -4,6 +4,7 @@ import java.util.List;
 
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
+import spring.mvc.domain.ProductVO;
 
 public interface OrderService {
 
@@ -20,4 +21,6 @@ public interface OrderService {
 	public List<OrderListVO> orderHistoryView1month(OrderListVO vo);
 	
 	public List<OrderListVO> orderHistoryView6months(OrderListVO vo);
+	
+	public List<ProductVO> addCart(ProductVO pvo);
 }

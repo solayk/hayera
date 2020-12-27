@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
+import spring.mvc.domain.ProductVO;
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 	@Autowired
@@ -44,6 +45,11 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<OrderListVO> orderHistoryView6months(OrderListVO vo) {
 		System.out.println("mybatis orderHistoryView6months 호출");
 		return mybatis.selectList("OrderDAO.orderHistoryView6months",vo);
+	}
+
+	public List<ProductVO> addCart(ProductVO pvo) {
+		System.out.println("mybatis addCart 호출");
+		return mybatis.selectList("OrderDAO.addCart",pvo);
 	}
 
 }

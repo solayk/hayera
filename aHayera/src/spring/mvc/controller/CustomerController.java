@@ -99,6 +99,7 @@ public class CustomerController {
       return jsonArray.toString();
    }
    
+   //문의하기 작성
    @RequestMapping(value="/qnawrite.do", produces = "application/text;charset=utf-8")
    @ResponseBody
    public String  qnawirte(QnaVO vo, HttpSession session) {

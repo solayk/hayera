@@ -554,6 +554,7 @@
       $('#writeqna').click(function () {
     	  var id = '<%=(String)session.getAttribute("login")%>'
               if (id == 'null') {
+            	
                  location.href = "login.do";
               } else {
             	  $('#taappend').show();
@@ -569,6 +570,7 @@
 				 'prod_no': ${ productSelected.prod_no }},
 			url : "qnawrite.do",
 			success: function (result) {
+				 alert("작성이 완료되었습니다")
 				location.href = 'productSelected.do?prod_no='+${productSelected.prod_no}+''
 				$('#taqna').val("");
 			},

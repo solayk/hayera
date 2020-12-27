@@ -47,7 +47,7 @@
    <select id="selectQna" parameterType="qna" resultType="qna">
  	SELECT i.customer_id customer_id, i.qnaday qnaday,i.contents contents, r.replyday replyday,r.contents reply_contents
 	FROM inquiry i , inquiry_reply r
-	where i.inquiry_id=r.inquiry_id
+	where i.inquiry_id=r.inquiry_id(+)
 	and prod_no=#{prod_no}
    </select>
    

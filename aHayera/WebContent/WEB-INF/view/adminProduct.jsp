@@ -173,6 +173,7 @@
                     $('#editProductItems > td:nth-child(10) > select').val(data.scent);
                     $('#editProductItems > td:nth-child(11) > select').val(data.feel);
                     $('#editProductExplain').val(data.product_explain);
+                    $('#editExplain_url').val(data.explain_url);
                   },
                   error: function (err) {
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
@@ -403,6 +404,11 @@
                                     required></td>
                               </tr>
                               <tr>
+                                <td>상품정보</td>
+                                <td colspan="10"><input type="text" name="explain_url" class=".adminProduct_input"
+                                    required></td>
+                              </tr>
+                              <tr>
                                 <td>사진업로드</td>
                                 <td colspan="3">
                                   <div class="filebox"><label for="file">업로드</label><input type="file" name="file"
@@ -492,6 +498,11 @@
                                 <td>설명</td>
                                 <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
                                     id="editProductExplain" required></td>
+                              </tr>
+                              <tr>
+                                <td>상품정보</td>
+                                <td colspan="10"><input type="text" name="explain_url" class=".adminProduct_input"
+                                    id="editExplain_url" required></td>
                               </tr>
                               <tr>
                                 <td></td>

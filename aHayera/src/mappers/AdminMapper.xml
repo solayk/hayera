@@ -12,9 +12,9 @@
 	<insert id="insertProduct" parameterType="product">
 		<![CDATA[
 		INSERT INTO PRODUCT(PROD_NO,PROD_NAME,BRAND,CATEGORY,PRICE,COST_PRICE,DISCOUNT_PRICE
-		,CAPACITY,SCENT,SCENT_RATING,FEEL,FEEL_RATING,AVG_RATING,TOTALSALES,STOCK,IMG_URL,MANAGER_ID,PRODUCT_EXPLAIN) 
+		,CAPACITY,SCENT,SCENT_RATING,FEEL,FEEL_RATING,AVG_RATING,TOTALSALES,STOCK,IMG_URL,MANAGER_ID,PRODUCT_EXPLAIN,EXPLAIN_URL) 
 		VALUES (#{prod_no}, #{prod_name}, #{brand}, #{category}, #{price}, #{cost_price}, #{discount_price}
-		, #{capacity}, #{scent}, 0, #{feel}, 0, 0, #{totalsales}, #{stock}, #{img_url}, 'admin', #{product_explain})
+		, #{capacity}, #{scent}, 0, #{feel}, 0, 0, #{totalsales}, #{stock}, #{img_url}, 'admin', #{product_explain}, #{explain_url})
 		]]>
 	</insert>
 	

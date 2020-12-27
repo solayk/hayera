@@ -196,7 +196,6 @@ public class AdminController {
 	@ResponseBody
 	public List<InventoryVO> viewInventory(InventoryVO vo, ProductVO pvo, Model model)	{ 
 		List<InventoryVO> data = adminService.viewInventory(vo); // 전체 재고 목록
-		model.addAttribute("p_no_list",viewService.viewAllproduct(pvo)); // 제품번호 목록 가져오기
 		return data;
 	}
 }

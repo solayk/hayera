@@ -46,13 +46,13 @@
           <link href="./css/hayera.css" rel="stylesheet" />
 
           <script type="text/javascript">
-          
-       		// 세션 아이디 변수 sessionId에 저장
-        	var admin_id = '<%=session.getAttribute("admin_id")%>';
-	        if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
-          	location.href = "adminLogin.jsp";
-        	}
-          
+
+            // 세션 아이디 변수 sessionId에 저장
+            var admin_id = '<%=session.getAttribute("admin_id")%>';
+            if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
+              location.href = "adminLogin.jsp";
+            }
+
             $(document).ready(function () {
 
               $('.adminProduct_editTable').hide();
@@ -65,12 +65,9 @@
                 async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
                 success: function (data) {
 
-                  /* 다음 등록 상품 번호 자동 입력 */
-                  $('#prod_no_list').val(data.length + 1);
-
                   for (i = 0; i < data.length; i++) {
                     $('.viewInventory').append(
-                      '<tr>' 
+                      '<tr>'
                       + '<td>' + data[i].inventory_no + '</td>'
                       + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
                       + '<td style="text-align:right;">' + data[i].prod_no + '</td>'
@@ -91,6 +88,72 @@
                 }
               }); // --- end of $.ajax 전체상품목록
 
+              // 제품 번호 가져오기
+              $.ajax({
+                url: 'viewAllProduct.do',
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                success: function (data) {
+                  for (i = 0; i < data.length; i++) {
+                    $('#prod_no_list').append(
+                      '<option value="' + data[i].prod_no + '">' + data[i].prod_no + '</option>'
+                    );
+                  }
+                },
+                error: function (e) {
+                  alert(e);
+                }
+              }); // --- end of $.ajax 제품 번호 가져오기 
+			  
+              // 제품 번호 기입하면 해당하는 값 가져오기
+              $('#prod_no_list').on('change',function(){
+            	  
+            	// 제품 정보 가져오기
+                  $.ajax({
+                    url: 'viewAllProduct.do',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                    success: function (data) {
+                      for (i = 0; i < data.length; i++) {
+                    	  if( $('#prod_no_list').val()== data[i].prod_no ) {
+                    		  $('#insertInventory > td:nth-child(2) > input').val(data[i].prod_name);
+                    		  $('#insertInventory > td:nth-child(3) > input').val(numberWithCommas(String(data[i].stock)));
+                    		  $('#insertInventory > td:nth-child(4) > input').val(numberWithCommas(String(data[i].price)));
+                    	  }
+                      }
+                    },
+                    error: function (e) {
+                      alert(e);
+                    }
+                  }); // --- end of $.ajax 제품 번호 가져오기 
+            	  
+              }); // --- end of on 'change' 제품 번호 기입하면 해당하는 값 가져오기
+              
+           	  // 입고가 기입하면 예상 평균가 계산해서 띄우기
+              $('#stock_in_price').on('change',function(){
+            	  
+            	// 제품 정보 가져오기
+                  $.ajax({
+                    url: 'viewAllProduct.do',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                    success: function (data) {
+                    	
+                    	if($('#insertInventory > td:nth-child(2) > input').val() != null && $('.stock_in_qty').val() != null){
+                    		alert('1');
+                    	}
+                    },
+                    error: function (e) {
+                      alert(e);
+                    }
+                  }); // --- end of $.ajax 제품 번호 가져오기 
+            	  
+              }); // --- end of on 'change' 제품 번호 기입하면 해당하는 값 가져오기
+              
+              
+              
+              
+              
               $("#sortTable").DataTable({
                 columnDefs: [
                   { type: 'date', targets: [3] }
@@ -151,32 +214,32 @@
 
               /* 삭제버튼 클릭 시 */
               $(document).on('click', '.deleteProduct', function () {
-                
-            	var prod_no = $(this).parent().parent('tr').find('td:nth-child(2)').text();
-                var test = confirm(prod_no + "번 상품 정보를 삭제하시겠습니까?");  
-            	
+
+                var prod_no = $(this).parent().parent('tr').find('td:nth-child(2)').text();
+                var test = confirm(prod_no + "번 상품 정보를 삭제하시겠습니까?");
+
                 /* 재확인 OK 시 삭제 진행 */
                 if (test) {
-                
-	            	/* DB에서 AJAX로 데이터 삭제하기 */
-	                /* var info = {
-	                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
-	                }
-	                $.ajax({
-	                  type: "POST",
-	                  data: info,
-	                  url: "adminRemoveProduct.do",
-	                  contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-	                  success: function () {
-	                    location.href = "adminProduct.do";
-	                  },
-	                  error: function (err) {
-	                    alert("에러가 발생했습니다: adminProduct.jsp --- .deleteProduct 에러");
-	                  }
-	                }); */
+
+                  /* DB에서 AJAX로 데이터 삭제하기 */
+                  /* var info = {
+                    prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
+                  }
+                  $.ajax({
+                    type: "POST",
+                    data: info,
+                    url: "adminRemoveProduct.do",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+                    success: function () {
+                      location.href = "adminProduct.do";
+                    },
+                    error: function (err) {
+                      alert("에러가 발생했습니다: adminProduct.jsp --- .deleteProduct 에러");
+                    }
+                  }); */
                 }
                 else {
-                	alert("삭제를 취소하셨습니다.");
+                  alert("삭제를 취소하셨습니다.");
                 }
               }); // --- end of .deleteProduct click
 
@@ -224,11 +287,11 @@
                     </a>
                   </li>
                   <li>
-              		 <a href="adminReply.do">
-              		  	<i class="now-ui-icons ui-2_chat-round"></i>
-                		<p>문의 관리</p>
-              		 </a>
-            	  </li>
+                    <a href="adminReply.do">
+                      <i class="now-ui-icons ui-2_chat-round"></i>
+                      <p>문의 관리</p>
+                    </a>
+                  </li>
                   <li class="active">
                     <a href="adminInventory.do">
                       <i class="now-ui-icons files_paper"></i>
@@ -321,18 +384,14 @@
                                   <th>예상평균가</th>
                                 </tr>
                               </thead>
-                              <tr>
-                                <td><select name="prod_no" id="prod_no_list">
-                                	<c:forEach items="${p_no_list}" var="plist">
-										 <option value="${plist.prod_no}">${plist.prod_no}</option>
-                                	</c:forEach>
-                                </select></td>
-                                <td><input type="text" name="prod_name" class=".adminProduct_input" required style="border: none;" readonly></td>
-                                <td><input type="text" name="exist_qty" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="exist_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="stock_in_qty" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="stock_in_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="" class=".adminProduct_input" required style="border: none;" readonly></td>
+                              <tr id="insertInventory">
+                                <td><select name="prod_no" id="prod_no_list"></select></td>
+                                <td><input type="text" name="prod_name" class=".adminProduct_input" style="border: none;" readonly></td>
+                                <td><input type="text" name="exist_qty" class=".adminProduct_input" style="border: none;" readonly></td>
+                                <td><input type="text" name="exist_price" class=".adminProduct_input" style="border: none;" readonly></td>
+                                <td><input type="text" name="stock_in_qty" class=".adminProduct_input" id="stock_in_qty" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="stock_in_price" class=".adminProduct_input" id="stock_in_price" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="expected_price" class=".adminProduct_input" id="expected_price" style="border: none;" readonly></td>
                               </tr>
                               <tr>
                                 <td></td>
@@ -340,7 +399,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i class="fa fa-plus"></i> 입고등록</button></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i
+                                      class="fa fa-plus"></i> 입고등록</button></td>
                               </tr>
                             </table>
                           </form>

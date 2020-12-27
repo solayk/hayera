@@ -117,7 +117,7 @@
 												<div class="form-group">
 													<label>아이디 </label>
 													<input id ="customer_id" name="customer_id" type="text" class="form-control" placeholder="Smith...">
-													<div id='idCheckResult' style="width:150px;color:red"></div>
+													<div id='idCheckResult' style="width:200px;color:red"></div>
 												</div>
 												<div class="form-group">
 													<label>비밀번호 </label>
@@ -331,6 +331,11 @@ $('#joinbtn').click(function () {
 })
 
 $('#customer_id').focusout(function(){
+	
+	if($('#customer_id').val().length<3){
+		$('#idCheckResult').text('사용불가합니다.');
+	}else{
+		
 	$.ajax({
 		type: 'post', //전송방식
     	async : true, //비동기통신
@@ -342,6 +347,7 @@ $('#customer_id').focusout(function(){
     	},
     	error: function(err){console.log(err);}
 	});
+	}
 })
 
 

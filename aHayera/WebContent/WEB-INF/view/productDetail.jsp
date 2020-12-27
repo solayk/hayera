@@ -129,6 +129,15 @@
                         form.submit();
                      }
                   }
+               	  // '장바구니 추가' 클릭 시
+               	  function addCart(){
+               		var id = '<%=(String)session.getAttribute("login")%>'
+           			if (id == 'null') {
+           				location.href = "login.do";
+       				} else {
+       					location.href = "addCart.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}";
+       				}
+               	  }
                   // Jquery 시작
                   $(document).ready(function () {
                      // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
@@ -142,6 +151,55 @@
                         ) {
                            $('li.dropdown').removeClass('open');
                         }
+                     });
+                     var amount = $("#spinner").val();
+                  	 // 장바구니에 상품 넣기
+                  	 /*<c:forEach items="${productInfo}" var="productInfo">
+                  		var discount_price = ${productInfo.discount_price};
+                  		var pay_price = discount_price * amount;
+               			$(".main_cart").append(
+                            '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
+                            + '<td>' + '<img src="/aHayera/resources/upload/${productInfo.img_url}" width="55" height="55">' + '</td>'
+                            + '<td>' + '<a href="productSelected.do?prod_no='+'${productInfo.prod_no}'+'">'+'${productInfo.prod_name}'+ '</a>' + '</td>'
+                            + '<td>' + amount + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                            + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+                            + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                            + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
+                            + '<td>' + '${productInfo.discount_price}' + '원</td>'
+                            + '<td>' + pay_price + '원</td>'
+                            + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
+                            + '<span class="glyphicon glyphicon-remove"></span>'
+                            + '</button>' + '</td>'
+                            + '</tr>'
+                        )
+                  	 </c:forEach>*/
+                  	 $.ajax({
+                       type: 'post',
+                       url: 'addCart.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}',
+                       dataType: 'json',
+                       contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                       success: function (data) {
+                         for (i = 0; i < data.length; i++) {
+                           $(".main_cart").append(
+                             '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
+                             + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
+                             + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
+                             + '<td>' + amount + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                             + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+                             + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                             + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
+                             + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
+                             + '<td>' + data[i].price.formatNumber() + '원</td>'
+                             + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
+                             + '<span class="glyphicon glyphicon-remove"></span>'
+                             + '</button>' + '</td>'
+                             + '</tr>'
+                           )
+                         }
+                       },
+                       error: function (err) {
+                         console.log(err);
+                       }
                      });
                   })
                </script>
@@ -238,7 +296,7 @@
                                        <ul class="dropdown-menu">
                                           <!-- mainAfterLogin 에만 해당 -->
                                           <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                                          <li><a href="#">주문목록</a></li>
+                                          <li><a href="orderHistory.do">주문목록</a></li>
                                           <li><a href="logout.do">로그아웃</a></li>
                                        </ul>
                                     </li>

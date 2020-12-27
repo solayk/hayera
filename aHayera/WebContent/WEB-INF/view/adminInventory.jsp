@@ -130,28 +130,22 @@
               }); // --- end of on 'change' 제품 번호 기입하면 해당하는 값 가져오기
               
            	  // 입고가 기입하면 예상 평균가 계산해서 띄우기
-              $('#stock_in_price').on('change',function(){
+              $('#stock_in_price').on('change',function() {
             	  
-            	// 제품 정보 가져오기
-                  $.ajax({
-                    url: 'viewAllProduct.do',
-                    dataType: 'json',
-                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-                    success: function (data) {
-                    	
-                    	if($('#insertInventory > td:nth-child(2) > input').val() != null && $('.stock_in_qty').val() != null){
-                    		alert('1');
-                    	}
-                    },
-                    error: function (e) {
-                      alert(e);
-                    }
-                  }); // --- end of $.ajax 제품 번호 가져오기 
+ 				var exist_qty = parseInt($('#exist_qty').val().replaceAll(",", ""));
+ 				var stock_in_qty = parseInt($('#stock_in_qty').val().replaceAll(",", ""));
+ 				
+            	if( exist_qty != "" && stock_in_qty != "" ) {
+                  
+            		var exist_price = parseInt($('#exist_price').val().replaceAll(",", ""));
+            		var stock_in_price = parseInt($('#stock_in_price').val().replaceAll(",", ""));
+            		
+            		var expected_price = (exist_price*exist_qty + stock_in_price*stock_in_qty)/(exist_qty + stock_in_qty);
+            		
+                  	$('#expected_price').val(numberWithCommas(String(expected_price)));
+              	}  
             	  
-              }); // --- end of on 'change' 제품 번호 기입하면 해당하는 값 가져오기
-              
-              
-              
+              }); // --- end of on 'change' 입고가 기입하면 예상 평균가 계산해서 띄우기
               
               
               $("#sortTable").DataTable({
@@ -385,10 +379,10 @@
                                 </tr>
                               </thead>
                               <tr id="insertInventory">
-                                <td><select name="prod_no" id="prod_no_list"></select></td>
+                                <td><select name="prod_no" id="prod_no_list"><option value=""></option></select></td>
                                 <td><input type="text" name="prod_name" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="exist_qty" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="exist_price" class=".adminProduct_input" style="border: none;" readonly></td>
+                                <td><input type="text" name="exist_qty" class=".adminProduct_input" id="exist_qty" style="border: none;" readonly></td>
+                                <td><input type="text" name="exist_price" class=".adminProduct_input" id="exist_price" style="border: none;" readonly></td>
                                 <td><input type="text" name="stock_in_qty" class=".adminProduct_input" id="stock_in_qty" onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td><input type="text" name="stock_in_price" class=".adminProduct_input" id="stock_in_price" onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td><input type="text" name="expected_price" class=".adminProduct_input" id="expected_price" style="border: none;" readonly></td>

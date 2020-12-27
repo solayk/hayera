@@ -34,7 +34,7 @@ $(function(){
 			}
 	 	})	
 
-	})
+	}) //현재 비밀번호 확인
 
 
 
@@ -73,7 +73,7 @@ $(function(){
 		})
 		
 		
-	})
+	})//새 비밀번호 비교 확인
 
 	 
 		$('#no_pw_btn').click(function () {
@@ -100,20 +100,20 @@ $(function(){
 						<div class="wrap-input100 validate-input"
 							data-validate="Repeat Password is required">
 							<span class="label-input100">현재 비밀번호</span>
-							<input class="input100" name="password"  type="text" id='password'/>
+							<input class="input100" name="password"  type="text" id='password'placeholder="현재비밀번호를 입력하세요"/>
 							<spanclass="focus-input100"></span>
 						</div>
 						<div class="wrap-input100 validate-input"
 							data-validate="Name is required">
 							<span class="label-input100">새 비밀번호</span>
-							<input class="input100" name="password_new" id="password_new" type="text"/>
+							<input class="input100" name="password_new" id="password_new" type="text" placeholder="영문,숫자, 특수문자를 혼합하여 입력해주세요.." />
 							<spanclass="focus-input100"></span>
 						</div>
 						
 						<div class="wrap-input100 validate-input"
 							data-validate="Password is required">
 							<span class="label-input100">새 비밀번호 확인</span>
-							<input class="input100" name="password_new_ch" id="password_new_ch" type="text"/>					
+							<input class="input100" name="password_new_ch" id="password_new_ch" type="text" placeholder="영문,숫자, 특수문자를 혼합하여 입력해주세요." />					
 							<span class="focus-input100"></span>
 							</div>
 						

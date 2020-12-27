@@ -136,22 +136,29 @@ login_wrap {
           $('.costomer').css('top', '-500px');
         });
         
-        
-    
-       
+              
        
        $('#ok_btn').click(function(){
-    	  alert('수정되었습니다.')
+    	 // alert('수정되었습니다.')
     	  
     	  $('#frm').submit();
       }); 
        
        $('#pop_btn').click(function () {
 		
-    	   window.open('POP_changePw.do','비밀변호변경', 'width=5px','heigh=5px');
+    	   window.open('POP_changePw.do','비밀변호변경');
 	})
 
-    
+	 
+    $('.pe-7s-wallet').click(function () {
+    	
+    	alert('ok')
+    	
+     
+		
+	})
+
+	
       
       }) //무조건 function 안에서 실행
       

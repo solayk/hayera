@@ -12,8 +12,8 @@
 
 <insert id="insertOrder_Product" parameterType="order_product">
 	<![CDATA[
-		INSERT INTO orderlist_product (prod_no, order_no, each_qty)
-		VALUES (#{prod_no},#{order_no},#{each_qty})
+		INSERT INTO orderlist_product
+		VALUES (#{prod_no},#{order_no},#{each_qty},#{sales_price},#{sales_cost},#{sales_revenue})
 	]]>
 </insert>
 

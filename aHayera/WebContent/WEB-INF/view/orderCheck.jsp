@@ -49,11 +49,18 @@
    	var totalPrice = (goodsCount*price).formatNumber();
    	var point = ${info.points};
    	var points = point.formatNumber();
-   	
+   	var sales_cost = ${productInfo.cost_price};
+   	var sales_revenue = price - sales_cost;
     //Jquery 시작
     $(function () {
     	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
     	$("#order_price").val(goodsCount*price);
+    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_price에 들어갈 값)
+    	$("input[name=sales_price]").val(price);
+    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_cost에 들어갈 값)
+    	$("input[name=sales_cost]").val(sales_cost);
+    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_revenue에 들어갈 값)
+    	$("input[name=sales_revenue]").val(sales_revenue);
     	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
     	$("#addrCheck input").on('change', function () {
 			if($('input[name="inlineRadioOptions"]:checked', '#addrCheck').val()=="option2"){
@@ -309,6 +316,14 @@
             <!-- 제품상세페이지에서 가져온, 제품 수량(goodsCount)이 orderlist_product 테이블의 each_qty 컬럼에 저장되게함. -->
             <input type="hidden" value="<%=request.getParameter("goodsCount")%>" name="each_qty">
             
+            <!-- 제품상세페이지에서 가져온, 제품 할인가(discount_price)가 orderlist_product 테이블의 sales_price 컬럼에 저장되게함. -->
+            <input type="hidden" name="sales_price">
+            
+            <!-- 제품상세페이지에서 가져온, 제품 원가(cost_price)가 orderlist_product 테이블의 sales_cost 컬럼에 저장되게함. -->
+            <input type="hidden" name="sales_cost">
+            
+            <!-- '적용판매가 - 적용단가' 가 orderlist_product 테이블의 sales_revenue 컬럼에 저장되게함. -->
+            <input type="hidden" name="sales_revenue">
           </div>
         </div>
       </div>

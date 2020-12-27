@@ -76,7 +76,6 @@ public class OrderCheckController {
 		orderService.insertOrder(ol);
 		// 주문-제품(orderlist_product) 테이블에 저장될 데이터 입력
 		op.setOrder_no(order_no);
-		
 		orderService.insertOrder_Product(op);
 	};
 	// 로그인한 회원 id로 주문 된 내역을 불러와 보여줌. 기본 3개월.

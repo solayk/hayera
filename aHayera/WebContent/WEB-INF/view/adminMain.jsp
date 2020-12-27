@@ -89,7 +89,7 @@
             </li>
             <li>
             <li>
-              <a href="adminStock.do">
+              <a href="adminInventory.do">
                 <i class="now-ui-icons files_paper"></i>
                 <p>재고 관리</p>
               </a>

@@ -12,7 +12,7 @@
 
           <!-- 타이틀 바 -->
           <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
-          <title>관리자 - 상품관리</title>
+          <title>관리자 - 재고관리</title>
 
           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
             name='viewport' />
@@ -91,8 +91,7 @@
                 success: function (data) {
 
                   /* 다음 등록 상품 번호 자동 입력 */
-                  var nextProd_no = parseInt(data[data.length-1].prod_no) + 1;
-                  $('#nextProd_no').val(nextProd_no);
+                  $('#prod_no_list').val(data.length + 1);
 
                   for (i = 0; i < data.length; i++) {
                     $('.viewAllProduct').append(
@@ -151,7 +150,7 @@
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
                 /* DB에서 AJAX로 데이터 가져오기 */
-                var info = {
+                /* var info = {
                   prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
                 }
                 $.ajax({
@@ -177,7 +176,7 @@
                   error: function (err) {
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
                   }
-                });
+                }); */
                 $('.editProduct').attr("disabled", "disabled");
                 $('.deleteProduct').attr("disabled", "disabled");
 
@@ -193,7 +192,7 @@
                 if (test) {
                 
 	            	/* DB에서 AJAX로 데이터 삭제하기 */
-	                var info = {
+	                /* var info = {
 	                  prod_no: $(this).parent().parent('tr').find('td:nth-child(2)').text()
 	                }
 	                $.ajax({
@@ -207,7 +206,7 @@
 	                  error: function (err) {
 	                    alert("에러가 발생했습니다: adminProduct.jsp --- .deleteProduct 에러");
 	                  }
-	                });
+	                }); */
                 }
                 else {
                 	alert("삭제를 취소하셨습니다.");
@@ -245,7 +244,7 @@
                       <p>고객 관리</p>
                     </a>
                   </li>
-                  <li class="active">
+                  <li>
                     <a href="adminProduct.do">
                       <i class="now-ui-icons shopping_bag-16"></i>
                       <p>상품 관리</p>
@@ -263,7 +262,7 @@
                 		<p>문의 관리</p>
               		 </a>
             	  </li>
-                  <li>
+                  <li class="active">
                     <a href="adminInventory.do">
                       <i class="now-ui-icons files_paper"></i>
                       <p>재고 관리</p>
@@ -290,7 +289,7 @@
                         <span class="navbar-toggler-bar bar3"></span>
                       </button>
                     </div>
-                    <a class="navbar-brand" href="" style="font-size: 30px">상품 관리</a>
+                    <a class="navbar-brand" href="" style="font-size: 30px">재고 관리</a>
                   </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                     aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -334,92 +333,46 @@
                   <div class="col-md-12">
                     <div class="card adminProduct_addTable">
                       <div class="card-header">
-                        <h4 class="card-title"> 새 상품 등록</h4>
+                        <h4 class="card-title"> 입고</h4>
                         <p class="">
-                          - 새로운 상품을 등록하세요.<br>
-                          - 수량 변경은 다른 메뉴를 이용하시기 바랍니다.
+                          - 이미 등록된 상품 입고 시 작성하세요.<br>
+                          - 아직 등록하지 않은 상품 입고는 상품 관리 메뉴에서 등록하시기 바랍니다.
                         </p>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <form action="insertProduct.do" method='post' enctype='multipart/form-data'>
+                          <form action="" method='post' enctype='multipart/form-data'>
                             <table class="table">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
                                   <th>제품번호</th>
                                   <th>이름</th>
-                                  <th>브랜드</th>
-                                  <th>카테고리</th>
-                                  <th>가격</th>
-                                  <th>매입가</th>
-                                  <th>할인가</th>
-                                  <th>용량</th>
-                                  <th>수량</th>
-                                  <th>향</th>
-                                  <th>촉감</th>
+                                  <th>기존(개)</th>
+                                  <th>평균가</th>
+                                  <th>입고(개)</th>
+                                  <th>입고가</th>
+                                  <th>예상평균가</th>
                                 </tr>
                               </thead>
                               <tr>
-                                <td><input type="text" name="prod_no" class=".adminProduct_input" id="nextProd_no"
-                                    style="border: none;" readonly></td>
-                                <td><input type="text" name="prod_name" class=".adminProduct_input" required></td>
-                                <td><input type="text" name="brand" class=".adminProduct_input" required></td>
-                                <td>
-                                  <select name="category">
-                                    <option value="모이스처라이저">모이스처라이저</option>
-                                    <option value="선크림">선크림</option>
-                                  </select>
-                                </td>
-                                <td><input type="text" name="s_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_cost_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_discount_price" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" value="0"></td>
-                                <td><input type="text" name="s_capacity" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="s_stock" class=".adminProduct_input"
-                                    onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td>
-                                  <select name="scent" required>
-                                    <option value="무향">무향</option>
-                                    <option value="꽃">꽃</option>
-                                    <option value="오이">오이</option>
-                                    <option value="원료">원료</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <select name="feel" required>
-                                    <option value="흐름">흐름</option>
-                                    <option value="부드러움">부드러움</option>
-                                    <option value="매트">매트</option>
-                                    <option value="하드">하드</option>
-                                  </select>
-                                </td>
+                                <td><select name="prod_no" id="prod_no_list"></select></td>
+                                <td><input type="text" name="prod_name" class=".adminProduct_input" required style="border: none;" readonly></td>
+                                <td><input type="text" name="exist_qty" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="exist_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="stock_in_qty" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="stock_in_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="" class=".adminProduct_input" required style="border: none;" readonly></td>
                               </tr>
                               <tr>
-                                <td>설명</td>
-                                <td colspan="10"><input type="text" name="product_explain" class=".adminProduct_input"
-                                    required></td>
-                              </tr>
-                              <tr>
-                                <td>사진업로드</td>
-                                <td colspan="3">
-                                  <div class="filebox"><label for="file">업로드</label><input type="file" name="file"
-                                      id="file" required></div>
-                                </td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i
-                                      class="fa fa-plus"></i> 등록하기</button></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i class="fa fa-plus"></i> 입고등록</button></td>
                               </tr>
                             </table>
                           </form>
-                          <!-- 미리보기 사진 띄우기 -->
-                          <div class="uploadPreview"><img src=""></div>
                         </div>
                       </div>
                     </div>

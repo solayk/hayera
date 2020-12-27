@@ -2,9 +2,12 @@ package spring.mvc.domain;
 
 public class Order_ProductVO {
 	
-	private String prod_no;
-	private String order_no;
-	private int each_qty;
+	private String prod_no;  // 제품번호
+	private String order_no; // 주문번호
+	private int each_qty;    // 수량
+	private int sales_price; // 적용판매가
+	private int sales_cost;  // 적용단가
+	private int sales_revenue; // 수익
 	
 	public String getProd_no() {
 		return prod_no;
@@ -23,5 +26,23 @@ public class Order_ProductVO {
 	}
 	public void setEach_qty(int each_qty) {
 		this.each_qty = each_qty;
+	}
+	public int getSales_price() {
+		return sales_price;
+	}
+	public void setSales_price(int sales_price) {
+		this.sales_price = sales_price;
+	}
+	public int getSales_cost() {
+		return sales_cost;
+	}
+	public void setSales_cost(int sales_cost) {
+		this.sales_cost = sales_cost;
+	}
+	public int getSales_revenue() {
+		return sales_revenue;
+	}
+	public void setSales_revenue(int sales_revenue) {
+		this.sales_revenue = sales_revenue;
 	}
 }

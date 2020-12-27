@@ -152,16 +152,13 @@ login_wrap {
 	 
     $('.pe-7s-wallet').click(function () {
     	
-    	alert('ok')
-    	
-     
-		
-	})
+    	location.href = "orderHistory.do";
 
 	
       
       }) //무조건 function 안에서 실행
       
+  })
     </script>
 </head>
 
@@ -204,7 +201,7 @@ login_wrap {
 						<ul class="nav navbar-nav navbar-right">
 							​
 							<!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
-							<li><a href="#"> <i class="pe-7s-shopbag"> <span
+							<li><a href="orderHistory.do" > <i class="pe-7s-shopbag"> <span
 										class="label">2</span>
 								</i>
 									<p>장바구니</p>

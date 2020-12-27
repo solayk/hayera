@@ -7,6 +7,10 @@ public class InventoryVO {
 	private int stock_in_price;    // 입고 가격
 	private int exist_qty;    // 기존 수량
 	private int exist_price;    // 기존 평균가
+	private String update_date;  // 입고날짜
+	private String inventory_no;  // 입고번호
+	private String prod_name;	// 관리자 재고 관리 목적
+	private String img_url;	// 관리자 재고 관리 목적
 	
 	public String getProd_no() {
 		return prod_no;
@@ -37,6 +41,30 @@ public class InventoryVO {
 	}
 	public void setExist_price(int exist_price) {
 		this.exist_price = exist_price;
+	}
+	public String getUpdate_date() {
+		return update_date;
+	}
+	public void setUpdate_date(String update_date) {
+		this.update_date = update_date;
+	}
+	public String getInventory_no() {
+		return inventory_no;
+	}
+	public void setInventory_no(String inventory_no) {
+		this.inventory_no = inventory_no;
+	}
+	public String getProd_name() {
+		return prod_name;
+	}
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+	public String getImg_url() {
+		return img_url;
+	}
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
 	}
 	
 }

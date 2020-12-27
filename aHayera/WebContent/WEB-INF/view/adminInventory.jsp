@@ -57,29 +57,7 @@
 
               $('.adminProduct_editTable').hide();
 
-              $('#file').on('change', function (e) {
-                var files = e.target.files;
-                var filesArr = Array.prototype.slice.call(files);
-
-                var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
-
-                filesArr.forEach(function (f) {
-                  if (!f.type.match(reg)) {
-                    alert("확장자는 이미지 확장자만 가능합니다.");
-                    return;
-                  }
-
-                  sel_file = f;
-
-                  var reader = new FileReader();
-                  reader.onload = function (e) {
-                    $(".uploadPreview > img").attr("src", e.target.result);
-                  }
-                  reader.readAsDataURL(f);
-                });
-              });
-
-              // 전체상품목록
+              // 전체 재고 목록
               $.ajax({
                 url: 'viewInventory.do',
                 dataType: 'json',
@@ -91,23 +69,17 @@
                   $('#prod_no_list').val(data.length + 1);
 
                   for (i = 0; i < data.length; i++) {
-                    $('.viewAllProduct').append(
-                      '<tr>' + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
+                    $('.viewInventory').append(
+                      '<tr>' 
+                      + '<td>' + data[i].inventory_no + '</td>'
+                      + '<td><img class="adminProduct_Img" src="/aHayera/resources/upload/' + data[i].img_url + '">' + '</td>'
                       + '<td style="text-align:right;">' + data[i].prod_no + '</td>'
-                      + '<td>' + data[i].prod_name + '</td>'
-                      + '<td>' + data[i].brand + '</td>'
-                      + '<td>' + data[i].category + '</td>'
-                      + '<td data-table-header="가격">' + numberWithCommas(String(data[i].price)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].cost_price)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].discount_price)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].capacity)) + '</td>'
-                      + '<td>' + data[i].avg_rating + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].totalsales)) + '</td>'
-                      + '<td>' + numberWithCommas(String(data[i].stock)) + '</td>'
-                      + '<td>' + data[i].scent + '</td>'
-                      + '<td>' + data[i].scent_rating + '</td>'
-                      + '<td>' + data[i].feel + '</td>'
-                      + '<td>' + data[i].feel_rating + '</td>'
+                      + '<td style="text-align:right;">' + data[i].prod_name + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].exist_qty)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].exist_price)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].stock_in_qty)) + '</td>'
+                      + '<td>' + numberWithCommas(String(data[i].stock_in_price)) + '</td>'
+                      + '<td>' + data[i].update_date + '</td>'
                       + '<td class="configBtns"><button class="editProduct" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
                       + '<button class="deleteProduct" type="button" data-toggle="tooltip" data-placement="top" title="삭제"><i class="material-icons">&#xE872;</i></button></td>'
                       + '</tr>'
@@ -127,7 +99,7 @@
 
               $('#search-product').on("keyup", function () {
                 var value = $(this).val().toLowerCase();
-                $('.viewAllProduct > tr').filter(function () {
+                $('.viewInventory > tr').filter(function () {
                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
               }); // --- end of #myInput keyup search for product              
@@ -350,7 +322,11 @@
                                 </tr>
                               </thead>
                               <tr>
-                                <td><select name="prod_no" id="prod_no_list"></select></td>
+                                <td><select name="prod_no" id="prod_no_list">
+                                	<c:forEach items="${p_no_list}" var="plist">
+										 <option value="${plist.prod_no}">${plist.prod_no}</option>
+                                	</c:forEach>
+                                </select></td>
                                 <td><input type="text" name="prod_name" class=".adminProduct_input" required style="border: none;" readonly></td>
                                 <td><input type="text" name="exist_qty" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
                                 <td><input type="text" name="exist_price" class=".adminProduct_input" onkeyup="this.value = numberWithCommas(this.value);" required></td>
@@ -456,8 +432,6 @@
                               </tr>
                             </table>
                           </form>
-                          <!-- 미리보기 사진 띄우기 -->
-                          <div class="uploadPreview"><img src=""></div>
                         </div>
                       </div>
                     </div>
@@ -487,28 +461,21 @@
                             <table class="table" id="sortTable">
                               <thead class="adminProduct_tableHeader">
                                 <tr class="viewTableHeader">
+                                  <th scope="col" style="max-width: 40px; min-width: 40px;">입고번호</th>
                                   <th scope="col">제품</th>
                                   <th scope="col" style="max-width: 40px; min-width: 40px;">번호</th>
                                   <th scope="col" style="width: 150px; min-width: 150px;">이름</th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">브랜드</th>
-                                  <th scope="col" style="max-width: 80px; min-width: 80px;">카테고리</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">가격</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">원가</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">할인가</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">용량</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">평점</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">판매</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">재고</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">향</th>
-                                  <th scope="col"></th>
-                                  <th scope="col" style="max-width: 50px;min-width: 50px;">촉감</th>
-                                  <th scope="col"></th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">기존(개)</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">평균가</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">입고(개)</th>
+                                  <th scope="col" style="max-width: 50px; min-width: 50px;">입고가</th>
+                                  <th scope="col" style="max-width: 60px; min-width: 60px;">작성일</th>
                                   <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>
 
                               <!-- 상품 전체 목록 띄우는 곳 -->
-                              <tbody class="viewAllProduct">
+                              <tbody class="viewInventory">
                               </tbody>
 
                             </table>

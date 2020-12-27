@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,12 +22,15 @@ import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.Qna_ReplyVO;
 import spring.mvc.service.AdminService;
+import spring.mvc.service.ViewService;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private ViewService viewService;
 	
 	private static final Logger logger = LoggerFactory.getLogger( AdminController.class );
 	
@@ -190,10 +194,9 @@ public class AdminController {
 	//	전체 재고 목록 보여주기	
 	@RequestMapping("/viewInventory.do")
 	@ResponseBody
-	public List<InventoryVO> viewInventory(InventoryVO vo)	{ 
-		List<InventoryVO> data = adminService.viewInventory(vo);
-		
-		
+	public List<InventoryVO> viewInventory(InventoryVO vo, ProductVO pvo, Model model)	{ 
+		List<InventoryVO> data = adminService.viewInventory(vo); // 전체 재고 목록
+		model.addAttribute("p_no_list",viewService.viewAllproduct(pvo)); // 제품번호 목록 가져오기
 		return data;
 	}
 }

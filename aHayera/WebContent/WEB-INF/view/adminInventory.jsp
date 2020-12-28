@@ -118,7 +118,7 @@
                     	  if( $('#prod_no_list').val()== data[i].prod_no ) {
                     		  $('#insertInventory > td:nth-child(2) > input').val(data[i].prod_name);
                     		  $('#insertInventory > td:nth-child(3) > input').val(numberWithCommas(String(data[i].stock)));
-                    		  $('#insertInventory > td:nth-child(4) > input').val(numberWithCommas(String(data[i].price)));
+                    		  $('#insertInventory > td:nth-child(4) > input').val(numberWithCommas(String(data[i].cost_price)));
                     	  }
                       }
                     },
@@ -140,7 +140,7 @@
             		var exist_price = parseInt($('#exist_price').val().replaceAll(",", ""));
             		var stock_in_price = parseInt($('#stock_in_price').val().replaceAll(",", ""));
             		
-            		var expected_price = (exist_price*exist_qty + stock_in_price*stock_in_qty)/(exist_qty + stock_in_qty);
+            		var expected_price = ((exist_price*exist_qty) + (stock_in_price*stock_in_qty))/(exist_qty + stock_in_qty);
             		
                   	$('#expected_price').val(numberWithCommas(String(expected_price)));
               	}  

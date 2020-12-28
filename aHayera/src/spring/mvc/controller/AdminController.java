@@ -199,7 +199,7 @@ public class AdminController {
 		return data;
 	}
 	
-	// 상품 수정하기
+	// 입고 등록하기
 	@RequestMapping("/insertInventory.do")
 	public String insertInventory(InventoryVO vo, String s_exist_qty, String s_exist_price, String s_stock_in_qty, String s_stock_in_price, String s_expected_price) {
 

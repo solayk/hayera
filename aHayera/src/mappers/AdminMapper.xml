@@ -33,10 +33,16 @@
 	</select>
 	
 	<update id="adminEditProduct" parameterType="product">
-		<![CDATA[
-		UPDATE PRODUCT SET PROD_NAME = #{prod_name}, BRAND = #{brand}, CATEGORY = #{category}, PRICE = #{price}, COST_PRICE = #{cost_price}
-		, DISCOUNT_PRICE = #{discount_price}, CAPACITY = #{capacity}, SCENT = #{scent}, FEEL = #{feel}, PRODUCT_EXPLAIN = #{product_explain} WHERE PROD_NO = #{prod_no}
+		
+		UPDATE PRODUCT SET 
+		<if test="prod_name != null">
+		<![CDATA[ PROD_NAME = #{prod_name}, BRAND = #{brand}, CATEGORY = #{category}, 
+		PRICE = #{price}, DISCOUNT_PRICE = #{discount_price}, CAPACITY = #{capacity}, 
+		SCENT = #{scent}, FEEL = #{feel}, PRODUCT_EXPLAIN = #{product_explain}, 
 		]]>
+		</if>
+		<![CDATA[STOCK = #{stock}, COST_PRICE = #{cost_price}]]>  
+		<![CDATA[WHERE PROD_NO = #{prod_no}]]>
 	</update>
 	
 	<delete id="adminRemoveProduct" parameterType="String">
@@ -119,7 +125,7 @@
 	
 	<select id="viewInventory" parameterType="inventory" resultType="inventory">
 		SELECT IVN.INVENTORY_NO INVENTORY_NO, P.IMG_URL IMG_URL, IVN.PROD_NO PROD_NO, 
-		P.PROD_NAME PROD_NAME, IVN.EXIST_QTY EXIST_QTY, IVN.EXIST_PRICE, EXIST_PRICE, 
+		P.PROD_NAME PROD_NAME, IVN.EXIST_QTY EXIST_QTY, IVN.EXIST_PRICE EXIST_PRICE, 
 		IVN.STOCK_IN_QTY STOCK_IN_QTY, IVN.STOCK_IN_PRICE STOCK_IN_PRICE, IVN.UPDATE_DATE UPDATE_DATE
 		FROM INVENTORY IVN
 		INNER JOIN PRODUCT P ON <![CDATA[IVN.PROD_NO = P.PROD_NO]]>

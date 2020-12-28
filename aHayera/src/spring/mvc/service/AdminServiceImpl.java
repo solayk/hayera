@@ -89,7 +89,7 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.viewInventory(vo);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void insertInventory(InventoryVO vo) {
 		System.out.println("===== transaction 시작");
 		adminDAO.insertInventory(vo);
@@ -98,7 +98,7 @@ public class AdminServiceImpl implements AdminService {
 		ProductVO pvo = new ProductVO();
 		pvo.setProd_no(vo.getProd_no());
 		pvo.setStock(vo.getExist_qty() + vo.getStock_in_qty());
-		pvo.setPrice(vo.getExpected_price());
+		pvo.setCost_price(vo.getExpected_price());
 		adminDAO.adminEditProduct(pvo);
 		System.out.println("===== product 테이블 edit 완료");
 	}

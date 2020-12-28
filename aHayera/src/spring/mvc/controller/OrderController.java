@@ -22,7 +22,7 @@ import spring.mvc.service.OrderService;
 import spring.mvc.service.ViewService;
 
 @Controller
-public class OrderCheckController {
+public class OrderController {
 	
 	@Autowired
 	private ViewService viewMainpageService;
@@ -30,18 +30,24 @@ public class OrderCheckController {
 	private MypageService mypageService;
 	@Autowired
 	private OrderService orderService;
-
-	// 장바구니에 상품 담기_ 장바구니 추가 누르면 해당 상품의 정보를 갖고 장바구니에 담을꺼야.
-	/*
-	@RequestMapping("/addCart.do")
-	public String addCart(ProductVO pvo, Model m) {
-		List<ProductVO> productInfo = orderService.addCart(pvo);
-		m.addAttribute("productInfo",productInfo);
-		return "productDetail";
-	}*/
 	
-	
-	
+	// 장바구니에서 결제하기 눌러서 넘어가기 -> orderCheckFromCart.jsp로 고객 정보/상품 정보 갖고 넘어가기. 
+	@RequestMapping("/orderFromCart.do")
+	public String orderFromCart(HttpSession session, Order_ProductVO vo, CustomerVO cvo, Model m) {
+		CustomerVO info = mypageService.getAllById(cvo);
+		
+		String addr = info.getAddress();
+		String[] addrAry = addr.split("/");
+		
+		m.addAttribute("info",info);
+		m.addAttribute("addr",addrAry);
+		
+		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
+		
+		m.addAttribute("prod",list);
+		
+		return "orderCheckFromCart";
+	}
 	// '상품상세페이지'에서 결제하기 눌러서 넘어갈 때(orderCheck.jsp로) 고객 정보/해당 상품 정보 갖고 넘어감. 
 	@RequestMapping("/goOrderFromProductDetail.do")
 	public String goOrderFromProductDetail(CustomerVO cvo, ProductVO pvo, Model m) {

@@ -31,6 +31,11 @@
       while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
       return nstr;
       };
+      // 리뷰 작성 팝업 띄우기
+      function writeReview() {
+   	  		var winObj = window.open("boardfiles/writereview.jsp",'리뷰 작성','width=750, height=400');
+			winObj.moveTo(screen.availWidth/2, screen.availHeight/3);
+	  };
       //Jquery 시작
       $(document).ready(function(){
     	  // 스크롤
@@ -40,7 +45,7 @@
     	// 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
         $.ajax({
           type: 'post',
-          url: 'viewTopfiveSalesdProduct.do',
+          url: 'viewTopFourSalesdProduct.do',
           dataType: 'json',
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
           success: function (data) {
@@ -91,9 +96,13 @@
 	        	'<td>'+'${history.each_qty}'+'</td>'+
 	        	'<td>'+payment_price+'원'+'</td>'+
 	        	'<td>'+'${history.delivery_status}'+'</td>'+
-	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
+	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
 	        	'</tr>'
 	        );
+       	/*function writeReview() {
+        	var winObj = window.open("boardfiles/writereview.jsp?order_no='${history.order_no}'&prod_no='${history.prod_no}'",'리뷰 작성','width=750, height=400');
+			winObj.moveTo(screen.availWidth/2, screen.availHeight/3);
+		};*/
 		</c:forEach>
 		// 오늘 클릭 시
 		$("#today").click(function () {
@@ -105,6 +114,10 @@
 				success : function(data){
 					$("#orderHistoryTable").find("tr:gt(0)").remove();
 					for(i=0 ; i < data.length ; i++){
+						/*function writeReview() {
+				   	  		var winObj = window.open("boardfiles/writereview.jsp?order_no=data[i].order_no&prod_no=data[i].prod_no",'리뷰 작성','width=750, height=400');
+							winObj.moveTo(screen.availWidth/2, screen.availHeight/3);
+			        	};*/
 						var payment_price = data[i].payment_price.formatNumber();
 						$("#orderHistoryTable").append(
 						'<tr>'+
@@ -114,10 +127,10 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
 			        	'</tr>'		
 						)
-					};
+					  };
 				},
 				error : function (err) {
 					console.log(err);				
@@ -143,7 +156,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -172,7 +185,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -201,7 +214,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -230,7 +243,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -239,9 +252,6 @@
 					console.log(err);				
 				}
 			})
-		});
-		$("#writeReview").click(function () {
-			location.href="";
 		});
       }) // --- end of jquery
       

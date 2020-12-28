@@ -68,14 +68,15 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/category.do")
-	public String categoryList(ProductVO vo, Model model) {
+	public void categoryList(ProductVO vo, Model model) {
+		System.out.println("========= category =========");
 		model.addAttribute("categoryName",vo.getCategory());
-		return "category";
 	}
 	
 	@RequestMapping("/categoryView.do")
 	@ResponseBody
 	public List<ProductVO> categoryView(ProductVO vo, Model model) {
+		System.out.println("========= categoryView =========");
 		List<ProductVO> list = viewService.categoryList(vo); 
 		return list;
 	}

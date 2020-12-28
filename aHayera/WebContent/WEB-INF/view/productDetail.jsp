@@ -110,6 +110,7 @@
                      height: 50px;
                      font-size: 17px;
                      color: white;
+                     font-weight: bold;
                   }
 
                   .detail-board-list a,
@@ -135,6 +136,9 @@
                      /* 장바구니 수량 칸 너비 */
                      padding-left: 10px;
                      padding-right: 10px;
+                  }
+                  .info__th{
+                  	font-size: 18px;
                   }
                </style>
                <title>상세페이지</title>
@@ -426,7 +430,7 @@
                                  <table class="detail-info-table">
                                     <tbody>
                                        <tr class="detail-table-info">
-                                          <th class="info__th"><span class="title">설명</span></th>
+                                          <th class="info__th" width="50px"><span class="title">설명</span></th>
                                           <td class="info__td">
 
                                              <!-- DB 추가 필요 -->
@@ -437,7 +441,7 @@
                                           </td>
                                        </tr>
                                        <tr class="detail-table-count">
-                                          <th class="info__th"><span class="title">수량</span></th>
+                                          <th class="info__th" width="50px" ><span class="title">수량</span></th>
                                           <td class="info__td">
                                              <div class="countcheck">
                                                 <input id="spinner" type="text" value="1" name="goodsCount" />
@@ -457,6 +461,7 @@
                                     </tbody>
                                  </table>
                               </form>
+                              <br/>
                               <div>
                                  <input class='detail_button' type="button" value="장바구니 추가" onclick="addCart()">
                                  <input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()">
@@ -490,7 +495,7 @@
                               <div class="detail-review-filter">
                                  <ul class="detail-radio-filter" role="radiogroup">
                                     <li class="detail-filter" role="presentation">
-                                       <div class='orderbyy' id="recent" aria-checked="true">최신순 | </div>
+                                       <div class='orderbyy' id="recent" aria-checked="true">최신순 |</div> 
                                     </li>
                                     <li class="detail-filter" role="presentation">
                                        <div class='orderbyy' id="highrate" aria-checked="false"> 평점 높은순</div>
@@ -521,8 +526,9 @@
                                     ${qna.customer_id } | ${qna.qnaday}
                                  </li>
                               </ul>
-                              <ul>
-                                 <li>${qna.reply_contents }
+                              
+                             <ul>
+                                  <li style="list-style: none">${qna.reply_contents }
                                     <br />
                                     ${qna.replyday }
                                  </li>
@@ -534,7 +540,7 @@
                               <textarea id="taqna" rows="" cols="" style="width:770px; height:80px; "
                                  placeholder="문의사항을 적어주세요:)"></textarea>
                               <div style="clear: both; padding-bottom: 20px;""></div>
-            	  			<input type=" button" class="btnqna" id="btnqna" value="작성완료" style="float: right">
+            	  			<input type=" button" class="btnqna" id="btnqna" value="작성완료" style="text-align: center; float: right;">
                               </div>
                         </article>
                         <article class="detail-product-explain">
@@ -573,6 +579,7 @@
 
                   //qna게시판 눌렀을 때 qna로 
                   $('#qnaboard').click(function () {
+                	 
                      $('.detail-boardmenu').hide();
                      $('.detail-boardmenu-qna').show();
                      $('#taappend').hide();
@@ -631,11 +638,11 @@
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>' +
                               '<p class="contents">' + list[i].contents + '</p>' +
-                              '<br>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +
-                              '</div>'
+                              '</div>'+
+                              '<hr/>'
                            )
                         }
                      },
@@ -677,11 +684,11 @@
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>' +
                               '<p class="contents">' + list[i].contents + '</p>' +
-                              '<br>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +
-                              '</div>'
+                              '</div>'+
+                              '<hr/>'
                            )
                         }
                      },
@@ -691,6 +698,7 @@
 
                   //최신순
                   $('#recent').click(function () {
+                	  
                      $.ajax({
                         url: "highrate.do?orderby=writeday",
                         data: { 'prod_no': ${ productSelected.prod_no }},
@@ -721,11 +729,11 @@
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>' +
                               '<p class="contents">' + list[i].contents + '</p>' +
-                              '<br>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +
-                              '</div>'
+                              '</div>'+
+                              '<hr/>'
                            )
                         }
                      },

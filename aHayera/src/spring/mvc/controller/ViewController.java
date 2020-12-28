@@ -67,16 +67,21 @@ public class ViewController {
 		model.addAttribute("searchTerm",search);
 	}
 	
+	@RequestMapping("/searchProduct.do")
+	@ResponseBody
+	public List<ProductVO>  searchProduct(String search, Model model) {
+		List<ProductVO> list = viewService.searchResult(search); 
+		return list;
+	}
+	
 	@RequestMapping("/category.do")
 	public void categoryList(ProductVO vo, Model model) {
-		System.out.println("========= category =========");
 		model.addAttribute("categoryName",vo.getCategory());
 	}
 	
 	@RequestMapping("/categoryView.do")
 	@ResponseBody
 	public List<ProductVO> categoryView(ProductVO vo, Model model) {
-		System.out.println("========= categoryView =========");
 		List<ProductVO> list = viewService.categoryList(vo); 
 		return list;
 	}

@@ -386,8 +386,6 @@
             }); // --- end of $.ajax 검색을 위한 dataList 저장 ONLY ajax 
 
             // 카테고리 제품
-            var info
-
             $.ajax({
               type: 'post',
               url: 'categoryView.do?category=${categoryName}',

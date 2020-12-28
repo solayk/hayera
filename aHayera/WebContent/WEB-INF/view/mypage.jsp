@@ -145,10 +145,10 @@ login_wrap {
       }); 
        
        $('#pop_btn').click(function () {
-		
-    	   window.open('POP_changePw.do','비밀변호변경');
-	})
-
+   		
+     	  window.open('POP_changePw.do',"popupNo1", "width=400, height=460");
+     	  
+ 	})
 	 
     $('.pe-7s-wallet').click(function () {
     	

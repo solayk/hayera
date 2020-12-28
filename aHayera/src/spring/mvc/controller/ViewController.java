@@ -84,21 +84,23 @@ public class ViewController {
 	
 	@RequestMapping("/addCart.do")
 	@ResponseBody
-	public void addCart(Order_ProductVO pvo, HttpSession session) {
+	public void addCart(Order_ProductVO vo, HttpSession session) {
+
+		System.out.println("===== " + vo.getProd_no());
 		
-		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("cartList");
-		
-		session.setAttribute("cartList",list);
+//		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("cartList");
+//		session.setAttribute("cartList",list);
 		
 		/* List<ProductVO> data = orderService.addCart(pvo); */
 	}
-	/*
-	@RequestMapping("/addCart.do")
-	@ResponseBody
-	public List<ProductVO> addCart(ProductVO pvo, Model m) {
-		ProductVO productInfo = viewMainpageService.productSelected(pvo);
-		List<ProductVO> data = orderService.addCart(productInfo);
-		m.addAttribute("productInfo",productInfo);
-		return data;
-	}*/
+	
+//	@RequestMapping("/viewCart.do")
+//	@ResponseBody
+//	public List<ProductVO> addCart(ProductVO pvo, Model m) {
+//		ProductVO productInfo = viewMainpageService.productSelected(pvo);
+//		List<ProductVO> data = orderService.addCart(productInfo);
+//		m.addAttribute("productInfo",productInfo);
+//		return data;
+//	}
+	
 }

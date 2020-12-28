@@ -8,17 +8,38 @@
             <head>
                <meta charset="utf-8" />
                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+               <!-- 타이틀 바 -->
+               <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
+               <title>상세페이지</title>
+
                <link href="css/bootstrap.css" rel="stylesheet" />
+               <link href="css/hayera.css" rel="stylesheet" />
+               <!-- ↓ 장바구니 화살표 아이콘 -->
+               <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+
                <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
                <link href="css/ct-navbar.css" rel="stylesheet" />
+
+
+
+
+
                <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+
+
+
                <script src="js/bootstrap.js" type="text/javascript"></script>
                <script src="js/ct-navbar.js"></script>
+
+
+
+
                <!--     Font Awesome     -->
                <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
                <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
                <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-               <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+
                <!-- 아이콘 https://material.io/resources/icons/?style=baseline -->
                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
                <style>
@@ -100,12 +121,14 @@
                   .detail-review-list {
                      list-style: none;
                   }
-                  .btnqna, .writeqna{
-                  	    border-radius: 50px;
-                  	    color: #fff;
-  						background-color: #22456C;
-  						font-weight: bold;
-  						width : 150px;
+
+                  .btnqna,
+                  .writeqna {
+                     border-radius: 50px;
+                     color: #fff;
+                     background-color: #22456C;
+                     font-weight: bold;
+                     width: 150px;
                   }
                </style>
                <title>상세페이지</title>
@@ -129,25 +152,36 @@
                         form.submit();
                      }
                   }
-               	  // '장바구니 추가' 클릭 시
-               	  function addCart(){
-               		var id = '<%=(String)session.getAttribute("login")%>'
-           			if (id == 'null') {
-           				location.href = "login.do";
-       				} else {
-       					
-       					
-       					location.href = "addCart.do?prod_no=${productSelected.prod_no}";
-       					// <- 제품 정보를 받아가각 장바구니에 추가. 근데 우리 장바구니는 DB 안쓰고 세션쓸꺼야. 그리고 따로 페이지 없고 상단 장바구니 클릭하면 드롭다운 되는 표에 ajax야. ajax맞나?
-       							
-       				}
-               	  }
+                  
+                  // '장바구니 추가' 클릭 시
+                  function addCart() {
+                	  
+                	  var info = {
+                              prod_no: ${productSelected.prod_no}
+                            }
+                	  
+                	  $.ajax({
+                          type: "POST",
+                          data: info,
+                          dataType: "json",
+                          url: "addCart.do",
+                          contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+                          success: function (data) {
+                          },
+                          error: function (err) {
+                            alert("에러가 발생했습니다: productDetail.jsp --- 카트 상품 추가 에러");
+                          }
+                        });
+                  }
+
+
                   // Jquery 시작
                   $(document).ready(function () {
                      // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
                      $('li.dropdown a').on('click', function (event) {
                         $(this).parent().toggleClass('open');
                      });
+                     
                      $('body').on('click', function (e) {
                         if (!$('li.dropdown').is(e.target)
                            && $('li.dropdown').has(e.target).length === 0
@@ -156,56 +190,58 @@
                            $('li.dropdown').removeClass('open');
                         }
                      });
+                     
                      var amount = $("#spinner").val();
-                  	 // 장바구니에 상품 넣기
-                  	 /* 이 방법은 실패..보류
-                  	 <c:forEach items="${productInfo}" var="productInfo">
-                  		var discount_price = ${productInfo.discount_price};
-                  		var pay_price = discount_price * amount;
-               			$(".main_cart").append(
-                            '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
-                            + '<td>' + '<img src="/aHayera/resources/upload/${productInfo.img_url}" width="55" height="55">' + '</td>'
-                            + '<td>' + '<a href="productSelected.do?prod_no='+'${productInfo.prod_no}'+'">'+'${productInfo.prod_name}'+ '</a>' + '</td>'
-                            + '<td>' + amount + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                            + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
-                            + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                            + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
-                            + '<td>' + '${productInfo.discount_price}' + '원</td>'
-                            + '<td>' + pay_price + '원</td>'
-                            + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
-                            + '<span class="glyphicon glyphicon-remove"></span>'
-                            + '</button>' + '</td>'
-                            + '</tr>'
-                        )
-                  	 </c:forEach>*/
-                  	 $.ajax({
-                       type: 'post',
-                       url: 'addCart.do',
-                       dataType: 'json',
-                       contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-                       success: function (data) {
-                         for (i = 0; i < data.length; i++) {
-                        	var price = data[i].discount_price * amount
-                           $(".main_cart").append(
-                             '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
-                             + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
-                             + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
-                             + '<td>' + amount+' 개'+ ' <button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                             + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
-                             + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                             + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
-                             + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
-                             + '<td>' + price.formatNumber() + '원</td>'
-                             + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
-                             + '<span class="glyphicon glyphicon-remove"></span>'
-                             + '</button>' + '</td>'
-                             + '</tr>'
-                           )
-                         }
-                       },
-                       error: function (err) {
-                         console.log(err);
-                       }
+                     // 장바구니에 상품 넣기
+                     /* 이 방법은 실패..보류
+                     <c:forEach items="${productInfo}" var="productInfo">
+                       var discount_price = ${productInfo.discount_price};
+                       var pay_price = discount_price * amount;
+                       $(".main_cart").append(
+                           '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
+                           + '<td>' + '<img src="/aHayera/resources/upload/${productInfo.img_url}" width="55" height="55">' + '</td>'
+                           + '<td>' + '<a href="productSelected.do?prod_no='+'${productInfo.prod_no}'+'">'+'${productInfo.prod_name}'+ '</a>' + '</td>'
+                           + '<td>' + amount + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                           + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+                           + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                           + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
+                           + '<td>' + '${productInfo.discount_price}' + '원</td>'
+                           + '<td>' + pay_price + '원</td>'
+                           + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
+                           + '<span class="glyphicon glyphicon-remove"></span>'
+                           + '</button>' + '</td>'
+                           + '</tr>'
+                       )
+                     </c:forEach>*/
+                     
+                     $.ajax({
+                        type: 'post',
+                        url: 'viewCart.do',
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                        success: function (data) {
+                           for (i = 0; i < data.length; i++) {
+                              var price = data[i].discount_price * amount
+                              $(".main_cart").append(
+                                 '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
+                                 + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
+                                 + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
+                                 + '<td>' + amount + ' 개' + ' <button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                                 + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+                                 + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+                                 + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
+                                 + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
+                                 + '<td>' + price.formatNumber() + '원</td>'
+                                 + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
+                                 + '<span class="glyphicon glyphicon-remove"></span>'
+                                 + '</button>' + '</td>'
+                                 + '</tr>'
+                              )
+                           }
+                        },
+                        error: function (err) {
+                           console.log(err);
+                        }
                      });
                   })
                </script>
@@ -321,11 +357,11 @@
 
                </div>
                <!-- end menu-dropdown -->
-                   <div style="clear: both;"></div>
+               <div style="clear: both;"></div>
                <div class="main">
                   <div class="container tim-container category_main" style="max-width: 800px; padding-top: 20px">
                      <br> <br> <br> <br> <br>
-                 
+
                      <div class='detail_product'>
                         <div class="detail_product-img">
                            <img src="/aHayera/resources/upload/${productSelected.img_url }">
@@ -433,62 +469,92 @@
                                           <div class="list-item">
                                              <span style='float:right' id='writeday'>${review.writeday} 시간 전</span>
                                              <div class="user-info">
-                                             	<div style='float:left; width:40px; height:50px;'>
-                                                <i class="material-icons" style='position: relative; top: 20%; left: 20%; height:50px;'>face </i>
+                                                <div style='float:left; width:40px; height:50px;'>
+                                                   <i class="material-icons"
+                                                      style='position: relative; top: 20%; left: 20%; height:50px;'>face
+                                                   </i>
                                                 </div>
                                                 <div class="reviewgogo" style='float:left'>
-                                                   <span id="customer_id" style='font-size: 20px;'> ${review.customer_id}</span>
+                                                   <span id="customer_id" style='font-size: 20px;'>
+                                                      ${review.customer_id}</span>
                                                    <span id='gender'> · ${review.gender }</span>
                                                    <span id='skintype'> · ${review.skintype } </span>
-	                                               <br>
-                                                   <span id='rate'> <img src="/aHayera/images/star_${review.rate }.png"></span>
+                                                   <br>
+                                                   <span id='rate'> <img
+                                                         src="/aHayera/images/star_${review.rate }.png"></span>
                                                 </div>
                                              </div>
                                              <div style="clear: both; padding-bottom: 20px;""></div>
-                                             <p id="contents">${review.contents}</p>
-                                             <br>
-                                          </div>
+                                             <p id=" contents">${review.contents}</p>
+                                                <br>
+                                             </div>
                                        </li>
                                     </ul>
                                  </c:forEach>
                               </div>
                            </div>
-                           </article>
+                        </article>
                         <article class="detail-boardmenu-qna">
-                        	<input type="button" value="문의하기" class="writeqna" id="writeqna" style="float: right">
-                          <br/>
-                              
-						<c:forEach items="${qnaList }" var="qna">
+                           <input type="button" value="문의하기" class="writeqna" id="writeqna" style="float: right">
+                           <br />
+
+                           <c:forEach items="${qnaList }" var="qna">
                               <ul>
-                              <div style='float:left; width:40px; height:50px;'>
-                               <i class="material-icons" style='position: relative; top: 20%; left: 20%; height:50px;'>face </i>
-                              </div>
+                                 <div style='float:left; width:40px; height:50px;'>
+                                    <i class="material-icons"
+                                       style='position: relative; top: 20%; left: 20%; height:50px;'>face </i>
+                                 </div>
                                  <li><span style='font-size: 18px;'> ${qna.contents }</span>
-                                 <br/>
-                                 ${qna.customer_id } | ${qna.qnaday} </li>
+                                    <br />
+                                    ${qna.customer_id } | ${qna.qnaday}
+                                 </li>
                               </ul>
                               <ul>
-                              	<li>${qna.reply_contents }
-                              	<br/>
-                              	${qna.replyday }
-                              	</li>
+                                 <li>${qna.reply_contents }
+                                    <br />
+                                    ${qna.replyday }
+                                 </li>
                               </ul>
-                              <hr/>
+                              <hr />
                            </c:forEach>
-                          
+
                            <div id='taappend'>
-                          <textarea id="taqna" rows="" cols="" style="width:770px; height:80px; " placeholder="문의사항을 적어주세요:)"></textarea>
-                          	<div style="clear: both; padding-bottom: 20px;""></div>
-            	  			<input type="button" class = "btnqna" id="btnqna" value="작성완료" style="float: right" >
-                           </div>
+                              <textarea id="taqna" rows="" cols="" style="width:770px; height:80px; "
+                                 placeholder="문의사항을 적어주세요:)"></textarea>
+                              <div style="clear: both; padding-bottom: 20px;""></div>
+            	  			<input type=" button" class="btnqna" id="btnqna" value="작성완료" style="float: right">
+                              </div>
                         </article>
                         <article class="detail-product-explain">
-                        	<div>
-                        		<img src=${productSelected.explain_url} >
-                        	</div>
-                        
+                           <div>
+                              <img src=${productSelected.explain_url}>
+                           </div>
+
                         </article>
 
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
 
                      </div>
                      <br /> <br />
@@ -522,16 +588,16 @@
                      $('.detail-boardmenu-qna').show();
                      $('#taappend').hide();
                      $('.detail-product-explain').hide();
-                     
+
 
                   });
-                  
+
                   //상품 정보 눌렀을 때 상품정보로
-                  $('#productexplain').click(function() {
-                	  $('.detail-boardmenu').hide();
-                	  $('.detail-boardmenu-qna').hide();
-                	  $('.detail-product-explain').show();
-              	})
+                  $('#productexplain').click(function () {
+                     $('.detail-boardmenu').hide();
+                     $('.detail-boardmenu-qna').hide();
+                     $('.detail-product-explain').show();
+                  })
 
                   //review게시판 눌렀을 때 review로
                   $('#reviewboard').click(function () {
@@ -542,8 +608,8 @@
 
                   //처음화면은 review
                   $(function () {
-                    $('.detail-boardmenu-qna').hide();
-                    $('.detail-product-explain').hide();
+                     $('.detail-boardmenu-qna').hide();
+                     $('.detail-product-explain').hide();
 
                   })
 
@@ -555,7 +621,7 @@
                         data: { 'prod_no': ${ productSelected.prod_no }},
                      dataType : "json",
                      success: function (list) {
-							
+
                         $('#appendgo').empty();
                         for (i = 0; i < list.length; i++) {
 
@@ -566,20 +632,20 @@
                               '<div class="list-item">' +
                               '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
                               '<div class="user-info">' +
-                              '<div style="float:left; width:40px; height:50px;">'+
-                              '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>'+
-                              '</div>'+
+                              '<div style="float:left; width:40px; height:50px;">' +
+                              '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>' +
+                              '</div>' +
                               '<div class="reviewgogo" style="float:left">' +
                               '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
                               '<span id="gender">·' + list[i].gender + '</span>' +
                               '<span id="skintype">·' + list[i].skintype + '</span>' +
-                              '<br>'+
+                              '<br>' +
                               '<span id="rate">  <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
                               '</div>' +
                               '</div>' +
-                              '<div style="clear: both; padding-bottom: 20px;""></div>'+
+                              '<div style="clear: both; padding-bottom: 20px;""></div>' +
                               '<p class="contents">' + list[i].contents + '</p>' +
-                              '<br>'+
+                              '<br>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +
@@ -605,29 +671,29 @@
                            //$('#reviewstart').empty();
                            $('#appendgo').append(
 
-                        		   '<ul>' +
-                                   '<li class="detail-review-list">' +
-                                   '<div class="list-item">' +
-                                   '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
-                                   '<div class="user-info">' +
-                                   '<div style="float:left; width:40px; height:50px;">'+
-                                   '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>'+
-                                   '</div>'+
-                                   '<div class="reviewgogo" style="float:left">' +
-                                   '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
-                                   '<span id="gender">·' + list[i].gender + '</span>' +
-                                   '<span id="skintype">·' + list[i].skintype + '</span>' +
-                                   '<br>'+
-                                   '<span id="rate">  <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
-                                   '</div>' +
-                                   '</div>' +
-                                   '<div style="clear: both; padding-bottom: 20px;""></div>'+
-                                   '<p class="contents">' + list[i].contents + '</p>' +
-                                   '<br>'+
-                                   '</div>' +
-                                   '</li>' +
-                                   '</ul>' +
-                                   '</div>'
+                              '<ul>' +
+                              '<li class="detail-review-list">' +
+                              '<div class="list-item">' +
+                              '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
+                              '<div class="user-info">' +
+                              '<div style="float:left; width:40px; height:50px;">' +
+                              '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>' +
+                              '</div>' +
+                              '<div class="reviewgogo" style="float:left">' +
+                              '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
+                              '<span id="gender">·' + list[i].gender + '</span>' +
+                              '<span id="skintype">·' + list[i].skintype + '</span>' +
+                              '<br>' +
+                              '<span id="rate">  <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
+                              '</div>' +
+                              '</div>' +
+                              '<div style="clear: both; padding-bottom: 20px;""></div>' +
+                              '<p class="contents">' + list[i].contents + '</p>' +
+                              '<br>' +
+                              '</div>' +
+                              '</li>' +
+                              '</ul>' +
+                              '</div>'
                            )
                         }
                      },
@@ -635,36 +701,37 @@
          })
          
       })
-      //문의하기 버튼 눌렀을 때 로그인 여부 확인
-      $('#writeqna').click(function () {
-    	  var id = '<%=(String)session.getAttribute("login")%>'
-              if (id == 'null') {
-            	
-                 location.href = "login.do";
-              } else {
-            	  $('#taappend').show();
-                 
-              }
-	})
-	//문의 작성완료 버튼눌렀을때
-	$('#btnqna').click(function () {
-		$.ajax({
-			data : {'contents' : $('#taqna').val(),
-				 'prod_no': ${ productSelected.prod_no }},
-			url : "qnawrite.do",
-			success: function (result) {
-				 alert("작성이 완료되었습니다")
-				location.href = 'productSelected.do?prod_no='+${productSelected.prod_no}+''
-				$('#taqna').val("");
-			},
-			err : function (err) {
-				console.log(err);
-			}
+                  //문의하기 버튼 눌렀을 때 로그인 여부 확인
+                  $('#writeqna').click(function () {
+                     var id = '<%=(String)session.getAttribute("login")%>'
+                     if (id == 'null') {
+
+                        location.href = "login.do";
+                     } else {
+                        $('#taappend').show();
+
+                     }
+                  })
+                  //문의 작성완료 버튼눌렀을때
+                  $('#btnqna').click(function () {
+                     $.ajax({
+                        data: {
+                           'contents': $('#taqna').val(),
+                           'prod_no': ${ productSelected.prod_no }},
+                     url : "qnawrite.do",
+                     success: function (result) {
+                        alert("작성이 완료되었습니다")
+                        location.href = 'productSelected.do?prod_no=' + ${ productSelected.prod_no } +''
+                        $('#taqna').val("");
+                     },
+                     err : function (err) {
+                        console.log(err);
+                     }
 			
 		})
 	})
-	
-	
+
+
 
                </script>
             </body>

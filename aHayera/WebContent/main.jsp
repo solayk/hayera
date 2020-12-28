@@ -4,6 +4,7 @@
 
 
 
+
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -13,7 +14,6 @@
     <title>하예라</title>
 
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <!-- 추후 CSS 정리 통합 예정 -->
     <link href="css/hayera.css" rel="stylesheet" />
     <!-- ↓ 장바구니 화살표 아이콘 -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
@@ -37,9 +37,11 @@
 
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+
+
     <style>
       /* a태그 기본 style 유지 */
       a {

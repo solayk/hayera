@@ -34,6 +34,10 @@ public class OrderController {
 	// 장바구니에서 결제하기 눌러서 넘어가기 -> orderCheckFromCart.jsp로 고객 정보/상품 정보 갖고 넘어가기. 
 	@RequestMapping("/orderFromCart.do")
 	public String orderFromCart(HttpSession session, Order_ProductVO vo, CustomerVO cvo, Model m) {
+		
+		String customer_id = (String)session.getAttribute("login");
+		cvo.setCustomer_id(customer_id);
+		
 		CustomerVO info = mypageService.getAllById(cvo);
 		
 		String addr = info.getAddress();
@@ -44,7 +48,7 @@ public class OrderController {
 		
 		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
 		
-		m.addAttribute("prod",list);
+		m.addAttribute("list",list);
 		
 		return "orderCheckFromCart";
 	}

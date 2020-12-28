@@ -171,11 +171,11 @@ login_wrap {
     	
     })
     
-  })
+   }) 
     	
   //장바구니 아이콘 결제 팝업
   
-    $(document).ready(function () {
+    $(document).ready(function () { 
 
             $('.viewFilteredProduct').parent('div').hide();
 
@@ -480,7 +480,7 @@ login_wrap {
 							<!--  모이스처, 선크림 삭제 -->
 						</ul>
 						​
- <ul class="nav navbar-nav navbar-right">
+ 				<ul class="nav navbar-nav navbar-right">
 
                 <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
                 <li class="dropdown">
@@ -516,8 +516,8 @@ login_wrap {
                   </a>
                   <ul class="dropdown-menu">
 
-                    <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                    <li><a href="orderHistory.do">주문 내역</a></li>
+         			<%--  <li><a href="mypage.do?customer_id=${sessionscope.login}">마이페이지</a></li>
+                    <li><a href="orderhistory.do">주문 내역</a></li>  --%>
                     <li><a href="logout.do">로그아웃</a></li>
                   </ul>
                 </li>

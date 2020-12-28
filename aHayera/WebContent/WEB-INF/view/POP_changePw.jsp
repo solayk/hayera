@@ -12,27 +12,49 @@
 <link rel="stylesheet" type="text/css" href="css/mypage_util.css">
 <link rel="stylesheet" type="text/css" href="css/mypage_modify.css">
 
+<style>
+
+
+</style>
+
+
+
 <script type="text/javascript">
 
 $(function(){
 	
-     $('#password_new_ch').keyup(function(){
+     $('#password_new_ch').focusout(function(){
      if($('#password_new').val() != ($('#password_new_ch').val())){
         alert("비밀번호가 일치하지 않습니다..");
         return;
     }
     }) 
 
+    $.validator.addMethod("regex", function(value, element, regexpr) { 
+		if( regexpr.test(value) ){
+			
+			return true;
+		
+		}else{
+			$('#password_new').val('')
+			//
+			return false;
+		}
+// 		alert(regexpr.test(value))
+// 		return regexpr.test(value);
+	}, "Please enter a valid pasword.");
     
+     
+     
     $('#frm').validate({
 		  rules: {
 			
 		    password_new:{
 		    	required:true,
 		    	minlength:8,
-		    	regx : /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
+		    	regex : /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
 		    },
-		    passwordconfirm:{
+		    password_new_ch:{
 		    	equalTo: "#password_new",
 		    	required:true
 		    	
@@ -40,13 +62,14 @@ $(function(){
 		    },
      
       messages:{
-      	password_new:{
-      		regx:"문자,숫자, 특수문자로 입력해주세요.",
+    	  
+      	password, password_new:{
+      		regex:"문자,숫자, 특수문자로 입력해주세요.",
       		required:"필수 입력사항입니다.",
-      		minlength : "8자리 이상으로 입력해주세요."
+      		minlength : "8자리 이상 입력하세요."
       	},
-      	passwordconfirm:{
-      		equalTo : "비밀번호가 일치하지 않습니다.",
+      	password_new_ch:{
+      		equalTo : "비밀번호가 일치하지 않습니다.3",
       		required:"필수 입력사항입니다."
       	},
   
@@ -101,9 +124,7 @@ $(function(){
 	}) //현재 비밀번호 확인
 
 
-
-
-	$('#last_btn').click(function () {
+    $('#password_new_ch').focusout(function(){
 		 var newpass = $('#password_new').val();
 		 var newconfirm = $('#password_new_ch').val();
 		
@@ -115,6 +136,10 @@ $(function(){
 		 
 		 return; 
 		 }
+
+    })
+
+	$('#last_btn').click(function () {
 		
 		$.ajax({
 			url:"change_pop.do",
@@ -158,7 +183,7 @@ $(function(){
 		<div class="container tim-container category_main"
 			style="max-width: 800px; padding-top: 20px">
 	
-				<form id="frm" method="get" action="updateMypage.do">
+				<form id="frm" name = "frm_pop" method="get" action="updateMypage.do">
 					<table>
 						<p class="costomer">
 						<div class="wrap-input100 validate-input"

@@ -53,6 +53,9 @@
    	var sales_revenue = price - sales_cost;
     //Jquery 시작
     $(function () {
+    	// 적립금 입력 안했을 때, form에서 가져갈 데이터 오류 안나도록 처리.  
+    	$("#discount_price").val(0);
+    	$("#payment_price").val(goodsCount*price);
     	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
     	$("#order_price").val(goodsCount*price);
     	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_price에 들어갈 값)

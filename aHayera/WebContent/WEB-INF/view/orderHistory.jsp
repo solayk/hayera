@@ -36,7 +36,7 @@
 	  $(document).on('click', '#writeReview', function () {
 		 var order_no = $(this).parent().parent('tr').find('td:nth-child(1) > span').text();
 		 var prod_no= $(this).next().val();
-		  var winObj = window.open("writereview.do?order_no="+order_no+"&prod_no="+prod_no+"",'리뷰 작성','width=750, height=400');
+		  var winObj = window.open("writereview.do?order_no="+order_no+"&prod_no="+prod_no+"",'리뷰 작성','width=600px, height=300');
 		  winObj.moveTo(screen.availWidth/2, screen.availHeight/3);
 	  });
 	

@@ -137,7 +137,7 @@
         $("#payment").click(function(){
         	var pointUse = $(".form-control").val();
         	//alert("pointUse :"+pointUse);
-        	var money = (goodsCount*price)-pointUse;
+        	var money = (goodsCount*discount_price)-pointUse;
         	//alert("money :"+money);
         	var totalSum = money.formatNumber();
         	//alert("totalSum :"+totalSum);

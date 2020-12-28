@@ -22,4 +22,6 @@ public interface CustomerDAO {
    public List<QnaVO> selectQna(QnaVO vo);
    
    public int insertqna(QnaVO vo);
+   
+   public int insertreview(ReviewVO vo);
 }

@@ -57,5 +57,11 @@
    	VALUES(inquiry_sequence.nextval, #{prod_no}, #{customer_id},#{contents},sysdate)
    </insert>
    
+   <insert id="insertreview" parameterType="review">
+   INSERT INTO 
+   REVIEW(REVIEW_ID,PROD_NO,RATE,CUSTOMER_ID,CONTENTS,ORDER_NO,WRITEDAY)
+   VALUES(REVIEW_SEQUENCE.NEXTVAL,#{prod_no},#{rate},#{customer_id},#{contents},#{order_no},sysdate)
+   </insert>
+   
 
 </mapper>

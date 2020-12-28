@@ -114,6 +114,20 @@ public class CustomerController {
 	   return result;
    }
    
+   //후기 작성
+   @RequestMapping(value="/reviewWrite.do",produces ="application/text;charset=utf-8" )
+   @ResponseBody
+   public String reviewwrite(ReviewVO vo,HttpSession session) {
+	   vo.setCustomer_id((String)session.getAttribute("login"));
+	   int result = customerserive.insertreview(vo);
+	   String message="입력 오류";
+	   if(result==1) {
+		  message = "소중한 후기 감사합니다^^";
+	   }
+	   
+	 return message;
+   }
+   
    
 
    

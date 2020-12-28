@@ -31,11 +31,15 @@
       while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
       return nstr;
       };
+      
       // 리뷰 작성 팝업 띄우기
-      function writeReview() {
-   	  		var winObj = window.open("boardfiles/writereview.jsp",'리뷰 작성','width=750, height=400');
-			winObj.moveTo(screen.availWidth/2, screen.availHeight/3);
-	  };
+	  $(document).on('click', '#writeReview', function () {
+		 var order_no = $(this).parent().parent('tr').find('td:nth-child(1) > span').text();
+		 var prod_no= $(this).next().val();
+		  var winObj = window.open("writereview.do?order_no="+order_no+"&prod_no="+prod_no+"",'리뷰 작성','width=750, height=400');
+		  winObj.moveTo(screen.availWidth/2, screen.availHeight/3);
+	  });
+	
       //Jquery 시작
       $(document).ready(function(){
     	  // 스크롤
@@ -90,13 +94,15 @@
         var payment_price = p.formatNumber();
         	$("#orderHistoryTable").append(
         		'<tr>'+
-	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'${history.order_no}'+']'+'</td>'+
+	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'<span id="orderno">'+'${history.order_no}'+'</span>'+']'+'</td>'+
 	        	'<td>'+'<img src="resources/upload/${history.img_url}" width="80" height="80">'+'</td>'+
 	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'${history.prod_name}'+'</a>'+'</td>'+
 	        	'<td>'+'${history.each_qty}'+'</td>'+
 	        	'<td>'+payment_price+'원'+'</td>'+
 	        	'<td>'+'${history.delivery_status}'+'</td>'+
-	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
+	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+
+	        	'<input type="hidden" value="${history.prod_no}" >'+'</td>'+
+	        	
 	        	'</tr>'
 	        );
        	/*function writeReview() {
@@ -127,7 +133,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+'</td>'+
 			        	'</tr>'		
 						)
 					  };
@@ -156,7 +162,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -185,7 +191,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -208,13 +214,13 @@
 						var payment_price = data[i].payment_price.formatNumber();
 						$("#orderHistoryTable").append(
 						'<tr>'+
-			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+data[i].order_no+']'+'</td>'+
+			        	'<td>'+'<p>'+data[i].order_date+'</p>'+'['+'<span id="orderno">'+data[i].order_no+'</span>'+']'+'</td>'+
 			        	'<td>'+'<img src="resources/upload/'+data[i].img_url+'" width="80" height="80">'+'</td>'+
 			        	'<td>'+'<a href="productSelected.do?prod_no='+data[i].prod_no+'">'+data[i].prod_name+'</a>'+'</td>'+
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -243,7 +249,7 @@
 			        	'<td>'+data[i].each_qty+'</td>'+
 			        	'<td>'+payment_price+'원'+'</td>'+
 			        	'<td>'+data[i].delivery_status+'</td>'+
-			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" onclick="writeReview()">'+'</td>'+
+			        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+'</td>'+
 			        	'</tr>'		
 						)
 					};
@@ -546,5 +552,15 @@
 <!-- end container -->
 </div>
 <!-- end main -->
+<script type="text/javascript">
+//order_no 가져오기
+
+$('#writeReview').click(function() {
+	
+	alert($(this).val())
+})
+
+
+</script>
 </body>
 </html>

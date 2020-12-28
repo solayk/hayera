@@ -21,4 +21,6 @@ public interface CustomerService {
    public List<QnaVO> selectQna(QnaVO vo);
    
    public int insertqna(QnaVO vo);
+   
+   public int insertreview(ReviewVO vo);
 }

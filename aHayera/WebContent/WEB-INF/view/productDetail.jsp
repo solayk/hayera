@@ -478,39 +478,7 @@
                            </div>
                            <div id="appendgo">
                               <div id="reviewstart">
-                                 <c:forEach items="${reviewList }" var="review">
-                                    <ul>
-                                       <li class="detail-review-list">
-                                          <div class="list-item">
-                                          <c:if test="${review.writeday}<=24">
-                                             <span style='float:right' id='writeday'>${review.writeday} 시간 전</span>
-                                             </c:if>
-                                             <c:if test="${review.writeday}>24">
-                                             <span style='float:right' id='writeday'>${review.writeday}/24 전</span>
-                                             </c:if>
-                                             <div class="user-info">
-                                                <div style='float:left; width:40px; height:50px;'>
-                                                   <i class="material-icons"
-                                                      style='position: relative; top: 20%; left: 20%; height:50px;'>face
-                                                   </i>
-                                                </div>
-                                                <div class="reviewgogo" style='float:left'>
-                                                   <span id="customer_id" style='font-size: 20px;'>
-                                                      ${review.customer_id}</span>
-                                                   <span id='gender'> · ${review.gender }</span>
-                                                   <span id='skintype'> · ${review.skintype } </span>
-                                                   <br>
-                                                   <span id='rate'> <img
-                                                         src="/aHayera/images/star_${review.rate }.png"></span>
-                                                </div>
-                                             </div>
-                                             <div style="clear: both; padding-bottom: 20px;""></div>
-                                             <p id=" contents">${review.contents}</p>
-                                                <br>
-                                             </div>
-                                       </li>
-                                    </ul>
-                                 </c:forEach>
+                           
                               </div>
                            </div>
                         </article>
@@ -607,8 +575,49 @@
                   $(function () {
                      $('.detail-boardmenu-qna').hide();
                      $('.detail-product-explain').hide();
-                  //   $('.detail-boardmenu').hide();
-                   
+              
+                   //리뷰 먼저 띄우기
+                  $.ajax({
+                        url: "highrate.do?orderby=writeday",
+                        data: { 'prod_no': ${ productSelected.prod_no }},
+                     dataType : "json",
+                     success: function (list) {
+
+						
+                        $('#appendgo').empty();
+                        for (i = 0; i < list.length; i++) {
+                           //$('#reviewstart').empty();
+                           $('#appendgo').append(
+
+                              '<ul>' +
+                              '<li class="detail-review-list">' +
+                              '<div class="list-item">' +
+                              '<span style="float:right" id="writeday">·' + list[i].writeday + ' 전</span>' +
+                              '<div class="user-info">' +
+                              '<div style="float:left; width:40px; height:50px;">' +
+                              '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>' +
+                              '</div>' +
+                              '<div class="reviewgogo" style="float:left">' +
+                              '<span id="customer_id" style="font-size:20px">' + list[i].customer_id + '</span>' +
+                              '<span id="gender">·' + list[i].gender + '</span>' +
+                              '<span id="skintype">·' + list[i].skintype + '</span>' +
+                              '<br>' +
+                              '<span id="rate">  <img src="/aHayera/images/star_' + list[i].rate + '.png"></span>' +
+                              '</div>' +
+                              '</div>' +
+                              '<div style="clear: both; padding-bottom: 20px;""></div>' +
+                              '<p class="contents">' + list[i].contents + '</p>' +
+                              '<br>' +
+                              '</div>' +
+                              '</li>' +
+                              '</ul>' +
+                              '</div>'
+                           )
+                        }
+                     },
+                     err: function (err) { console.log(err) }
+         })
+                  
 
                   })
 

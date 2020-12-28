@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import spring.mvc.dao.AdminDAO;
 import spring.mvc.domain.AdminVO;
@@ -86,5 +87,19 @@ public class AdminServiceImpl implements AdminService {
 	
 	public List<InventoryVO> viewInventory(InventoryVO vo) {
 		return adminDAO.viewInventory(vo);
+	}
+	
+	@Transactional
+	public void insertInventory(InventoryVO vo) {
+		System.out.println("===== transaction 시작");
+		adminDAO.insertInventory(vo);
+		System.out.println("===== inventory 테이블 insert 완료");
+		
+		ProductVO pvo = new ProductVO();
+		pvo.setProd_no(vo.getProd_no());
+		pvo.setStock(vo.getExist_qty() + vo.getStock_in_qty());
+		pvo.setPrice(vo.getExpected_price());
+		adminDAO.adminEditProduct(pvo);
+		System.out.println("===== product 테이블 edit 완료");
 	}
 }

@@ -69,31 +69,69 @@
 			}
 		});
     	
-    	// 장바구니 상품 정보 받아 오기
-    	<c:set var = "priceSum" value = "0" />
-    	<c:forEach items="${list}" var="list" varStatus="status">
+    	// 장바구니 상품 목록 출력 ajax
+    	$.ajax({
+            type: 'post',
+            url: 'orderListFromCart.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success: function (data) {
+            	
+            	for (i = 0; i < data.length; i++) {
+            		
+            		var totalPrice = (data[i].sales_price * data[i].each_qty).formatNumber();
+            		var sales_revenue = data[i].sales_price - data[i].sales_cost;
+            		
+            		$("#orderProduct").append(
+            	    		'<tr>'
+            	    		+ '<td>' + i + '</td>' 
+            	    		+ '<td><img src="/aHayera/resources/upload/' + data[i].img_url + '" style="width:50px;"></td>'
+            	    		+ '<td>' + data[i].prod_name + '</td>'
+            	    		+ '<td>' + data[i].each_qty + '</td>'
+            	    		+ '<td>' + totalPrice +'원</td>'
+            	    		+ '<td>' + '무료배송' + '</td>'
+            	    		+ '<input type="hidden" name="order_ProductVOList[' + i + '].sales_price" value="' + data[i].sales_price + '">'
+            	    		+ '<input type="hidden" name="order_ProductVOList[' + i + '].sales_cost" value="' + data[i].sales_cost + '">'
+            	    		+ '<input type="hidden" name="order_ProductVOList[' + i + '].sales_revenue" value="' + sales_revenue + '">'
+            	    		+ '<input type="hidden" name="order_ProductVOList[' + i + '].prod_no" value="' + data[i].prod_no + '">'
+            	    		+ '<input type="hidden" name="order_ProductVOList[' + i + '].each_qty" value="' + data[i].each_qty + '">'
+            	    		+ '</tr>'
+            	    	);
+            	}
+            },
+            error: function (e) {
+              alert(e);
+            }
+          }); // --- end of $.ajax 장바구니 상품 목록 출력
+    	
+          
+          
+          
+    	/* <c:set var = "priceSum" value = "0" />
+    	<c:forEach items="${list}" var="list" varStatus="status"> */
     	/*var sales_price = ${list.sales_price};
     	var sales_cost = ${list.sales_cost};
      	var sales_revenue = sales_price - sales_cost;*/
      	
-    	var each_qty = ${list.each_qty};
+    	/* var each_qty = ${list.each_qty};
     	var x = sales_price * each_qty;
     	var totalPrice = x.formatNumber();
+    	
 	    	$("#orderProduct").append(
-	    		'<tr>'+
-	    		'<td>'+'${status.count}'+'</td>'+ 
-	    		'<td>'+'<img src="/aHayera/resources/upload/${list.img_url}" width="80" height="80">'+'</td>'+
-	    		'<td>'+'${list.prod_name}'+'</td>'+
-	    		'<td>'+'${list.each_qty}'+'</td>'+
-	    		'<td>'+totalPrice+'원'+'</td>'+
-	    		'<td>'+'무료배송'+'</td>'+
-	    		'</tr>'+
-	    		'<input type="hidden" name="order_ProductVOList[' +${status.count}+ '].sales_price" value="'${list.sales_price}'">'+
-	    		'<input type="hidden" name="order_ProductVOList[' +${status.count}+ '].sales_cost" value="'${list.sales_cost}'">'+
-	    		'<input type="hidden" name="order_ProductVOList[' +${status.count}+ '].sales_revenue" value="'${list.sales_price}-${list.sales_cost}'">'+
-	    		'<input type="hidden" name="order_ProductVOList[' +${status.count}+ '].prod_no" value="'${list.prod_no}'">'+
-	    		'<input type="hidden" name="order_ProductVOList[' +${status.count}+ '].each_qty" value="'${list.each_qty}'">'+
-	    	);
+	    		'<tr>'
+	    		+ '<td>'+ '${status.count}' + '</td>' 
+	    		+ '<td><img src="/aHayera/resources/upload/${list.img_url}" width="80" height="80"></td>'
+	    		+ '<td>'+ '${list.prod_name}' +'</td>'
+	    		+ '<td>'+ '${list.each_qty}' +'</td>'
+	    		+ '<td>'+ totalPrice +'원</td>'
+	    		+ '<td>'+'무료배송'+'</td>'
+	    		+ '<input type="hidden" name="order_ProductVOList[' + ${status.index} + '].sales_price" value="${list.sales_price}">'
+	    		+ '<input type="hidden" name="order_ProductVOList[' + ${status.index} + '].sales_cost" value="${list.sales_cost}">'
+	    		+ '<input type="hidden" name="order_ProductVOList[' + ${status.index} + '].sales_revenue" value="${list.sales_price}-${list.sales_cost}">'
+	    		+ '<input type="hidden" name="order_ProductVOList[' + ${status.index} + '].prod_no" value="${list.prod_no}">'
+	    		+ '<input type="hidden" name="order_ProductVOList[' + ${status.index} + '].each_qty" value="${list.each_qty}">'
+	    		+ '</tr>'
+	    	); */
 	    	/*
 	    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_price에 들어갈 값)
 	    	$("input[name=sales_price]").val(${list.sales_price});
@@ -106,9 +144,9 @@
 	     	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 each_qty에 들어갈 값)
 	       	$("input[name=each_qty]").val(${list.each_qty});
 	     	*/
-	    	<c:set var= "priceSum" value="${priceSum + list.sales_price*list.each_qty}"/>
+	    	/* <c:set var= "priceSum" value="${priceSum + list.sales_price*list.each_qty}"/>
     	</c:forEach>
-    	<c:out value="${priceSum}"/>
+    	<c:out value="${priceSum}"/> */
     		
        	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
       	$("#order_price").val(${priceSum});
@@ -276,12 +314,14 @@
         <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
           <div class="accordion-body" id="orderlist">
             <table class="table table-striped" id="orderProduct" style="vertical-align: middle;">
+                <tr>
                 <th>번호</th>
                 <th>이미지</th>
                 <th>상품명</th>
                 <th>수량</th>
                 <th>가격</th>
                 <th>배송비</th>
+                </tr>
             </table>
           </div>
         </div>

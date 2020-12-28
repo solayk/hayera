@@ -13,10 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import spring.mvc.dao.Order_ProductVOList;
 import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
+import spring.mvc.domain.Order_ProductVOList;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.MypageService;
 import spring.mvc.service.OrderService;
@@ -53,6 +53,16 @@ public class OrderController {
 		
 		return "orderCheckFromCart";
 	}
+	
+	// 장바구니에서 orderCheckFormCart 주문상품 테이블로 가져가기
+	@RequestMapping("/orderListFromCart.do")
+	@ResponseBody
+	public List<Order_ProductVO> orderListFromCart(Order_ProductVO vo, HttpSession session) {
+		System.out.println("==== 들어옴 ====");
+		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
+		return list;
+	}
+	
 	// '상품상세페이지'에서 결제하기 눌러서 넘어갈 때(orderCheck.jsp로) 고객 정보/해당 상품 정보 갖고 넘어감. 
 	@RequestMapping("/goOrderFromProductDetail.do")
 	public String goOrderFromProductDetail(CustomerVO cvo, ProductVO pvo, Model m) {
@@ -125,20 +135,19 @@ public class OrderController {
 		
 		String order_no = ymd + subNum;
 		// 주문(orderlist) 테이블에 저장될 데이터 입력 
-		ol.setOrder_no(order_no);
-		ol.setCustomer_id(customer_id);
-		ol.setReceive(receive);
-		ol.setOrder_address(order_address);
-		ol.setOrder_status("결제완료");
-		
-		orderService.insertOrder(ol);
+//		ol.setOrder_no(order_no);
+//		ol.setCustomer_id(customer_id);
+//		ol.setReceive(receive);
+//		ol.setOrder_address(order_address);
+//		ol.setOrder_status("결제완료");
+//		
+//		orderService.insertOrder(ol);
 
 		/// Order_ProductVOList 활용해 DB orderlist_product에 값 넣기.해야함
 		
-		
+		System.out.println("===== 데이터 확인 =====");
 		System.out.println(opList.getOrder_ProductVOList().get(0).getProd_no());
 		System.out.println(opList.getOrder_ProductVOList().get(1).getProd_no());
-		System.out.println(opList.getOrder_ProductVOList().get(2).getProd_no());
 		
 		return "paymentComplete";
 	}

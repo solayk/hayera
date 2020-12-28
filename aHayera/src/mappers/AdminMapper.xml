@@ -124,5 +124,12 @@
 		FROM INVENTORY IVN
 		INNER JOIN PRODUCT P ON <![CDATA[IVN.PROD_NO = P.PROD_NO]]>
 	</select>
+	
+	<insert id="insertInventory" parameterType="inventory">
+		<![CDATA[
+		INSERT INTO INVENTORY(PROD_NO,EXIST_QTY,EXIST_PRICE,STOCK_IN_QTY,STOCK_IN_PRICE,UPDATE_DATE,INVENTORY_NO) 
+		VALUES (#{prod_no}, #{exist_qty}, #{exist_price}, #{stock_in_qty}, #{stock_in_price},SYSDATE,INVENTORY_NO_SEQUENCE.NEXTVAL)
+		]]>
+	</insert>
 
 </mapper>

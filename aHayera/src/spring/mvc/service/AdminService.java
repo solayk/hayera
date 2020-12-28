@@ -45,4 +45,6 @@ public interface AdminService {
 	public void adminReplyInquiry (Qna_ReplyVO vo);
 	
 	public List<InventoryVO> viewInventory(InventoryVO vo);
+	
+	public void insertInventory(InventoryVO vo);
 }

@@ -9,8 +9,10 @@ public class InventoryVO {
 	private int exist_price;    // 기존 평균가
 	private String update_date;  // 입고날짜
 	private String inventory_no;  // 입고번호
+	
 	private String prod_name;	// 관리자 재고 관리 목적
 	private String img_url;	// 관리자 재고 관리 목적
+	private int expected_price;    // 관리자 재고 관리 목적
 	
 	public String getProd_no() {
 		return prod_no;
@@ -54,6 +56,7 @@ public class InventoryVO {
 	public void setInventory_no(String inventory_no) {
 		this.inventory_no = inventory_no;
 	}
+	
 	public String getProd_name() {
 		return prod_name;
 	}
@@ -65,6 +68,12 @@ public class InventoryVO {
 	}
 	public void setImg_url(String img_url) {
 		this.img_url = img_url;
+	}
+	public int getExpected_price() {
+		return expected_price;
+	}
+	public void setExpected_price(int expected_price) {
+		this.expected_price = expected_price;
 	}
 	
 }

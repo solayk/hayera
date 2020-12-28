@@ -62,7 +62,7 @@ function refreshCart() {
       var priceSum = 0;
 
       if (data.length == 0) {
-        $('#cartSizeIcon').hide();
+        $('#cartSizeIcon > span').hide();
         $('#cartSize').text("");
       }
       else {

@@ -365,7 +365,7 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <form action="" method='post' enctype='multipart/form-data'>
+                          <form action="insertInventory.do" method='post' enctype='multipart/form-data'>
                             <table class="table">
                               <thead class="adminProduct_tableHeader">
                                 <tr>
@@ -379,13 +379,13 @@
                                 </tr>
                               </thead>
                               <tr id="insertInventory">
-                                <td><select name="prod_no" id="prod_no_list"><option value=""></option></select></td>
+                                <td><select name="prod_no" id="prod_no_list" required><option value=""></option></select></td>
                                 <td><input type="text" name="prod_name" class=".adminProduct_input" style="border: none;" readonly></td>
-                                <td><input type="text" name="exist_qty" class=".adminProduct_input" id="exist_qty" style="border: none;" readonly></td>
-                                <td><input type="text" name="exist_price" class=".adminProduct_input" id="exist_price" style="border: none;" readonly></td>
-                                <td><input type="text" name="stock_in_qty" class=".adminProduct_input" id="stock_in_qty" onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="stock_in_price" class=".adminProduct_input" id="stock_in_price" onkeyup="this.value = numberWithCommas(this.value);" required></td>
-                                <td><input type="text" name="expected_price" class=".adminProduct_input" id="expected_price" style="border: none;" readonly></td>
+                                <td><input type="text" name="s_exist_qty" class=".adminProduct_input" id="exist_qty" style="border: none;" readonly></td>
+                                <td><input type="text" name="s_exist_price" class=".adminProduct_input" id="exist_price" style="border: none;" readonly></td>
+                                <td><input type="text" name="s_stock_in_qty" class=".adminProduct_input" id="stock_in_qty" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_stock_in_price" class=".adminProduct_input" id="stock_in_price" onkeyup="this.value = numberWithCommas(this.value);" required></td>
+                                <td><input type="text" name="s_expected_price" class=".adminProduct_input" id="expected_price" style="border: none;" readonly></td>
                               </tr>
                               <tr>
                                 <td></td>
@@ -393,8 +393,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i
-                                      class="fa fa-plus"></i> 입고등록</button></td>
+                                <td colspan="2" align="center"><button type="submit" class="btnRegister" value="등록"><i class="fa fa-plus"></i> 입고등록</button></td>
                               </tr>
                             </table>
                           </form>

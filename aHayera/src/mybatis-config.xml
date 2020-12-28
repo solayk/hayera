@@ -15,6 +15,7 @@
 		<typeAlias alias="qna" type="spring.mvc.domain.QnaVO"/>
 		<typeAlias alias="qna_reply" type="spring.mvc.domain.Qna_ReplyVO"/>
 		<typeAlias alias="inventory" type="spring.mvc.domain.InventoryVO"/>
+		<typeAlias alias="order_product_list" type="spring.mvc.domain.Order_ProductVOList"/>
 		
 	</typeAliases>
 

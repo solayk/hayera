@@ -88,4 +88,8 @@ public class AdminDAOImpl implements AdminDAO {
 		return mybatis.selectList("AdminDAO.viewInventory", vo);
 	}
 	
+	public void insertInventory(InventoryVO vo) {
+		mybatis.insert("AdminDAO.insertInventory", vo);
+	}
+	
 }

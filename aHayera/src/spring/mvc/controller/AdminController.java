@@ -190,7 +190,7 @@ public class AdminController {
 		return "redirect:/adminReply.do";
 	}
 
-	// ===== adminReply.jsp =====
+	// ===== adminInventory.jsp =====
 	//	전체 재고 목록 보여주기	
 	@RequestMapping("/viewInventory.do")
 	@ResponseBody
@@ -198,4 +198,22 @@ public class AdminController {
 		List<InventoryVO> data = adminService.viewInventory(vo); // 전체 재고 목록
 		return data;
 	}
+	
+	// 상품 수정하기
+	@RequestMapping("/insertInventory.do")
+	public String insertInventory(InventoryVO vo, String s_exist_qty, String s_exist_price, String s_stock_in_qty, String s_stock_in_price, String s_expected_price) {
+
+		vo.setExist_qty(Integer.parseInt(s_exist_qty.replaceAll(",", "")));
+		vo.setExist_price(Integer.parseInt(s_exist_price.replaceAll(",", "")));
+		vo.setStock_in_qty(Integer.parseInt(s_stock_in_qty.replaceAll(",", "")));
+		vo.setStock_in_price(Integer.parseInt(s_stock_in_price.replaceAll(",", "")));
+		vo.setExpected_price(Integer.parseInt(s_expected_price.replaceAll(",", "")));
+		
+		adminService.insertInventory(vo);
+		
+		return "redirect:/adminInventory.do";
+	}
+	
+	
+	
 }

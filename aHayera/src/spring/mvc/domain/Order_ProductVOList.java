@@ -1,8 +1,6 @@
-package spring.mvc.dao;
+package spring.mvc.domain;
 
 import java.util.List;
-
-import spring.mvc.domain.Order_ProductVO;
 
 public class Order_ProductVOList {
 	private List<Order_ProductVO> order_ProductVOList;

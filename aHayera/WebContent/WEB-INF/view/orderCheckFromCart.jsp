@@ -46,7 +46,6 @@
       return nstr;
     };
     // 주문/결제 페이지 내 숫자 표시에 사용한 변수.
-    
 <%--var goodsCount = '<%=request.getParameter("goodsCount")%>'; --%>
 //	var price = ${productInfo.discount_price};
 // 	var totalPrice = (goodsCount*price).formatNumber();
@@ -57,14 +56,6 @@
    	
     //Jquery 시작
     $(function () {
-    	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
-//    	$("#order_price").val(goodsCount*price);
-    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_price에 들어갈 값)
-//    	$("input[name=sales_price]").val(price);
-    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_cost에 들어갈 값)
-//    	$("input[name=sales_cost]").val(sales_cost);
-    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_revenue에 들어갈 값)
-//    	$("input[name=sales_revenue]").val(sales_revenue);
     	// 배송지_ '새로운 배송지' 선택 시 입력값 초기화.
     	$("#addrCheck input").on('change', function () {
 			if($('input[name="inlineRadioOptions"]:checked', '#addrCheck').val()=="option2"){
@@ -82,42 +73,9 @@
 				$('input[type="email"]','#addrInput').val("${info.email}");
 			}
 		});
-    	// 총 결제 금액 (미완성. 일단 배송비 무료다..ㅋ)
-//    	$("#priceSum").val(totalPrice+"원");
-//    	$("#totalSum").val(totalPrice+"원");
-//    	$("#payment").val(totalPrice+"원 결제하기");
     	
-    	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
-    	$("#button-addon").on('click',function(){
-    		$(".form-control").val(points);
-    		$("#discount").val(points+"원");
-    		//var money = (goodsCount*price)-point;
-    		//var totalSum = money.formatNumber();
-    		$("#discount_price").val(point); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
-    		//$("#totalSum").val(totalSum+"원");
-    		//$("#payment").val(totalSum+"원 결제하기");
-    		//$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
-    	});
-    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게 + 보유 적립금 이상 입력 못하게
-    	$(".form-control").on('change', function () {
-    		var pointUse = $(".form-control").val();
-    		if(pointUse>point){
-    			alert("사용 가능한 적립금은 최대 "+point+"원 입니다.")
-    			$(".form-control").val(0);
-    			$("#discount").val(0+"원");
-    			//$("#totalSum").val(totalPrice+"원");
-	    		//$("#payment").val(totalPrice+"원 결제하기");
-    		}else{
-				$("#discount").val(pointUse+"원");
-				//var money = (goodsCount*price)-pointUse;
-				//var totalSum = money.formatNumber();
-				$("#discount_price").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
-				//$("#totalSum").val(totalSum+"원");
-	    		//$("#payment").val(totalSum+"원 결제하기");
-	    		//$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
-    		}
-		});
     	// 장바구니 상품 정보 받아 오기
+    	<c:set var = "priceSum" value = "0" />
     	<c:forEach items="${list}" var="list" varStatus="status">
     	var sales_price = ${list.sales_price};
     	var each_qty = ${list.each_qty};
@@ -129,21 +87,65 @@
 	    		'<td>'+'<img src="/aHayera/resources/upload/${list.img_url}" width="80" height="80">'+'</td>'+
 	    		'<td>'+'${list.prod_name}'+'</td>'+
 	    		'<td>'+'${list.each_qty}'+'</td>'+
-	    		'<td>'+totalPrice+'</td>'+
+	    		'<td>'+totalPrice+'원'+'</td>'+
 	    		'<td>'+'무료배송'+'</td>'+
 	    		'</tr>'
 	    	);
+	    	<c:set var= "priceSum" value="${priceSum + list.sales_price*list.each_qty}"/>
+	    	<c:out value="${list.each_qty}"/>
     	</c:forEach>
-    	// 결제 버튼 클릭 시   _ 적립금 전액사용 버튼 클릭 후 결제 시 NaN 오류 해결 필요
+    	<c:out value="${priceSum}"/>
+    	
+    	// 금액 정보 입력
+    	$("#priceSum").val("${priceSum}원");  // 결제정보_주문상품 금액 란
+    	$("#totalSum").val("${priceSum}원"); // 결제정보_총 결제 금액 란
+    	$("#payment").val("${priceSum}원 결제하기");    	
+    	
+    	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
+    	$("#button-addon").on('click',function(){
+    		$(".form-control").val(points);
+    		$("#discount").val(points+"원");
+    		var money = ${priceSum}-point;
+    		var totalSum = money.formatNumber();
+    		$("#discount_price").val(point); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+    		$("#totalSum").val(totalSum+"원");
+    		$("#payment").val(totalSum+"원 결제하기");
+    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
+    	});
+    	
+    	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게 + 보유 적립금 이상 입력 못하게
+    	$(".form-control").on('change', function () {
+    		var pointUse = $(".form-control").val();
+    		if(pointUse>point){
+    			alert("사용 가능한 적립금은 최대 "+points+"원 입니다.")
+    			$(".form-control").val(point);
+    			$("#discount").val(point+"원");
+    			$("#totalSum").val(${priceSum}-point+"원");
+	    		$("#payment").val(${priceSum}-point+"원 결제하기");
+    		}else{
+				$("#discount").val(pointUse+"원");
+				var money = ${priceSum}-pointUse;
+				var totalSum = money.formatNumber();
+				$("#discount_price").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+				$("#totalSum").val(totalSum+"원");
+	    		$("#payment").val(totalSum+"원 결제하기");
+	    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
+    		}
+		});
+    	
+    	// 결제 버튼 클릭 시 _ 적립금 전액사용 버튼 클릭 후 결제 시 NaN 오류 해결 필요
         $("#payment").click(function(){
         	var pointUse = $(".form-control").val();
-        	//alert("pointUse :"+pointUse);
-//        	var money = (goodsCount*price)-pointUse;
-        	//alert("money :"+money);
-//        	var totalSum = money.formatNumber();
-        	//alert("totalSum :"+totalSum);
-//        	confirm(totalSum+"원 결제하시겠습니까?");
+        	confirm((${priceSum}-pointUse).formatNumber()+"원 결제하시겠습니까?");
         });
+     	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
+    	$("#order_price").val(${priceSum});
+    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_price에 들어갈 값)
+    	$("input[name=sales_price]").val(${list.each_qty});
+    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_cost에 들어갈 값)
+//    	$("input[name=sales_cost]").val(sales_cost);
+    	// form에서 가져갈 데이터임.(DB orderlist_product 테이블의 sales_revenue에 들어갈 값)
+//    	$("input[name=sales_revenue]").val(sales_revenue);
 	})
     </script>
 </head>
@@ -265,19 +267,6 @@
                 <th>수량</th>
                 <th>가격</th>
                 <th>배송비</th>
-              <!-- 동적 테이블 들어와야 함. -->
-              <!-- <tr>
-                <td>1</td>
-                <td>
-                  <img src="images/product/a.png" width="80" height="80">
-                </td>
-                <td>
-                  <a href="#">테라비코스 엔자임 워싱 파우더</a>
-                </td>
-                <td>1</td>
-                <td>28,000원</td>
-                <td>무료배송</td>
-              </tr> -->
             </table>
           </div>
         </div>
@@ -314,12 +303,12 @@
           <div class="accordion-body" id="paymentInfo">
             <p>주문상품
               <input type="text" style="float: right; text-align: right;" id="priceSum" disabled>
-              <!-- '주문금액 = 제품 금액(할인가)*수량' 이, orderlist 테이블의 order_price 컬럼에 저장되게함.-->
+              <!-- '주문금액 = 제품 금액(할인가)*수량' 이, orderlist 테이블의 order_price 컬럼에 저장되게함. ok -->
               <input type="hidden" id="order_price" name="order_price">
             </p>
             <p>할인
               <input type="text" placeholder="0원" style="float: right; text-align: right;" id="discount" disabled>
-              <!-- '할인금액 = 포인트 사용액' 이, orderlist 테이블의 discount_price 컬럼에 저장되게함.-->
+              <!-- '할인금액 = 포인트 사용액' 이, orderlist 테이블의 discount_price 컬럼에 저장되게함. ok -->
               <input type="hidden" id="discount_price" name="discount_price">
             </p>
             <p>배송비
@@ -329,25 +318,25 @@
             </p>
             <span class="badge bg-primary" style="font-size: 18px; font-weight: bold;">총 결제 금액</span>
             <input type="text" style="float: right; text-align: right;" id="totalSum" disabled>
-            <%-- 
-            <!-- '결제 금액 = 제품 금액(할인가)*수량 - 포인트 사용액' 이, orderlist 테이블의 payment_price 컬럼에 저장되게함.-->
+             
+            <!-- '결제 금액 = 제품 금액(할인가)*수량 - 포인트 사용액' 이, orderlist 테이블의 payment_price 컬럼에 저장되게함. ok -->
             <input type="hidden" id="payment_price" name="payment_price">
             
-            <!-- 제품상세페이지에서 가져온, 제품 번호(prod_no)가 orderlist 테이블의 prod_no 컬럼에 저장되게함. -->
-            <input type="hidden" value="${productInfo.prod_no}" name="prod_no">
+            <!-- 주문한 각 제품의 제품 번호(prod_no)가 orderlist_product 테이블의 prod_no 컬럼에 저장되게함. x -->
+            <input type="hidden" value="" name="prod_no">
             
-            <!-- 제품상세페이지에서 가져온, 제품 수량(goodsCount)이 orderlist_product 테이블의 each_qty 컬럼에 저장되게함. -->
-            <input type="hidden" value="<%=request.getParameter("goodsCount")%>" name="each_qty">
+            <!-- 주문한 각 제품의 제품 수량(goodsCount)이 orderlist_product 테이블의 each_qty 컬럼에 저장되게함. x -->
+            <input type="hidden" value="" name="each_qty">
             
-            <!-- 제품상세페이지에서 가져온, 제품 할인가(discount_price)가 orderlist_product 테이블의 sales_price 컬럼에 저장되게함. -->
+            <!-- 주문한 각 제품의 제품 할인가(discount_price)가 orderlist_product 테이블의 sales_price 컬럼에 저장되게함. x -->
             <input type="hidden" name="sales_price">
             
-            <!-- 제품상세페이지에서 가져온, 제품 원가(cost_price)가 orderlist_product 테이블의 sales_cost 컬럼에 저장되게함. -->
+            <!-- 주문한 각 제품의 제품 원가(cost_price)가 orderlist_product 테이블의 sales_cost 컬럼에 저장되게함. x -->
             <input type="hidden" name="sales_cost">
             
-            <!-- '적용판매가 - 적용단가' 가 orderlist_product 테이블의 sales_revenue 컬럼에 저장되게함. -->
+            <!-- '적용판매가 - 적용단가' 가 orderlist_product 테이블의 sales_revenue 컬럼에 저장되게함. x -->
             <input type="hidden" name="sales_revenue">
-             --%>
+            
           </div>
         </div>
       </div>

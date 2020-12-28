@@ -322,7 +322,7 @@
             <!-- '결제 금액 = 제품 금액(할인가)*수량 - 포인트 사용액' 이, orderlist 테이블의 payment_price 컬럼에 저장되게함.-->
             <input type="hidden" id="payment_price" name="payment_price">
             
-            <!-- 제품상세페이지에서 가져온, 제품 번호(prod_no)가 orderlist 테이블의 prod_no 컬럼에 저장되게함. -->
+            <!-- 제품상세페이지에서 가져온, 제품 번호(prod_no)가 orderlist_product 테이블의 prod_no 컬럼에 저장되게함. -->
             <input type="hidden" value="${productInfo.prod_no}" name="prod_no">
             
             <!-- 제품상세페이지에서 가져온, 제품 수량(goodsCount)이 orderlist_product 테이블의 each_qty 컬럼에 저장되게함. -->

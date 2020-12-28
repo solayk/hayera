@@ -77,7 +77,7 @@
                       + '<td>' + numberWithCommas(String(data[i].stock_in_qty)) + '</td>'
                       + '<td>' + numberWithCommas(String(data[i].stock_in_price)) + '</td>'
                       + '<td>' + data[i].update_date + '</td>'
-                      + '<td class="configBtns"><button class="editProduct" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
+                      + '<td class="configBtns"><button class="editInventory" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
                       + '<button class="deleteProduct" type="button" data-toggle="tooltip" data-placement="top" title="삭제"><i class="material-icons">&#xE872;</i></button></td>'
                       + '</tr>'
                     )
@@ -166,10 +166,10 @@
               $('#sortTable_wrapper > div:eq(1)').remove();
 
               /* 수정버튼 클릭 시 */
-              $(document).on('click', '.editProduct', function () {
+              $(document).on('click', '.editInventory', function () {
 
-                $('.adminProduct_editTable').show();
-                $('.adminProduct_addTable').hide();
+                /* $('.adminProduct_editTable').show();
+                $('.adminProduct_addTable').hide(); */
 
                 $(this).parent().parent().css("background-color", "#C6E5F3");
 
@@ -201,7 +201,7 @@
                     alert("에러가 발생했습니다: adminProduct.jsp --- 수정할 데이터 불러오기 에러");
                   }
                 }); */
-                $('.editProduct').attr("disabled", "disabled");
+                $('.editInventory').attr("disabled", "disabled");
                 $('.deleteProduct').attr("disabled", "disabled");
 
               }); // --- end of .editProduct click

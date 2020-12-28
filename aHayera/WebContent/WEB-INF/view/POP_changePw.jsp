@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -116,7 +115,8 @@ $(function(){
 
      if(password_new!=password_new_ch) {
  
-    
+		alert("새비밀번호를 확인하세요") 
+		
        $('#password_new').val(""); 
        $('#password_new_ch').val(""); 
        
@@ -125,7 +125,6 @@ $(function(){
        }
     })	//새비번과 새비번확인 
 
-    
    $('#last_btn').click(function () {
       
       $.ajax({

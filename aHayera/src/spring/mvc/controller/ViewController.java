@@ -105,6 +105,7 @@ public class ViewController {
 		if(pvo.getDiscount_price() == 0) vo.setSales_price(pvo.getPrice());
 		else vo.setSales_price(pvo.getDiscount_price());
 		vo.setSales_cost(pvo.getCost_price());
+		vo.setPrice(pvo.getPrice());
 		
 		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
 		

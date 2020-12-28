@@ -58,7 +58,6 @@ public class OrderController {
 	@RequestMapping("/orderListFromCart.do")
 	@ResponseBody
 	public List<Order_ProductVO> orderListFromCart(Order_ProductVO vo, HttpSession session) {
-		System.out.println("==== 들어옴 ====");
 		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
 		return list;
 	}

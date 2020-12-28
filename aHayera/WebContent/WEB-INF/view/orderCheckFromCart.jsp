@@ -36,7 +36,6 @@
     }
     </style>
     <script type="text/javascript">
-    
  	// 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
     Number.prototype.formatNumber = function () {
       if (this == 0) return 0;
@@ -46,8 +45,8 @@
       return nstr;
     };
     // 주문/결제 페이지 내 숫자 표시에 사용한 변수.
-   	var point = ${info.points};
-   	var points = point.formatNumber();
+   	var point = ${info.points}; // 보유 적립금
+   	var points = point.formatNumber(); // 적립금의 세자리 단위 쉼표 형식
    	
     //Jquery 시작
     $(function () {
@@ -77,14 +76,21 @@
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             success: function (data) {
             	
+            	var order_price = 0;
+            	var discount_price = 0;
+            	
             	for (i = 0; i < data.length; i++) {
-            		
+            		// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값) = (product의 price * 각 주문 수량)의 합
+					order_price += data[i].price * data[i].each_qty;
+					// form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값) = (product 의 price - discount_price)*각 주문 수량 의 합 
+            		discount_price += (data[i].price - data[i].sales_price)*data[i].each_qty;
+       		    	
             		var totalPrice = (data[i].sales_price * data[i].each_qty).formatNumber();
             		var sales_revenue = data[i].sales_price - data[i].sales_cost;
             		
             		$("#orderProduct").append(
             	    		'<tr>'
-            	    		+ '<td>' + i + '</td>' 
+            	    		+ '<td>' + (i+1) + '</td>' 
             	    		+ '<td><img src="/aHayera/resources/upload/' + data[i].img_url + '" style="width:50px;"></td>'
             	    		+ '<td>' + data[i].prod_name + '</td>'
             	    		+ '<td>' + data[i].each_qty + '</td>'
@@ -98,14 +104,13 @@
             	    		+ '</tr>'
             	    	);
             	}
+            	$("#order_price").val(order_price);
+            	$("#discount_price").val(discount_price);
             },
             error: function (e) {
               alert(e);
             }
           }); // --- end of $.ajax 장바구니 상품 목록 출력
-    	
-          
-          
           
     	/* <c:set var = "priceSum" value = "0" />
     	<c:forEach items="${list}" var="list" varStatus="status"> */
@@ -147,17 +152,15 @@
 	    	/* <c:set var= "priceSum" value="${priceSum + list.sales_price*list.each_qty}"/>
     	</c:forEach>
     	<c:out value="${priceSum}"/> */
-    		
-       	// form에서 가져갈 데이터임.(DB orderlist 테이블의 order_price에 들어갈 값)
-      	$("#order_price").val(${priceSum});
            	
-    	// 금액 정보 입력
+    	// 주문/결제 페이지 떴을 때 기본적으로 입력되어 있을 계산 금액. 
     	$("#priceSum").val("${priceSum}원");  // 결제정보_주문상품 금액 란
     	$("#totalSum").val("${priceSum}원"); // 결제정보_총 결제 금액 란
     	$("#payment").val("${priceSum}원 결제하기");    	
     	
-    	// 적립금 입력 안했을 때, form에서 가져갈 데이터 오류 안나도록 처리.  
-    	$("#discount_price").val(0);
+    	// 적립금 입력 안했을 때, form에서 가져갈 데이터 오류 안나도록 처리.
+    	$("#point_use").val(0);
+//    	$("#discount_price").val();  // (product 의 price - discount_price)*각 주문 수량
     	$("#payment_price").val(${priceSum});
     	
     	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
@@ -166,7 +169,8 @@
     		$("#discount").val(points+"원");
     		var money = ${priceSum}-point;
     		var totalSum = money.formatNumber();
-    		$("#discount_price").val(point); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+//    		$("#discount_price").val(); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값) = (product 의 price - discount_price)*각 주문 수량
+    		$("#point_use").val(point); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
     		$("#totalSum").val(totalSum+"원");
     		$("#payment").val(totalSum+"원 결제하기");
     		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
@@ -177,15 +181,16 @@
     		var pointUse = $(".form-control").val();
     		if(pointUse>point){
     			alert("사용 가능한 적립금은 최대 "+points+"원 입니다.")
-    			$(".form-control").val(point);
-    			$("#discount").val(point+"원");
-    			$("#totalSum").val(${priceSum}-point+"원");
-	    		$("#payment").val(${priceSum}-point+"원 결제하기");
+    			$(".form-control").val(0);
+    			$("#discount").val(0+"원");
+    			$("#totalSum").val(${priceSum}+"원");
+	    		$("#payment").val(${priceSum}+"원 결제하기");
     		}else{
 				$("#discount").val(pointUse+"원");
 				var money = ${priceSum}-pointUse;
 				var totalSum = money.formatNumber();
-				$("#discount_price").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+//				$("#discount_price").val(); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값) = (product 의 price - discount_price)*각 주문 수량
+				$("#point_use").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
 				$("#totalSum").val(totalSum+"원");
 	    		$("#payment").val(totalSum+"원 결제하기");
 	    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
@@ -358,12 +363,12 @@
           <div class="accordion-body" id="paymentInfo">
             <p>주문상품
               <input type="text" style="float: right; text-align: right;" id="priceSum" disabled>
-              <!-- '주문금액 = 제품 금액(할인가)*수량' 이, orderlist 테이블의 order_price 컬럼에 저장되게함. ok -->
+              <!-- '주문금액 = 제품 금액*수량' 이, orderlist 테이블의 order_price 컬럼에 저장되게함. ok -->
               <input type="hidden" id="order_price" name="order_price">
             </p>
             <p>할인
               <input type="text" placeholder="0원" style="float: right; text-align: right;" id="discount" disabled>
-              <!-- '할인금액 = 포인트 사용액' 이, orderlist 테이블의 discount_price 컬럼에 저장되게함. ok -->
+              <!-- '할인금액 = (제품 금액 - 할인가)*수량' 이, orderlist 테이블의 discount_price 컬럼에 저장되게함. ok -->
               <input type="hidden" id="discount_price" name="discount_price">
             </p>
             <p>배송비
@@ -373,25 +378,12 @@
             </p>
             <span class="badge bg-primary" style="font-size: 18px; font-weight: bold;">총 결제 금액</span>
             <input type="text" style="float: right; text-align: right;" id="totalSum" disabled>
-             
+            
             <!-- '결제 금액 = 제품 금액(할인가)*수량 - 포인트 사용액' 이, orderlist 테이블의 payment_price 컬럼에 저장되게함. ok -->
             <input type="hidden" id="payment_price" name="payment_price">
-            <%--
-            <!-- 주문한 각 제품의 제품 번호(prod_no)가 orderlist_product 테이블의 prod_no 컬럼에 저장되게함. x -->
-            <input type="hidden" name="prod_no">
             
-            <!-- 주문한 각 제품의 제품 수량(goodsCount)이 orderlist_product 테이블의 each_qty 컬럼에 저장되게함. x -->
-            <input type="hidden" name="each_qty">
-            
-            <!-- 주문한 각 제품의 제품 할인가(discount_price)가 orderlist_product 테이블의 sales_price 컬럼에 저장되게함. x -->
-            <input type="hidden" name="sales_price">
-            
-            <!-- 주문한 각 제품의 제품 원가(cost_price)가 orderlist_product 테이블의 sales_cost 컬럼에 저장되게함. x -->
-            <input type="hidden" name="sales_cost">
-            
-            <!-- '적용판매가 - 적용단가' 가 orderlist_product 테이블의 sales_revenue 컬럼에 저장되게함. x -->
-            <input type="hidden" name="sales_revenue">
-            --%>
+            <!-- '적립금 사용액 = '적립금 사용액' 이, orderlist 테이블의 point_use 컬럼에 저장되게함.-->
+            <input type="hidden" id="point_use" name="point_use">
           </div>
         </div>
       </div>

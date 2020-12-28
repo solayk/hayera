@@ -13,6 +13,8 @@ public class Order_ProductVO {
 	private String img_url; // 장바구니 활용 목적
 	private String remove; // 장바구니 활용 목적
 	
+	private int price; // ProductVO의 price. DB orderlist 테이블의 order_price, discount_price 입력 목적
+	
 	public String getProd_no() {
 		return prod_no;
 	}
@@ -68,5 +70,12 @@ public class Order_ProductVO {
 	public void setRemove(String remove) {
 		this.remove = remove;
 	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
 	
 }

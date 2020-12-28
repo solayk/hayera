@@ -96,7 +96,7 @@
     		$("#discount").val(points+"원");
     		var money = (goodsCount*discount_price)-point;
     		var totalSum = money.formatNumber();
-    		$("#discount_price").val((price-discount_price)*goodsCount); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+    		//$("#discount_price").val((price-discount_price)*goodsCount); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
     		$("#point_use").val(point); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
     		$("#totalSum").val(totalSum+"원");
     		$("#payment").val(totalSum+"원 결제하기");
@@ -115,7 +115,7 @@
 				$("#discount").val(pointUse+"원");
 				var money = (goodsCount*discount_price)-pointUse;
 				var totalSum = money.formatNumber();
-				$("#discount_price").val((price-discount_price)*goodsCount+pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
+				//$("#discount_price").val((price-discount_price)*goodsCount+pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 discount_price에 들어갈 값)
 				$("#point_use").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
 				$("#totalSum").val(totalSum+"원");
 	    		$("#payment").val(totalSum+"원 결제하기");

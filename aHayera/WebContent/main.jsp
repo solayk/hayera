@@ -248,10 +248,15 @@
         color: #BFBFBF;
       }
 
-      .liSelected>div {
+      .liSelected>div { /* 필터 별점 선택 표기 */
         color: #084A83;
         font-size: 16px;
         text-decoration: underline;
+      }
+
+      .cartEachQty { /* 장바구니 수량 칸 너비 */
+        padding-left: 10px;
+        padding-right: 10px;
       }
     </style>
 
@@ -266,52 +271,104 @@
       // Jquery 시작
       $(document).ready(function () {
 
+    	  
+    	  
+    	  
+    	  
+    	  
+    	  
+    	  
+    	  
         $('.viewFilteredProduct').parent('div').hide();
 
-        // 장바구니 표시
-        $.ajax({
-          type: 'post',
-          url: 'viewCart.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
+        refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용)
 
-            $(".main_cart").empty();
+        // 장바구니 #countUp 버튼
+        $(document).on('click', '#countUp', function () {
 
-            var priceSum = 0;
+          var qty = $(this).parent().parent('tr').find('.cartEachQty');
 
-            if (data.length == 0) {
-              $('#cartSizeIcon').hide();
-              $('#cartSize').text("");
-            }
-            else {
-              $('#cartSizeIcon').show();
-              $('#cartSize').text(data.length);
-            }
-
-            $(".main_cart").append('<tr><th>번호</th><th>이미지</th><th>상품명</th><th>수량</th><th>가격</th><th>합계</th><th>삭제</th></tr>');
-            
-            for (i = 0; i < data.length; i++) {
-              var price = data[i].sales_price * data[i].each_qty;
-              priceSum += data[i].sales_price * data[i].each_qty;
-              cartListing(".main_cart", data, price);
-            }
-            $('#cartSumPrice').text(priceSum.formatNumber());
-          },
-          error: function (err) {
-            console.log(err);
+          if (qty.text() == 3) {
+            alert("최대 수량은 3개입니다.");
           }
-        }); // --- end of $.ajax 장바구니 표시
-		
-        // 장바구니 버튼
-        $('#countUp').on('click',function(){
-        	
-        	
-        	
-        }); // --- end of 장바구니 버튼
+          else {
+            qty.text(parseInt(qty.text()) + 1);
 
-        // 검색을 위해 전역변수 선언
-        var dataList;
+            var info = {
+              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+              each_qty: qty.text()
+            }
+
+            $.ajax({
+              type: 'post',
+              data: info,
+              url: 'editCart.do',
+              dataType: 'json',
+              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+              success: function () {
+                refreshCart(); // 장바구니 다시 가져오기
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            }); // --- end of $.ajax 장바구니 #countUp 버튼
+          }
+        }); // --- end of 장바구니 #countUp 버튼
+
+        $(document).on('click', '#countDown', function () {
+
+          var qty = $(this).parent().parent('tr').find('.cartEachQty');
+
+          if (qty.text() == 1) {
+            alert("최소 수량은 1개입니다.");
+          }
+          else {
+            qty.text(parseInt(qty.text()) - 1);
+
+            var info = {
+              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+              each_qty: qty.text()
+            }
+
+            $.ajax({
+              type: 'post',
+              data: info,
+              url: 'editCart.do',
+              dataType: 'json',
+              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+              success: function () {
+                refreshCart(); // 장바구니 다시 가져오기
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            }); // --- end of $.ajax 장바구니 #countDown 버튼
+          }
+        }); // --- end of 장바구니 #countDown 버튼
+
+        $(document).on('click', '#cartRemove', function () {
+
+          var info = {
+            prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+            remove: 'yes'
+          }
+
+          $.ajax({
+            type: 'post',
+            data: info,
+            url: 'editCart.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success: function () {
+              refreshCart(); // 장바구니 다시 가져오기
+            },
+            error: function (err) {
+              console.log(err);
+            }
+          }); // --- end of $.ajax 장바구니 #cartRemove 버튼
+        }); // --- end of 장바구니 #cartRemove 버튼
+
+        var dataList; // 검색을 위해 전역변수 선언
 
         // 전체상품목록
         $.ajax({
@@ -342,7 +399,7 @@
           }
         }); // --- end of $.ajax 전체상품목록
 
-        // 누적 판매 베스트 4로 변경 (현재는 모든 제품 나오는 중)
+        // 누적 판매 베스트 4
         $.ajax({
           type: 'post',
           url: 'viewTopFourSalesdProduct.do',
@@ -520,8 +577,6 @@
 
         }); // --- end of 필터 ajax
 
-
-
       }); // --- end of jquery document ready
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
@@ -529,7 +584,16 @@
         window.location.href = "orderFromCart.do";
       }
 
-
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
     </script>
   </head>
 
@@ -590,8 +654,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <table class="main_cart">
-                      <tr><th>번호</th><th>이미지</th><th>상품명</th><th>수량</th><th>가격</th><th>합계</th><th>삭제</th></tr>
-                      <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
+                      <!-- 장바구니 동적 테이블 자리 -->
                     </table>
                     <div class="panel panel-info">
                       <div class="panel-heading">
@@ -606,8 +669,9 @@
                   </ul>
 
                 </li>
+                
                 <li>
-                  <!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
+                  <!-- main 에만 해당 -->
                   <a href="login.do">
                     <i class="pe-7s-user"></i>
                     <p>로그인</p>
@@ -615,13 +679,13 @@
                 </li>
               </ul>
 
+
+
+
+
+
+
             </div><!-- /.navbar-collapse -->
-
-
-
-
-
-
 
             <!-- 검색 -->
             <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search"

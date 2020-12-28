@@ -247,18 +247,26 @@
         /* 자동완성 목록 내 브랜드 */
         color: #BFBFBF;
       }
+      
+      .liSelected>div { /* 필터 별점 선택 표기 */
+        color: #084A83;
+        font-size: 16px;
+        text-decoration: underline;
+      }
+
+      .cartEachQty { /* 장바구니 수량 칸 너비 */
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     </style>
 
     <script type="text/javascript">
 
-      // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
-      Number.prototype.formatNumber = function () {
-        if (this == 0) return 0;
-        let regex = /(^[+-]?\d+)(\d{3})/;
-        let nstr = (this + '');
-        while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
-        return nstr;
-      };
+      
+    
+    
+    
+    
 
       // Jquery 시작
       $(document).ready(function () {
@@ -271,45 +279,98 @@
           location.href = "main.jsp";
         }
 
-        // 장바구니 표시
-        $.ajax({
-          type: 'post',
-          url: 'viewCart.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
+        $('.viewFilteredProduct').parent('div').hide();
 
-            $(".main_cart").empty();
+        refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용)
 
-            var priceSum = 0;
+        // 장바구니 #countUp 버튼
+        $(document).on('click', '#countUp', function () {
 
-            if (data.length == 0) {
-              $('#cartSizeIcon').hide();
-              $('#cartSize').text("");
-            }
-            else {
-              $('#cartSizeIcon').show();
-              $('#cartSize').text(data.length);
-            }
+          var qty = $(this).parent().parent('tr').find('.cartEachQty');
 
-            for (i = 0; i < data.length; i++) {
-              var price = data[i].sales_price * data[i].each_qty;
-              priceSum += data[i].sales_price * data[i].each_qty;
-              cartListing(".main_cart", data, price);
-            }
-            $('#cartSumPrice').text(priceSum.formatNumber());
-          },
-          error: function (err) {
-            console.log(err);
+          if (qty.text() == 3) {
+            alert("최대 수량은 3개입니다.");
           }
-        }); // --- end of $.ajax 장바구니 표시
+          else {
+            qty.text(parseInt(qty.text()) + 1);
 
+            var info = {
+              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+              each_qty: qty.text()
+            }
 
-        // 검색을 위해 전역변수 선언
-        var dataList;
+            $.ajax({
+              type: 'post',
+              data: info,
+              url: 'editCart.do',
+              dataType: 'json',
+              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+              success: function () {
+                refreshCart(); // 장바구니 다시 가져오기
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            }); // --- end of $.ajax 장바구니 #countUp 버튼
+          }
+        }); // --- end of 장바구니 #countUp 버튼
 
-        // mainAfterLogin => 나중에 main.jsp 에도 추가 필요
-        // 전체상품목록
+        $(document).on('click', '#countDown', function () {
+
+          var qty = $(this).parent().parent('tr').find('.cartEachQty');
+
+          if (qty.text() == 1) {
+            alert("최소 수량은 1개입니다.");
+          }
+          else {
+            qty.text(parseInt(qty.text()) - 1);
+
+            var info = {
+              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+              each_qty: qty.text()
+            }
+
+            $.ajax({
+              type: 'post',
+              data: info,
+              url: 'editCart.do',
+              dataType: 'json',
+              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+              success: function () {
+                refreshCart(); // 장바구니 다시 가져오기
+              },
+              error: function (err) {
+                console.log(err);
+              }
+            }); // --- end of $.ajax 장바구니 #countDown 버튼
+          }
+        }); // --- end of 장바구니 #countDown 버튼
+
+        $(document).on('click', '#cartRemove', function () {
+
+          var info = {
+            prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+            remove: 'yes'
+          }
+
+          $.ajax({
+            type: 'post',
+            data: info,
+            url: 'editCart.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success: function () {
+              refreshCart(); // 장바구니 다시 가져오기
+            },
+            error: function (err) {
+              console.log(err);
+            }
+          }); // --- end of $.ajax 장바구니 #cartRemove 버튼
+        }); // --- end of 장바구니 #cartRemove 버튼
+
+        var dataList; // 검색을 위해 전역변수 선언
+
+     // 전체상품목록
         $.ajax({
           url: 'viewAllProduct.do',
           dataType: 'json',
@@ -319,77 +380,41 @@
 
             // 상품목록 배열 처리
             for (i = 0; i < data.length; i++) {
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
 
-              $('.viewAllProduct').append(
-                /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<div class="item-price">' + data[i].price.formatNumber() + '원</div>'
-                + '<div class="item-price-ml">ml당' + '원</div>'
-                + '<div class="item-sale-remaining">세일 2일 남음</div>'
-                + '</a></li>'
-              )
-              // 검색 자동완성 인식을 위해 JSON 데이터 추가
-              data[i].value = data[i].prod_name;
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
+
+              productListing(".viewAllProduct", data, star, discount, mlprice);
+
+              data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
             }
 
-            // 검색을 위한 데이터 저장
-            dataList = data;
+            dataList = data; // 검색을 위한 데이터 저장
           },
           error: function (e) {
             alert(e);
           }
         }); // --- end of $.ajax 전체상품목록
 
-        // 누적 판매 베스트 5
+     // 누적 판매 베스트 4
         $.ajax({
           type: 'post',
-          url: 'viewTopfiveSalesdProduct.do',
+          url: 'viewTopFourSalesdProduct.do',
           dataType: 'json',
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
           success: function (data) {
             for (i = 0; i < data.length; i++) {
 
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
-              $(".viewTopfive").append(
-                /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-                + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
-                + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</a></li>'
-              )
+              productListing(".viewTopFour", data, star, discount, mlprice);
             }
           },
           error: function (err) {
@@ -397,7 +422,7 @@
           }
         });
 
-        // No.1 salesed Item
+     // No.1 salesed Item
         $.ajax({
           type: 'post',
           url: 'viewTopSalesedItem.do',
@@ -406,32 +431,13 @@
           success: function (data) {
             for (i = 0; i < data.length; i++) {
 
-              /* 별점 0.5 단위 표기 */
-              /* 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 하다 */
-              var rating = parseFloat(data[i].avg_rating).toFixed(1);
-              var star = 0;
-              if (rating >= 4.9) { star = 5; }
-              else if (rating >= 4.3 && rating < 4.9) { star = 4.5; }
-              else if (rating >= 3.8 && rating < 4.3) { star = 4; }
-              else if (rating >= 3.3 && rating < 3.8) { star = 3.5; }
-              else if (rating >= 2.8 && rating < 3.3) { star = 3; }
-              else if (rating >= 2.3 && rating < 2.8) { star = 2.5; }
-              else if (rating >= 1.8 && rating < 2.3) { star = 2; }
-              else if (rating >= 1.3 && rating < 1.8) { star = 1.5; }
-              else star = 1;
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
 
-              $(".viewTopSalesedItem").append(
-                /* a 태그 클릭 시 productDetail 로 이동 */
-                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                + '<div class="item-title">' + data[i].prod_name + '</div>'
-                + '<div class="item-brand">' + data[i].brand + '</div>'
-                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                + '<span class="item-price">' + data[i].price.formatNumber() + '원</span> '  // 삭선표시되게 해보기
-                + '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원</span>'
-                + '<div class="item-capacity">' + data[i].capacity + ' ML</div>'
-                + '<div class="item-price-ml">ML당 ' + (data[i].discount_price / data[i].capacity).formatNumber() + ' 원</div>'
-                + '</a></li>'
-              )
+              productListing(".viewTopSalesedItem", data, star, discount, mlprice);
             }
           },
           error: function (err) {
@@ -439,7 +445,7 @@
           }
         });
 
-        // 검색 자동완성
+     // 검색 자동완성
         $("#search").autocomplete({
           source: dataList,
           minLength: 1,
@@ -473,6 +479,104 @@
             $('li.dropdown').removeClass('open');
           }
         });
+
+        // 필터 평균평점 클릭 시 클래스 추가
+        $('.filter-review > li').click(function () {
+          $('.filter-review > li').removeClass('liSelected');
+          $(this).addClass('liSelected');
+        });
+
+        // 필터 ajax
+        $('.filter-window').on('click', function () {
+
+          var avg_rating = 0;
+          var feel = "";
+          var scent = "";
+
+          avg_rating = $('.liSelected > div > label').text();
+
+          var arr_feel = [];
+          if ($('#water').is(":checked")) arr_feel.push($('#water').val());
+          if ($('#soft').is(":checked")) arr_feel.push($('#soft').val());
+          if ($('#mat').is(":checked")) arr_feel.push($('#mat').val());
+          if ($('#hard').is(":checked")) arr_feel.push($('#hard').val());
+
+          var arr_scent = [];
+          if ($('#no').is(":checked")) arr_scent.push($('#no').val());
+          if ($('#flower').is(":checked")) arr_scent.push($('#flower').val());
+          if ($('#oe').is(":checked")) arr_scent.push($('#oe').val());
+          if ($('#chem').is(":checked")) arr_scent.push($('#chem').val());
+
+          for (var i = 0; i < arr_feel.length; i++) {
+            if (i != arr_feel.length - 1) feel += arr_feel[i] + "|";
+            else feel += arr_feel[i];
+          }
+
+          for (var i = 0; i < arr_scent.length; i++) {
+            if (i != arr_scent.length - 1) scent += arr_scent[i] + "|";
+            else scent += arr_scent[i];
+          }
+
+          var info = {
+            avg_rating: avg_rating,
+            feel: feel,
+            scent: scent
+          }
+
+          $.ajax({
+            type: 'post',
+            data: info,
+            url: 'viewFilteredProduct.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
+            success: function (data) {
+
+              console.log("길이: " + data.length);
+
+              $('.viewFilteredProduct').empty();
+
+              // 상품목록 배열 처리
+              for (i = 0; i < data.length; i++) {
+
+                console.log("체크: " + data[i].prod_no);
+
+                var rating = parseFloat(data[i].avg_rating).toFixed(1);
+                var star = starRating(rating);
+                var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+                if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+                else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
+
+                $('.viewFilteredProduct').append(
+                  '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
+                  + '<div class="item-img" style="position:relative;">'
+                  + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
+                  + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                  + '<div class="item-brand">' + data[i].brand + '</div>'
+                  + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
+                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
+                  + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
+                    '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
+                    : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
+                  + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice + ' 원</div>'
+                  + '</li>'
+                )
+
+              }
+
+              $('.viewFilteredProduct').parent('div').show();
+              $('.viewTopFour').parent('div').hide();
+              $('.viewTopSalesedItem').parent('div').hide();
+              $('.viewAllProduct').parent('div').hide();
+
+            },
+            error: function (e) {
+              alert(e);
+            }
+          }); // --- end of $.ajax 필터
+
+        }); // --- end of 필터 ajax
+        
       }); // --- end of jquery
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
@@ -480,6 +584,16 @@
         window.location.href = "orderFromCart.do";
       }
 
+  	  // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용
+  	  // hayera.js 에 옮긴 상태. 정상 작동 확인되면 삭제 예정
+      /* Number.prototype.formatNumber = function () {
+        if (this == 0) return 0;
+        let regex = /(^[+-]?\d+)(\d{3})/;
+        let nstr = (this + '');
+        while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+        return nstr;
+      }; */
+      
     </script>
   </head>
 
@@ -540,14 +654,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <table class="main_cart">
-                      <th>선택</th>
-                      <th>이미지</th>
-                      <th>상품명</th>
-                      <th>수량</th>
-                      <th>가격</th>
-                      <th>합계</th>
-                      <th>삭제</th>
-                      <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
+                      <!-- 장바구니 동적 테이블 자리 -->
                     </table>
                     <div class="panel panel-info">
                       <div class="panel-heading">
@@ -564,12 +671,13 @@
                 </li>
 
                 <li class="dropdown">
+                  <!-- mainAfterLogin 에만 해당 -->
                   <a href="#" class="dropdown-toggle">
                     <i class="pe-7s-user"></i>
                     <p>내 계정 <b class="caret"></b></p>
                   </a>
                   <ul class="dropdown-menu">
-                    <!-- mainAfterLogin 에만 해당 -->
+                    
                     <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
                     <li><a href="orderHistory.do">주문 내역</a></li>
                     <li><a href="logout.do">로그아웃</a></li>
@@ -608,58 +716,73 @@
     <div class="main">
       <div class="filter-window">
         <ul class="filter-review">
-          평균평점
-          <li><img src="./images/star_4.png"> 별 4개 이상</li>
-          <li><img src="./images/star_3.png"> 별 3개 이상</li>
-          <li><img src="./images/star_2.png"> 별 2개 이상</li>
-          <li><img src="./images/star_1.png"> 별 1개 이상</li>
+          <label style="font-size:18px;">평균평점</label>
+          <li style="margin-bottom:4px;">
+            <div class="sortByStar"><img src="./images/star_4.png"> 별 <label>4</label>개 이상</div>
+          </li>
+          <li style="margin-bottom:4px;">
+            <div class="sortByStar"><img src="./images/star_3.png"> 별 <label>3</label>개 이상</div>
+          </li>
+          <li style="margin-bottom:4px;">
+            <div class="sortByStar"><img src="./images/star_2.png"> 별 <label>2</label>개 이상</div>
+          </li>
+          <li style="margin-bottom:8px;">
+            <div class="sortByStar"><img src="./images/star_1.png"> 별 <label>1</label>개 이상</div>
+          </li>
+          <li class="liSelected">
+            <div class="sortByStar">
+              < 전체보기 <label style="visibility:hidden;">0</label>
+            </div>
+          </li>
         </ul> <!-- /.filter-review -->
         <ul class="filter-feeling">
-          발림성
-          <li><input type="checkbox" name="feeling" id="water"> 흐름</li>
-          <li><input type="checkbox" name="feeling" id="soft"> 부드러움</li>
-          <li><input type="checkbox" name="feeling" id="mat"> 매트</li>
-          <li><input type="checkbox" name="feeling" id="hard"> 하드</li>
+          <label style="font-size:18px;">발림성</label>
+          <li><label><input type="checkbox" name="feeling" id="water" value="흐름"> 흐름</label></li>
+          <li><label><input type="checkbox" name="feeling" id="soft" value="부드러움"> 부드러움</label></li>
+          <li><label><input type="checkbox" name="feeling" id="mat" value="매트"> 매트</label></li>
+          <li><label><input type="checkbox" name="feeling" id="hard" value="하드"> 하드</label></li>
         </ul> <!-- /.filter-feeling -->
         <ul class="filter-favor">
-          향
-          <li><input type="checkbox" name="favor" id="no"> 무향</li>
-          <li><input type="checkbox" name="favor" id="flower"> 꽃</li>
-          <li><input type="checkbox" name="favor" id="oe"> 오이</li>
-          <li><input type="checkbox" name="favor" id="chem"> 화학제품</li>
+          <label style="font-size:18px;">향</label>
+          <li><label><input type="checkbox" name="favor" id="no" value="무향"> 무향</label></li>
+          <li><label><input type="checkbox" name="favor" id="flower" value="꽃"> 꽃</label></li>
+          <li><label><input type="checkbox" name="favor" id="oe" value="오이"> 오이</label></li>
+          <li><label><input type="checkbox" name="favor" id="chem" value="원료"> 원료</label></li>
         </ul> <!-- /.filter-feeling -->
       </div> <!-- /.filter-window -->
-      <div class="container tim-container" style="max-width:800px; padding-top:20px">
-        <br>
-        <br>
-        <br>
-        <hr>
+      <div class="container tim-container" style="max-width:1000px; padding-top:20px">
         <div class="col-md-12">
-          <h3 class="text-center hayera">누적 판매 베스트 5<br>
-            <br>
-          </h3>
+
+
           <div class="product">
-            <ul class="product-top viewTopfive">
+            <h3 class="text-center hayera">필터 적용 결과<br><br></h3>
+            <ul class="product-top viewFilteredProduct">
             </ul>
           </div>
           <hr>
-          <h3 class="text-center hayera">★No.1 Salesed Item★<br>
-            <br>
-          </h3>
+
+
           <div class="product">
+            <h3 class="text-center hayera">누적 판매 베스트 4<br><br></h3>
+            <ul class="product-top viewTopFour">
+            </ul>
+          </div>
+          <hr>
+
+
+          <div class="product">
+            <h3 class="text-center hayera">★No.1 Salesed Item★<br><br></h3>
             <ul class="product-top viewTopSalesedItem">
             </ul>
           </div>
-          <br>
-          <br>
-          <br>
+          <hr>
 
-          <h3 class="text-center hayera">전체 상품 목록<br>
-            <br>
-            <div class="product">
-              <ul class="product-top viewAllProduct">
-              </ul>
-            </div>
+
+          <div class="product">
+            <h3 class="text-center hayera">전체 상품 목록<br><br></h3>
+            <ul class="product-top viewAllProduct">
+            </ul>
+          </div>
 
         </div>
 

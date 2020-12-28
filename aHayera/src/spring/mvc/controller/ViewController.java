@@ -87,13 +87,11 @@ public class ViewController {
 	public List<Order_ProductVO> addCart(Order_ProductVO vo, ProductVO pvo, HttpSession session) {
 		
 		pvo.setProd_no(vo.getProd_no());
-		
-		ProductVO svo = viewService.productSelected(pvo);
-		
-		vo.setImg_url(svo.getImg_url());
-		vo.setProd_name(svo.getProd_name());
-		if(svo.getDiscount_price() == 0) vo.setSales_price(svo.getPrice());
-		else vo.setSales_price(svo.getDiscount_price());
+		pvo = viewService.productSelected(pvo);
+		vo.setImg_url(pvo.getImg_url());
+		vo.setProd_name(pvo.getProd_name());
+		if(pvo.getDiscount_price() == 0) vo.setSales_price(pvo.getPrice());
+		else vo.setSales_price(pvo.getDiscount_price());
 		
 		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
 		
@@ -109,23 +107,39 @@ public class ViewController {
 					break OUT;
 				}
 			}
-			
 			list.add(vo);
 		}
-		
 		session.setAttribute("inCart",list);
-
 		return list;
-		
 	}
 	
 	@RequestMapping("/viewCart.do")
 	@ResponseBody
 	public List<Order_ProductVO> addCart(Order_ProductVO vo, HttpSession session) {
-
+		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
+		return list;
+	}
+	
+	@RequestMapping("/editCart.do")
+	@ResponseBody
+	public String editCart(Order_ProductVO vo, HttpSession session) {
+		
 		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
 		
-		return list;
+		for(int i=0; i<list.size(); i++) { 	// 장바구니 목록에서 제품 찾아 수량 수정
+			if(list.get(i).getProd_no().equals(vo.getProd_no())) {
+				if(vo.getRemove() != null) { // 삭제 버튼 기능
+					list.remove(i);
+				}
+				else { // 수량 버튼 기능
+					list.get(i).setEach_qty(vo.getEach_qty());
+					break;
+				}
+			}
+		}
+
+		session.setAttribute("inCart",list); // 장바구니 목록 수정 후 session 재저장
+		return "1";
 	}
 	
 }

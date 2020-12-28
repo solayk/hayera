@@ -11,6 +11,7 @@ public class Order_ProductVO {
 	
 	private String prod_name; // 장바구니 활용 목적
 	private String img_url; // 장바구니 활용 목적
+	private String remove; // 장바구니 활용 목적
 	
 	public String getProd_no() {
 		return prod_no;
@@ -60,6 +61,12 @@ public class Order_ProductVO {
 	}
 	public void setImg_url(String img_url) {
 		this.img_url = img_url;
+	}
+	public String getRemove() {
+		return remove;
+	}
+	public void setRemove(String remove) {
+		this.remove = remove;
 	}
 	
 }

@@ -48,17 +48,56 @@ function productListing(loc, data, star, discount, mlprice) {
   )
 }
 
+// 장바구니 가져오기 
+function refreshCart() {
+  $.ajax({
+    type: 'post',
+    url: 'viewCart.do',
+    dataType: 'json',
+    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+    success: function (data) {
 
-// 장바구니 화면에 표시하기
+      $(".main_cart").empty();
+
+      var priceSum = 0;
+
+      if (data.length == 0) {
+        $('#cartSizeIcon').hide();
+        $('#cartSize').text("");
+      }
+      else {
+        $('#cartSizeIcon').show();
+        $('#cartSize').text(data.length);
+      }
+
+      $(".main_cart").append('<tr><th>이미지</th><th>상품명</th><th>수량</th><th>가격</th><th>합계</th><th>삭제</th></tr>');
+
+      for (i = 0; i < data.length; i++) {
+        var price = data[i].sales_price * data[i].each_qty;
+        priceSum += data[i].sales_price * data[i].each_qty;
+        cartListing(".main_cart", data, price);
+      }
+      $('#cartSumPrice').text(priceSum.formatNumber());
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  }); // --- end of $.ajax 장바구니 표시 
+}
+
+// 장바구니 화면 표시
 function cartListing(loc, data, price) {
   $(loc).append(
     '<tr>' + '<td style="display: none;">' + data[i].prod_no + '</td>'
     + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
     + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
-    + '<td>' + data[i].each_qty + ' 개' + ' <button type="button" class="btn btn-primary btn-xs" id="countUp">'
-    + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+    + '<td>'
     + '<button type="button" class="btn btn-primary btn-xs" id="countDown">'
-    + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
+    + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>'
+    + '<span class="cartEachQty">' + data[i].each_qty + '</span>'
+    + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
+    + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
+    + '</td>'
     + '<td>' + data[i].sales_price.formatNumber() + '원</td>'
     + '<td>' + price.formatNumber() + '원</td>'
     + '<td>' + '<button type="button" class="btn btn-danger btn-xs" id="cartRemove">'
@@ -66,6 +105,4 @@ function cartListing(loc, data, price) {
     + '</button>' + '</td>'
     + '</tr>'
   )
-
 }
-

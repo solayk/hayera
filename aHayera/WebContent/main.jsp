@@ -257,10 +257,6 @@
 
     <script type="text/javascript">
 
-      $('#logingogo').click(function () {
-        alert("ddd")
-      })
-
       // 관리자 아이디 세션 확인 작업
       var sessionId = '<%=session.getAttribute("login")%>';
       if (sessionId != 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
@@ -293,6 +289,8 @@
               $('#cartSize').text(data.length);
             }
 
+            $(".main_cart").append('<tr><th>번호</th><th>이미지</th><th>상품명</th><th>수량</th><th>가격</th><th>합계</th><th>삭제</th></tr>');
+            
             for (i = 0; i < data.length; i++) {
               var price = data[i].sales_price * data[i].each_qty;
               priceSum += data[i].sales_price * data[i].each_qty;
@@ -304,7 +302,13 @@
             console.log(err);
           }
         }); // --- end of $.ajax 장바구니 표시
-
+		
+        // 장바구니 버튼
+        $('#countUp').on('click',function(){
+        	
+        	
+        	
+        }); // --- end of 장바구니 버튼
 
         // 검색을 위해 전역변수 선언
         var dataList;
@@ -586,13 +590,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <table class="main_cart">
-                      <th>선택</th>
-                      <th>이미지</th>
-                      <th>상품명</th>
-                      <th>수량</th>
-                      <th>가격</th>
-                      <th>합계</th>
-                      <th>삭제</th>
+                      <tr><th>번호</th><th>이미지</th><th>상품명</th><th>수량</th><th>가격</th><th>합계</th><th>삭제</th></tr>
                       <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
                     </table>
                     <div class="panel panel-info">

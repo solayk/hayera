@@ -52,7 +52,7 @@ function productListing(loc, data, star, discount, mlprice) {
 // 장바구니 화면에 표시하기
 function cartListing(loc, data, price) {
   $(loc).append(
-    '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
+    '<tr>' + '<td style="display: none;">' + data[i].prod_no + '</td>'
     + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
     + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
     + '<td>' + data[i].each_qty + ' 개' + ' <button type="button" class="btn btn-primary btn-xs" id="countUp">'

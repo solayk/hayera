@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,21 +40,7 @@ public class OrderCheckController {
 		return "productDetail";
 	}*/
 	
-	@RequestMapping("/addCart.do")
-	@ResponseBody
-	public List<ProductVO> addCart(ProductVO pvo) {
-		List<ProductVO> data = orderService.addCart(pvo);
-		return data;
-	}
-	/*
-	@RequestMapping("/addCart.do")
-	@ResponseBody
-	public List<ProductVO> addCart(ProductVO pvo, Model m) {
-		ProductVO productInfo = viewMainpageService.productSelected(pvo);
-		List<ProductVO> data = orderService.addCart(productInfo);
-		m.addAttribute("productInfo",productInfo);
-		return data;
-	}*/
+	
 	
 	// '상품상세페이지'에서 결제하기 눌러서 넘어갈 때(orderCheck.jsp로) 고객 정보/해당 상품 정보 갖고 넘어감. 
 	@RequestMapping("/goOrderFromProductDetail.do")

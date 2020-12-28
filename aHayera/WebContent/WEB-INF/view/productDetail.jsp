@@ -135,8 +135,11 @@
            			if (id == 'null') {
            				location.href = "login.do";
        				} else {
+       					
+       					
        					location.href = "addCart.do?prod_no=${productSelected.prod_no}";
        					// <- 제품 정보를 받아가각 장바구니에 추가. 근데 우리 장바구니는 DB 안쓰고 세션쓸꺼야. 그리고 따로 페이지 없고 상단 장바구니 클릭하면 드롭다운 되는 표에 ajax야. ajax맞나?
+       							
        				}
                	  }
                   // Jquery 시작

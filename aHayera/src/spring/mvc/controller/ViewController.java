@@ -1,15 +1,20 @@
 package spring.mvc.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.ReviewVO;
 import spring.mvc.service.CustomerService;
+import spring.mvc.service.OrderService;
 import spring.mvc.service.ViewService;
 
 @Controller
@@ -19,6 +24,8 @@ public class ViewController {
 	private ViewService viewService;
 	@Autowired
 	private CustomerService customerservice;
+	@Autowired
+	private OrderService orderService;
 	
 	// 판매량 1위 상품 보여주기	
 	@RequestMapping("/viewTopSalesedItem.do")
@@ -75,4 +82,23 @@ public class ViewController {
 		return list;
 	}
 	
+	@RequestMapping("/addCart.do")
+	@ResponseBody
+	public void addCart(Order_ProductVO pvo, HttpSession session) {
+		
+		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("cartList");
+		
+		session.setAttribute("cartList",list);
+		
+		/* List<ProductVO> data = orderService.addCart(pvo); */
+	}
+	/*
+	@RequestMapping("/addCart.do")
+	@ResponseBody
+	public List<ProductVO> addCart(ProductVO pvo, Model m) {
+		ProductVO productInfo = viewMainpageService.productSelected(pvo);
+		List<ProductVO> data = orderService.addCart(productInfo);
+		m.addAttribute("productInfo",productInfo);
+		return data;
+	}*/
 }

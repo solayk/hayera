@@ -54,7 +54,9 @@ public class CustomerServicelmpl implements CustomerService {
    	public int insertqna(QnaVO vo) {
 	return customerDAO.insertqna(vo);
 }
-   
+   public int insertreview(ReviewVO vo) {
+	   return customerDAO.insertreview(vo);
+   }
    
 
 }

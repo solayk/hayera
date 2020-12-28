@@ -70,5 +70,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public int insertqna(QnaVO vo) {
 	return mybatis.insert("CustomerDAO.insertqna", vo);
 }
+	
+	public int insertreview(ReviewVO vo) {
+		return mybatis.insert("CustomerDAO.insertreview", vo);
+	}
 
 }

@@ -212,7 +212,7 @@ login_wrap {
 									<p>
 										내 계정 <b class="caret"></b>
 									</p>
-							</a>
+							</a> 
 								<ul class="dropdown-menu">
 									<li><a href="#">장바구니</a></li>
 									<li><a href="#">주문목록</a></li>

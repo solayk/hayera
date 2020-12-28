@@ -22,26 +22,18 @@
 <script type="text/javascript">
 
 $(function(){
-   
-    /*  $('#password_new_ch').focusout(function(){
-     if($('#password_new').val() != ($('#password_new_ch').val())){
-        alert("비밀번호가 일치하지 않습니다.11");
-        return;
-    } 
-    })*/ 
+ 
 
-    $.validator.addMethod("regex", function(value, element, regexpr) { 
+    $.validator.addMethod("regex", function(value, element, regexpr) {   //validate 시작함수
       if( regexpr.test(value) ){
          
          return true;
       
       }else{
-      //   $('#password_new').val('')
-         //
+      
          return false;
       }
-//       alert(regexpr.test(value))
-//       return regexpr.test(value);
+
    }, "Please enter a valid pasword.");
     
      
@@ -109,7 +101,7 @@ $(function(){
       
      if($('#password_new').val().length < 8 ) {
       
-        alert("8이하면 걍 삭제되줄수 없니?")
+     //   alert("8이하면 걍 삭제되줄수 없니?")
         $('#password_new').val(""); 
            
         return; 
@@ -123,20 +115,17 @@ $(function(){
        var password_new_ch = $('#password_new_ch').val();
 
      if(password_new!=password_new_ch) {
-      
-      // alert("새비번과 새비번확인을 다시 확인해주세요")
+ 
     
        $('#password_new').val(""); 
        $('#password_new_ch').val(""); 
        
        return; 
        
-       } else{
-         alert("라스트 팡 같음")
        }
- 
-    })
+    })	//새비번과 새비번확인 
 
+    
    $('#last_btn').click(function () {
       
       $.ajax({

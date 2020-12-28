@@ -431,9 +431,8 @@
 
                                              <!-- DB 추가 필요 -->
                                              <div class="info__description">
-                                                뷰티 그린티의 풍부한 수분감이 오랜시간 지속되는 이중 수분잠금막 에센스인로션<br> <br>-
-                                                에센스와 로션의 농축된 영양감을 전달하여 촉촉한 피부 선사<br>- 초밀착 밀크텍스처로 이중 수분
-                                                잠금효과 선사 <br>- 에센스의 긴 수분 지속력과 로션의 부드러운 발림의 에센스로션
+                                             	${productSelected.product_explain}<br/>
+                                                
                                              </div>
                                           </td>
                                        </tr>
@@ -540,7 +539,7 @@
                         </article>
                         <article class="detail-product-explain">
                            <div>
-                              <img src=${productSelected.explain_url}>
+                              <img src=${productSelected.explain_url} width="800">
                            </div>
 
                         </article>

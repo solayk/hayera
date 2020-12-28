@@ -49,12 +49,13 @@
 	    <!--   HAYERA Branding   -->
 	   
 	         <div class="logo-container">
-	            <div class="logo">
+	            <div class="logo" >
+	            <a href="main.jsp">
 	                <img src="/aHayera/images/logo_only_transparent_small.png">
 	            </div>
-	            <div class="brand">
-	                HAYERA
-	            </div>
+	            </a>
+	            <div class="brand">HAYERA</div>
+	            
 	        </div>
 
 

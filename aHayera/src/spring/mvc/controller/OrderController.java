@@ -115,9 +115,9 @@ public class OrderController {
 	
 	// 장바구니 통해 여러 상품 주문결제
 	@RequestMapping("/paymentCompleteCart.do")
-	public String orderFromCart(CustomerVO cvo, OrderListVO ol, Order_ProductVOList opList, HttpSession session) {
-		cvo.setCustomer_id((String)session.getAttribute("login"));  
-		CustomerVO info = mypageService.getAllById(cvo);
+	public String orderFromCart(CustomerVO vo, OrderListVO oVo, Order_ProductVOList oVoList, HttpSession session) {
+		vo.setCustomer_id((String)session.getAttribute("login"));  
+		CustomerVO info = mypageService.getAllById(vo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
 		String customer_id = info.getCustomer_id(); // 고객 아이디
 		String receive = info.getName(); // 받는 사람
@@ -135,19 +135,23 @@ public class OrderController {
 		
 		String order_no = ymd + subNum;
 		// 주문(orderlist) 테이블에 저장될 데이터 입력 
-//		ol.setOrder_no(order_no);
-//		ol.setCustomer_id(customer_id);
-//		ol.setReceive(receive);
-//		ol.setOrder_address(order_address);
-//		ol.setOrder_status("결제완료");
-//		
-//		orderService.insertOrder(ol);
-
-		/// Order_ProductVOList 활용해 DB orderlist_product에 값 넣기.해야함
+		oVo.setOrder_no(order_no);
+		oVo.setCustomer_id(customer_id);
+		oVo.setReceive(receive);
+		oVo.setOrder_address(order_address);
+		oVo.setOrder_status("결제완료");
 		
+		List<Order_ProductVO> list = oVoList.getOrder_ProductVOList();
+		
+		for(Order_ProductVO data : list) {
+			data.setOrder_no(order_no);
+		}
+		
+		orderService.insertOrderFromCart(oVo, list);
+
 		System.out.println("===== 데이터 확인 =====");
-		System.out.println(opList.getOrder_ProductVOList().get(0).getProd_no());
-		System.out.println(opList.getOrder_ProductVOList().get(1).getProd_no());
+		System.out.println(list.get(0).getSales_cost());
+		System.out.println(list.get(1).getSales_cost());
 		
 		return "paymentComplete";
 	}

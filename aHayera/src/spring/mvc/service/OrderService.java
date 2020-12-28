@@ -4,6 +4,7 @@ import java.util.List;
 
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
+import spring.mvc.domain.Order_ProductVOList;
 import spring.mvc.domain.ProductVO;
 
 public interface OrderService {
@@ -11,6 +12,8 @@ public interface OrderService {
 	public void insertOrder(OrderListVO vo);
 	
 	public void insertOrder_Product(Order_ProductVO vo);
+
+	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list);
 	
 	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo);
 	

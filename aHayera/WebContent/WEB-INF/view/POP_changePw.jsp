@@ -4,14 +4,70 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>pop_changepw</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>HAYERA!</title>
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/bootstrap.js" type="text/javascript"></script>
+<link href="css/bootstrap.css" rel="stylesheet" />
+
+
 
 <script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
+
+<!-- validate 유효성  -->
 <script src="/aHayera/js/jquery.validate.min.js" type="text/javascript"></script>
+
+<!--송채은 css-->
 <link rel="stylesheet" type="text/css" href="css/mypage_util.css">
 <link rel="stylesheet" type="text/css" href="css/mypage_modify.css">
 
+<!-- ↓ 장바구니 화살표 아이콘 -->
+  <!-- ↓ 장바구니 화살표 아이콘 -->
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
+<link href="css/ct-navbar.css" rel="stylesheet" />
+
+<!-- Optional - Adds useful class to manipulate icon font display -->
+<link rel="stylesheet" href="css/pe-icon-7-stroke_helper.css">
+
+
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Grand+Hotel'
+	rel='stylesheet' type='text/css'>
+<script
+	src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+<!-- 제이쿼리 순서 중요 먼저 있어야 아래를 읽을 수가 있다. -->
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+
+<!-- mypage 절대 경로 -->
+<script src="js/mypageAddr.js"></script>
+
+<script src="js/bootstrap.js" type="text/javascript"></script>
+​
+<script src="js/ct-navbar.js"></script>
+
+
+
 <style>
+
+/* KOSMO : 장바구니 CSS */
+.table {
+	width: 750px;
+	text-align: center;
+}
+
+  .cartEachQty {
+            /* 장바구니 수량 칸 너비 */
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+
 
 
 </style>
@@ -166,6 +222,90 @@ $(function(){
 
 
 <body>
+
+	<div id="navbar-full">
+		<div id="navbar">
+			<!-- navbar-default can be changed with navbar-ct-blue navbar-ct-azzure navbar-ct-red navbar-ct-green navbar-ct-orange -->
+			​
+			<nav class="navbar navbar-ct-blue navbar-fixed-top" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand navbar-brand-logo" href="main.jsp">
+							<div class="logo">
+								<img src="./images/logo_only_transparent_small.png">
+							</div>
+							<div class="brand">HAYERA</div>
+						</a>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse"
+						id="bs-example-navbar-collapse-1">
+						​
+						<ul class="nav navbar-nav navbar-center">
+							<!--  모이스처, 선크림 삭제 -->
+						</ul>
+						​
+ 				<ul class="nav navbar-nav navbar-right">
+
+                <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle">
+                    <i class="pe-7s-shopbag" id="cartSizeIcon">
+                      <span class="label" id="cartSize"></span>
+                    </i>
+                    <p>장바구니</p>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <table class="main_cart">
+                      <!-- 장바구니 동적 테이블 자리 -->
+                    </table>
+                    <div class="panel panel-info">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">총 결제금액</h3>
+                      </div>
+                      <div class="panel-body">
+                        <span id="cartSumPrice"></span> 원 &emsp;&emsp;
+                        <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
+                        <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로 결제</button>
+                      </div>
+                    </div>
+                  </ul>
+
+                </li>
+
+                <li class="dropdown">
+                  <!-- mainAfterLogin 에만 해당 -->
+                  <a href="#" class="dropdown-toggle">
+                    <i class="pe-7s-user"></i>
+                    <p>내 계정 <b class="caret"></b></p>
+                  </a>
+                  <ul class="dropdown-menu">
+
+         			<%--  <li><a href="mypage.do?customer_id=${sessionscope.login}">마이페이지</a></li>
+                    <li><a href="orderhistory.do">주문 내역</a></li>  --%>
+                    <li><a href="logout.do">로그아웃</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+
+        </nav>
+
+        <div class="blurred-container">
+          <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
+        </div>
+      </div><!--  end navbar -->
+
+    </div> <!-- end menu-dropdown -->
 
    <div class="main">
       <div class="container tim-container category_main"

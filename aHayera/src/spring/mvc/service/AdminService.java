@@ -46,5 +46,5 @@ public interface AdminService {
 	
 	public List<InventoryVO> viewInventory(InventoryVO vo);
 	
-	public void insertInventory(InventoryVO vo);
+	public void insertInventory(InventoryVO vo) throws Exception;
 }

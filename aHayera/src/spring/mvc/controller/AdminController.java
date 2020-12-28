@@ -209,7 +209,11 @@ public class AdminController {
 		vo.setStock_in_price(Integer.parseInt(s_stock_in_price.replaceAll(",", "")));
 		vo.setExpected_price(Integer.parseInt(s_expected_price.replaceAll(",", "")));
 		
-		adminService.insertInventory(vo);
+		try {
+			adminService.insertInventory(vo);
+		} catch (Exception e) {
+			System.out.println("=== 오류 ===>>> insertInventory.do : " + e.toString());
+		}
 		
 		return "redirect:/adminInventory.do";
 	}

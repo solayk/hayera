@@ -92,7 +92,12 @@ public class CustomerController {
          listobj.put("gender", list.get(i).getGender());
          listobj.put("skintype", list.get(i).getSkintype());
          listobj.put("rate", list.get(i).getRate());
-         listobj.put("writeday", list.get(i).getWriteday());
+         if(Integer.parseInt(list.get(i).getWriteday())>=24) {
+        	int hourday= Integer.parseInt(list.get(i).getWriteday())/24;
+        	 listobj.put("writeday", hourday+"일");
+         }else {
+         listobj.put("writeday", list.get(i).getWriteday()+"시간");
+         }
          listobj.put("contents", list.get(i).getContents());
          jsonArray.add(listobj);
       }

@@ -482,7 +482,12 @@
                                     <ul>
                                        <li class="detail-review-list">
                                           <div class="list-item">
+                                          <c:if test="${review.writeday}<=24">
                                              <span style='float:right' id='writeday'>${review.writeday} 시간 전</span>
+                                             </c:if>
+                                             <c:if test="${review.writeday}>24">
+                                             <span style='float:right' id='writeday'>${review.writeday}/24 전</span>
+                                             </c:if>
                                              <div class="user-info">
                                                 <div style='float:left; width:40px; height:50px;'>
                                                    <i class="material-icons"
@@ -602,6 +607,8 @@
                   $(function () {
                      $('.detail-boardmenu-qna').hide();
                      $('.detail-product-explain').hide();
+                  //   $('.detail-boardmenu').hide();
+                   
 
                   })
 
@@ -622,7 +629,7 @@
                               '<ul>' +
                               '<li class="detail-review-list">' +
                               '<div class="list-item">' +
-                              '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
+                              '<span style="float:right" id="writeday">·' + list[i].writeday + ' 전</span>' +
                               '<div class="user-info">' +
                               '<div style="float:left; width:40px; height:50px;">' +
                               '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>' +
@@ -666,7 +673,7 @@
                               '<ul>' +
                               '<li class="detail-review-list">' +
                               '<div class="list-item">' +
-                              '<span style="float:right" id="writeday">·' + list[i].writeday + '시간 전</span>' +
+                              '<span style="float:right" id="writeday">·' + list[i].writeday + ' 전</span>' +
                               '<div class="user-info">' +
                               '<div style="float:left; width:40px; height:50px;">' +
                               '<i class="material-icons" style="position: relative; top: 20%; left: 20%; height:50px;">face </i>' +

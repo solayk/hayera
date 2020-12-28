@@ -190,12 +190,12 @@ login_wrap {
 						id="bs-example-navbar-collapse-1">
 						​
 						<ul class="nav navbar-nav navbar-center">
-							<li><a href="#"> <i class="pe-7s-drop"> </i>
+							<!-- <li><a href="#"> <i class="pe-7s-drop"> </i>
 									<p>모이스처라이저</p>
 							</a></li>
 							<li><a href="#"> <i class="pe-7s-sun"> </i>
 									<p>선크림</p>
-							</a></li>
+							</a></li> -->
 						</ul>
 						​
 						<ul class="nav navbar-nav navbar-right">

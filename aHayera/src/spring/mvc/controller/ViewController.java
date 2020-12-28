@@ -69,9 +69,15 @@ public class ViewController {
 	
 	@RequestMapping("/category.do")
 	public String categoryList(ProductVO vo, Model model) {
-		model.addAttribute("categoryList",viewService.categoryList(vo));
 		model.addAttribute("categoryName",vo.getCategory());
 		return "category";
+	}
+	
+	@RequestMapping("/categoryView.do")
+	@ResponseBody
+	public List<ProductVO> categoryView(ProductVO vo, Model model) {
+		List<ProductVO> list = viewService.categoryList(vo); 
+		return list;
 	}
 	
 	// 필터된 상품 목록

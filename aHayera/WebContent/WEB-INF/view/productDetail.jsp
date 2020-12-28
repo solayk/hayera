@@ -130,17 +130,115 @@
                      font-weight: bold;
                      width: 150px;
                   }
+
+                  .cartEachQty {
+                     /* 장바구니 수량 칸 너비 */
+                     padding-left: 10px;
+                     padding-right: 10px;
+                  }
                </style>
                <title>상세페이지</title>
                <script type="text/javascript">
-                  // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
-                  Number.prototype.formatNumber = function () {
-                     if (this == 0) return 0;
-                     let regex = /(^[+-]?\d+)(\d{3})/;
-                     let nstr = (this + '');
-                     while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
-                     return nstr;
-                  };
+
+                  // Jquery 시작
+                  $(document).ready(function () {
+
+                     refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용) 
+
+                     // 장바구니 #countUp 버튼
+                     $(document).on('click', '#countUp', function () {
+
+                        var qty = $(this).parent().parent('tr').find('.cartEachQty');
+
+                        qty.text(parseInt(qty.text()) + 1);
+
+                        var info = {
+                           prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+                           each_qty: qty.text()
+                        }
+
+                        $.ajax({
+                           type: 'post',
+                           data: info,
+                           url: 'editCart.do',
+                           dataType: 'json',
+                           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                           success: function () {
+                              refreshCart(); // 장바구니 다시 가져오기
+                           },
+                           error: function (err) {
+                              console.log(err);
+                           }
+                        }); // --- end of $.ajax 장바구니 #countUp 버튼
+                     }); // --- end of 장바구니 #countUp 버튼
+
+                     $(document).on('click', '#countDown', function () {
+
+                        var qty = $(this).parent().parent('tr').find('.cartEachQty');
+
+                        if (qty.text() == 1) {
+                           alert("최소 수량은 1개입니다.");
+                        }
+                        else {
+                           qty.text(parseInt(qty.text()) - 1);
+
+                           var info = {
+                              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+                              each_qty: qty.text()
+                           }
+
+                           $.ajax({
+                              type: 'post',
+                              data: info,
+                              url: 'editCart.do',
+                              dataType: 'json',
+                              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                              success: function () {
+                                 refreshCart(); // 장바구니 다시 가져오기
+                              },
+                              error: function (err) {
+                                 console.log(err);
+                              }
+                           }); // --- end of $.ajax 장바구니 #countDown 버튼
+                        }
+                     }); // --- end of 장바구니 #countDown 버튼
+
+                     $(document).on('click', '#cartRemove', function () {
+
+                        var info = {
+                           prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+                           remove: 'yes'
+                        }
+
+                        $.ajax({
+                           type: 'post',
+                           data: info,
+                           url: 'editCart.do',
+                           dataType: 'json',
+                           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                           success: function () {
+                              refreshCart(); // 장바구니 다시 가져오기
+                           },
+                           error: function (err) {
+                              console.log(err);
+                           }
+                        }); // --- end of $.ajax 장바구니 #cartRemove 버튼
+                     }); // --- end of 장바구니 #cartRemove 버튼
+
+                     // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
+                     $('li.dropdown a').on('click', function (event) {
+                        $(this).parent().toggleClass('open');
+                     });
+                     $('body').on('click', function (e) {
+                        if (!$('li.dropdown').is(e.target)
+                           && $('li.dropdown').has(e.target).length === 0
+                           && $('.open').has(e.target).length === 0
+                        ) {
+                           $('li.dropdown').removeClass('open');
+                        }
+                     });
+
+                  }); // --- end of jquery document ready
 
                   // 바로 결제하기 클릭 시
                   function clickGopay() {
@@ -152,10 +250,10 @@
                         form.submit();
                      }
                   }
-                  
-               	  // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
+
+                  // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
                   function clickGoFromCart() {
-                    window.location.href = "orderFromCart.do";
+                     window.location.href = "orderFromCart.do";
                   }
 
                   // '장바구니 추가' 클릭 시
@@ -173,28 +271,7 @@
                      url: "addCart.do",
                      contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
                      success: function (data) {
-
-                        $(".main_cart").empty();
-
-                        var priceSum = 0;
-
-                        if (data.length == 0) {
-                           $('#cartSizeIcon').hide();
-                           $('#cartSize').text("");
-                        }
-                        else {
-                           $('#cartSizeIcon').show();
-                           $('#cartSize').text(data.length);
-                        }
-
-                        for (i = 0; i < data.length; i++) {
-                           var price = data[i].sales_price * data[i].each_qty;
-                           priceSum += data[i].sales_price * data[i].each_qty;
-                           cartListing(".main_cart", data, price);
-                        }
-
-                        $('#cartSumPrice').text(priceSum.formatNumber());
-
+                        refreshCart(); // 장바구니 가져오기
                      },
                      error: function (err) {
                         alert("에러가 발생했습니다: productDetail.jsp --- 카트 상품 추가 에러");
@@ -203,59 +280,6 @@
                   }
 
 
-                  // Jquery 시작
-                  $(document).ready(function () {
-
-                     // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
-                     $('li.dropdown a').on('click', function (event) {
-                        $(this).parent().toggleClass('open');
-                     });
-
-                     $('body').on('click', function (e) {
-                        if (!$('li.dropdown').is(e.target)
-                           && $('li.dropdown').has(e.target).length === 0
-                           && $('.open').has(e.target).length === 0
-                        ) {
-                           $('li.dropdown').removeClass('open');
-                        }
-                     });
-
-                     var amount = $("#spinner").val();
-
-                     // 장바구니 표시
-                     $.ajax({
-                        type: 'post',
-                        url: 'viewCart.do',
-                        dataType: 'json',
-                        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-                        success: function (data) {
-
-                           $(".main_cart").empty();
-
-                           var priceSum = 0;
-
-                           if (data.length == 0) {
-                              $('#cartSizeIcon').hide();
-                              $('#cartSize').text("");
-                           }
-                           else {
-                              $('#cartSizeIcon').show();
-                              $('#cartSize').text(data.length);
-                           }
-
-                           for (i = 0; i < data.length; i++) {
-                              var price = data[i].sales_price * data[i].each_qty;
-                              priceSum += data[i].sales_price * data[i].each_qty;
-                              cartListing(".main_cart", data, price);
-                           }
-                           $('#cartSumPrice').text(priceSum.formatNumber());
-                        },
-                        error: function (err) {
-                           console.log(err);
-                        }
-                     }); // --- end of $.ajax 장바구니 표시
-
-                  })
                </script>
 
             </head>
@@ -287,10 +311,10 @@
                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                               <ul class="nav navbar-nav navbar-center">
-                                 <li><a href="#"> <i class="pe-7s-drop"> </i>
+                                 <li><a href="category.do?category=모이스처라이저"> <i class="pe-7s-drop"> </i>
                                        <p>모이스처라이저</p>
                                     </a></li>
-                                 <li><a href="#"> <i class="pe-7s-sun"> </i>
+                                 <li><a href="category.do?category=선크림"> <i class="pe-7s-sun"> </i>
                                        <p>선크림</p>
                                     </a></li>
                               </ul>
@@ -308,15 +332,15 @@
                                     <ul class="dropdown-menu">
                                        <table class="main_cart">
                                           <tr>
-                                          <th>선택</th>
-                                          <th>이미지</th>
-                                          <th>상품명</th>
-                                          <th>수량</th>
-                                          <th>가격</th>
-                                          <th>합계</th>
-                                          <th>삭제</th>
+                                             <th>선택</th>
+                                             <th>이미지</th>
+                                             <th>상품명</th>
+                                             <th>수량</th>
+                                             <th>가격</th>
+                                             <th>합계</th>
+                                             <th>삭제</th>
                                           </tr>
-                                          
+
                                           <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
                                        </table>
                                        <div class="panel panel-info">
@@ -326,7 +350,8 @@
                                           <div class="panel-body">
                                              <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                                              <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                                             <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로
+                                             <button type="button" class="btn btn-primary"
+                                                onclick="clickGoFromCart()">바로
                                                 결제</button>
                                           </div>
                                        </div>
@@ -478,7 +503,7 @@
                            </div>
                            <div id="appendgo">
                               <div id="reviewstart">
-                           
+
                               </div>
                            </div>
                         </article>
@@ -575,15 +600,15 @@
                   $(function () {
                      $('.detail-boardmenu-qna').hide();
                      $('.detail-product-explain').hide();
-              
-                   //리뷰 먼저 띄우기
-                  $.ajax({
+
+                     //리뷰 먼저 띄우기
+                     $.ajax({
                         url: "highrate.do?orderby=writeday",
                         data: { 'prod_no': ${ productSelected.prod_no }},
                      dataType : "json",
                      success: function (list) {
 
-						
+
                         $('#appendgo').empty();
                         for (i = 0; i < list.length; i++) {
                            //$('#reviewstart').empty();

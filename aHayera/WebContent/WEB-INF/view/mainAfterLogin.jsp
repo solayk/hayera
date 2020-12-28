@@ -247,14 +247,16 @@
         /* 자동완성 목록 내 브랜드 */
         color: #BFBFBF;
       }
-      
-      .liSelected>div { /* 필터 별점 선택 표기 */
+
+      .liSelected>div {
+        /* 필터 별점 선택 표기 */
         color: #084A83;
         font-size: 16px;
         text-decoration: underline;
       }
 
-      .cartEachQty { /* 장바구니 수량 칸 너비 */
+      .cartEachQty {
+        /* 장바구니 수량 칸 너비 */
         padding-left: 10px;
         padding-right: 10px;
       }
@@ -262,11 +264,11 @@
 
     <script type="text/javascript">
 
-      
-    
-    
-    
-    
+
+
+
+
+
 
       // Jquery 시작
       $(document).ready(function () {
@@ -288,31 +290,26 @@
 
           var qty = $(this).parent().parent('tr').find('.cartEachQty');
 
-          if (qty.text() == 3) {
-            alert("최대 수량은 3개입니다.");
-          }
-          else {
-            qty.text(parseInt(qty.text()) + 1);
+          qty.text(parseInt(qty.text()) + 1);
 
-            var info = {
-              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
-              each_qty: qty.text()
+          var info = {
+            prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+            each_qty: qty.text()
+          }
+
+          $.ajax({
+            type: 'post',
+            data: info,
+            url: 'editCart.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success: function () {
+              refreshCart(); // 장바구니 다시 가져오기
+            },
+            error: function (err) {
+              console.log(err);
             }
-
-            $.ajax({
-              type: 'post',
-              data: info,
-              url: 'editCart.do',
-              dataType: 'json',
-              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-              success: function () {
-                refreshCart(); // 장바구니 다시 가져오기
-              },
-              error: function (err) {
-                console.log(err);
-              }
-            }); // --- end of $.ajax 장바구니 #countUp 버튼
-          }
+          }); // --- end of $.ajax 장바구니 #countUp 버튼
         }); // --- end of 장바구니 #countUp 버튼
 
         $(document).on('click', '#countDown', function () {
@@ -370,7 +367,7 @@
 
         var dataList; // 검색을 위해 전역변수 선언
 
-     // 전체상품목록
+        // 전체상품목록
         $.ajax({
           url: 'viewAllProduct.do',
           dataType: 'json',
@@ -399,7 +396,7 @@
           }
         }); // --- end of $.ajax 전체상품목록
 
-     // 누적 판매 베스트 4
+        // 누적 판매 베스트 4
         $.ajax({
           type: 'post',
           url: 'viewTopFourSalesdProduct.do',
@@ -422,7 +419,7 @@
           }
         });
 
-     // No.1 salesed Item
+        // No.1 salesed Item
         $.ajax({
           type: 'post',
           url: 'viewTopSalesedItem.do',
@@ -445,7 +442,7 @@
           }
         });
 
-     // 검색 자동완성
+        // 검색 자동완성
         $("#search").autocomplete({
           source: dataList,
           minLength: 1,
@@ -526,7 +523,7 @@
           $.ajax({
             type: 'post',
             data: info,
-            url: 'viewFilteredProduct.do',
+            url: 'viewFilteredProduct.do?category=',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
@@ -576,8 +573,8 @@
           }); // --- end of $.ajax 필터
 
         }); // --- end of 필터 ajax
-        
-      }); // --- end of jquery
+
+      }); // --- end of jquery document ready
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
       function clickGoFromCart() {
@@ -593,7 +590,7 @@
         while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
         return nstr;
       }; */
-      
+
     </script>
   </head>
 
@@ -677,7 +674,7 @@
                     <p>내 계정 <b class="caret"></b></p>
                   </a>
                   <ul class="dropdown-menu">
-                    
+
                     <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
                     <li><a href="orderHistory.do">주문 내역</a></li>
                     <li><a href="logout.do">로그아웃</a></li>

@@ -55,6 +55,9 @@
 	SELECT * 
 	FROM PRODUCT
 	WHERE <![CDATA[AVG_RATING >= #{avg_rating}]]>
+		<if test="category != ''">
+			AND <![CDATA[CATEGORY = #{category}]]>
+		</if>
 		<if test="feel != ''">
 			AND REGEXP_LIKE(FEEL,#{feel})
 		</if>

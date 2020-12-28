@@ -248,13 +248,15 @@
         color: #BFBFBF;
       }
 
-      .liSelected>div { /* 필터 별점 선택 표기 */
+      .liSelected>div {
+        /* 필터 별점 선택 표기 */
         color: #084A83;
         font-size: 16px;
         text-decoration: underline;
       }
 
-      .cartEachQty { /* 장바구니 수량 칸 너비 */
+      .cartEachQty {
+        /* 장바구니 수량 칸 너비 */
         padding-left: 10px;
         padding-right: 10px;
       }
@@ -271,14 +273,14 @@
       // Jquery 시작
       $(document).ready(function () {
 
-    	  
-    	  
-    	  
-    	  
-    	  
-    	  
-    	  
-    	  
+
+
+
+
+
+
+
+
         $('.viewFilteredProduct').parent('div').hide();
 
         refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용)
@@ -288,31 +290,26 @@
 
           var qty = $(this).parent().parent('tr').find('.cartEachQty');
 
-          if (qty.text() == 3) {
-            alert("최대 수량은 3개입니다.");
-          }
-          else {
-            qty.text(parseInt(qty.text()) + 1);
+          qty.text(parseInt(qty.text()) + 1);
 
-            var info = {
-              prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
-              each_qty: qty.text()
+          var info = {
+            prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
+            each_qty: qty.text()
+          }
+
+          $.ajax({
+            type: 'post',
+            data: info,
+            url: 'editCart.do',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success: function () {
+              refreshCart(); // 장바구니 다시 가져오기
+            },
+            error: function (err) {
+              console.log(err);
             }
-
-            $.ajax({
-              type: 'post',
-              data: info,
-              url: 'editCart.do',
-              dataType: 'json',
-              contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-              success: function () {
-                refreshCart(); // 장바구니 다시 가져오기
-              },
-              error: function (err) {
-                console.log(err);
-              }
-            }); // --- end of $.ajax 장바구니 #countUp 버튼
-          }
+          }); // --- end of $.ajax 장바구니 #countUp 버튼
         }); // --- end of 장바구니 #countUp 버튼
 
         $(document).on('click', '#countDown', function () {
@@ -420,7 +417,7 @@
           error: function (err) {
             console.log(err);
           }
-        });
+        }); // --- end of $.ajax 누적 판매 베스트 4
 
         // No.1 salesed Item
         $.ajax({
@@ -443,7 +440,7 @@
           error: function (err) {
             console.log(err);
           }
-        });
+        }); // --- end of $.ajax No.1 salesed Item
 
         // 검색 자동완성
         $("#search").autocomplete({
@@ -526,7 +523,7 @@
           $.ajax({
             type: 'post',
             data: info,
-            url: 'viewFilteredProduct.do',
+            url: 'viewFilteredProduct.do?category=',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
@@ -584,16 +581,16 @@
         window.location.href = "orderFromCart.do";
       }
 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
+
+
+
     </script>
   </head>
 
@@ -669,7 +666,7 @@
                   </ul>
 
                 </li>
-                
+
                 <li>
                   <!-- main 에만 해당 -->
                   <a href="login.do">
@@ -678,6 +675,20 @@
                   </a>
                 </li>
               </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

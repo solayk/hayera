@@ -102,8 +102,6 @@ public class ViewController {
 			list.add(vo);
 		}
 		else {
-			list = (List<Order_ProductVO>) session.getAttribute("inCart");
-			
 			// list에 이미 담은 상품인지 확인 후 담겨있으면 수량 추가
 			for(int i=0; i<list.size(); i++) {
 				if(list.get(i).getProd_no().equals(vo.getProd_no())) {

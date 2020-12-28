@@ -26,14 +26,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
+      <!--   <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                  <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
                  <a class="btn big-register" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a></div>
             <div class="col-sm-4"></div>
         </div>
-
+ -->
 
 		 <div class="modal fade login" id="loginModal">
 		      <div class="modal-dialog login animated">
@@ -70,10 +70,10 @@
                                  <a href="join.do">create an account</a>
                             ?</span>
                         </div>
-                        <div class="forgot register-footer" style="display:none">
+                      <!--   <div class="forgot register-footer" style="display:none">
                              <span>Already have an account?</span>
                              <a href="">Login</a>
-                        </div>
+                        </div> -->
                     </div>
     		      </div>
 		      </div>
@@ -99,7 +99,7 @@
         	$.ajax({
         		type :'post',
         		async : true,
-        		url : "logingo.do", // login.do로 요청
+        		url : "logingo.do", // logingo.do로 요청
         		contentType : 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
         		data : {
         			'customer_id':$('#customer_id').val(),

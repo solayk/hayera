@@ -257,6 +257,10 @@
 
     <script type="text/javascript">
       
+    $('#logingogo').click(function () {
+		alert("ddd")
+	})
+    
       // 관리자 아이디 세션 확인 작업
       var sessionId = '<%=session.getAttribute("login")%>';
       if (sessionId != 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
@@ -516,6 +520,7 @@
       function clickGopay() {
         window.location.href = "orderCheck.jsp";
       }
+      
 
     </script>
   </head>
@@ -601,10 +606,10 @@
                 </li>
                 <li>
                   <!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
-                  <a href="login.do">
+                   <a href="login.do"> 
                     <i class="pe-7s-user"></i>
-                    <p>로그인</p>
-                  </a>
+                    <p >로그인</p>
+                  </a> 
                 </li>
               </ul>
 

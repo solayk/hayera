@@ -13,13 +13,19 @@
 .btnreview{
 	background-color: #0d6efd;
 	color: white;
-	width : 100px;
+	width : 200px;
 	font-weight: bold;
 	text-align: center;
 	border-color: #0d6efd;
+	
 }
 .body{
 	font-family: inherit;
+	margin: 0 auto;
+	text-align: center;
+}
+.ta,.btn{
+	text-align: center;
 }
 </style>
 </head>
@@ -38,11 +44,13 @@
 		<input type='radio' name='rate' value='5'>5
 		</div>
 		<br/>
-	<textarea  class='contents' id='contents' placeholder="후기를 입력하세요" style="width:400px; height:100px; align-items: center;"></textarea>
+	<div class="ta">	
+	<textarea  class='contents' id='contents' placeholder="후기를 입력하세요" style="width:400px; height:100px; float: center;"></textarea>
+	</div>
 	<br/>
-
+<div class="btn">
 <input type="button" class="btnreview" value="작성완료" id='btnreview'>
-
+</div>
 
 <script type="text/javascript">
 

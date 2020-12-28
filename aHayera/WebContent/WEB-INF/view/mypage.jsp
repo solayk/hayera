@@ -154,6 +154,11 @@ login_wrap {
     	
     	location.href = "orderHistory.do";
 
+    	  
+    	function clickGoFromCart() {
+    	        window.location.href = "orderFromCart.do";
+    	      }
+
 	
       
       }) //무조건 function 안에서 실행
@@ -190,21 +195,17 @@ login_wrap {
 						id="bs-example-navbar-collapse-1">
 						​
 						<ul class="nav navbar-nav navbar-center">
-							<!-- <li><a href="#"> <i class="pe-7s-drop"> </i>
-									<p>모이스처라이저</p>
-							</a></li>
-							<li><a href="#"> <i class="pe-7s-sun"> </i>
-									<p>선크림</p>
-							</a></li> -->
+							<!--  모이스처, 선크림 삭제 -->
 						</ul>
 						​
 						<ul class="nav navbar-nav navbar-right">
 							​
 							<!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
-							<li><a href="orderHistory.do" > <i class="pe-7s-shopbag"> <span
+							<li><a href="orderFromCart.do"> <i class="pe-7s-shopbag"> <span
 										class="label">2</span>
 								</i>
 									<p>장바구니</p>
+									
 							</a></li>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown"> <i class="pe-7s-user"></i>
@@ -213,11 +214,11 @@ login_wrap {
 									</p>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="#">로그인</a></li>
+									<li><a href="#">장바구니</a></li>
 									<li><a href="#">주문목록</a></li>
 									<li><a href="#">마이페이지</a></li>
-									<!-- <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li> -->
+									<li class="divider"></li>
+                            <li><a href="#">Separated link</a></li> 
 								</ul></li>
 						</ul>
 						​

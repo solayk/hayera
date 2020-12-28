@@ -6,33 +6,42 @@
 <meta charset="UTF-8">
 <title>리뷰 작성</title>
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<style type="text/css">
+.btnreview{
+	background-color: #0d6efd;
+	color: white;
+	width : 100px;
+	font-weight: bold;
+	text-align: center;
+	border-color: #0d6efd;
+}
+.body{
+	font-family: inherit;
+}
+</style>
 </head>
 <body>
 
 
 <input type="hidden" name="prod_no" id="prod_no" value="<%=request.getParameter("prod_no")%>">
 <input type="hidden" name="order_no" id="order_no" value="<%=request.getParameter("order_no")%>">
-<table border="1" width='700px'>
-	<tr height='50px'>
-		<th bgcolor="lightblue" width='200px'>점수를 선택해주세요</th>
-		<td><input type='radio' name='rate' value='1'>1 
+
+	
+		<div style="font-weight: bold; text-align: center;">점수를 선택해주세요</div>
+		<div style="text-align: center"><input type='radio' name='rate' value='1'>1 
 		<input type='radio' name='rate' value='2'>2
 		<input type='radio' name='rate' value='3'>3
 		<input type='radio' name='rate' value='4'>4
 		<input type='radio' name='rate' value='5'>5
-		</td>
-	</tr>
+		</div>
+		<br/>
+	<textarea  class='contents' id='contents' placeholder="후기를 입력하세요" style="width:400px; height:100px; align-items: center;"></textarea>
+	<br/>
 
-	<tr height='200px'>
-		<th bgcolor="lightblue" width='200px'>상품 후기를 남겨주세요</th>
-		<td>
-	<textarea  name='contents' id='contents' placeholder="입력하세요" style="width:500px; height:200px"></textarea>
-	
-	</td>	
-	</tr>
-	</table>
-
-<input type="button" value="작성완료" id='btnreview'>
+<input type="button" class="btnreview" value="작성완료" id='btnreview'>
 
 
 <script type="text/javascript">

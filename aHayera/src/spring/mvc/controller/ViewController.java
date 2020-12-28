@@ -116,8 +116,6 @@ public class ViewController {
 		}
 		
 		session.setAttribute("inCart",list);
-		
-		System.out.println(" ===== 리스크 크기 : " + list.size());
 
 		return list;
 		

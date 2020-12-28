@@ -152,6 +152,11 @@
                         form.submit();
                      }
                   }
+                  
+               	  // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
+                  function clickGoFromCart() {
+                    window.location.href = "orderFromCart.do";
+                  }
 
                   // '장바구니 추가' 클릭 시
                   function addCart() {
@@ -302,6 +307,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                        <table class="main_cart">
+                                          <tr>
                                           <th>선택</th>
                                           <th>이미지</th>
                                           <th>상품명</th>
@@ -309,6 +315,8 @@
                                           <th>가격</th>
                                           <th>합계</th>
                                           <th>삭제</th>
+                                          </tr>
+                                          
                                           <!-- ajax 활용한 동적 테이블 들어오는 자리. -->
                                        </table>
                                        <div class="panel panel-info">
@@ -318,7 +326,7 @@
                                           <div class="panel-body">
                                              <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                                              <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                                             <button type="button" class="btn btn-primary" onclick="clickGopay()">바로
+                                             <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로
                                                 결제</button>
                                           </div>
                                        </div>

@@ -148,11 +148,8 @@ public class OrderController {
 		}
 		
 		orderService.insertOrderFromCart(oVo, list);
-
-		System.out.println("===== 데이터 확인 =====");
-		System.out.println(list.get(0).getSales_cost());
-		System.out.println(list.get(1).getSales_cost());
 		
+		session.removeAttribute("inCart");
 		return "paymentComplete";
 	}
 	

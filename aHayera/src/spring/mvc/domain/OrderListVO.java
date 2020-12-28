@@ -14,6 +14,7 @@ public class OrderListVO {
 	private String pay_date; // 주문확정일
 	private String delivery_date; // 발송일
 	private String delivery_status; // 배송상태
+	private int point_use; // 적립금 사용액
 
 	// order_product 테이블과 INNER JOIN 떔에 추가 
 	private String prod_no;
@@ -101,6 +102,12 @@ public class OrderListVO {
 	}
 	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
+	}
+	public int getPoint_use() {
+		return point_use;
+	}
+	public void setPoint_use(int point_use) {
+		this.point_use = point_use;
 	}
 	public String getProd_no() {
 		return prod_no;

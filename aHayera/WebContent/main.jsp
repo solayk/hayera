@@ -256,11 +256,11 @@
     </style>
 
     <script type="text/javascript">
-      
-    $('#logingogo').click(function () {
-		alert("ddd")
-	})
-    
+
+      $('#logingogo').click(function () {
+        alert("ddd")
+      })
+
       // 관리자 아이디 세션 확인 작업
       var sessionId = '<%=session.getAttribute("login")%>';
       if (sessionId != 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
@@ -271,6 +271,40 @@
       $(document).ready(function () {
 
         $('.viewFilteredProduct').parent('div').hide();
+
+        // 장바구니 표시
+        $.ajax({
+          type: 'post',
+          url: 'viewCart.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          success: function (data) {
+
+            $(".main_cart").empty();
+
+            var priceSum = 0;
+
+            if (data.length == 0) {
+              $('#cartSizeIcon').hide();
+              $('#cartSize').text("");
+            }
+            else {
+              $('#cartSizeIcon').show();
+              $('#cartSize').text(data.length);
+            }
+
+            for (i = 0; i < data.length; i++) {
+              var price = data[i].sales_price * data[i].each_qty;
+              priceSum += data[i].sales_price * data[i].each_qty;
+              cartListing(".main_cart", data, price);
+            }
+            $('#cartSumPrice').text(priceSum.formatNumber());
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        }); // --- end of $.ajax 장바구니 표시
+
 
         // 검색을 위해 전역변수 선언
         var dataList;
@@ -372,36 +406,6 @@
             return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span><span class="spanBrand">' + item.brand + '</span></div></li>').appendTo(ul);
           };
 
-        // 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
-        $.ajax({
-          type: 'post',
-          url: 'viewTopfiveSalesdProduct.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
-            for (i = 0; i < data.length; i++) {
-              $(".main_cart").append(
-                '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
-                + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
-                + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
-                + '<td>' + "수량(구현필요)" + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
-                + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
-                + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
-                + '<td>' + data[i].price.formatNumber() + '원</td>'
-                + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
-                + '<span class="glyphicon glyphicon-remove"></span>'
-                + '</button>' + '</td>'
-                + '</tr>'
-              )
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        });
-
         // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
         $('li.dropdown a').on('click', function (event) {
           $(this).parent().toggleClass('open');
@@ -466,9 +470,9 @@
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
             success: function (data) {
-				
+
               console.log("길이: " + data.length);
-              
+
               $('.viewFilteredProduct').empty();
 
               // 상품목록 배열 처리
@@ -520,7 +524,7 @@
       function clickGopay() {
         window.location.href = "orderCheck.jsp";
       }
-      
+
 
     </script>
   </head>
@@ -575,8 +579,8 @@
                 <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle">
-                    <i class="pe-7s-shopbag">
-                      <span class="label">2</span>
+                    <i class="pe-7s-shopbag" id="cartSizeIcon">
+                      <span class="label" id="cartSize"></span>
                     </i>
                     <p>장바구니</p>
                   </a>
@@ -606,10 +610,10 @@
                 </li>
                 <li>
                   <!-- 로그인 클릭 시 login.jsp로 이동. 로그인 화면이 팝업 형태인데 화면 전환이 조금 어색한 상태 -->
-                   <a href="login.do"> 
+                  <a href="login.do">
                     <i class="pe-7s-user"></i>
-                    <p >로그인</p>
-                  </a> 
+                    <p>로그인</p>
+                  </a>
                 </li>
               </ul>
 
@@ -687,33 +691,33 @@
       <div class="container tim-container" style="max-width:1000px; padding-top:20px">
         <div class="col-md-12">
 
-          
+
           <div class="product">
-          <h3 class="text-center hayera">필터 적용 결과<br><br></h3>
+            <h3 class="text-center hayera">필터 적용 결과<br><br></h3>
             <ul class="product-top viewFilteredProduct">
             </ul>
           </div>
           <hr>
 
-          
+
           <div class="product">
-          <h3 class="text-center hayera">누적 판매 베스트 4<br><br></h3>
+            <h3 class="text-center hayera">누적 판매 베스트 4<br><br></h3>
             <ul class="product-top viewTopFour">
             </ul>
           </div>
           <hr>
 
-          
+
           <div class="product">
-          <h3 class="text-center hayera">★No.1 Salesed Item★<br><br></h3>
+            <h3 class="text-center hayera">★No.1 Salesed Item★<br><br></h3>
             <ul class="product-top viewTopSalesedItem">
             </ul>
           </div>
           <hr>
 
-          
+
           <div class="product">
-          <h3 class="text-center hayera">전체 상품 목록<br><br></h3>
+            <h3 class="text-center hayera">전체 상품 목록<br><br></h3>
             <ul class="product-top viewAllProduct">
             </ul>
           </div>

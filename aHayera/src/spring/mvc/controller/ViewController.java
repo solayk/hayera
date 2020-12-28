@@ -1,6 +1,6 @@
 package spring.mvc.controller;
 
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -84,23 +84,52 @@ public class ViewController {
 	
 	@RequestMapping("/addCart.do")
 	@ResponseBody
-	public void addCart(Order_ProductVO vo, HttpSession session) {
+	public List<Order_ProductVO> addCart(Order_ProductVO vo, ProductVO pvo, HttpSession session) {
+		
+		pvo.setProd_no(vo.getProd_no());
+		
+		ProductVO svo = viewService.productSelected(pvo);
+		
+		vo.setImg_url(svo.getImg_url());
+		vo.setProd_name(svo.getProd_name());
+		if(svo.getDiscount_price() == 0) vo.setSales_price(svo.getPrice());
+		else vo.setSales_price(svo.getDiscount_price());
+		
+		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
+		
+		OUT: if (list == null) {
+			list = new ArrayList<Order_ProductVO>();
+			list.add(vo);
+		}
+		else {
+			list = (List<Order_ProductVO>) session.getAttribute("inCart");
+			
+			// list에 이미 담은 상품인지 확인 후 담겨있으면 수량 추가
+			for(int i=0; i<list.size(); i++) {
+				if(list.get(i).getProd_no().equals(vo.getProd_no())) {
+					list.get(i).setEach_qty(list.get(i).getEach_qty() + vo.getEach_qty());
+					break OUT;
+				}
+			}
+			
+			list.add(vo);
+		}
+		
+		session.setAttribute("inCart",list);
+		
+		System.out.println(" ===== 리스크 크기 : " + list.size());
 
-		System.out.println("===== " + vo.getProd_no());
+		return list;
 		
-//		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("cartList");
-//		session.setAttribute("cartList",list);
-		
-		/* List<ProductVO> data = orderService.addCart(pvo); */
 	}
 	
-//	@RequestMapping("/viewCart.do")
-//	@ResponseBody
-//	public List<ProductVO> addCart(ProductVO pvo, Model m) {
-//		ProductVO productInfo = viewMainpageService.productSelected(pvo);
-//		List<ProductVO> data = orderService.addCart(productInfo);
-//		m.addAttribute("productInfo",productInfo);
-//		return data;
-//	}
+	@RequestMapping("/viewCart.do")
+	@ResponseBody
+	public List<Order_ProductVO> addCart(Order_ProductVO vo, HttpSession session) {
+
+		List<Order_ProductVO> list = (List<Order_ProductVO>) session.getAttribute("inCart");
+		
+		return list;
+	}
 	
 }

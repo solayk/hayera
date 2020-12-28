@@ -32,8 +32,8 @@
                <script src="js/bootstrap.js" type="text/javascript"></script>
                <script src="js/ct-navbar.js"></script>
 
-
-
+               <!-- 하예라 전용 JS Files   -->
+               <script src="./js/hayera.js"></script>
 
                <!--     Font Awesome     -->
                <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -152,36 +152,60 @@
                         form.submit();
                      }
                   }
-                  
+
                   // '장바구니 추가' 클릭 시
                   function addCart() {
-                	  
-                	  var info = {
-                              prod_no: ${productSelected.prod_no}
-                            }
-                	  
-                	  $.ajax({
-                          type: "POST",
-                          data: info,
-                          dataType: "json",
-                          url: "addCart.do",
-                          contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
-                          success: function (data) {
-                          },
-                          error: function (err) {
-                            alert("에러가 발생했습니다: productDetail.jsp --- 카트 상품 추가 에러");
-                          }
-                        });
+
+                     var info = {
+                        prod_no: ${ productSelected.prod_no },
+                        each_qty: $('#spinner').val()
+                  }
+
+                  $.ajax({
+                     type: "POST",
+                     data: info,
+                     dataType: "json",
+                     url: "addCart.do",
+                     contentType: 'application/x-www-form-urlencoded;charset=utf-8', // 한글처리
+                     success: function (data) {
+
+                        $(".main_cart").empty();
+
+                        var priceSum = 0;
+
+                        if (data.length == 0) {
+                           $('#cartSizeIcon').hide();
+                           $('#cartSize').text("");
+                        }
+                        else {
+                           $('#cartSizeIcon').show();
+                           $('#cartSize').text(data.length);
+                        }
+
+                        for (i = 0; i < data.length; i++) {
+                           var price = data[i].sales_price * data[i].each_qty;
+                           priceSum += data[i].sales_price * data[i].each_qty;
+                           cartListing(".main_cart", data, price);
+                        }
+
+                        $('#cartSumPrice').text(priceSum.formatNumber());
+
+                     },
+                     error: function (err) {
+                        alert("에러가 발생했습니다: productDetail.jsp --- 카트 상품 추가 에러");
+                     }
+                  });
                   }
 
 
                   // Jquery 시작
                   $(document).ready(function () {
+
                      // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
                      $('li.dropdown a').on('click', function (event) {
                         $(this).parent().toggleClass('open');
                      });
-                     
+
                      $('body').on('click', function (e) {
                         if (!$('li.dropdown').is(e.target)
                            && $('li.dropdown').has(e.target).length === 0
@@ -190,59 +214,42 @@
                            $('li.dropdown').removeClass('open');
                         }
                      });
-                     
+
                      var amount = $("#spinner").val();
-                     // 장바구니에 상품 넣기
-                     /* 이 방법은 실패..보류
-                     <c:forEach items="${productInfo}" var="productInfo">
-                       var discount_price = ${productInfo.discount_price};
-                       var pay_price = discount_price * amount;
-                       $(".main_cart").append(
-                           '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
-                           + '<td>' + '<img src="/aHayera/resources/upload/${productInfo.img_url}" width="55" height="55">' + '</td>'
-                           + '<td>' + '<a href="productSelected.do?prod_no='+'${productInfo.prod_no}'+'">'+'${productInfo.prod_name}'+ '</a>' + '</td>'
-                           + '<td>' + amount + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                           + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
-                           + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                           + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
-                           + '<td>' + '${productInfo.discount_price}' + '원</td>'
-                           + '<td>' + pay_price + '원</td>'
-                           + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
-                           + '<span class="glyphicon glyphicon-remove"></span>'
-                           + '</button>' + '</td>'
-                           + '</tr>'
-                       )
-                     </c:forEach>*/
-                     
+
+                     // 장바구니 표시
                      $.ajax({
                         type: 'post',
                         url: 'viewCart.do',
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                         success: function (data) {
-                           for (i = 0; i < data.length; i++) {
-                              var price = data[i].discount_price * amount
-                              $(".main_cart").append(
-                                 '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
-                                 + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
-                                 + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
-                                 + '<td>' + amount + ' 개' + ' <button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                                 + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
-                                 + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                                 + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
-                                 + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
-                                 + '<td>' + price.formatNumber() + '원</td>'
-                                 + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
-                                 + '<span class="glyphicon glyphicon-remove"></span>'
-                                 + '</button>' + '</td>'
-                                 + '</tr>'
-                              )
+
+                           $(".main_cart").empty();
+
+                           var priceSum = 0;
+
+                           if (data.length == 0) {
+                              $('#cartSizeIcon').hide();
+                              $('#cartSize').text("");
                            }
+                           else {
+                              $('#cartSizeIcon').show();
+                              $('#cartSize').text(data.length);
+                           }
+
+                           for (i = 0; i < data.length; i++) {
+                              var price = data[i].sales_price * data[i].each_qty;
+                              priceSum += data[i].sales_price * data[i].each_qty;
+                              cartListing(".main_cart", data, price);
+                           }
+                           $('#cartSumPrice').text(priceSum.formatNumber());
                         },
                         error: function (err) {
                            console.log(err);
                         }
-                     });
+                     }); // --- end of $.ajax 장바구니 표시
+
                   })
                </script>
 
@@ -288,8 +295,8 @@
                                  <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
                                  <li class="dropdown">
                                     <a href="#" class="dropdown-toggle">
-                                       <i class="pe-7s-shopbag">
-                                          <span class="label">2</span>
+                                       <i class="pe-7s-shopbag" id="cartSizeIcon">
+                                          <span class="label" id="cartSize"></span>
                                        </i>
                                        <p>장바구니</p>
                                     </a>
@@ -309,7 +316,7 @@
                                              <h3 class="panel-title">총 결제금액</h3>
                                           </div>
                                           <div class="panel-body">
-                                             (합산 기능 구현 필요) 원 &emsp;&emsp;
+                                             <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                                              <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
                                              <button type="button" class="btn btn-primary" onclick="clickGopay()">바로
                                                 결제</button>
@@ -532,29 +539,6 @@
 
                         </article>
 
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
 
                      </div>
                      <br /> <br />

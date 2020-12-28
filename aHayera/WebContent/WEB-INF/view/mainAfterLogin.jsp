@@ -4,16 +4,16 @@
 
   <!-- 로그인 이후 화면 main.jsp와 2020-12-21 오전 11시 병합 완료 -->
 
+
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
+
     <!-- 타이틀 바 -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png" >
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
     <title>하예라</title>
-    
+
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <!-- 추후 CSS 정리 통합 예정 -->
     <link href="css/hayera.css" rel="stylesheet" />
     <!-- ↓ 장바구니 화살표 아이콘 -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
@@ -29,23 +29,26 @@
     <!-- 검색 autocomplete 목적-->
     <script src="autocomplete/jquery-ui.min.js"></script>
 
-
     <script src="js/bootstrap.js" type="text/javascript"></script>
-
     <script src="js/ct-navbar.js"></script>
+
+    <!-- 하예라 전용 JS Files   -->
+    <script src="./js/hayera.js"></script>
 
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+
+
     <style>
       /* a태그 기본 style 유지 */
-      a { 
-      	color: inherit;
-      	text-decoration: none;
-      } 
-      
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
       .fa-heart {
         color: #F74933;
       }
@@ -232,18 +235,20 @@
         height: 40px;
       }
 
-      .ui-menu li span { /* 자동완성 목록 양식 설정 */
+      .ui-menu li span {
+        /* 자동완성 목록 양식 설정 */
         font-size: 1em;
         padding: 0 0 10px 10px;
         margin: 0 0 10px 0 !important;
         white-space: nowrap;
       }
-      .spanBrand { /* 자동완성 목록 내 브랜드 */
-      	color: #BFBFBF;
+
+      .spanBrand {
+        /* 자동완성 목록 내 브랜드 */
+        color: #BFBFBF;
       }
-      
     </style>
-    
+
     <script type="text/javascript">
 
       // 숫자 3자리 단위로 콤마를 찍어주는 함수_ .formatNumber()로 사용.
@@ -254,18 +259,52 @@
         while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
         return nstr;
       };
-	  
+
       // Jquery 시작
       $(document).ready(function () {
-		
-    	// 세션 아이디 변수 sessionId에 저장
-      	var sessionId = '<%=session.getAttribute("login")%>';
-      	
-      	if(sessionId == '' || sessionId == 'null'){ /* 세션이 만료되면 main.jsp로 이동 */
-      		alert("로그인 시간을 초과했습니다. 다시 로그인 해주세요.");
-      		location.href = "main.jsp"; 
-      	}    
-    	  
+
+        // 세션 아이디 변수 sessionId에 저장
+        var sessionId = '<%=session.getAttribute("login")%>';
+
+        if (sessionId == '' || sessionId == 'null') { /* 세션이 만료되면 main.jsp로 이동 */
+          alert("로그인 시간을 초과했습니다. 다시 로그인 해주세요.");
+          location.href = "main.jsp";
+        }
+
+        // 장바구니 표시
+        $.ajax({
+          type: 'post',
+          url: 'viewCart.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          success: function (data) {
+
+            $(".main_cart").empty();
+
+            var priceSum = 0;
+
+            if (data.length == 0) {
+              $('#cartSizeIcon').hide();
+              $('#cartSize').text("");
+            }
+            else {
+              $('#cartSizeIcon').show();
+              $('#cartSize').text(data.length);
+            }
+
+            for (i = 0; i < data.length; i++) {
+              var price = data[i].sales_price * data[i].each_qty;
+              priceSum += data[i].sales_price * data[i].each_qty;
+              cartListing(".main_cart", data, price);
+            }
+            $('#cartSumPrice').text(priceSum.formatNumber());
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        }); // --- end of $.ajax 장바구니 표시
+
+
         // 검색을 위해 전역변수 선언
         var dataList;
 
@@ -295,14 +334,14 @@
               else star = 1;
 
               $('.viewAllProduct').append(
-            		  /* a 태그 클릭 시 productDetail 로 이동 */	 
-            		  '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                      + '<div class="item-title">' + data[i].prod_name + '</div>'
-                      + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
-                      + '<div class="item-price">' + data[i].price.formatNumber() + '원</div>'
-                      + '<div class="item-price-ml">ml당' + '원</div>'
-                      + '<div class="item-sale-remaining">세일 2일 남음</div>'
-                      + '</a></li>'
+                /* a 태그 클릭 시 productDetail 로 이동 */
+                '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
+                + '<div class="item-title">' + data[i].prod_name + '</div>'
+                + '<div class="item-reviewno"><img src="./images/star_' + star + '.png">' + data[i].avg_rating + '</div>'
+                + '<div class="item-price">' + data[i].price.formatNumber() + '원</div>'
+                + '<div class="item-price-ml">ml당' + '원</div>'
+                + '<div class="item-sale-remaining">세일 2일 남음</div>'
+                + '</a></li>'
               )
               // 검색 자동완성 인식을 위해 JSON 데이터 추가
               data[i].value = data[i].prod_name;
@@ -340,7 +379,7 @@
               else star = 1;
 
               $(".viewTopfive").append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	 
+                /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
@@ -382,7 +421,7 @@
               else star = 1;
 
               $(".viewTopSalesedItem").append(
-            	/* a 태그 클릭 시 productDetail 로 이동 */	 
+                /* a 태그 클릭 시 productDetail 로 이동 */
                 '<li>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '"><div class="item-img"><img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                 + '<div class="item-title">' + data[i].prod_name + '</div>'
                 + '<div class="item-brand">' + data[i].brand + '</div>'
@@ -405,10 +444,10 @@
           source: dataList,
           minLength: 1,
           select: function (event, ui) {
-        	  /* 클릭시 페이지 이동*/
-              var url = ui.item.prod_no;
-              if(url != '') {
-                location.href = 'productSelected.do?prod_no=' + url + '';
+            /* 클릭시 페이지 이동*/
+            var url = ui.item.prod_no;
+            if (url != '') {
+              location.href = 'productSelected.do?prod_no=' + url + '';
             }
           },
           html: true,
@@ -419,38 +458,8 @@
         })
 
           .autocomplete("instance")._renderItem = function (ul, item) {
-        	return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span><span class="spanBrand">' + item.brand + '</span></div></li>').appendTo(ul);
+            return $('<li><div><img src="/aHayera/resources/upload/' + item.img_url + '"><span>' + item.value + '</span><span class="spanBrand">' + item.brand + '</span></div></li>').appendTo(ul);
           };
-
-        // 장바구니에 DB 상품 넣기 (동적테이블. 지금은 탑5 불러와서 채워넣은거..구현의도아님.)
-        $.ajax({
-          type: 'post',
-          url: 'viewTopfiveSalesdProduct.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
-            for (i = 0; i < data.length; i++) {
-              $(".main_cart").append(
-                '<tr>' + '<td>' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="option' + (i + 1) + '" checked>' + (i + 1) + '</label>' + '</div>' + '</td>'
-                + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
-                + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
-                + '<td>' + "수량(구현필요)" + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                + '<span class="glyphicon glyphicon-chevron-up"></span>' + '</button>'
-                + '<button type="button" class="btn btn-primary btn-xs" id="countUp">'
-                + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>' + '</td>'
-                + '<td>' + data[i].discount_price.formatNumber() + '원</td>'
-                + '<td>' + data[i].price.formatNumber() + '원</td>'
-                + '<td>' + '<button type="button" class="btn btn-danger btn-xs">'
-                + '<span class="glyphicon glyphicon-remove"></span>'
-                + '</button>' + '</td>'
-                + '</tr>'
-              )
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        });
 
         // 장바구니 클릭하면 열려진 상태 유지하기. 다시 누르면 or 메인화면 다른 구역 클릭하면 닫히기
         $('li.dropdown a').on('click', function (event) {
@@ -463,7 +472,7 @@
           ) {
             $('li.dropdown').removeClass('open');
           }
-        }); 
+        });
       }); // --- end of jquery
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
@@ -524,8 +533,8 @@
                 <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle">
-                    <i class="pe-7s-shopbag">
-                      <span class="label">2</span>
+                    <i class="pe-7s-shopbag" id="cartSizeIcon">
+                      <span class="label" id="cartSize"></span>
                     </i>
                     <p>장바구니</p>
                   </a>
@@ -569,9 +578,10 @@
               </ul>
 
             </div><!-- /.navbar-collapse -->
-            
+
             <!-- 검색 -->
-            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">
+            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search"
+              method="get">
               <div class="form-group">
                 <fieldset>
                   <input type="search" id="search" name="search" placeholder="검색하기">

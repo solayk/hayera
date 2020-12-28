@@ -9,6 +9,9 @@ public class Order_ProductVO {
 	private int sales_cost;  // 적용단가
 	private int sales_revenue; // 수익
 	
+	private String prod_name; // 장바구니 활용 목적
+	private String img_url; // 장바구니 활용 목적
+	
 	public String getProd_no() {
 		return prod_no;
 	}
@@ -45,4 +48,18 @@ public class Order_ProductVO {
 	public void setSales_revenue(int sales_revenue) {
 		this.sales_revenue = sales_revenue;
 	}
+	
+	public String getProd_name() {
+		return prod_name;
+	}
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+	public String getImg_url() {
+		return img_url;
+	}
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+	
 }

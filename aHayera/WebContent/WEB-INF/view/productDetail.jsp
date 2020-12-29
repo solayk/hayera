@@ -139,6 +139,13 @@
                   }
                   .info__th{
                   	font-size: 18px;
+                  	line-height: 40px;
+                  }
+                  .info_td{
+                  	line-height: 40px;
+                  }
+                  .title{
+                  color: #666;
                   }
                </style>
                <title>상세페이지</title>
@@ -422,7 +429,7 @@
                               <input type="text" value="${productSelected.discount_price}" name="discount_price"
                                  style="text-align: center; font-weight: bold; width:65px;" disabled>원
                            </div>
-                           <br>
+                           
                            <div>
                               <form
                                  action="goOrderFromProductDetail.do?customer_id=${sessionScope.login}&prod_no=${productSelected.prod_no}"
@@ -438,9 +445,12 @@
                                              	${productSelected.product_explain}<br/>
                                                 
                                              </div>
+                                             
                                           </td>
                                        </tr>
-                                       <tr class="detail-table-count">
+                                         <hr/>
+                                       <tr class="detail-table-count"> 
+                                      
                                           <th class="info__th" width="50px" ><span class="title">수량</span></th>
                                           <td class="info__td">
                                              <div class="countcheck">
@@ -461,7 +471,7 @@
                                     </tbody>
                                  </table>
                               </form>
-                              <br/>
+                              <hr/>
                               <div>
                                  <input class='detail_button' type="button" value="장바구니 추가" onclick="addCart()">
                                  <input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()">
@@ -526,13 +536,17 @@
                                     ${qna.customer_id } | ${qna.qnaday}
                                  </li>
                               </ul>
-                              
+                              <c:if test="${empty qna.reply_contents}">
+                              	<div style="color: #999; padding-left: 80px"> 답변 예정입니다</div>
+                              </c:if>
+                                 <c:if test="${not empty qna.reply_contents}">
                              <ul>
-                                  <li style="list-style: none">${qna.reply_contents }
+                                  <li style="list-style: none; padding-left: 80px">${qna.reply_contents }
                                     <br />
                                     ${qna.replyday }
                                  </li>
                               </ul>
+                              </c:if>
                               <hr />
                            </c:forEach>
 

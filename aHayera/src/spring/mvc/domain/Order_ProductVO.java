@@ -16,6 +16,7 @@ public class Order_ProductVO {
 	private int price; // ProductVO의 price. DB orderlist 테이블의 order_price, discount_price 입력 목적
 	
 	private int stock; // ProductVO의 stock. 주문 시 재고 차감에 활용.
+	private int totalsales; // ProductVO의 totalsales. 주문 시 총 판매량 증가에 활용.
 	
 	public String getProd_no() {
 		return prod_no;
@@ -82,6 +83,12 @@ public class Order_ProductVO {
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public int getTotalsales() {
+		return totalsales;
+	}
+	public void setTotalsales(int totalsales) {
+		this.totalsales = totalsales;
 	}
 	
 }

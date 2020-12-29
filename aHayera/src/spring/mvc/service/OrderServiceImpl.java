@@ -36,7 +36,9 @@ public class OrderServiceImpl implements OrderService {
 			ProductVO vo = new ProductVO();
 			vo.setProd_no(data.getProd_no());
 			vo.setStock(data.getStock());
+			vo.setTotalsales(data.getTotalsales());
 			orderDAO.updateStock(vo);
+			orderDAO.updateTotalsales(vo);
 		}
 	}
 

@@ -155,7 +155,7 @@ public class OrderController {
 		 
 		for(int i = 1; i <= 6; i ++) {
 			subNum += (int)(Math.random() * 10);
-		}
+		};
 		
 		String order_no = ymd + subNum;
 		// 주문(orderlist) 테이블에 저장될 데이터 입력 
@@ -175,17 +175,19 @@ public class OrderController {
 			data.setOrder_no(order_no);
 			vo.setProd_no(data.getProd_no());
 			data.setStock(viewMainpageService.productSelected(vo).getStock());
-		}
+			data.setTotalsales(viewMainpageService.productSelected(vo).getTotalsales());
+		};
 		
 		// 고객 적립금 차감
 		int points = info.getPoints();       // 로그인한 회원의 보유 포인트
 		int use_points = oVo.getPoint_use(); // 주문 시 사용한 적립금
 		cvo.setPoints(points - use_points);  // 잔여 적립금을 고객 정보에 set
 		
-		// 재고 차감
+		// 재고 차감, 총 판매량 업데이트
 		for(int i=0;i<list.size();i++) {
 			list.get(i).setStock(oVoList.getOrder_ProductVOList().get(i).getStock() - oVoList.getOrder_ProductVOList().get(i).getEach_qty());
-		}
+			list.get(i).setTotalsales(oVoList.getOrder_ProductVOList().get(i).getTotalsales() + oVoList.getOrder_ProductVOList().get(i).getEach_qty());
+		};
 		
 		orderService.insertOrderFromCart(oVo, list, pvo, cvo);
 		

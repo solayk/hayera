@@ -138,9 +138,7 @@ font-family: '레시피코리아';
 												$('#password').val(""); //비밀번호가 맞지 않는 경우 초기화 해줌
 												alert("현재 비밀번호를 입력하세요");
 
-											} else {
-												alert("확인하였습니다");
-											}
+											} 
 										},
 										err : function(err) {
 											console.log(err)

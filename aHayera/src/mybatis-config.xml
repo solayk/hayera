@@ -17,7 +17,7 @@
 		<typeAlias alias="inventory" type="spring.mvc.domain.InventoryVO"/>
 		<typeAlias alias="order_product_list" type="spring.mvc.domain.Order_ProductVOList"/>
 		<typeAlias alias="sales" type="spring.mvc.domain.SalesVO"/>
-		
+		<typeAlias alias="payment" type="spring.mvc.domain.PaymentVO"/>
 	</typeAliases>
 
 </configuration>

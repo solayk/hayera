@@ -307,6 +307,10 @@ login_wrap {
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+.edirAddress > div {
+	font-family: '레시피코리아';
+}
 ​
 </style>
 
@@ -815,7 +819,7 @@ login_wrap {
 								value="${result.email}"> <span class="focus-input100"></span>
 						</div>
 
-						<div class="wrap-input100 validate-input"
+						<div class="wrap-input100 validate-input edirAddress"
 							data-validate="Password is required">
 							<span class="label-input100">배송주소</span> <span
 								class="focus-input100"></span> <input class="mypageAddr"

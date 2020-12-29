@@ -282,6 +282,12 @@
                 <p>재고 관리</p>
               </a>
             </li>
+            <li>
+              <a href="adminUpdateRating.do">
+                <i class="now-ui-icons files_paper"></i>
+                <p>별점 업데이트</p>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

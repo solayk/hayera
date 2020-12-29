@@ -22,7 +22,6 @@
 <link rel="stylesheet" type="text/css" href="css/mypage_modify.css">
 
 <!-- ↓ 장바구니 화살표 아이콘 -->
-<!-- ↓ 장바구니 화살표 아이콘 -->
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
 	rel="stylesheet">

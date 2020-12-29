@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
+
+
   <!DOCTYPE html>
   <html>
 
@@ -31,17 +33,57 @@
     <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
     <!-- 검색 autocomplete 목적-->
     <script src="autocomplete/jquery-ui.min.js"></script>
-	
-	<script type="text/javascript">
-    	
-		// 세션 아이디 변수 sessionId에 저장
-        var admin_id = '<%=session.getAttribute("admin_id")%>';
-	    if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
-        	location.href = "adminLogin.jsp";
-        }
-	    
-	</script>
-	
+    <!-- Data Table -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/stringMonthYear.js"></script>
+    <!-- 추가 아이콘 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- 전용 CSS 연결 -->
+    <link href="./css/hayera.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+
+      // 세션 아이디 변수 sessionId에 저장
+      var admin_id = '<%=session.getAttribute("admin_id")%>';
+      if (admin_id == 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
+        location.href = "adminLogin.jsp";
+      }
+
+      $(document).ready(function () {
+
+        // 매출 현황 목록
+        $.ajax({
+          url: 'viewSalesData.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
+          success: function (data) {
+
+            for (i = 0; i < data.length; i++) {
+              $('.viewSalesData').append(
+                '<tr>'
+                + '<td>' + data[i].customer_id + '</td>'
+                + '<td>' + data[i].tel + '</td>'
+                + '<td>' + data[i].name + '</td>'
+                + '<td>' + data[i].email + '</td>'
+                + '<td>' + data[i].address + '</td>'
+                + '<td>' + data[i].birthday + '</td>'
+                + '</tr>'
+              )
+            }
+          },
+          error: function (e) {
+            alert(e);
+          }
+        }); // --- end of $.ajax 매출 현황 목록  
+
+      }); // --- end of document ready
+
+    </script>
+
   </head>
 
   <body class="">
@@ -92,12 +134,6 @@
               <a href="adminInventory.do">
                 <i class="now-ui-icons files_paper"></i>
                 <p>재고 관리</p>
-              </a>
-            </li>
-            <li>
-              <a href="adminSales.do">
-                <i class="now-ui-icons business_chart-pie-36"></i>
-                <p>매출 분석</p>
               </a>
             </li>
           </ul>
@@ -159,7 +195,7 @@
             <div class="col-lg-4">
               <div class="card card-chart">
                 <div class="card-header">
-                  <h5 class="card-category">매출추이</h5>
+                  <h5 class="card-category">회계</h5>
                   <h4 class="card-title">일 매출</h4>
                   <div class="dropdown">
                     <button type="button"
@@ -190,8 +226,8 @@
             <div class="col-lg-4 col-md-6">
               <div class="card card-chart">
                 <div class="card-header">
-                  <h5 class="card-category">매출추이</h5>
-                  <h4 class="card-title">판매수량</h4>
+                  <h5 class="card-category">회계</h5>
+                  <h4 class="card-title">수익률%</h4>
                   <div class="dropdown">
                     <button type="button"
                       class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret"
@@ -222,7 +258,7 @@
               <div class="card card-chart">
                 <div class="card-header">
                   <h5 class="card-category">사용자통계</h5>
-                  <h4 class="card-title">체류시간</h4>
+                  <h4 class="card-title">판매량</h4>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">
@@ -236,7 +272,46 @@
                 </div>
               </div>
             </div>
-            
+
+            <div class="col-lg-6 col-md-6">
+              <div class="card card-chart">
+                <div class="card-header">
+                  <h5 class="card-category">회계</h5>
+                  <h4 class="card-title">매출현황</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <form action="" method='post' enctype='multipart/form-data'>
+                      <table class="table" id="sortTable">
+                        <thead class="adminProduct_tableHeader">
+                          <tr class="viewTableHeader">
+                            <th scope="col" style="max-width: 50px; min-width: 50px;">년월</th>
+                            <th scope="col" style="max-width: 50px; min-width: 50px;">주문금액</th>
+                            <th scope="col" style="max-width: 50px; min-width: 50px;">할인금액</th>
+                            <th scope="col" style="max-width: 50px; min-width: 50px;">포인트</th>
+                            <th scope="col" style="max-width: 50px; min-width: 50px;">결제금액</th>
+                            <th scope="col" style="max-width: 50px; min-width: 50px;">수익</th>
+                          </tr>
+                        </thead>
+
+                        <!-- 고객 전체 목록 띄우는 곳 -->
+                        <tbody class="viewSalesData">
+                        </tbody>
+
+                      </table>
+                    </form>
+                  </div>
+
+
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 

@@ -17,6 +17,7 @@ import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
+import spring.mvc.domain.PaymentVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.service.MypageService;
 import spring.mvc.service.OrderService;
@@ -78,7 +79,7 @@ public class OrderController {
 	// 주문 (현재는 로그인 한 회원의 정보를 주문 테이블 데이터로 저장하는 메소드가 되어버렸음.. 즉, 기본 배송지 설정 or '회원 정보와 동일' 선택한 상태의 주문 정보 저장임.)
 	// '주문/결제 페이지'에서 결제하기 눌렀을 때 고객&제품 정보들을 갖고 넘어가 (어디로? -> paymentComplete.jsp로) 면서 orderlist, orderlist_product 테이블에 데이터 저장할거야. 
 	@RequestMapping("/paymentComplete.do")
-	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, HttpSession session){
+	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, PaymentVO pvo, HttpSession session){
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -110,11 +111,16 @@ public class OrderController {
 		op.setOrder_no(order_no);
 		
 		orderService.insertOrder_Product(op);
+		
+		// 결제 테이블에 저장
+		pvo.setPay_no("P"+order_no);
+		pvo.setOrder_no(order_no);
+		orderService.insertPayment(pvo);
 	};
 	
 	// 장바구니 통해 여러 상품 주문결제
 	@RequestMapping("/paymentCompleteCart.do")
-	public String orderFromCart(CustomerVO vo, OrderListVO oVo, Order_ProductVOList oVoList, HttpSession session) {
+	public String orderFromCart(CustomerVO vo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, HttpSession session) {
 		vo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(vo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -140,13 +146,17 @@ public class OrderController {
 		oVo.setOrder_address(order_address);
 		oVo.setOrder_status("결제완료");
 		
+		// 결제 테이블에 저장
+		pvo.setPay_no("P"+order_no);
+		pvo.setOrder_no(order_no);
+		
 		List<Order_ProductVO> list = oVoList.getOrder_ProductVOList();
 		
 		for(Order_ProductVO data : list) {
 			data.setOrder_no(order_no);
 		}
 		
-		orderService.insertOrderFromCart(oVo, list);
+		orderService.insertOrderFromCart(oVo, list, pvo);
 		
 		session.removeAttribute("inCart");
 		return "paymentComplete";

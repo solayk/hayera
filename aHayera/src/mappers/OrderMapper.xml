@@ -85,4 +85,11 @@
 	]]>
 </select>
 
+<insert id="insertPayment" parameterType="payment">
+	<![CDATA[
+	INSERT INTO payment
+	VALUES (#{pay_no},#{order_no},'카드 결제')
+	]]>
+</insert>
+
 </mapper>

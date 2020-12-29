@@ -10,6 +10,7 @@ import spring.mvc.dao.OrderDAO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
+import spring.mvc.domain.PaymentVO;
 import spring.mvc.domain.ProductVO;
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -25,18 +26,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Transactional
-	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list) {
-		
-		System.out.println("===== insertOrderFromCart 시작 =====");
+	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo) {
 		orderDAO.insertOrder(oVo);
-		
-		System.out.println("===== insertOrder 완료 =====");
-		System.out.println("===== oVoList 사이즈 체크 ===== : " + list.size());
-		
+		orderDAO.insertPayment(pvo);
 		for(Order_ProductVO data : list) {
 			orderDAO.insertOrder_Product(data);
 		}
-		
 	}
 
 	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo) {
@@ -61,6 +56,10 @@ public class OrderServiceImpl implements OrderService {
 
 	public List<ProductVO> addCart(ProductVO pvo) {
 		return orderDAO.addCart(pvo);
+	}
+
+	public void insertPayment(PaymentVO vo) {
+		orderDAO.insertPayment(vo);
 	}
 
 }

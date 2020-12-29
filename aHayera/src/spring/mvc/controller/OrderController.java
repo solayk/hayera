@@ -176,32 +176,35 @@ public class OrderController {
 			vo.setProd_no(data.getProd_no());
 			data.setStock(viewMainpageService.productSelected(vo).getStock());
 		}
-
+		
 		// 고객 적립금 차감
 		int points = info.getPoints();       // 로그인한 회원의 보유 포인트
 		int use_points = oVo.getPoint_use(); // 주문 시 사용한 적립금
 		cvo.setPoints(points - use_points);  // 잔여 적립금을 고객 정보에 set
 		
 		// 재고 차감
+		for(int i=0;i<list.size();i++) {
+			vo.setStock(oVoList.getOrder_ProductVOList().get(i).getStock() - oVoList.getOrder_ProductVOList().get(i).getEach_qty());
+			
+			System.out.println("========1.재고"+oVoList.getOrder_ProductVOList().get(i).getStock());
+			System.out.println("========2.주문수량"+oVoList.getOrder_ProductVOList().get(i).getEach_qty());
+		}
 		
-		
-		
-		/*
 		// 주문하는 제품들의 제품No.
-		System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(0).getProd_no());
+		/*System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(0).getProd_no());
 		System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(1).getProd_no());
 		
-		opVo.setProd_no(oVoList.getOrder_ProductVOList().get(0).getProd_no());
+		//opVo.setProd_no(oVoList.getOrder_ProductVOList().get(0).getProd_no());
 		
 		// 각 제품마다 현재 재고
-		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(0).getStock());  //0 못받아와
+		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(0).getStock());
 		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(1).getStock());
 		// 각 제품마다 주문 수량
 		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(0).getEach_qty());
-		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(1).getEach_qty());
-		*/
+		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(1).getEach_qty());*/
 		
-		orderService.insertOrderFromCart(oVo, list, pvo, cvo);
+		
+		orderService.insertOrderFromCart(oVo, list, pvo, cvo, vo);
 		
 		session.removeAttribute("inCart");
 		return "paymentComplete";

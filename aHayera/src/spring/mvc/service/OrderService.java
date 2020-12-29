@@ -15,7 +15,7 @@ public interface OrderService {
 	
 	public void insertOrder_Product(Order_ProductVO vo);
 
-	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo, CustomerVO cvo);
+	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo, CustomerVO cvo, ProductVO vo);
 	
 	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo);
 	

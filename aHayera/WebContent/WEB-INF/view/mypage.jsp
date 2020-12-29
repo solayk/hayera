@@ -29,7 +29,7 @@
 <link href="autocomplete/jquery-ui.structure.min.css" rel="stylesheet" />
 <link href="autocomplete/jquery-ui.theme.min.css" rel="stylesheet" />
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-검색 autocomplete 목적
+<!-- 검색 autocomplete 목적 -->
 <script src="autocomplete/jquery-ui.min.js"></script> -->
 
 <script src="js/bootstrap.js" type="text/javascript"></script>
@@ -320,8 +320,12 @@ login_wrap {
 .extraAddr,
 .detailAddr{
  font-family: '레시피코리아';
+ float:left;
 }
 
+#mypageAddr{
+font-family: '레시피코리아';
+}
 
 
 </style>
@@ -848,23 +852,12 @@ login_wrap {
 						data-validate="Password is required">
 						<span class="label-input100">배송주소</span> <span
 							class="focus-input100"></span> <input class="mypageAddr"
-							type="button" value="변경" id="mypageAddr"><br> <input
-							type="text" placeholder="우편번호" id="zonecode" name="zonecode"
-							value="${juso[0]}">
-					
-
-							<input type="text" size="50" placeholder="기본주소" id="addr"
-								name="addr" value="${juso[1]}">
-						
-						
-						
-							<input placeholder="동" id="extraAddr" name="extraAddr"
-								type="text" value="${juso[3]}">
-					
-						
-						
-							<input type="text" placeholder="나머지주소" id="detailAddr"
-								name="detailAddr" value="${juso[2]}">
+							type="button" value="변경" id="mypageAddr"><br>
+						 
+							 <input class="input100" type="text"placeholder="우편번호" id="zonecode" name="zonecode"value="${juso[0]}">
+							<input class="input100"type="text"  placeholder="기본주소" id="addr" name="addr" value="${juso[1]}">
+					   	 	<input class="input100" type="text" placeholder="나머지주소" id="detailAddr" name="detailAddr" value="${juso[2]}"> 
+							<input class="input100"type="text" placeholder="동" id="extraAddr" name="extraAddr"  value="${juso[3]}"> 
 					
 
 						<tr>

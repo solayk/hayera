@@ -71,6 +71,8 @@
 font-family: '레시피코리아';
 }
 
+
+
 </style>
 
 
@@ -137,7 +139,7 @@ font-family: '레시피코리아';
 												alert("현재 비밀번호를 입력하세요");
 
 											} else {
-												alert("성공");
+												alert("확인하였습니다");
 											}
 										},
 										err : function(err) {
@@ -147,12 +149,12 @@ font-family: '레시피코리아';
 
 						}) //현재 비밀번호 확인
 
-		$('#password_new').focusout(function() {
+		/* $('#password_new').focusout(function() {
 			var password_new = $('#password_new').val();
 
 			console.log($('#password_new').val().length);
 
-		}) //8이하인 경우 삭제 됨
+		}) //8이하인 경우 삭제 됨 */
 
 		$('#password_new_ch').focusout(function() {
 			var password_new = $('#password_new').val();
@@ -186,7 +188,7 @@ font-family: '레시피코리아';
 										},
 										success : function(result) { //1
 
-											alert(result + "성공");
+											alert("비밀번호가 변경되었습니다.");
 											window.close()
 
 										},

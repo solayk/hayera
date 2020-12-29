@@ -315,6 +315,13 @@ login_wrap {
   font-family: '레시피코리아';
 }
 ​
+.zonecode,
+.addr,
+.extraAddr,
+.detailAddr{
+ font-family: '레시피코리아';
+}
+
 
 
 </style>
@@ -844,20 +851,21 @@ login_wrap {
 							type="button" value="변경" id="mypageAddr"><br> <input
 							type="text" placeholder="우편번호" id="zonecode" name="zonecode"
 							value="${juso[0]}">
+					
 
-						<div>
-
-							<input type="text" size="35" placeholder="기본주소" id="addr"
+							<input type="text" size="50" placeholder="기본주소" id="addr"
 								name="addr" value="${juso[1]}">
-						</div>
-						<div>
+						
+						
+						
 							<input placeholder="동" id="extraAddr" name="extraAddr"
 								type="text" value="${juso[3]}">
-						</div>
-						<div>
+					
+						
+						
 							<input type="text" placeholder="나머지주소" id="detailAddr"
 								name="detailAddr" value="${juso[2]}">
-						</div>
+					
 
 						<tr>
 							<td><input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="ok_btn" value="확인"> 

@@ -332,7 +332,7 @@ login_wrap {
 				function() {
 
 					window.open('POP_changePw.do', "popupNo1",
-							'left='+(screen.availWidth-660)/2+',top='+(screen.availHeight-430)/2+', width=660px,height=430px',
+							'left='+(screen.availWidth-660)/2+',top='+(screen.availHeight-430)/2+', width=660px,height=800px',
 							"scrollbars=no");
 
 				})

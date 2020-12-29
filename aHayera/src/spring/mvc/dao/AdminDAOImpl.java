@@ -96,4 +96,8 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<SalesVO> viewSalesData(SalesVO vo) {
 		return mybatis.selectList("AdminDAO.viewSalesData", vo);
 	}
+	
+	public List<SalesVO> viewSalesDailyData(SalesVO vo) {
+		return mybatis.selectList("AdminDAO.viewSalesDailyData", vo);
+	}
 }

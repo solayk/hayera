@@ -50,4 +50,6 @@ public interface AdminDAO {
 	public void insertInventory(InventoryVO vo);
 	
 	public List<SalesVO> viewSalesData(SalesVO vo);
+	
+	public List<SalesVO> viewSalesDailyData(SalesVO vo);
 }

@@ -104,7 +104,150 @@ demo = {
   //   });
   // },
 
-  initDashboardPageCharts: function(arrMonth, arrSales, arrRevenue) {
+  initSeparatePageCharts: function(arrDay, arrDaySales) {
+
+    chartColor = "#FFFFFF";
+
+    // General configuration for the charts with Line gradientStroke
+    gradientChartOptionsConfiguration = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        bodySpacing: 4,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+        xPadding: 10,
+        yPadding: 10,
+        caretPadding: 10
+      },
+      responsive: 1,
+      scales: {
+        yAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 15,
+          bottom: 15
+        }
+      }
+    };
+
+    gradientChartOptionsConfigurationWithNumbersAndGrid = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        bodySpacing: 4,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+        xPadding: 10,
+        yPadding: 10,
+        caretPadding: 10
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          gridLines: 0,
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawBorder: false
+          }
+        }],
+        xAxes: [{
+          display: 0,
+          gridLines: 0,
+          ticks: {
+            display: false
+          },
+          gridLines: {
+            zeroLineColor: "transparent",
+            drawTicks: false,
+            display: false,
+            drawBorder: false
+          }
+        }]
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 15,
+          bottom: 15
+        }
+      }
+    };
+
+    var cardStatsMiniLineColor = "#fff",
+      cardStatsMiniDotColor = "#fff";
+
+    ctx = document.getElementById('lineChartExample').getContext("2d");
+
+    gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+    gradientStroke.addColorStop(0, '#80b6f4');
+    gradientStroke.addColorStop(1, chartColor);
+
+    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+
+    myChart = new Chart(ctx, {
+      type: 'line',
+      responsive: true,
+      data: {
+        labels: arrDay,
+        datasets: [{
+          label: "Active Users",
+          borderColor: "#f96332",
+          pointBorderColor: "#FFF",
+          pointBackgroundColor: "#f96332",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          backgroundColor: gradientFill,
+          borderWidth: 2,
+          data: arrDaySales
+        }]
+      },
+      options: gradientChartOptionsConfiguration
+    });
+  },
+
+
+  initDashboardPageCharts: function(arrMonth, arrSales, arrRevenue, arrCount) {
 
     chartColor = "#FFFFFF";
 
@@ -302,38 +445,38 @@ demo = {
     var cardStatsMiniLineColor = "#fff",
       cardStatsMiniDotColor = "#fff";
 
-    ctx = document.getElementById('lineChartExample').getContext("2d");
+    // ctx = document.getElementById('lineChartExample').getContext("2d");
 
-    gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-    gradientStroke.addColorStop(0, '#80b6f4');
-    gradientStroke.addColorStop(1, chartColor);
+    // gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+    // gradientStroke.addColorStop(0, '#80b6f4');
+    // gradientStroke.addColorStop(1, chartColor);
 
-    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    // gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
 
-    myChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Active Users",
-          borderColor: "#f96332",
-          pointBorderColor: "#FFF",
-          pointBackgroundColor: "#f96332",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          backgroundColor: gradientFill,
-          borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
-        }]
-      },
-      options: gradientChartOptionsConfiguration
-    });
+    // myChart = new Chart(ctx, {
+    //   type: 'line',
+    //   responsive: true,
+    //   data: {
+    //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    //     datasets: [{
+    //       label: "Active Users",
+    //       borderColor: "#f96332",
+    //       pointBorderColor: "#FFF",
+    //       pointBackgroundColor: "#f96332",
+    //       pointBorderWidth: 2,
+    //       pointHoverRadius: 4,
+    //       pointHoverBorderWidth: 1,
+    //       pointRadius: 4,
+    //       fill: true,
+    //       backgroundColor: gradientFill,
+    //       borderWidth: 2,
+    //       data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
+    //     }]
+    //   },
+    //   options: gradientChartOptionsConfiguration
+    // });
 
 
     ctx = document.getElementById('lineChartExampleWithNumbersAndGrid').getContext("2d");
@@ -347,42 +490,13 @@ demo = {
     gradientFill.addColorStop(1, hexToRGB('#18ce0f', 0.4));
 
     myChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
+      type: "bar",
       data: {
         labels: arrMonth,
         datasets: [{
-          label: "Email Stats",
+          label: "수익률%",
+          backgroundColor: gradientFill,
           borderColor: "#18ce0f",
-          pointBorderColor: "#FFF",
-          pointBackgroundColor: "#18ce0f",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          backgroundColor: gradientFill,
-          borderWidth: 2,
-          data: arrRevenue
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithNumbersAndGrid
-    });
-
-    var e = document.getElementById("barChartSimpleGradientsNumbers").getContext("2d");
-
-    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, hexToRGB('#2CA8FF', 0.6));
-
-    var a = {
-      type: "bar",
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        datasets: [{
-          label: "Active Countries",
-          backgroundColor: gradientFill,
-          borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#2CA8FF",
           pointBorderWidth: 2,
@@ -391,7 +505,7 @@ demo = {
           pointRadius: 4,
           fill: true,
           borderWidth: 1,
-          data: [80, 99, 86, 96, 123, 85, 100, 75, 88, 90, 123, 155]
+          data: arrRevenue
         }]
       },
       options: {
@@ -413,19 +527,17 @@ demo = {
           yAxes: [{
             gridLines: 0,
             gridLines: {
-              zeroLineColor: "transparent",
+              zeroLineColor: "#D9D9D9", // 0 그리드 라인 회색
               drawBorder: false
             }
           }],
           xAxes: [{
-            display: 0,
             gridLines: 0,
             ticks: {
-              display: false
+              fontColor: "#595959"
             },
             gridLines: {
               zeroLineColor: "transparent",
-              drawTicks: false,
               display: false,
               drawBorder: false
             }
@@ -436,7 +548,101 @@ demo = {
             left: 0,
             right: 0,
             top: 15,
-            bottom: 15
+            bottom: -5
+          }
+        }
+      }
+    });
+
+    // myChart = new Chart(ctx, {
+    //   type: 'line',
+    //   responsive: true,
+    //   data: {
+    //     labels: arrMonth,
+    //     datasets: [{
+    //       label: "수익률%",
+    //       borderColor: "#18ce0f",
+    //       pointBorderColor: "#FFF",
+    //       pointBackgroundColor: "#18ce0f",
+    //       pointBorderWidth: 2,
+    //       pointHoverRadius: 4,
+    //       pointHoverBorderWidth: 1,
+    //       pointRadius: 4,
+    //       fill: true,
+    //       backgroundColor: gradientFill,
+    //       borderWidth: 2,
+    //       data: arrRevenue
+    //     }]
+    //   },
+    //   options: gradientChartOptionsConfigurationWithNumbersAndGrid
+    // });
+
+    var e = document.getElementById("barChartSimpleGradientsNumbers").getContext("2d");
+
+    gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, hexToRGB('#2CA8FF', 0.6));
+
+    var a = {
+      type: "bar",
+      data: {
+        labels: arrMonth,
+        datasets: [{
+          label: "Active Countries",
+          backgroundColor: gradientFill,
+          borderColor: "#2CA8FF",
+          pointBorderColor: "#FFF",
+          pointBackgroundColor: "#2CA8FF",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          borderWidth: 1,
+          data: arrCount
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        tooltips: {
+          bodySpacing: 4,
+          mode: "nearest",
+          intersect: 0,
+          position: "nearest",
+          xPadding: 10,
+          yPadding: 10,
+          caretPadding: 10
+        },
+        responsive: 1,
+        scales: {
+          yAxes: [{
+            gridLines: 0,
+            gridLines: {
+              zeroLineColor: "#D9D9D9", // 0 그리드 라인 회색
+              drawBorder: false
+            }
+          }],
+          xAxes: [{
+            gridLines: 0,
+            ticks: {
+              fontColor: "#595959"
+            },
+            gridLines: {
+              zeroLineColor: "transparent",
+              display: false,
+              drawBorder: false
+            }
+          }]
+        },
+        layout: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 15,
+            bottom: -5
           }
         }
       }

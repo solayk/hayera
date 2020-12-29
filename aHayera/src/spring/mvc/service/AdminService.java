@@ -50,4 +50,6 @@ public interface AdminService {
 	public void insertInventory(InventoryVO vo) throws Exception;
 	
 	public List<SalesVO> viewSalesData(SalesVO vo);
+	
+	public List<SalesVO> viewSalesDailyData(SalesVO vo);
 }

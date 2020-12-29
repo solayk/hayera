@@ -2,6 +2,7 @@ package spring.mvc.domain;
 
 public class SalesVO {
 	private String month; 		// 월
+	private String day; 		// 일
 	private int order_price; 	// 주문금액 총액
 	private int discount_price; // 할인금액 총액 (제품 할인 ONLY)
 	private int delivery_price; // 배송비 총액
@@ -10,12 +11,19 @@ public class SalesVO {
 	private int sales_price; 	// 적용판매가 총액
 	private int sales_cost; 	// 적용단가 총액
 	private int sales_revenue; 	// 수익 총액
+	private int each_qty; 		// 총 판매량
 	
 	public String getMonth() {
 		return month;
 	}
 	public void setMonth(String month) {
 		this.month = month;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
 	}
 	public int getOrder_price() {
 		return order_price;
@@ -64,6 +72,12 @@ public class SalesVO {
 	}
 	public void setSales_revenue(int sales_revenue) {
 		this.sales_revenue = sales_revenue;
+	}
+	public int getEach_qty() {
+		return each_qty;
+	}
+	public void setEach_qty(int each_qty) {
+		this.each_qty = each_qty;
 	}
 	
 }

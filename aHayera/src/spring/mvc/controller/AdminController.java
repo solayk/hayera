@@ -221,11 +221,19 @@ public class AdminController {
 	
 	
 	// ===== adminMain.jsp =====
-	//	전체 매출 현황 보여주기	
+	//	지난 12개월 매출 데이터 가져오기	
 	@RequestMapping("/viewSalesData.do")
 	@ResponseBody
 	public List<SalesVO> viewSalesData(SalesVO vo)	{ 
 		List<SalesVO> data = adminService.viewSalesData(vo); // 전체 재고 목록
+		return data;
+	}
+	
+	//	지난 4주 일별 매출 데이터 가져오기
+	@RequestMapping("/viewSalesDailyData.do")
+	@ResponseBody
+	public List<SalesVO> viewSalesDailyData(SalesVO vo)	{ 
+		List<SalesVO> data = adminService.viewSalesDailyData(vo); // 전체 재고 목록
 		return data;
 	}
 	

@@ -32,7 +32,7 @@
     <script src="js/bootstrap.js" type="text/javascript"></script>
     <script src="js/ct-navbar.js"></script>
 
-    <!-- 하예라 전용 JS Files   -->
+    <!-- 하예라 전용 JS Files   --> 
     <script src="./js/hayera.js"></script>
 
     <!--     Font Awesome     -->

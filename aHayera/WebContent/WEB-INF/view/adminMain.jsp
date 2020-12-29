@@ -59,12 +59,11 @@
           url: 'viewSalesData.do',
           dataType: 'json',
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
           success: function (data) {
-			
-        	// 월 데이터 저장
-        	var arrMonth = new Array();  
-        	var j = 0;
+
+            // 12개월간 월별 데이터 라벨 저장
+            var arrMonth = new Array();
+            var j = 0;
             for (let i = 11; i >= 0; i--) {
               let now = new Date();
               let newdate = now.setMonth(now.getMonth() - i);
@@ -72,24 +71,24 @@
               if (newMonth.length == 1) arrMonth[j++] = '0' + newMonth;
               else arrMonth[j++] = newMonth;
             }
-            
+
             // 매출 데이터 저장
             var arrSales = new Array(arrMonth.length);
-            
             // 수익률 데이터 저장
             var arrRevenue = new Array(arrMonth.length);
-            
-            console.log(((data[2].sales_revenue/data[2].payment_price)*100).toFixed(2));
-            
+            // 판매량 데이터 저장
+            var arrCount = new Array(arrMonth.length);
+
             for (i = 0; i < data.length; i++) {
-            	// 월별 매출 데이터 배열에 저장
-            	for (k = 0; k<arrMonth.length; k++) { 
-            		if(data[i].month.slice(5, 7) == arrMonth[k]) {
-            			arrSales[k] = data[i].payment_price;
-            			arrRevenue[k] = ((data[i].sales_revenue/data[i].payment_price)*100).toFixed(2);
-            		}
-            	}
-            	// 매출현황 테이블 작성
+              // 월별 매출 데이터 배열에 저장
+              for (k = 0; k < arrMonth.length; k++) {
+                if (data[i].month.slice(5, 7) == arrMonth[k]) {
+                  arrSales[k] = data[i].payment_price;
+                  arrRevenue[k] = ((data[i].sales_revenue / data[i].payment_price) * 100).toFixed(2);
+                  arrCount[k] = data[i].each_qty;
+                }
+              }
+              // 매출현황 테이블 작성
               $('.viewSalesData').append(
                 '<tr>'
                 + '<td style="text-align:right;">' + data[i].month + '</td>'
@@ -101,41 +100,105 @@
                 + '</tr>'
               )
             }
-            
+
             // 월별 매출 데이터 빈 값은 0 처리
-            for (k = 0; k<arrMonth.length; k++) {
-        		if(arrSales[k] == null) arrSales[k] = 0;
-        		if(arrRevenue[k] == null) arrRevenue[k] = 0;
-        	}
-            
-            console.log(arrRevenue);
-            
+            for (k = 0; k < arrMonth.length; k++) {
+              if (arrSales[k] == null) arrSales[k] = 0;
+              if (arrRevenue[k] == null) arrRevenue[k] = 0;
+              if (arrCount[k] == null) arrCount[k] = 0;
+            }
+
             // 데이터 차트 JS(demos.js)에 넘기기
-            demo.initDashboardPageCharts(arrMonth, arrSales, arrRevenue);
-            
+            demo.initDashboardPageCharts(arrMonth, arrSales, arrRevenue, arrCount);
+
           },
           error: function (e) {
             alert(e);
           }
         }); // --- end of $.ajax 매출 현황 목록  
 
-        $("#sortTable").DataTable({
+        // 일 매출 데이터 불러오기
+        $.ajax({
+          url: 'viewSalesDailyData.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          success: function (data) {
+
+            // 4주간(28일) 일별 데이터 라벨 저장
+            var arrDay = new Array();
+            var z = 0;
+            for (let i = 27; i >= 0; i--) {
+              let curr = new Date();
+              let currdate = curr.setDate(curr.getDate() - i);
+              var currDay = String(formatDateForDay(currdate));
+              if (currDay.length == 1) arrDay[z++] = '0' + currDay;
+              else arrDay[z++] = currDay;
+            }
+
+            // 일 매출 데이터 저장 >> 일별 기준이라 월별 기준과 배열 크기 다름
+            var arrDaySales = new Array(arrDay.length);
+
+            for (i = 0; i < data.length; i++) {
+              // 월별 매출 데이터 배열에 저장
+              for (k = 0; k < arrDaySales.length; k++) {
+                if (data[i].day.slice(8, 10) == arrDay[k]) {
+                  arrDaySales[k] = data[i].payment_price;
+                }
+              }
+            }
+
+            // 일별 매출 데이터 빈 값은 0 처리
+            for (l = 0; l < arrDay.length; l++) {
+              if (arrDaySales[l] == null) arrDaySales[l] = 0;
+            }
+
+            console.log(arrDay);
+            console.log(arrDaySales);
+            
+         	// 데이터 차트 JS(demos.js)에 넘기기
+            demo.initSeparatePageCharts(arrDay, arrDaySales);
+
+          },
+          error: function (e) {
+            alert(e);
+          }
+        }); // --- end of $.ajax 일 매출 데이터 불러오기
+
+
+        $("#sortTable1").DataTable({
+          columnDefs: [
+            { type: 'date', targets: [3] }
+          ],
+        });
+
+        $("#sortTable2").DataTable({
           columnDefs: [
             { type: 'date', targets: [3] }
           ],
         });
 
         /* 불필요한 정보 삭제 */
-        $('#sortTable_wrapper > div:eq(0)').remove();
-        $('#sortTable_wrapper > div:eq(1)').remove();
+        $('#sortTable1_wrapper > div:eq(0)').remove();
+        $('#sortTable1_wrapper > div:eq(1)').remove();
+        $('#sortTable2_wrapper > div:eq(0)').remove();
+        $('#sortTable2_wrapper > div:eq(1)').remove();
 
       }); // --- end of document ready
 
+      // 최근 12개월 배열 생성 위한 함수
       function formatDate(date) {
         date = new Date(date);
         var monthIndex = date.getMonth() + 1;
         return monthIndex;
       }
+
+      // 최근 30일 배열 생성 위한 함수
+      function formatDateForDay(date) {
+        date = new Date(date);
+        var dayIndex = date.getDate();
+        return dayIndex;
+      }
+
 
     </script>
 
@@ -252,19 +315,6 @@
                 <div class="card-header">
                   <h5 class="card-category">회계</h5>
                   <h4 class="card-title">일 매출</h4>
-                  <div class="dropdown">
-                    <button type="button"
-                      class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret"
-                      data-toggle="dropdown">
-                      <i class="now-ui-icons loader_gear"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                      <a class="dropdown-item text-danger" href="#">Remove Data</a>
-                    </div>
-                  </div>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">
@@ -282,20 +332,7 @@
               <div class="card card-chart">
                 <div class="card-header">
                   <h5 class="card-category">회계</h5>
-                  <h4 class="card-title">수익률%</h4>
-                  <div class="dropdown">
-                    <button type="button"
-                      class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret"
-                      data-toggle="dropdown">
-                      <i class="now-ui-icons loader_gear"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                      <a class="dropdown-item text-danger" href="#">Remove Data</a>
-                    </div>
-                  </div>
+                  <h4 class="card-title">월 수익률%</h4>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">
@@ -304,7 +341,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
                   </div>
                 </div>
               </div>
@@ -322,7 +359,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
+                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
                   </div>
                 </div>
               </div>
@@ -337,7 +374,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <form action="" method='post' enctype='multipart/form-data'>
-                      <table class="table" id="sortTable">
+                      <table class="table" id="sortTable1">
                         <thead class="adminProduct_tableHeader">
                           <tr class="viewTableHeader">
                             <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">년월</th>
@@ -356,8 +393,43 @@
                       </table>
                     </form>
                   </div>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="col-lg-6 col-md-6">
+              <div class="card card-chart">
+                <div class="card-header">
+                  <h5 class="card-category">회계</h5>
+                  <h4 class="card-title">매출현황</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <form action="" method='post' enctype='multipart/form-data'>
+                      <table class="table" id="sortTable2">
+                        <thead class="adminProduct_tableHeader">
+                          <tr class="viewTableHeader">
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">년월</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">주문금액</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">할인금액</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">포인트</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">결제금액</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">수익</th>
+                          </tr>
+                        </thead>
 
+                        <!-- 고객 전체 목록 띄우는 곳 -->
+                        <tbody class="viewSalesData">
+                        </tbody>
+
+                      </table>
+                    </form>
+                  </div>
                 </div>
                 <div class="card-footer">
                   <div class="stats">

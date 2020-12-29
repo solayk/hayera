@@ -4,7 +4,7 @@ public class ReviewVO {
 	
 	private String review_id;
 	private String prod_no;
-	private int rate;
+	private double rate;
 	private String customer_id;
 	private String contents;
 	private String order_no;
@@ -12,6 +12,7 @@ public class ReviewVO {
 	private String birthday;
 	private String skintype;
 	private String gender;
+	
 	
 	
 	
@@ -51,10 +52,10 @@ public class ReviewVO {
 	public void setProd_no(String prod_no) {
 		this.prod_no = prod_no;
 	}
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 	public String getCustomer_id() {

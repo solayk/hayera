@@ -57,6 +57,16 @@ public class CustomerServicelmpl implements CustomerService {
    public int insertreview(ReviewVO vo) {
 	   return customerDAO.insertreview(vo);
    }
+
+
+public List<ReviewVO> selectReviewlist() {
+	return customerDAO.selectReviewlist();
+}
+
+
+public int insertReviewrating(ReviewVO vo) {
+	return customerDAO.insertReviewrating(vo);
+}
    
 
 }

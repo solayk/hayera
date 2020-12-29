@@ -63,5 +63,15 @@
    VALUES(REVIEW_SEQUENCE.NEXTVAL,#{prod_no},#{rate},#{customer_id},#{contents},#{order_no},sysdate)
    </insert>
    
+   <select id="selectReviewlist" resultType="review">
+   select round(avg(rate),1) rate, prod_no  from review group by prod_no
+   </select>
+   
+   <update id="updateReviewrating"  parameterType="review">
+   <![CDATA[
+   update product set AVG_RATING = #{rate} where prod_no=#{prod_no}
+     ]]>
+   </update>
+   
 
 </mapper>

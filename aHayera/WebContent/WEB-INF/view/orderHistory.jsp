@@ -338,11 +338,6 @@
 				}
 			})
 		});
-		// order_no 가져오기
-		/* 지워도 되나?
-		$('#writeReview').click(function() {
-			//alert($(this).val())
-		});*/
       }) // --- end of jquery
       
       // 장바구니에서 바로 결제 클릭 시

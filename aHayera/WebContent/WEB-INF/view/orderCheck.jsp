@@ -85,10 +85,10 @@
     	$("#totalSum").val(totalPrice+"원");        // 결제정보 _ 총 결제 금액 란
     	$("#payment").val(totalPrice+"원 결제하기");   // 최하단 submit 쪽 value
     	
-    	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 전부 입력됨 + 총 결제 금액에 계산되게.
+    	// 적립금 '전액사용' 버튼 클릭 시 보유한 적립금 중 주문상품 금액 만큼만 입력됨 + 총 결제 금액에 계산되게 
     	$("#button-addon").on('click',function(){
     		$(".form-control").val(point);
-    		if($(".form-control").val() > gcXdp){   // 주문상품 금액보다 적립금 사용이 많으면 안되니, 전액사용 버튼 클릭 시 주문상품 금액 만큼만 입력되게.
+    		if($(".form-control").val() > gcXdp){ 
     			alert("주문상품 금액에 맞춰 최대 적립금이 사용됩니다.");
     			$(".form-control").val(gcXdp);
     			$("#discount").val(totalPrice+"원");
@@ -109,7 +109,22 @@
     	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게 + 보유 적립금 이상 입력 못하게 + 주문상품 금액 이상 적립금 입력 못하게
     	$(".form-control").on('change', function () {
     		var pointUse = $(".form-control").val();
-    		if(pointUse > gcXdp){
+    		/*if(pointUse > gcXdp){
+    			alert("주문상품 금액 이상 적립금을 사용하실 수 없습니다.")
+    			$(".form-control").val(totalPrice);
+    			$("#discount").val(totalPrice+"원");
+    			$("#totalSum").val(0+"원");
+        		$("#payment").val(0+"원 결제하기");
+        		$("#point_use").val(gcXdp); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
+        		$("#payment_price").val(0); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
+    		}*/
+    		if(pointUse>point){
+    			alert("사용 가능한 적립금은 최대 "+points+"원 입니다.")
+    			$(".form-control").val(0);
+    			$("#discount").val(0+"원");
+    			$("#totalSum").val(totalPrice+"원");
+	    		$("#payment").val(totalPrice+"원 결제하기");
+    		}else if(pointUse > gcXdp){
     			alert("주문상품 금액 이상 적립금을 사용하실 수 없습니다.")
     			$(".form-control").val(totalPrice);
     			$("#discount").val(totalPrice+"원");
@@ -118,21 +133,13 @@
         		$("#point_use").val(gcXdp); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
         		$("#payment_price").val(0); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
     		}else{
-	    		if(pointUse>point){
-	    			alert("사용 가능한 적립금은 최대 "+point+"원 입니다.")
-	    			$(".form-control").val(0);
-	    			$("#discount").val(0+"원");
-	    			$("#totalSum").val(totalPrice+"원");
-		    		$("#payment").val(totalPrice+"원 결제하기");
-	    		}else{
-					$("#discount").val(pointUse+"원");
-					var money = gcXdp - pointUse;
-					var totalSum = money.formatNumber();
-					$("#point_use").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
-					$("#totalSum").val(totalSum+"원");
-		    		$("#payment").val(totalSum+"원 결제하기");
-		    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
-	    		}
+				$("#discount").val(pointUse+"원");
+				var money = gcXdp - pointUse;
+				var totalSum = money.formatNumber();
+				$("#point_use").val(pointUse); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
+				$("#totalSum").val(totalSum+"원");
+	    		$("#payment").val(totalSum+"원 결제하기");
+	    		$("#payment_price").val(money); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
     		}
 		});
     	// 주문 상품 정보 받아 오기
@@ -146,10 +153,10 @@
     		'<td>'+'무료배송'+'</td>'+
     		'</tr>'    	
     	);
-    	// 결제 버튼 클릭 시 _ 적립금 전액사용 버튼 클릭 후 결제 시 NaN 오류 해결 필요
+    	// 결제 버튼 클릭 시
         $("#payment").click(function(){
         	var pointUse = $(".form-control").val();
-        	var money = (goodsCount*discount_price)-pointUse;
+        	var money = (goodsCount*discount_price) - pointUse;
         	var totalSum = money.formatNumber();
         	confirm(totalSum+"원 결제하시겠습니까?");
         });

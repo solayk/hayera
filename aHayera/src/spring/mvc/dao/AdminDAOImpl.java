@@ -13,6 +13,7 @@ import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.Qna_ReplyVO;
+import spring.mvc.domain.SalesVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -92,4 +93,7 @@ public class AdminDAOImpl implements AdminDAO {
 		mybatis.insert("AdminDAO.insertInventory", vo);
 	}
 	
+	public List<SalesVO> viewSalesData(SalesVO vo) {
+		return mybatis.selectList("AdminDAO.viewSalesData", vo);
+	}
 }

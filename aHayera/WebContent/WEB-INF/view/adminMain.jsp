@@ -65,12 +65,12 @@
             for (i = 0; i < data.length; i++) {
               $('.viewSalesData').append(
                 '<tr>'
-                + '<td>' + data[i].customer_id + '</td>'
-                + '<td>' + data[i].tel + '</td>'
-                + '<td>' + data[i].name + '</td>'
-                + '<td>' + data[i].email + '</td>'
-                + '<td>' + data[i].address + '</td>'
-                + '<td>' + data[i].birthday + '</td>'
+                + '<td style="text-align:right;">' + data[i].month + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].order_price)) + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].discount_price)) + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].point_use)) + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].payment_price)) + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].sales_revenue)) + '</td>'
                 + '</tr>'
               )
             }
@@ -79,6 +79,16 @@
             alert(e);
           }
         }); // --- end of $.ajax 매출 현황 목록  
+        
+        $("#sortTable").DataTable({
+            columnDefs: [
+              { type: 'date', targets: [3] }
+            ],
+        });
+        
+        /* 불필요한 정보 삭제 */
+        $('#sortTable_wrapper > div:eq(0)').remove();
+        $('#sortTable_wrapper > div:eq(1)').remove();
 
       }); // --- end of document ready
 
@@ -151,7 +161,7 @@
                   <span class="navbar-toggler-bar bar3"></span>
                 </button>
               </div>
-              <a class="navbar-brand" href="">월 매출 그래프</a>
+              <a class="navbar-brand" href="" style="font-size: 30px">월 매출 그래프</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
               aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -285,12 +295,12 @@
                       <table class="table" id="sortTable">
                         <thead class="adminProduct_tableHeader">
                           <tr class="viewTableHeader">
-                            <th scope="col" style="max-width: 50px; min-width: 50px;">년월</th>
-                            <th scope="col" style="max-width: 50px; min-width: 50px;">주문금액</th>
-                            <th scope="col" style="max-width: 50px; min-width: 50px;">할인금액</th>
-                            <th scope="col" style="max-width: 50px; min-width: 50px;">포인트</th>
-                            <th scope="col" style="max-width: 50px; min-width: 50px;">결제금액</th>
-                            <th scope="col" style="max-width: 50px; min-width: 50px;">수익</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">년월</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">주문금액</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">할인금액</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">포인트</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">결제금액</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">수익</th>
                           </tr>
                         </thead>
 
@@ -306,7 +316,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
+                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
                   </div>
                 </div>
               </div>
@@ -335,7 +345,6 @@
       </div>
     </div>
     <!--   Core JS Files   -->
-    <script src="./js/jquery.min.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/perfect-scrollbar.jquery.min.js"></script>
@@ -349,6 +358,9 @@
     <script src="./js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
     <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
     <script src="./demo/demo.js"></script>
+    <!-- 하예라 전용 JS Files   -->
+    <script src="./js/hayera.js"></script>
+    
     <script>
       $(document).ready(function () {
         demo.initDashboardPageCharts(); // Javascript method's body can be found in assets/js/demos.js

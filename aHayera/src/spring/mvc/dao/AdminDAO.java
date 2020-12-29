@@ -9,6 +9,7 @@ import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.Qna_ReplyVO;
+import spring.mvc.domain.SalesVO;
 
 public interface AdminDAO {
 	
@@ -47,4 +48,6 @@ public interface AdminDAO {
 	public List<InventoryVO> viewInventory(InventoryVO vo);
 	
 	public void insertInventory(InventoryVO vo);
+	
+	public List<SalesVO> viewSalesData(SalesVO vo);
 }

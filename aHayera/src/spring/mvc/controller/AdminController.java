@@ -21,6 +21,7 @@ import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.Qna_ReplyVO;
+import spring.mvc.domain.SalesVO;
 import spring.mvc.service.AdminService;
 import spring.mvc.service.ViewService;
 
@@ -194,7 +195,7 @@ public class AdminController {
 	//	전체 재고 목록 보여주기	
 	@RequestMapping("/viewInventory.do")
 	@ResponseBody
-	public List<InventoryVO> viewInventory(InventoryVO vo, ProductVO pvo, Model model)	{ 
+	public List<InventoryVO> viewInventory(InventoryVO vo, ProductVO pvo)	{ 
 		List<InventoryVO> data = adminService.viewInventory(vo); // 전체 재고 목록
 		return data;
 	}
@@ -219,5 +220,13 @@ public class AdminController {
 	}
 	
 	
+	// ===== adminMain.jsp =====
+	//	전체 매출 현황 보여주기	
+	@RequestMapping("/viewSalesData.do")
+	@ResponseBody
+	public List<SalesVO> viewSalesData(SalesVO vo)	{ 
+		List<SalesVO> data = adminService.viewSalesData(vo); // 전체 재고 목록
+		return data;
+	}
 	
 }

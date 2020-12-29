@@ -14,6 +14,7 @@ import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.ProductVO;
 import spring.mvc.domain.QnaVO;
 import spring.mvc.domain.Qna_ReplyVO;
+import spring.mvc.domain.SalesVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -99,4 +100,9 @@ public class AdminServiceImpl implements AdminService {
 		pvo.setCost_price(vo.getExpected_price());
 		adminDAO.adminEditProduct(pvo);
 	}
+	
+	public List<SalesVO> viewSalesData(SalesVO vo) {
+		return adminDAO.viewSalesData(vo);
+	}
+	
 }

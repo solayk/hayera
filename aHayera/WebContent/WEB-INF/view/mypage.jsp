@@ -10,24 +10,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <!-- 타이틀 바 -->
-<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
+<link rel="shortcut icon" type="image/x-icon"
+	href="images/logo_only_transparent_small.png">
 <title>하예라</title>
 
 <link href="css/bootstrap.css" rel="stylesheet" />
 <link href="css/hayera.css" rel="stylesheet" />
 <!-- ↓ 장바구니 화살표 아이콘 -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link href="css/ct-navbar.css" rel="stylesheet" />
 
-<!-- 검색 autocomplete 목적-->
+<!-- <!-- 검색 autocomplete 목적-->
 <link href="autocomplete/jquery-ui.min.css" rel="stylesheet" />
 <link href="autocomplete/jquery-ui.structure.min.css" rel="stylesheet" />
 <link href="autocomplete/jquery-ui.theme.min.css" rel="stylesheet" />
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-<!-- 검색 autocomplete 목적-->
-<script src="autocomplete/jquery-ui.min.js"></script>
+검색 autocomplete 목적
+<script src="autocomplete/jquery-ui.min.js"></script> -->
 
 <script src="js/bootstrap.js" type="text/javascript"></script>
 <script src="js/ct-navbar.js"></script>
@@ -36,16 +39,22 @@
 <script src="./js/hayera.js"></script>
 
 <!--     Font Awesome     -->
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Grand+Hotel'
+	rel='stylesheet' type='text/css'>
+<script
+	src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
 
 
 <!-- Optional - Adds useful class to manipulate icon font display -->
 <link rel="stylesheet" href="css/pe-icon-7-stroke_helper.css">
 
 <!-- 주소찾기 -->
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <!-- mypage 절대 경로 -->
 <script src="js/mypageAddr.js"></script>
@@ -81,14 +90,11 @@ a {
 	text-align: left;
 }
 
-​ .atv, 
- .str {
+​ .atv, .str {
 	color: #05AE0E;
 }
 
-​ .tag,  
- .pln, 
- .kwd {
+​ .tag, .pln, .kwd {
 	color: #3472F7;
 }
 
@@ -124,8 +130,7 @@ a {
 	border-radius: 5px;
 }
 
-#search, 
-#searchBtn {
+#search, #searchBtn {
 	position: relative;
 	width: 300px;
 	padding: 0;
@@ -237,8 +242,7 @@ html .ui-autocomplete {
 	zoom: 1;
 }
 
-.ui-menu .ui-menu-item a.ui-state-hover, 
-.ui-menu .ui-menu-item a.ui-state-active
+.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active
 	{
 	font-weight: normal;
 	margin: -1px;
@@ -269,7 +273,7 @@ html .ui-autocomplete {
 	text-decoration: underline;
 }
 
-​ .costomer {
+ ​ .costomer {
 	position: absolute;
 	top: 50%;
 	left: 30%;
@@ -279,16 +283,6 @@ html .ui-autocomplete {
 
 login_wrap {
 	position: relative;
-}
-
-.costomer {
-	width: 500px;
-	height: 161px;
-	position: absolute;
-	left: -110px;
-	top: -500px;
-	z-index: 15;
-	padding: 40px 0 0 30px;
 }
 
 ​
@@ -308,9 +302,12 @@ login_wrap {
 	padding-right: 10px;
 }
 
-.edirAddress > div {
-	font-family: '레시피코리아';
+
+
+.label-input100{
+  font-family: '레시피코리아';
 }
+
 ​
 </style>
 
@@ -697,7 +694,14 @@ login_wrap {
 						id="bs-example-navbar-collapse-1">
 						​
 						<ul class="nav navbar-nav navbar-center">
-							<!--  모이스처, 선크림 삭제 -->
+							<li><a href="category.do?category=모이스처라이저"> <i
+									class="pe-7s-drop"> </i>
+									<p>모이스처라이저</p>
+							</a></li>
+							<li><a href="category.do?category=선크림"> <i
+									class="pe-7s-sun"> </i>
+									<p>선크림</p>
+							</a></li>
 						</ul>
 						​
 						<ul class="nav navbar-nav navbar-right">
@@ -726,149 +730,154 @@ login_wrap {
 									</div>
 								</ul></li>
 
-			<li class="dropdown"> 
-                  <!-- mainAfterLogin 에만 해당 -->
-                  <a href="#" class="dropdown-toggle">
-                    <i class="pe-7s-user"></i>
-                    <p>내 계정 <b class="caret"></b></p>
-                  </a>
-                  <ul class="dropdown-menu">
+							<li class="dropdown">
+								<!-- mainAfterLogin 에만 해당 --> <a href="#"
+								class="dropdown-toggle"> <i class="pe-7s-user"></i>
+									<p>
+										내 계정 <b class="caret"></b>
+									</p>
+							</a>
+								<ul class="dropdown-menu">
 
-                 <%--   <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li> --%>
-                    <li><a href="orderHistory.do">주문 내역</a></li> 
-                    <li><a href="logout.do">로그아웃</a></li>
-                  </ul>
-                </li>
-              </ul>
+									<%--   <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li> --%>
+									<li><a href="orderHistory.do">주문 내역</a></li>
+									<li><a href="logout.do">로그아웃</a></li>
+								</ul>
+							</li>
+						</ul>
 
-            </div><!-- /.navbar-collapse -->
+					</div>
+					<!-- /.navbar-collapse -->
 
-            <!-- 검색 -->
-            <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search"
-              method="get">
-              <div class="form-group">
-                <fieldset>
-                  <input type="search" id="search" name="search" placeholder="검색하기">
-                  <button type="submit" id="searchBtn">
-                    <i class="fa fa-search">
-                    </i>
-                  </button>
-                </fieldset>
-              </div>
-              <br>
-            </form>
+					<!-- 검색 -->
+					<form action="searchResult.do"
+						class="navbar-form navbar-right navbar-search-form" role="search"
+						method="get">
+						<div class="form-group">
+							<fieldset>
+								<input type="search" id="search" name="search"
+									placeholder="검색하기">
+								<button type="submit" id="searchBtn">
+									<i class="fa fa-search"> </i>
+								</button>
+							</fieldset>
+						</div>
+						<br>
+					</form>
 
-          </div><!-- /.container-fluid -->
+				</div>
+				<!-- /.container-fluid -->
 
-        </nav>
+			</nav>
 
-        <div class="blurred-container">
-          <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
-        </div>
-      </div><!--  end navbar -->
+			<div class="blurred-container">
+				<div class="img-src"
+					style="background-image: url('images/main_background_top.png')"></div>
+			</div>
+		</div>
+		<!--  end navbar -->
 
-    </div> <!-- end menu-dropdown -->
-  
+	</div>
+	<!-- end menu-dropdown -->
+
 	​
 	<div class="main">
 		<div class="container tim-container category_main"
 			style="max-width: 800px; padding-top: 20px">
 			<br> <br> <br> <br>
-		
 
-				<form id="frm" method="get" action="updateMypage.do">
-					<table>
-						<p class="costomer">
-						<div class="wrap-input100 validate-input"
-							data-validate="Repeat Password is required">
-							<span class="label-input100">아이디</span> <input class="input100"
-								type="text" name="customer_id" type="text"
-								value="${result.customer_id}" readonly> <span
-								class="focus-input100"></span>
+
+			<form id="frm" method="get" action="updateMypage.do">
+				<table>
+					<p class="costomer">​
+					<div class="wrap-input100 validate-input wcustomer_id"
+						data-validate="Repeat Password is required">
+						<span class="label-input100">아이디</span> <input class="input100"
+							type="text" name="customer_id" type="text"
+							value="${result.customer_id}" readonly> <span
+							class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input wname"
+						data-validate="Name is required">
+						<span class="label-input100">이름</span> <input class="input100"
+							type="text" name= "name"  type="text" value="${result.name}"
+							readonly> <span class="focus-input100"></span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input wpop_btn"
+						data-validate="Password is required">
+						<span class="label-input100">비밀번호</span> <span
+							class="focus-input100"></span> <input type="button" name="pop_btn" id="pop_btn"
+							value="변경">
+						<!-- 비밀번호 변경 팝업창 -->
+						<span class="focus-input100"></span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input wtel"
+						data-validate="Username is required">
+						<span class="label-input100">전화번호</span> <input class="input100"
+							type="text" name="tel" value='${result.tel}'> <span
+							class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input wemail"
+						data-validate="Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Email</span>
+						<%-- <input class="input100" type="text" name="email"  value='${result.email}'> --%>
+						<input class="input100" type="text" name="email"
+							value="${result.email}"> <span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input edirAddress"
+						data-validate="Password is required">
+						<span class="label-input100">배송주소</span> <span
+							class="focus-input100"></span> <input class="mypageAddr"
+							type="button" value="변경" id="mypageAddr"><br> <input
+							type="text" placeholder="우편번호" id="zonecode" name="zonecode"
+							value="${juso[0]}">
+
+						<div>
+
+							<input type="text" size="35" placeholder="기본주소" id="addr"
+								name="addr" value="${juso[1]}">
 						</div>
-						<div class="wrap-input100 validate-input"
-							data-validate="Name is required">
-							<span class="label-input100">이름</span> <input class="input100"
-								type="text" name=name = "name" type="text"
-								value="${result.name}" readonly> <span
-								class="focus-input100"></span>
+						<div>
+							<input placeholder="동" id="extraAddr" name="extraAddr"
+								type="text" value="${juso[3]}">
+						</div>
+						<div>
+							<input type="text" placeholder="나머지주소" id="detailAddr"
+								name="detailAddr" value="${juso[2]}">
 						</div>
 
-
-						<div class="wrap-input100 validate-input"
-							data-validate="Password is required">
-							<span class="label-input100">비밀번호</span> <span
-								class="focus-input100"></span> <input type="button" id="pop_btn"
-								value="변경">
-							<!-- 비밀번호 변경 팝업창 -->
-							<span class="focus-input100"></span>
-						</div>
-
-
-						<div class="wrap-input100 validate-input"
-							data-validate="Username is required">
-							<span class="label-input100">전화번호</span> <input class="input100"
-								type="text" name="tel" value='${result.tel}'> <span
-								class="focus-input100"></span>
-						</div>
-						<div class="wrap-input100 validate-input"
-							data-validate="Valid email is required: ex@abc.xyz">
-							<span class="label-input100">Email</span>
-							<%-- <input class="input100" type="text" name="email"  value='${result.email}'> --%>
-							<input class="input100" type="text" name="email"
-								value="${result.email}"> <span class="focus-input100"></span>
-						</div>
-
-						<div class="wrap-input100 validate-input edirAddress"
-							data-validate="Password is required">
-							<span class="label-input100">배송주소</span> <span
-								class="focus-input100"></span> <input class="mypageAddr"
-								type="button" value="변경" id="mypageAddr"><br> <input
-								type="text" placeholder="우편번호" id="zonecode" name="zonecode"
-								value="${juso[0]}">
-								
-							<div>
-								
-								<input type="text" size="35" placeholder="기본주소"
-									id="addr" name="addr" value="${juso[1]}">
-							</div>
-							<div>
-								<input placeholder="동" id="extraAddr" name="extraAddr"
-									type="text" value="${juso[3]}">
-							</div>
-							<div>
-								<input type="text" placeholder="나머지주소" id="detailAddr"
-									name="detailAddr" value="${juso[2]}">
-							</div>
-
-							<tr>
-								<td><input type="button" id="ok_btn" value="확인"> <input
-									type="button" id="cancle_btn" value="취소"></td>
-							</tr>
-							</p>
-					</table>
-				</form>
+						<tr>
+							<td><input type="button" id="ok_btn" value="확인"> <input
+								type="button" id="cancle_btn" value="취소"></td>
+						</tr>
+						</p>
+				</table>
+			</form>
 
 
 
 
 
-				​ <br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>​
-			</div>
-			​
-			<div style="clear: both;"></div>
-			​
-			<p class="text-right legal-info">
-				HAYERA 하예라 서울특별시 금천구 가산디지털2로 123 월드메르디앙벤처센터<br> 대표: 김영권 외 3명 /
-				사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈 <br> 메일: admin@hayera.com
-				/ Copyright &copy;2020 hayera
-				<!-- end container -->
+			​ <br> <br> <br> <br> <br> <br> <br>
+			<br> <br> <br> <br> <br> <br> <br>
+			<br> <br> <br> <br> <br> <br> <br>
+			<br> <br> <br> <br> <br> <br> <br>​
 		</div>
-		<!-- end main -->
 		​
+		<div style="clear: both;"></div>
+		​
+		<p class="text-right legal-info">
+			HAYERA 하예라 서울특별시 금천구 가산디지털2로 123 월드메르디앙벤처센터<br> 대표: 김영권 외 3명 /
+			사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈 <br> 메일: admin@hayera.com /
+			Copyright &copy;2020 hayera
+			<!-- end container -->
+	</div>
+	<!-- end main -->
 </body>
 
 

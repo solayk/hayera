@@ -60,11 +60,19 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+
+.label-input100{
+  font-family: '레시피코리아';
+}
+
+
 </style>
 
 
 
 <script type="text/javascript">
+//jquery 시작
 	$(function() {
 
 		$.validator.addMethod("regex", function(value, element, regexpr) { //validate 시작함수
@@ -287,8 +295,8 @@
 
 
 			<input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="last_btn"
-				value="변경"> <input type="button"
-				style="WIDTH: 60pt; HEIGHT: 30pt" id="last_btn" id="no_pw_btn"
+				value="변경"> 
+				<input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="last_btn" id="no_pw_btn"
 				value="취소">
 </body>
 

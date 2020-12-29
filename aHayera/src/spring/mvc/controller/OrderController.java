@@ -139,7 +139,7 @@ public class OrderController {
 	
 	// 장바구니 통해 여러 상품 주문결제
 	@RequestMapping("/paymentCompleteCart.do")
-	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo /*, ProductVO vo, Order_ProductVO opVo*/, HttpSession session) {
+	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, ProductVO vo/*, Order_ProductVO opVo*/, HttpSession session) {
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -173,7 +173,8 @@ public class OrderController {
 		
 		for(Order_ProductVO data : list) {
 			data.setOrder_no(order_no);
-			//data.setStock(vo.getStock());
+			vo.setProd_no(data.getProd_no());
+			data.setStock(viewMainpageService.productSelected(vo).getStock());
 		}
 
 		// 고객 적립금 차감
@@ -182,6 +183,8 @@ public class OrderController {
 		cvo.setPoints(points - use_points);  // 잔여 적립금을 고객 정보에 set
 		
 		// 재고 차감
+		
+		
 		
 		/*
 		// 주문하는 제품들의 제품No.

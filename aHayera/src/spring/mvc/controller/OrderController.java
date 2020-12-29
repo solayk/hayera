@@ -184,27 +184,10 @@ public class OrderController {
 		
 		// 재고 차감
 		for(int i=0;i<list.size();i++) {
-			vo.setStock(oVoList.getOrder_ProductVOList().get(i).getStock() - oVoList.getOrder_ProductVOList().get(i).getEach_qty());
-			
-			System.out.println("========1.재고"+oVoList.getOrder_ProductVOList().get(i).getStock());
-			System.out.println("========2.주문수량"+oVoList.getOrder_ProductVOList().get(i).getEach_qty());
+			list.get(i).setStock(oVoList.getOrder_ProductVOList().get(i).getStock() - oVoList.getOrder_ProductVOList().get(i).getEach_qty());
 		}
 		
-		// 주문하는 제품들의 제품No.
-		/*System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(0).getProd_no());
-		System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(1).getProd_no());
-		
-		//opVo.setProd_no(oVoList.getOrder_ProductVOList().get(0).getProd_no());
-		
-		// 각 제품마다 현재 재고
-		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(0).getStock());
-		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(1).getStock());
-		// 각 제품마다 주문 수량
-		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(0).getEach_qty());
-		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(1).getEach_qty());*/
-		
-		
-		orderService.insertOrderFromCart(oVo, list, pvo, cvo, vo);
+		orderService.insertOrderFromCart(oVo, list, pvo, cvo);
 		
 		session.removeAttribute("inCart");
 		return "paymentComplete";

@@ -27,12 +27,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Transactional
-	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo, CustomerVO cvo, ProductVO vo) {
+	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo, CustomerVO cvo) {
 		orderDAO.insertOrder(oVo);
 		orderDAO.insertPayment(pvo);
 		orderDAO.updatePoints(cvo);
 		for(Order_ProductVO data : list) {
 			orderDAO.insertOrder_Product(data);
+			ProductVO vo = new ProductVO();
+			vo.setProd_no(data.getProd_no());
+			vo.setStock(data.getStock());
 			orderDAO.updateStock(vo);
 		}
 	}

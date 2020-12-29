@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,6 @@
 <link href="css/bootstrap.css" rel="stylesheet" />
 
 
-
 <script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 
 <!-- validate 유효성  -->
@@ -23,8 +22,10 @@
 <link rel="stylesheet" type="text/css" href="css/mypage_modify.css">
 
 <!-- ↓ 장바구니 화살표 아이콘 -->
-  <!-- ↓ 장바구니 화살표 아이콘 -->
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- ↓ 장바구니 화살표 아이콘 -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
+	rel="stylesheet">
 
 
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
@@ -42,13 +43,6 @@
 <script
 	src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-<!-- 제이쿼리 순서 중요 먼저 있어야 아래를 읽을 수가 있다. -->
-<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-
-<!-- mypage 절대 경로 -->
-<script src="js/mypageAddr.js"></script>
-
-<script src="js/bootstrap.js" type="text/javascript"></script>
 ​
 <script src="js/ct-navbar.js"></script>
 
@@ -62,14 +56,11 @@
 	text-align: center;
 }
 
-  .cartEachQty {
-            /* 장바구니 수량 칸 너비 */
-            padding-left: 10px;
-            padding-right: 10px;
-          }
-
-
-
+.cartEachQty {
+	/* 장바구니 수량 칸 너비 */
+	padding-left: 10px;
+	padding-right: 10px;
+}
 </style>
 
 
@@ -252,107 +243,63 @@ $(function(){
 							<!--  모이스처, 선크림 삭제 -->
 						</ul>
 						​
- 				<ul class="nav navbar-nav navbar-right">
+						<ul class="nav navbar-nav navbar-right">
 
-                <!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle">
-                    <i class="pe-7s-shopbag" id="cartSizeIcon">
-                      <span class="label" id="cartSize"></span>
-                    </i>
-                    <p>장바구니</p>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <table class="main_cart">
-                      <!-- 장바구니 동적 테이블 자리 -->
-                    </table>
-                    <div class="panel panel-info">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">총 결제금액</h3>
-                      </div>
-                      <div class="panel-body">
-                        <span id="cartSumPrice"></span> 원 &emsp;&emsp;
-                        <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                        <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로 결제</button>
-                      </div>
-                    </div>
-                  </ul>
+							<!-- KOSMO : NAVBAR에 카테고리 추가 시 사용 -->
+							<li class="dropdown"><a href="#" class="dropdown-toggle">
+									<!--   <i class="pe-7s-shopbag" id="cartSizeIcon"> --> <span
+									class="label" id="cartSize"></span> </i>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+				<!-- /.container-fluid -->
 
-                </li>
+			</nav>
 
-                <li class="dropdown">
-                  <!-- mainAfterLogin 에만 해당 -->
-                  <a href="#" class="dropdown-toggle">
-                    <i class="pe-7s-user"></i>
-                    <p>내 계정 <b class="caret"></b></p>
-                  </a>
-                  <ul class="dropdown-menu">
+			<div class="blurred-container">
+				<div class="img-src"
+					style="background-image: url('images/main_background_top.png')"></div>
+			</div>
+		</div>
+		<!--  end navbar -->
 
-         			<%--  <li><a href="mypage.do?customer_id=${sessionscope.login}">마이페이지</a></li>
-                    <li><a href="orderhistory.do">주문 내역</a></li>  --%>
-                    <li><a href="logout.do">로그아웃</a></li>
-                  </ul>
-                </li>
-              </ul>
+	</div>
+	<!-- end menu-dropdown -->
 
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
+	<div class="main">
+		<div class="container tim-container category_main"
+			style="max-width: 300px; padding-top: 20px">
 
-        </nav>
+			<form id="frm" method="get" action="updateMypage.do">
+				<table>
+					<p class="costomer">
+					<div class="wrap-input100 validate-input"
+						data-validate="Repeat Password is required">
+						<span class="label-input100">현재 비밀번호</span> <input
+							class="input100" name="password" type="password" id='password'
+							password /> <span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input"
+						data-validate="Name is required">
+						<span class="label-input100">새 비밀번호</span> <input class="input100"
+							name="password_new" id="password_new" type="password"
+							password_new /> <span class="focus-input100"></span>
+					</div>
 
-        <div class="blurred-container">
-          <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
-        </div>
-      </div><!--  end navbar -->
-
-    </div> <!-- end menu-dropdown -->
-
-   <div class="main">
-      <div class="container tim-container category_main"
-         style="max-width: 300px; padding-top: 20px">
-   
-            <form id="frm"  method="get" action="updateMypage.do">
-               <table>
-                  <p class="costomer">
-                  <div class="wrap-input100 validate-input"
-                     data-validate="Repeat Password is required">
-                     <span class="label-input100">현재 비밀번호</span>
-                     <input class="input100" name="password"  type="password" id='password' password/>
-                     <span class="focus-input100"></span>
-                  </div>
-                  <div class="wrap-input100 validate-input"
-                     data-validate="Name is required">
-                     <span class="label-input100">새 비밀번호</span>
-                     <input class="input100" name="password_new" id="password_new" type="password" password_new/>
-                     <span class="focus-input100"></span>
-                  </div>
-                  
-                  <div class="wrap-input100 validate-input"
-                     data-validate="Name is required">
-                     <span class="label-input100">새 비밀번호 확인</span>
-                     <input class="input100" name="password_new_ch" id="password_new_ch" type="password" password_new_ch />               
-                     <span class="focus-input100"></span>
-                  </div>
-                  
-                  
-                  
-                  </p>
-               </table>
-            </form>
-
-<!-- 현재 비밀번호 <input name="password"  type="text" id='password'/><br/>
-새 비밀번호 <input name="password_new" id="password_new" type="text"/><br/>
-새 비밀번호 확인 <input name="password_new_ch" id="password_new_ch" type="text"/><br/> -->
-<br>
-<br>
-<br>
-
-<input type="button" id="last_btn" value="변경">
-<input type="button" id="no_pw_btn" value="취소">
+					<div class="wrap-input100 validate-input"
+						data-validate="Name is required">
+						<span class="label-input100">새 비밀번호 확인</span> <input
+							class="input100" name="password_new_ch" id="password_new_ch"
+							type="password" password_new_ch /> <span class="focus-input100"></span>
+					</div>
 
 
 
+					</p>
+				</table>
+			</form>
 
 
-</body>
+			<input type="button" id="last_btn" value="변경">
+			<input type="button" id="no_pw_btn" value="취소">
 </html>

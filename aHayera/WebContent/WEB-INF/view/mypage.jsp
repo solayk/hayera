@@ -5,10 +5,12 @@
 <html>
 
 <head>
-<!--   타이틀 넣기   -->
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>HAYERA!</title>
+    <!-- 타이틀 바 -->
+<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
+<title>하예라</title>
+
 <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="js/bootstrap.js" type="text/javascript"></script>
 <link href="css/bootstrap.css" rel="stylesheet" />
@@ -44,8 +46,6 @@
 <!-- mypage 절대 경로 -->
 <script src="js/mypageAddr.js"></script>
 
-<script src="js/bootstrap.js" type="text/javascript"></script>
-​
 <script src="js/ct-navbar.js"></script>
 <style>
 .fa-heart {
@@ -154,7 +154,7 @@ login_wrap {
               
        
        $('#ok_btn').click(function(){
-    	 // alert('수정되었습니다.')
+    	  alert('수정되었습니다.')
     	  
     	  $('#frm').submit();
       }); 
@@ -545,7 +545,10 @@ login_wrap {
 					<label class="pe-4x"> 　　　　</label> <i class="pe-7s-id pe-5x"></i> <label
 					class="pe-4x">주문관리</label> <label class="pe-4x"></label> 　　　　　　　　　　　　<label
 					class="pe-4x">개인정보수정</label>
-				</a> <br> <br> <br> <br> <br>
+				</a> 
+				
+				<br> <br> <br> <br> <br>
+				
 				<form id="frm" method="get" action="updateMypage.do">
 					<table>
 						<p class="costomer">
@@ -594,21 +597,26 @@ login_wrap {
 							data-validate="Password is required">
 							<span class="label-input100">주소</span> <span
 								class="focus-input100"></span> <input class="mypageAddr" type="button" value="변경"
-								id="mypageAddr"> <input class="input100"
-								type="text" placeholder="우편번호" id="zonecode" name="zonecode"
+								id="mypageAddr"><br>
+								 <input type="text" placeholder="우편번호" id="zonecode" name="zonecode"
 								value="${juso[0]}">
 							<div>
+							
 							<input type="text" size="35"
 									placeholder="도로명주소 또는 지번주소" id="addr" name="addr" value="${juso[1]}">
 							</div>
+							<div>	
+								<input  placeholder="동" id="extraAddr" name="extraAddr" type="text" 
+								value="${juso[3]}"></div>
+							<div>
 							<input type="text" placeholder="상세 주소를 입력하세요"
-								id="detailAddr" name="detailAddr" value="${juso[2]}"> 
-								<input class="input100" name="extraAddr" type="text" placeholder="동" id="extraAddr"
-								value="${juso[3]}"> <span class="focus-input100"></span>
-						<tr>
-							<td><input type="button" id="ok_btn" value="확인"> 
+								id="detailAddr" name="detailAddr" value="${juso[2]}"></div> 
+								
+							<tr>
+							<td>
+							<input type="button" id="ok_btn" value="확인"> 
 							<input type="button" id="cancle_btn" value="취소">
-							
+						</td>
 						</tr>
 						</p>
 					</table>

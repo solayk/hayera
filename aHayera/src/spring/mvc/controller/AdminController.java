@@ -237,4 +237,12 @@ public class AdminController {
 		return data;
 	}
 	
+	//	아이템별 매출 데이터 가져오기
+	@RequestMapping("/viewProductSalesData.do")
+	@ResponseBody
+	public List<SalesVO> viewProductSalesData(SalesVO vo)	{ 
+		List<SalesVO> data = adminService.viewProductSalesData(vo); // 전체 재고 목록
+		return data;
+	}
+	
 }

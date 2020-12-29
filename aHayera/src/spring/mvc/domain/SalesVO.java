@@ -13,6 +13,10 @@ public class SalesVO {
 	private int sales_revenue; 	// 수익 총액
 	private int each_qty; 		// 총 판매량
 	
+	private String prod_no;		// 아이템번호
+	private String img_url;		// 이미지URL
+	
+	
 	public String getMonth() {
 		return month;
 	}
@@ -78,6 +82,20 @@ public class SalesVO {
 	}
 	public void setEach_qty(int each_qty) {
 		this.each_qty = each_qty;
+	}
+	
+	
+	public String getProd_no() {
+		return prod_no;
+	}
+	public void setProd_no(String prod_no) {
+		this.prod_no = prod_no;
+	}
+	public String getImg_url() {
+		return img_url;
+	}
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
 	}
 	
 }

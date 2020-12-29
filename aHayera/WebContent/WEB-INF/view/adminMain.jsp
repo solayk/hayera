@@ -4,7 +4,7 @@
 
 
   <!DOCTYPE html>
-  <html>
+  <html class="perfect-scrollbar-on">
 
   <head>
     <meta charset="utf-8" />
@@ -59,6 +59,7 @@
           url: 'viewSalesData.do',
           dataType: 'json',
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
           success: function (data) {
 
             // 12개월간 월별 데이터 라벨 저장
@@ -122,6 +123,7 @@
           url: 'viewSalesDailyData.do',
           dataType: 'json',
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
           success: function (data) {
 
             // 4주간(28일) 일별 데이터 라벨 저장
@@ -152,10 +154,7 @@
               if (arrDaySales[l] == null) arrDaySales[l] = 0;
             }
 
-            console.log(arrDay);
-            console.log(arrDaySales);
-            
-         	// 데이터 차트 JS(demos.js)에 넘기기
+            // 데이터 차트 JS(demos.js)에 넘기기
             demo.initSeparatePageCharts(arrDay, arrDaySales);
 
           },
@@ -164,8 +163,37 @@
           }
         }); // --- end of $.ajax 일 매출 데이터 불러오기
 
+        // 아이템별 매출 목록
+        $.ajax({
+          url: 'viewProductSalesData.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
+          success: function (data) {
+            for (i = 0; i < data.length; i++) {
+            	
+              // 아이템별 수익률 계산
+              var revRatio = ((data[i].sales_revenue / data[i].sales_price) * 100).toFixed(2);
+              	
+              // 아이템별 매출 테이블 작성
+              $('.viewProductSalesData').append(
+                '<tr>'
+                + '<td style="text-align:right;"><img src="/aHayera/resources/upload/' + data[i].img_url + '" style="width:50px;"></td>'
+                + '<td style="text-align:right;">' + data[i].prod_no + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].sales_price)) + '</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].sales_revenue)) + '</td>'
+                + '<td style="text-align:right;">' + revRatio + '%</td>'
+                + '<td style="text-align:right;">' + numberWithCommas(String(data[i].each_qty)) + '</td>'
+                + '</tr>'
+              )
+            }
+          },
+          error: function (e) {
+            alert(e);
+          }
+        }); // --- end of $.ajax 아이템별 매출 목록 목록  
 
-        $("#sortTable1").DataTable({
+        $("#sortTable").DataTable({
           columnDefs: [
             { type: 'date', targets: [3] }
           ],
@@ -178,8 +206,8 @@
         });
 
         /* 불필요한 정보 삭제 */
-        $('#sortTable1_wrapper > div:eq(0)').remove();
-        $('#sortTable1_wrapper > div:eq(1)').remove();
+        $('#sortTable_wrapper > div:eq(0)').remove();
+        $('#sortTable_wrapper > div:eq(1)').remove();
         $('#sortTable2_wrapper > div:eq(0)').remove();
         $('#sortTable2_wrapper > div:eq(1)').remove();
 
@@ -323,7 +351,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+                    <i class="now-ui-icons ui-2_time-alarm"></i> 지난 4주간
                   </div>
                 </div>
               </div>
@@ -341,7 +369,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
+                    <i class="now-ui-icons ui-2_time-alarm"></i> 지난 12개월간
                   </div>
                 </div>
               </div>
@@ -359,7 +387,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
+                    <i class="now-ui-icons ui-2_time-alarm"></i> 지난 12개월간
                   </div>
                 </div>
               </div>
@@ -374,7 +402,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <form action="" method='post' enctype='multipart/form-data'>
-                      <table class="table" id="sortTable1">
+                      <table class="table" id="sortTable">
                         <thead class="adminProduct_tableHeader">
                           <tr class="viewTableHeader">
                             <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">년월</th>
@@ -386,7 +414,7 @@
                           </tr>
                         </thead>
 
-                        <!-- 고객 전체 목록 띄우는 곳 -->
+                        <!-- 매출 현황 띄우는 곳 -->
                         <tbody class="viewSalesData">
                         </tbody>
 
@@ -396,7 +424,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
+                    <i class="now-ui-icons ui-2_time-alarm"></i> 지난 12개월간
                   </div>
                 </div>
               </div>
@@ -406,7 +434,7 @@
               <div class="card card-chart">
                 <div class="card-header">
                   <h5 class="card-category">회계</h5>
-                  <h4 class="card-title">매출현황</h4>
+                  <h4 class="card-title">아이템별 매출</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -414,17 +442,17 @@
                       <table class="table" id="sortTable2">
                         <thead class="adminProduct_tableHeader">
                           <tr class="viewTableHeader">
-                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">년월</th>
-                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">주문금액</th>
-                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">할인금액</th>
-                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">포인트</th>
-                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">결제금액</th>
-                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">수익</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">아이템</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">번호</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">판매합계</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">수익합계</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">수익률%</th>
+                            <th scope="col" style="max-width: 80px; min-width: 80px; text-align:right;">판매량</th>
                           </tr>
                         </thead>
 
-                        <!-- 고객 전체 목록 띄우는 곳 -->
-                        <tbody class="viewSalesData">
+                        <!-- 띄우는 곳 -->
+                        <tbody class="viewProductSalesData">
                         </tbody>
 
                       </table>
@@ -433,7 +461,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 12 Months
+                    <i class="now-ui-icons ui-2_time-alarm"></i> 총 누적 판매량
                   </div>
                 </div>
               </div>
@@ -461,12 +489,10 @@
         </footer>
       </div>
     </div>
-    <!--   Core JS Files   -->
+    <!-- Core JS Files   -->
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/perfect-scrollbar.jquery.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
     <!-- Chart JS -->
     <script src="./js/chartjs.min.js"></script>
     <!--  Notifications Plugin    -->

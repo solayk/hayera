@@ -109,4 +109,8 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.viewSalesDailyData(vo);
 	}
 	
+	public List<SalesVO> viewProductSalesData(SalesVO vo) {
+		return adminDAO.viewProductSalesData(vo);
+	}
+	
 }

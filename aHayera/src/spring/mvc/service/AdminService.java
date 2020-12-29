@@ -52,4 +52,6 @@ public interface AdminService {
 	public List<SalesVO> viewSalesData(SalesVO vo);
 	
 	public List<SalesVO> viewSalesDailyData(SalesVO vo);
+	
+	public List<SalesVO> viewProductSalesData(SalesVO vo);
 }

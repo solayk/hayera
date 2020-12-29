@@ -21,12 +21,7 @@
                <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
                <link href="css/ct-navbar.css" rel="stylesheet" />
 
-
-
-
-
                <script src="js/jquery-1.10.2.js" type="text/javascript"></script>
-
 
 
                <script src="js/bootstrap.js" type="text/javascript"></script>
@@ -34,6 +29,7 @@
 
                <!-- 하예라 전용 JS Files   -->
                <script src="./js/hayera.js"></script>
+               <link href="css/hayera.css" rel="stylesheet" />
 
                <!--     Font Awesome     -->
                <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -395,7 +391,7 @@
                                     <li class="dropdown">
                                        <a href="#" class="dropdown-toggle">
                                           <i class="pe-7s-user"></i>
-                                          <p>내 계정 <b class="caret"></b></p>
+                                          <p>내 계정 <b class="caretHayera"></b></p>
                                        </a>
                                        <ul class="dropdown-menu">
                                           <!-- mainAfterLogin 에만 해당 -->

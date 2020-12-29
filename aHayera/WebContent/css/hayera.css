@@ -101,3 +101,15 @@
 	transform:scale(1.07);	/* 이미지 확대 */
    	transition: transform .5s;	/*  시간 설정  */
 }
+
+.caretHayera {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-top: 4px solid #125288;
+	border-right: 4px solid transparent;
+	border-bottom: 0 dotted;
+	border-left: 4px solid transparent;
+}

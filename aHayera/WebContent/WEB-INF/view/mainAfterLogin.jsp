@@ -671,7 +671,7 @@
                   <!-- mainAfterLogin 에만 해당 -->
                   <a href="#" class="dropdown-toggle">
                     <i class="pe-7s-user"></i>
-                    <p>내 계정 <b class="caret"></b></p>
+                    <p>내 계정 <b class="caretHayera"></b></p>
                   </a>
                   <ul class="dropdown-menu">
 

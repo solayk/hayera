@@ -21,6 +21,8 @@
 
 			.modal-title {
 				color: #125288;
+				font-size: 30px;
+				font-family: "레시피코리아";
 			}
 
 			.admin_login {
@@ -32,7 +34,7 @@
 				margin-right: auto; /* 배치 중앙정렬 */
 				text-align: center;
 				position: relative;
-				background-color: #C6E5F3;
+				background-color: white;
 				border: 1px solid #999999;
 				border: 1px solid rgba(0, 0, 0, 0.2);
 				border-radius: 6px;
@@ -62,6 +64,12 @@
 			}
 			.adminLoginInput:focus {
 				border-color: #125288;
+			}
+			#adminLoginBtn {
+				font-size: 20px;
+				font-family: "레시피코리아";
+				background-color: transparent;
+				border: none;
 			}
 		</style>
 
@@ -107,7 +115,7 @@
 								<input id="manager_password" class="adminLoginInput" type="password" placeholder="비밀번호"
 									name="manager_password">
 								<br>
-								<input id="adminLoginBtn" type="button" value="로그인">
+								<input class="adminLoginBtn" id="adminLoginBtn" type="button" value="로그인">
 							</form>
 						</div>
 					</div>

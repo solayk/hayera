@@ -552,11 +552,13 @@
                               </c:if>
                                  <c:if test="${not empty qna.reply_contents}">
                              <ul>
-                                  <li style="list-style: none; padding-left: 80px">
+                                  <li style="list-style: none; padding-left: 70px">
+                                  <img alt="" src="/aHayera/images/point.jpg" style="width:30px; height: 30px;">
                                   <img alt="" src="/aHayera/images/adminicon.svg" style="width:20px; height: 20px;">
+                                  
                                   ${qna.reply_contents }
                                     <br />
-                                    ${qna.replyday }
+                                   <span style="padding-left: 50px"> ${qna.replyday }</span>
                                  </li>
                               </ul>
                               </c:if>

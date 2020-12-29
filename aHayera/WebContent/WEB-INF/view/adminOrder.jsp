@@ -239,12 +239,6 @@
                       <p>재고 관리</p>
                     </a>
                   </li>
-                  <li>
-                    <a href="adminSales.do">
-                      <i class="now-ui-icons business_chart-pie-36"></i>
-                      <p>매출 분석</p>
-                    </a>
-                  </li>
                 </ul>
               </div>
             </div>

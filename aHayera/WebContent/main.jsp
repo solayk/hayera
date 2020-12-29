@@ -264,7 +264,7 @@
 
     <script type="text/javascript">
 
-      // 관리자 아이디 세션 확인 작업
+      // 아이디 세션 확인 작업
       var sessionId = '<%=session.getAttribute("login")%>';
       if (sessionId != 'null') { /* 세션 Id가 살아있으면 mainAfterLogin.jsp로 리디렉션 */
         location.href = "mainAfterLogin.do";
@@ -529,14 +529,10 @@
             async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
             success: function (data) {
 
-              console.log("길이: " + data.length);
-
               $('.viewFilteredProduct').empty();
 
               // 상품목록 배열 처리
               for (i = 0; i < data.length; i++) {
-
-                console.log("체크: " + data[i].prod_no);
 
                 var rating = parseFloat(data[i].avg_rating).toFixed(1);
                 var star = starRating(rating);
@@ -560,6 +556,8 @@
                 )
 
               }
+              
+              if (data.length == 0) $('.viewFilteredProduct').append('<div class="text-center hayera" style="font-size:20px; color:gray;">검색 결과가 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>')
 
               $('.viewFilteredProduct').parent('div').show();
               $('.viewTopFour').parent('div').hide();

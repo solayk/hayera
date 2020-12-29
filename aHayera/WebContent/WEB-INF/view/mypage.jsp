@@ -332,10 +332,16 @@ login_wrap {
 				function() {
 
 					window.open('POP_changePw.do', "popupNo1",
-							"width=400, height=460");
+							'left='+(screen.availWidth-660)/2+',top='+(screen.availHeight-430)/2+', width=660px,height=430px',
+							"scrollbars=no");
 
 				})
 
+				
+
+
+				
+				
 		$('.pe-7s-wallet').click(function() {
 
 			location.href = "orderHistory.do";

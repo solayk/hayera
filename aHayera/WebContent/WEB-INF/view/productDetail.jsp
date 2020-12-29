@@ -262,7 +262,7 @@
                   function clickGopay() {
                      var id = '<%=(String)session.getAttribute("login")%>'
                      if (id == 'null') {
-                        location.href = "login.do";
+                    	 window.location.href = "login.do";
                      } else {
                         var form = document.goodsCountform;
                         form.submit();
@@ -271,7 +271,12 @@
 
                   // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
                   function clickGoFromCart() {
-                     window.location.href = "orderFromCart.do";
+               	  	var id = '<%=(String)session.getAttribute("login")%>';
+                   	if(id=='null'){
+                   		window.location.href = "login.do";
+                   	}else{
+                   		window.location.href = "orderFromCart.do";
+                   	}
                   }
 
                   // '장바구니 추가' 클릭 시

@@ -576,8 +576,13 @@
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
       function clickGoFromCart() {
-        window.location.href = "orderFromCart.do";
-      }
+    	var id = '<%=(String)session.getAttribute("login")%>';
+      	if(id=='null'){
+      		window.location.href = "login.do";
+      	}else{
+      		window.location.href = "orderFromCart.do";
+      	}
+      };
 
 
 

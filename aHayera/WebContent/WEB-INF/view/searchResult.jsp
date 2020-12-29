@@ -485,9 +485,14 @@
           }); // --- end of jquery document ready
 
           // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
-          function clickGopay() {
-            window.location.href = "orderCheck.jsp";
-          }
+          function clickGoFromCart() {
+        	var id = '<%=(String)session.getAttribute("login")%>';
+        	if(id=='null'){
+        		window.location.href = "login.do";
+        	}else{
+        		window.location.href = "orderFromCart.do";
+        	}
+          };
 
 
 
@@ -693,7 +698,7 @@
                         <ul class="dropdown-menu">
                           <!-- mainAfterLogin 에만 해당 -->
                           <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                          <li><a href="#">주문목록</a></li>
+                          <li><a href="orderHistory.do">주문 내역</a></li>
                           <li><a href="logout.do">로그아웃</a></li>
                         </ul>
                       </li>

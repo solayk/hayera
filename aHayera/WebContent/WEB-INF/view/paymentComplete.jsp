@@ -326,6 +326,35 @@
         }); // --- end of 장바구니 #cartRemove 버튼
 
         var dataList; // 검색을 위해 전역변수 선언
+        
+     // 전체상품목록 (검색 활용 목적)
+        $.ajax({
+          url: 'viewAllProduct.do',
+          dataType: 'json',
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
+          success: function (data) {
+
+            // 상품목록 배열 처리
+            for (i = 0; i < data.length; i++) {
+
+              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
+              var star = starRating(rating);
+              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
+              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
+              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
+
+              productListing(".viewAllProduct", data, star, discount, mlprice);
+
+              data[i].value = data[i].prod_name; // 검색 자동완성 인식을 위해 JSON 데이터 추가
+            }
+
+            dataList = data; // 검색을 위한 데이터 저장
+          },
+          error: function (e) {
+            alert(e);
+          }
+        }); // --- end of $.ajax 전체상품목록
      
         // 검색 자동완성
         $("#search").autocomplete({
@@ -371,11 +400,11 @@
 	  }
 	  // 홈으로 클릭 시
       function clickGohome(){
-          location.href="main.jsp";
+    	  window.location.href="main.jsp";
       };
       // 주문 내역 보기 클릭 시
       function clickGoHistory(){
-          location.href="orderHistory.do";
+    	  window.location.href="orderHistory.do";
       };
   </script>
 </head>
@@ -407,14 +436,14 @@
 
               <ul class="nav navbar-nav navbar-center">
                 <li>
-                  <a href="#">
+                  <a href="category.do?category=모이스처라이저">
                       <i class="pe-7s-drop">
                       </i>
                       <p>모이스처라이저</p>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="category.do?category=선크림">
                       <i class="pe-7s-sun">
                       </i>
                       <p>선크림</p>
@@ -449,7 +478,7 @@
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle">
                           <i class="pe-7s-user"></i>
-                          <p>내 계정 <b class="caret"></b></p>
+                          <p>내 계정 <b class="caretHayera"></b></p>
                         </a>
                         <ul class="dropdown-menu">
                           <li><a href="mypage.do">마이페이지</a></li>
@@ -460,6 +489,8 @@
                </ul>
 
             </div><!-- /.navbar-collapse -->
+            
+            <!-- 검색 -->
             <form action="searchResult.do" class="navbar-form navbar-right navbar-search-form" role="search" method="get">                  
               <div class="form-group">
                 <fieldset>
@@ -485,29 +516,6 @@
 </div> <!-- end menu-dropdown -->
 
 <div class="main">
-    <div class="filter-window">
-      <ul class="filter-review">
-        <label style="font-size:18px;">평균평점</label>
-        <li><img src="./images/star_4.png"> 별 4개 이상</li>
-        <li><img src="./images/star_3.png"> 별 3개 이상</li>
-        <li><img src="./images/star_2.png"> 별 2개 이상</li>
-        <li><img src="./images/star_1.png"> 별 1개 이상</li>
-      </ul> <!-- /.filter-review -->
-      <ul class="filter-feeling">
-        발림성
-        <li><input type="checkbox" name="feeling" id="water"> 흐름</li>
-        <li><input type="checkbox" name="feeling" id="soft"> 부드러움</li>
-        <li><input type="checkbox" name="feeling" id="mat"> 매트</li>
-        <li><input type="checkbox" name="feeling" id="hard"> 하드</li>
-      </ul> <!-- /.filter-feeling -->
-      <ul class="filter-favor">
-        향
-        <li><input type="checkbox" name="favor" id="no"> 무향</li>
-        <li><input type="checkbox" name="favor" id="flower"> 꽃</li>
-        <li><input type="checkbox" name="favor" id="oe"> 오이</li>
-        <li><input type="checkbox" name="favor" id="chem"> 화학제품</li>
-      </ul> <!-- /.filter-feeling -->
-    </div> <!-- /.filter-window -->
     <div class="container tim-container" style="max-width:800px; padding-top:20px">
         <h3 class="text-center hayera">주문 성공!</h3>
        <hr/>

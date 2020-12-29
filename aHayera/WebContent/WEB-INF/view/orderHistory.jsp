@@ -282,7 +282,7 @@
      	  // 아이디 세션 확인 작업
           var sessionId = '<%=session.getAttribute("login")%>';
           if (sessionId == 'null') { /* 세션 Id가 죽었으면 mainAfterLogin.jsp로 리디렉션 */
-            location.href = "mainAfterLogin.do";
+            window.location.href = "mainAfterLogin.do";
           }
         
           // 리뷰 작성 팝업 띄우기
@@ -614,7 +614,7 @@
 
       // 장바구니에서 바로 결제 클릭 시
       function clickGoFromCart(){
-                    window.location.href = "orderFromCart.do";
+        	  window.location.href = "orderFromCart.do";
       }
         </script>
         
@@ -691,7 +691,7 @@
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle">
                         <i class="pe-7s-user"></i>
-                        <p>내 계정 <b class="caret"></b></p>
+                        <p>내 계정 <b class="caretHayera"></b></p>
                       </a>
                       <ul class="dropdown-menu">
                         <li><a href="mypage.do">마이페이지</a></li>

@@ -53,8 +53,16 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	public void updatePoints(CustomerVO vo) {
-		mybatis.update("OrderDAO.updatePoints", vo);
+		mybatis.update("OrderDAO.updatePoints",vo);
 		
+	}
+
+	public void updateStock(ProductVO vo) {
+		mybatis.update("OrderDAO.updateStock",vo);
+	}
+
+	public void updateTotalsales(ProductVO vo) {
+		mybatis.update("OrderDAO.updateTotalsales",vo);
 	}
 
 }

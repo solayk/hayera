@@ -100,4 +100,20 @@
 	]]>
 </update>
 
+<update id="updateStock" parameterType="product">
+	<![CDATA[
+	UPDATE product
+	SET stock = #{stock}
+	WHERE prod_no = #{prod_no}
+	]]>
+</update>
+
+<update id="updateTotalsales">
+	<![CDATA[
+	UPDATE product
+	SET totalsales = #{totalsales}
+	WHERE prod_no = #{prod_no}
+	]]>
+</update>
+
 </mapper>

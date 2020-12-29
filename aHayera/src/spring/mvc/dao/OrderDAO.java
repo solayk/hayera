@@ -29,4 +29,8 @@ public interface OrderDAO {
 	public void insertPayment(PaymentVO vo);
 	
 	public void updatePoints(CustomerVO vo);
+	
+	public void updateStock(ProductVO vo);
+	
+	public void updateTotalsales(ProductVO vo);
 }

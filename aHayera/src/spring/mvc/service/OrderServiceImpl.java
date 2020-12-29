@@ -68,4 +68,12 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.updatePoints(vo);
 	}
 
+	public void updateStock(ProductVO vo) {
+		orderDAO.updateStock(vo); 
+	}
+
+	public void updateTotalsales(ProductVO vo) {
+		orderDAO.updateTotalsales(vo);
+	}
+
 }

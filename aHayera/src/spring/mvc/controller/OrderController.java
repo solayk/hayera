@@ -79,7 +79,7 @@ public class OrderController {
 	
 	// 주문 (현재는 로그인 한 회원의 정보를 주문 테이블 데이터로 저장하는 메소드가 되어버렸음.. 즉, 기본 배송지 설정 or '회원 정보와 동일' 선택한 상태의 주문 정보 저장임.)
 	@RequestMapping("/paymentComplete.do")
-	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, PaymentVO pvo, HttpSession session){
+	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, PaymentVO pvo, ProductVO vo, HttpSession session){
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -121,12 +121,25 @@ public class OrderController {
 		int points = info.getPoints();      // 로그인한 회원의 보유 적립금
 		int use_points = ol.getPoint_use(); // 주문 시 사용한 적립금
 		cvo.setPoints(points - use_points); // 잔여 적립금을 고객 정보에 set
-		orderService.updatePoints(cvo);     
+		orderService.updatePoints(cvo);
+		
+		// 재고 차감, 총 판매량 업데이트
+		String prod_no = op.getProd_no();  // 주문한 제품No
+		vo.setProd_no(prod_no);
+		
+		int stock = viewMainpageService.productSelected(vo).getStock(); // 주문 제품의 현재 재고
+		int amount = op.getEach_qty();     // 주문 수량
+		vo.setStock(stock - amount);
+		int totalSales = viewMainpageService.productSelected(vo).getTotalsales(); // 주문 제품의 현재 총 판매량
+		vo.setTotalsales(totalSales + amount);
+		
+		orderService.updateStock(vo);
+		orderService.updateTotalsales(vo);
 	};
 	
 	// 장바구니 통해 여러 상품 주문결제
 	@RequestMapping("/paymentCompleteCart.do")
-	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, HttpSession session) {
+	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo /*, ProductVO vo, Order_ProductVO opVo*/, HttpSession session) {
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -160,12 +173,30 @@ public class OrderController {
 		
 		for(Order_ProductVO data : list) {
 			data.setOrder_no(order_no);
+			//data.setStock(vo.getStock());
 		}
 
 		// 고객 적립금 차감
 		int points = info.getPoints();       // 로그인한 회원의 보유 포인트
 		int use_points = oVo.getPoint_use(); // 주문 시 사용한 적립금
 		cvo.setPoints(points - use_points);  // 잔여 적립금을 고객 정보에 set
+		
+		// 재고 차감
+		
+		/*
+		// 주문하는 제품들의 제품No.
+		System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(0).getProd_no());
+		System.out.println("========== 제품NO : "+oVoList.getOrder_ProductVOList().get(1).getProd_no());
+		
+		opVo.setProd_no(oVoList.getOrder_ProductVOList().get(0).getProd_no());
+		
+		// 각 제품마다 현재 재고
+		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(0).getStock());  //0 못받아와
+		System.out.println("========== 현재 재고 : "+oVoList.getOrder_ProductVOList().get(1).getStock());
+		// 각 제품마다 주문 수량
+		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(0).getEach_qty());
+		System.out.println("========== 주문 수량 : "+oVoList.getOrder_ProductVOList().get(1).getEach_qty());
+		*/
 		
 		orderService.insertOrderFromCart(oVo, list, pvo, cvo);
 		

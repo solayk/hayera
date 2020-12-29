@@ -110,12 +110,14 @@
                      height: 50px;
                      font-size: 17px;
                      color: white;
-                     font-weight: bold;
+                     font-family: '레시피코리아';
+                     border-color: #084A83;
                   }
 
                   .detail-board-list a,
                   .orderbyy, .btnqna {
                      cursor: pointer;
+                     font-family: '레시피코리아';
                   }
 
                   /* li 앞 . 삭제 */
@@ -127,8 +129,9 @@
                   .writeqna {
                      border-radius: 50px;
                      color: #fff;
-                     background-color: #22456C;
-                     font-weight: bold;
+                     background-color: #084A83;
+                     font-family : 'Calibri';
+                     font-weight : bold;
                      width: 150px;
                   }
 
@@ -146,10 +149,13 @@
                   }
                   .title{
                   color: #666;
+                  font-family: '레시피코리아';
                   }
-                  .body{
-                  	font-family: serif;
+                  .detail-product-product_name{
+                  font-family: '레시피코리아';
+                  font-size: 25px;
                   }
+              
                   
                </style>
                <title>상세페이지</title>
@@ -220,6 +226,7 @@
 
                      $(document).on('click', '#cartRemove', function () {
 
+                    	
                         var info = {
                            prod_no: $(this).parent().parent('tr').find('td:nth-child(1)').text(),
                            remove: 'yes'
@@ -422,9 +429,9 @@
                            <img src="/aHayera/resources/upload/${productSelected.img_url }">
                         </div>
                         <div class="detail-product-list">
-                           <div class="detail_product-brand">${productSelected.brand }</div>
-                           <div class="detail-product-product_name">
-                              <h3>${productSelected.prod_name }</h3>
+                           <div class="detail_product-brand">${productSelected.brand }</div><br/>
+                           <div class="detail-product-product_name" >
+                              ${productSelected.prod_name }
                            </div>
                            <div class="detail-product-volume_price">
                               ${productSelected.capacity }ml / 정가: <span
@@ -445,7 +452,7 @@
                                           <td class="info__td">
 
                                              <!-- DB 추가 필요 -->
-                                             <div class="info__description">
+                                             <div class="info__description" style="font-family: 'Calibri'; font-size: 16px">
                                              	${productSelected.product_explain}<br/>
                                                 
                                              </div>
@@ -455,10 +462,10 @@
                                          <hr/>
                                        <tr class="detail-table-count"> 
                                       
-                                          <th class="info__th" width="50px" ><span class="title">수량</span></th>
+                                          <th class="info__th" width="50px" ><span class="title" >수량</span></th>
                                           <td class="info__td">
                                              <div class="countcheck">
-                                                <input id="spinner" type="text" value="1" name="goodsCount" />
+                                                <input id="spinner" type="text" value="1" name="goodsCount" style="text-align: center; width: 30px"/>
                                                 <button type="button" id='countup' class="btn btn-primary btn-xs"
                                                    onclick="change(1)">
                                                    <span class="glyphicon glyphicon-chevron-up"></span>
@@ -493,7 +500,7 @@
                      <div class='detail-board'>
                         <div class='detail-board-list'>
                            <div>
-                              <a><span id='reviewboard'>리뷰</span></a>
+                              <a><span id='reviewboard' style="width: 500px">리뷰</span></a>
                            </div>
                            <div>
                               <a><span id='qnaboard'>문의</span></a>
@@ -526,7 +533,7 @@
                            </div>
                         </article>
                         <article class="detail-boardmenu-qna">
-                           <input type="button" value="문의하기" class="writeqna" id="writeqna" style="float: right">
+                           <input type="button" value="문의하기" class="writeqna" id="writeqna" style="float: right; height: 30px">
                            <br />
 
                            <c:forEach items="${qnaList }" var="qna">

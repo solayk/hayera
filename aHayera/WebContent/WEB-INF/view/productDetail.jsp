@@ -114,7 +114,7 @@
                   }
 
                   .detail-board-list a,
-                  .orderbyy {
+                  .orderbyy, .btnqna {
                      cursor: pointer;
                   }
 
@@ -147,6 +147,10 @@
                   .title{
                   color: #666;
                   }
+                  .body{
+                  	font-family: serif;
+                  }
+                  
                </style>
                <title>상세페이지</title>
                <script type="text/javascript">
@@ -541,7 +545,9 @@
                               </c:if>
                                  <c:if test="${not empty qna.reply_contents}">
                              <ul>
-                                  <li style="list-style: none; padding-left: 80px">${qna.reply_contents }
+                                  <li style="list-style: none; padding-left: 80px">
+                                  <img alt="" src="/aHayera/images/adminicon.svg" style="width:20px; height: 20px;">
+                                  ${qna.reply_contents }
                                     <br />
                                     ${qna.replyday }
                                  </li>
@@ -651,7 +657,7 @@
                               '</div>' +
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>' +
-                              '<p class="contents">' + list[i].contents + '</p>' +
+                              '<p class="contents" style="padding-left: 50px">' + list[i].contents + '</p>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +
@@ -697,7 +703,7 @@
                               '</div>' +
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>' +
-                              '<p class="contents">' + list[i].contents + '</p>' +
+                              '<p class="contents" style="padding-left: 50px">' + list[i].contents + '</p>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +
@@ -742,7 +748,7 @@
                               '</div>' +
                               '</div>' +
                               '<div style="clear: both; padding-bottom: 20px;""></div>' +
-                              '<p class="contents">' + list[i].contents + '</p>' +
+                              '<p class="contents" style="padding-left: 50px">' + list[i].contents + '</p>' +
                               '</div>' +
                               '</li>' +
                               '</ul>' +

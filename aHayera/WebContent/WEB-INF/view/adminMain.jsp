@@ -61,8 +61,35 @@
           contentType: 'application/x-www-form-urlencoded;charset=utf-8',
           async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
           success: function (data) {
-
+			
+        	// 월 데이터 저장
+        	var arrMonth = new Array();  
+        	var j = 0;
+            for (let i = 11; i >= 0; i--) {
+              let now = new Date();
+              let newdate = now.setMonth(now.getMonth() - i);
+              var newMonth = String(formatDate(newdate));
+              if (newMonth.length == 1) arrMonth[j++] = '0' + newMonth;
+              else arrMonth[j++] = newMonth;
+            }
+            
+            // 매출 데이터 저장
+            var arrSales = new Array(arrMonth.length);
+            
+            // 수익률 데이터 저장
+            var arrRevenue = new Array(arrMonth.length);
+            
+            console.log(((data[2].sales_revenue/data[2].payment_price)*100).toFixed(2));
+            
             for (i = 0; i < data.length; i++) {
+            	// 월별 매출 데이터 배열에 저장
+            	for (k = 0; k<arrMonth.length; k++) { 
+            		if(data[i].month.slice(5, 7) == arrMonth[k]) {
+            			arrSales[k] = data[i].payment_price;
+            			arrRevenue[k] = ((data[i].sales_revenue/data[i].payment_price)*100).toFixed(2);
+            		}
+            	}
+            	// 매출현황 테이블 작성
               $('.viewSalesData').append(
                 '<tr>'
                 + '<td style="text-align:right;">' + data[i].month + '</td>'
@@ -74,23 +101,41 @@
                 + '</tr>'
               )
             }
+            
+            // 월별 매출 데이터 빈 값은 0 처리
+            for (k = 0; k<arrMonth.length; k++) {
+        		if(arrSales[k] == null) arrSales[k] = 0;
+        		if(arrRevenue[k] == null) arrRevenue[k] = 0;
+        	}
+            
+            console.log(arrRevenue);
+            
+            // 데이터 차트 JS(demos.js)에 넘기기
+            demo.initDashboardPageCharts(arrMonth, arrSales, arrRevenue);
+            
           },
           error: function (e) {
             alert(e);
           }
         }); // --- end of $.ajax 매출 현황 목록  
-        
+
         $("#sortTable").DataTable({
-            columnDefs: [
-              { type: 'date', targets: [3] }
-            ],
+          columnDefs: [
+            { type: 'date', targets: [3] }
+          ],
         });
-        
+
         /* 불필요한 정보 삭제 */
         $('#sortTable_wrapper > div:eq(0)').remove();
         $('#sortTable_wrapper > div:eq(1)').remove();
 
       }); // --- end of document ready
+
+      function formatDate(date) {
+        date = new Date(date);
+        var monthIndex = date.getMonth() + 1;
+        return monthIndex;
+      }
 
     </script>
 
@@ -360,12 +405,6 @@
     <script src="./demo/demo.js"></script>
     <!-- 하예라 전용 JS Files   -->
     <script src="./js/hayera.js"></script>
-    
-    <script>
-      $(document).ready(function () {
-        demo.initDashboardPageCharts(); // Javascript method's body can be found in assets/js/demos.js
-      });
-    </script>
 
   </body>
 

@@ -104,7 +104,7 @@ demo = {
   //   });
   // },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function(arrMonth, arrSales, arrRevenue) {
 
     chartColor = "#FFFFFF";
 
@@ -222,7 +222,7 @@ demo = {
     var myChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        labels: arrMonth,
         datasets: [{
           label: "Data",
           borderColor: chartColor,
@@ -237,7 +237,7 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
+          data: arrSales
         }]
       },
       options: {
@@ -350,7 +350,7 @@ demo = {
       type: 'line',
       responsive: true,
       data: {
-        labels: ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"],
+        labels: arrMonth,
         datasets: [{
           label: "Email Stats",
           borderColor: "#18ce0f",
@@ -363,7 +363,7 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [40, 500, 650, 700, 1200, 1250, 1300, 1900]
+          data: arrRevenue
         }]
       },
       options: gradientChartOptionsConfigurationWithNumbersAndGrid

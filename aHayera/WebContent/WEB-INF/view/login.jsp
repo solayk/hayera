@@ -20,27 +20,19 @@
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
 	<script src="/aHayera/js/jquery-3.5.1.min.js" type="text/javascript"></script>
-	<script src="/aHayera/js/bootstrap_login.js" type="text/javascript"></script>
+	<script src="/aHayera/js/bootstrap_login.js" type="text/javascript"></script> 
 	<script src="/aHayera/js/login-register.js" type="text/javascript"></script>
 
 </head>
 <body>
     <div class="container">
-      <!--   <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                 <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
-                 <a class="btn big-register" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a></div>
-            <div class="col-sm-4"></div>
-        </div>
- -->
 
 		 <div class="modal fade login" id="loginModal">
 		      <div class="modal-dialog login animated">
     		      <div class="modal-content">
     		         <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Login with HAYERA</h4>
+                        <h4 class="modal-title">로그인 with HAYERA</h4>
                     </div>
                     <div class="modal-body">
                         <div class="box">
@@ -58,23 +50,19 @@
                                     <input id="customer_id" class="form-control" type="text" placeholder="아이디를 입력하세요" name="customer_id">
                                     <input id="password" class="form-control" type="password" placeholder="비밀번호를 입력하세요" name="password">
                                     <input class="btn btn-default btn-login" type="button" value="Login" id="login">
+                                    <br/>
                                     </form>
                                 </div>
+                                <div style="text-align: center">
+                                    <a href="join.do">
+                            		회원가입
+                               		</a>을 원하시면 클릭해주세요
+                             </div>
                              </div>
                         </div>
                       
                     </div>
-                    <div class="modal-footer">
-                        <div class="forgot login-footer">
-                            <span>Looking to
-                                 <a href="join.do">create an account</a>
-                            ?</span>
-                        </div>
-                      <!--   <div class="forgot register-footer" style="display:none">
-                             <span>Already have an account?</span>
-                             <a href="">Login</a>
-                        </div> -->
-                    </div>
+                  
     		      </div>
 		      </div>
 		  </div>
@@ -121,6 +109,26 @@
         
         
     }); 
+  
+  
+  function openLoginModal(){
+	    showLoginForm();
+	    setTimeout(function(){
+	        $('#loginModal').modal('show');    
+	    }, 230);
+	    
+	};
+	
+  function showLoginForm(){
+	  //  $('#loginModal').fadeOut('fast',function(){
+	        $('.loginBox').fadeIn('fast');
+	      
+	        
+	   //     $('.modal-title').html('Login with');
+	  //  });       
+	   //  $('.error').removeClass('alert alert-danger').html('');
+	}
+
 </script>
 
 

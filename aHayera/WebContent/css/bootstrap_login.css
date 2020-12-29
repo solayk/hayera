@@ -2616,9 +2616,9 @@ input[type="button"].btn-block {
   opacity: 1;
 }
 
-.collapse {
+/* .collapse {
   display: none;
-}
+} */
 
 .collapse.in {
   display: block;
@@ -6037,10 +6037,10 @@ button.close {
   background-color: #000000;
 }
 
-.modal-backdrop.fade {
+/* .modal-backdrop.fade {
   opacity: 0;
   filter: alpha(opacity=0);
-}
+} */
 
 .modal-backdrop.in {
   opacity: 0.5;

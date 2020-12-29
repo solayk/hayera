@@ -716,7 +716,7 @@ login_wrap {
 									</div>
 								</ul></li>
 
-			<li class="dropdown">
+			<li class="dropdown"> 
                   <!-- mainAfterLogin 에만 해당 -->
                   <a href="#" class="dropdown-toggle">
                     <i class="pe-7s-user"></i>

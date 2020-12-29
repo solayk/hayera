@@ -66,6 +66,10 @@
   font-family: '레시피코리아';
 }
 
+#last_btn,
+#no_pw_btn{
+font-family: '레시피코리아';
+}
 
 </style>
 
@@ -296,7 +300,7 @@
 
 			<input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="last_btn"
 				value="변경"> 
-				<input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="last_btn" id="no_pw_btn"
+				<input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="no_pw_btn"
 				value="취소">
 </body>
 

@@ -308,7 +308,15 @@ login_wrap {
   font-family: '레시피코리아';
 }
 
+
+#ok_btn,
+#cancle_btn,
+#pop_btn{
+  font-family: '레시피코리아';
+}
 ​
+
+
 </style>
 
 <script type="text/javascript">
@@ -852,8 +860,8 @@ login_wrap {
 						</div>
 
 						<tr>
-							<td><input type="button" id="ok_btn" value="확인"> <input
-								type="button" id="cancle_btn" value="취소"></td>
+							<td><input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="ok_btn" value="확인"> 
+							<input type="button" style="WIDTH: 60pt; HEIGHT: 30pt" id="cancle_btn" value="취소"></td>
 						</tr>
 						</p>
 				</table>

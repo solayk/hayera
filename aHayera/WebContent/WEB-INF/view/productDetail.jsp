@@ -607,6 +607,7 @@
                   //qna게시판 눌렀을 때 qna로 
                   $('#qnaboard').click(function () {
                 	 
+                	
                      $('.detail-boardmenu').hide();
                      $('.detail-boardmenu-qna').show();
                      $('#taappend').hide();
@@ -629,6 +630,22 @@
                      $('.detail-boardmenu').show();
                   });
 
+                  $('#writeqna').hover(
+                		  function () {
+                	  $(this).css({
+                		  'background-color': 'white', 
+                		  'border-color' : '#084A83',
+                		  'color' : '#084A83'
+                	  }) },
+                	  function (){
+                		  $(this).css({
+                    		  'background-color': '#084A83', 
+                    		  'border-color' : '#084A83',
+                    		  'color' : 'white'
+                    	  })
+                	  }
+                	  
+                  )
                   //처음화면은 review
                   $(function () {
                      $('.detail-boardmenu-qna').hide();

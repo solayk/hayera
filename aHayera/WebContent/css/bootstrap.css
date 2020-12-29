@@ -7574,7 +7574,7 @@ td.visible-print {
   float: left;
   display: block;
   text-align: center;
-  font-weight: 600;
+  /* font-weight: 600; */
   border-radius: 30px;
   font-size: 20px;
   margin-left: 0px;
@@ -7583,6 +7583,10 @@ td.visible-print {
   color: black;
   background-color: #C6E5F3;
   transition: background .2s;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 .spinner {
   list-style: none;

@@ -144,15 +144,6 @@ $(function(){
    
       console.log($('#password_new').val().length);
       
-     if($('#password_new').val().length < 8 ) {
-      
-     //   alert("8이하면 걍 삭제되줄수 없니?")
-        $('#password_new').val(""); 
-           
-        return; 
-       
-        } 
-
    }) //8이하인 경우 삭제 됨
    
     $('#password_new_ch').focusout(function(){
@@ -275,21 +266,21 @@ $(function(){
 					<div class="wrap-input100 validate-input"
 						data-validate="Repeat Password is required">
 						<span class="label-input100">현재 비밀번호</span> <input
-							class="input100" name="password" type="password" id='password'
+							class="" placeholder="현재비밀번호를 입력하세요" name="password" type="password" id='password'
 							password /> <span class="focus-input100"></span>
 					</div>
 					<div class="wrap-input100 validate-input"
-						data-validate="Name is required">
-						<span class="label-input100">새 비밀번호</span> <input class="input100"
-							name="password_new" id="password_new" type="password"
+						data-validate="password_new is required">
+						<span class="label-input100">새 비밀번호</span><br/> <input class=""
+							name="password_new" id="password_new" placeholder="문자, 숫자, 특수문자조합으로 8자리 이상" type="password"
 							password_new /> <span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input"
-						data-validate="Name is required">
+						data-validate="password_new_ch is required">
 						<span class="label-input100">새 비밀번호 확인</span> <input
-							class="input100" name="password_new_ch" id="password_new_ch"
-							type="password" password_new_ch /> <span class="focus-input100"></span>
+							class="" name="password_new_ch" id="password_new_ch"
+							placeholder="문자, 숫자, 특수문자조합으로 8자리 이상" type="password" password_new_ch /> <span class="focus-input100"></span>
 					</div>
 
 

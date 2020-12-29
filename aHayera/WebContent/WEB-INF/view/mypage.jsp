@@ -313,13 +313,8 @@ login_wrap {
 <script type="text/javascript">
 	$(function() {
 
-		$('#frm').hide(); //숨어있다
 
-		$('.pe-7s-id').click(function() {
-			$('#frm').toggle(); //클릭시 마이페이지 변경 정보 나옴
-			$('.costomer').css("top", "500px");
-			$('.costomer').css("left", "500px");
-		});
+		
 
 		$('.canclebtn').click(function() {
 
@@ -721,7 +716,7 @@ login_wrap {
 									</div>
 								</ul></li>
 
-	<li class="dropdown">
+			<li class="dropdown">
                   <!-- mainAfterLogin 에만 해당 -->
                   <a href="#" class="dropdown-toggle">
                     <i class="pe-7s-user"></i>
@@ -729,8 +724,8 @@ login_wrap {
                   </a>
                   <ul class="dropdown-menu">
 
-                    <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                    <li><a href="orderHistory.do">주문 내역</a></li>
+                   <%--  <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
+                    <li><a href="orderHistory.do">주문 내역</a></li> --%>
                     <li><a href="logout.do">로그아웃</a></li>
                   </ul>
                 </li>
@@ -763,18 +758,13 @@ login_wrap {
       </div><!--  end navbar -->
 
     </div> <!-- end menu-dropdown -->
+  
 	​
 	<div class="main">
 		<div class="container tim-container category_main"
 			style="max-width: 800px; padding-top: 20px">
 			<br> <br> <br> <br>
-			<!-- 	<h3 class="text-center hayera">마이페이지</h3> -->
-			<div class="mypage_window">
-				<a class="mypage_table" href="#"> <i class="pe-7s-wallet  pe-5x"></i>
-					<label class="pe-4x"> </label> 　　　　　　　　　<i class="pe-7s-id pe-5x"></i> 　　　　　　　<label
-					class="pe-4x">주문관리</label><label class="pe-4x"></label> 　　　　　　<label
-					class="pe-4x">개인정보수정</label>
-				</a> <br> <br> <br> <br> <br>
+		
 
 				<form id="frm" method="get" action="updateMypage.do">
 					<table>
@@ -821,14 +811,15 @@ login_wrap {
 
 						<div class="wrap-input100 validate-input"
 							data-validate="Password is required">
-							<span class="label-input100">주소</span> <span
+							<span class="label-input100">배송주소</span> <span
 								class="focus-input100"></span> <input class="mypageAddr"
 								type="button" value="변경" id="mypageAddr"><br> <input
 								type="text" placeholder="우편번호" id="zonecode" name="zonecode"
 								value="${juso[0]}">
+								
 							<div>
-
-								<input type="text" size="35" placeholder="도로명주소 또는 지번주소"
+								
+								<input type="text" size="35" placeholder="기본주소"
 									id="addr" name="addr" value="${juso[1]}">
 							</div>
 							<div>
@@ -836,7 +827,7 @@ login_wrap {
 									type="text" value="${juso[3]}">
 							</div>
 							<div>
-								<input type="text" placeholder="상세 주소를 입력하세요" id="detailAddr"
+								<input type="text" placeholder="나머지주소" id="detailAddr"
 									name="detailAddr" value="${juso[2]}">
 							</div>
 

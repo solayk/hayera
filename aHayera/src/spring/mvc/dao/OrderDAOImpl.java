@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.PaymentVO;
@@ -44,13 +45,16 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	public List<ProductVO> addCart(ProductVO pvo) {
-		System.out.println("mybatis addCart 호출");
 		return mybatis.selectList("OrderDAO.addCart",pvo);
 	}
 
 	public void insertPayment(PaymentVO vo) {
-		System.out.println("mybatis insertPayment 호출");
 		mybatis.insert("OrderDAO.insertPayment",vo);
+	}
+
+	public void updatePoints(CustomerVO vo) {
+		mybatis.update("OrderDAO.updatePoints", vo);
+		
 	}
 
 }

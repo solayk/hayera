@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import spring.mvc.dao.OrderDAO;
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
@@ -26,9 +27,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Transactional
-	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo) {
+	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo, CustomerVO cvo) {
 		orderDAO.insertOrder(oVo);
 		orderDAO.insertPayment(pvo);
+		orderDAO.updatePoints(cvo);
 		for(Order_ProductVO data : list) {
 			orderDAO.insertOrder_Product(data);
 		}
@@ -60,6 +62,10 @@ public class OrderServiceImpl implements OrderService {
 
 	public void insertPayment(PaymentVO vo) {
 		orderDAO.insertPayment(vo);
+	}
+
+	public void updatePoints(CustomerVO vo) {
+		orderDAO.updatePoints(vo);
 	}
 
 }

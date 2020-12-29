@@ -2,6 +2,7 @@ package spring.mvc.dao;
 
 import java.util.List;
 
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.PaymentVO;
@@ -26,4 +27,6 @@ public interface OrderDAO {
 	public List<ProductVO> addCart(ProductVO pvo);
 	
 	public void insertPayment(PaymentVO vo);
+	
+	public void updatePoints(CustomerVO vo);
 }

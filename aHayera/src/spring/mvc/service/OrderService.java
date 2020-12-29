@@ -2,6 +2,7 @@ package spring.mvc.service;
 
 import java.util.List;
 
+import spring.mvc.domain.CustomerVO;
 import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
@@ -14,7 +15,7 @@ public interface OrderService {
 	
 	public void insertOrder_Product(Order_ProductVO vo);
 
-	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo);
+	public void insertOrderFromCart(OrderListVO oVo, List<Order_ProductVO> list, PaymentVO pvo, CustomerVO cvo);
 	
 	public List<OrderListVO> orderHistoryViewDefault(OrderListVO vo);
 	
@@ -29,4 +30,6 @@ public interface OrderService {
 	public List<ProductVO> addCart(ProductVO pvo);
 	
 	public void insertPayment(PaymentVO vo);
+	
+	public void updatePoints(CustomerVO vo);
 }

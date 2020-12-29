@@ -92,4 +92,12 @@
 	]]>
 </insert>
 
+<update id="updatePoints" parameterType="customer">
+	<![CDATA[
+	UPDATE customer 
+	SET points = #{points}
+	WHERE customer_id = #{customer_id}
+	]]>
+</update>
+
 </mapper>

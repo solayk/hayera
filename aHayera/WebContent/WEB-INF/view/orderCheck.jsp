@@ -109,15 +109,6 @@
     	// 적립금 입력값에 따라 결제정보_할인 란에 금액 적용되게 + 총 결제 금액에 계산되게 + 보유 적립금 이상 입력 못하게 + 주문상품 금액 이상 적립금 입력 못하게
     	$(".form-control").on('change', function () {
     		var pointUse = $(".form-control").val();
-    		/*if(pointUse > gcXdp){
-    			alert("주문상품 금액 이상 적립금을 사용하실 수 없습니다.")
-    			$(".form-control").val(totalPrice);
-    			$("#discount").val(totalPrice+"원");
-    			$("#totalSum").val(0+"원");
-        		$("#payment").val(0+"원 결제하기");
-        		$("#point_use").val(gcXdp); // form에서 가져갈 데이터임.(DB orderlist 테이블의 point_use에 들어갈 값)
-        		$("#payment_price").val(0); // form에서 가져갈 데이터임.(DB orderlist 테이블의 payment_price에 들어갈 값)
-    		}*/
     		if(pointUse>point){
     			alert("사용 가능한 적립금은 최대 "+points+"원 입니다.")
     			$(".form-control").val(0);

@@ -76,8 +76,8 @@ public class OrderController {
 		m.addAttribute("addr",addrAry);
 		return "orderCheck";
 	}
+	
 	// 주문 (현재는 로그인 한 회원의 정보를 주문 테이블 데이터로 저장하는 메소드가 되어버렸음.. 즉, 기본 배송지 설정 or '회원 정보와 동일' 선택한 상태의 주문 정보 저장임.)
-	// '주문/결제 페이지'에서 결제하기 눌렀을 때 고객&제품 정보들을 갖고 넘어가 (어디로? -> paymentComplete.jsp로) 면서 orderlist, orderlist_product 테이블에 데이터 저장할거야. 
 	@RequestMapping("/paymentComplete.do")
 	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, PaymentVO pvo, HttpSession session){
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
@@ -113,16 +113,22 @@ public class OrderController {
 		orderService.insertOrder_Product(op);
 		
 		// 결제 테이블에 저장
-		pvo.setPay_no("P"+order_no);
+		pvo.setPay_no("P"+order_no); // 결제번호
 		pvo.setOrder_no(order_no);
 		orderService.insertPayment(pvo);
+		
+		// 고객 적립금 차감
+		int points = info.getPoints();      // 로그인한 회원의 보유 적립금
+		int use_points = ol.getPoint_use(); // 주문 시 사용한 적립금
+		cvo.setPoints(points - use_points); // 잔여 적립금을 고객 정보에 set
+		orderService.updatePoints(cvo);     
 	};
 	
 	// 장바구니 통해 여러 상품 주문결제
 	@RequestMapping("/paymentCompleteCart.do")
-	public String orderFromCart(CustomerVO vo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, HttpSession session) {
-		vo.setCustomer_id((String)session.getAttribute("login"));  
-		CustomerVO info = mypageService.getAllById(vo);
+	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, HttpSession session) {
+		cvo.setCustomer_id((String)session.getAttribute("login"));  
+		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
 		String customer_id = info.getCustomer_id(); // 고객 아이디
 		String receive = info.getName(); // 받는 사람
@@ -155,8 +161,13 @@ public class OrderController {
 		for(Order_ProductVO data : list) {
 			data.setOrder_no(order_no);
 		}
+
+		// 고객 적립금 차감
+		int points = info.getPoints();       // 로그인한 회원의 보유 포인트
+		int use_points = oVo.getPoint_use(); // 주문 시 사용한 적립금
+		cvo.setPoints(points - use_points);  // 잔여 적립금을 고객 정보에 set
 		
-		orderService.insertOrderFromCart(oVo, list, pvo);
+		orderService.insertOrderFromCart(oVo, list, pvo, cvo);
 		
 		session.removeAttribute("inCart");
 		return "paymentComplete";

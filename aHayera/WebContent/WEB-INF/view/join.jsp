@@ -195,7 +195,7 @@
 		                                            <div class="choice" data-toggle="wizard-checkbox">
 		                                                <input type="checkbox" name="skin" value="민감성">
 		                                                <div class="card card-checkboxes card-hover-effect">
-		                                                    <i class="ti-paint-roller"></i>
+		                                                    <i class="ti-heart"></i>
 															<p>민감성</p>
 		                                                </div>
 		                                            </div>
@@ -204,7 +204,7 @@
 		                                            <div class="choice" data-toggle="wizard-checkbox">
 		                                                <input type="checkbox" name="skin" value="중성">
 		                                                <div class="card card-checkboxes card-hover-effect">
-		                                                    <i class="ti-paint-roller"></i>
+		                                                    <i class="ti-camera"></i>
 															<p>중성</p>
 		                                                </div>
 		                                            </div>
@@ -213,7 +213,7 @@
 		                                            <div class="choice" data-toggle="wizard-checkbox">
 		                                                <input type="checkbox" name="skin" value="악건성">
 		                                                <div class="card card-checkboxes card-hover-effect">
-		                                                    <i class="ti-paint-roller"></i>
+		                                                    <i class="ti-world"></i>
 															<p>악건성</p>
 		                                                </div>
 		                                            </div>

@@ -17,7 +17,9 @@
 	font-weight: bold;
 	text-align: center;
 	border-color: #0d6efd;
-	
+	font-family: 'Noto Sans KR';
+	font-size: 18px;
+	height: 40px;
 }
 .body{
 	font-family: inherit;
@@ -27,7 +29,10 @@
 .ta,.btn{
 	text-align: center;
 }
+.contents{
+	font-size: 15px;
 
+}
 
 .star {
 	display: inline-block;

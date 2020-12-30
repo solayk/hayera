@@ -242,7 +242,7 @@ demo = {
           data: arrDaySales
         }]
       },
-      options: gradientChartOptionsConfiguration
+      options: gradientChartOptionsConfigurationWithNumbersAndGrid
     });
   },
 

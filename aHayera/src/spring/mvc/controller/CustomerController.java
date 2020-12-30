@@ -135,9 +135,7 @@ public class CustomerController {
 	   for(int i =0; i<list.size();i++) {
 		   vo.setRate(list.get(i).getRate());
 		   vo.setProd_no(list.get(i).getProd_no());
-		   System.out.println(vo.getRate());
 		   int result = customerserive.insertReviewrating(vo);
-		   System.out.println(result);
 	   }
    }
    

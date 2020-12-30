@@ -668,7 +668,7 @@
                   </a>
                   <ul class="dropdown-menu">
 
-                    <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
+                    <li><a href="mypage.do?customer_id=${sessionScope.login}">개인정보수정</a></li>
                     <li><a href="orderHistory.do">주문 내역</a></li>
                     <li><a href="logout.do">로그아웃</a></li>
                   </ul>

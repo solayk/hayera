@@ -33,7 +33,7 @@
     height : 200px;
     overflow : auto;
     }
-    table{
+    table{ 
         text-align: center;
     }
   	.btn btn-primary{

@@ -165,7 +165,7 @@
 	font-family: 'Calibri';
 	font-weight: bold;
 	width: 150px;
-}
+} 
 .cartEachQty {
 	/* 장바구니 수량 칸 너비 */
 	padding-left: 10px;

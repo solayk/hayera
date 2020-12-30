@@ -767,7 +767,7 @@
           <div class="container tim-container" style="max-width:800px; padding-top:20px">
             <h3 class="text-center hayera">주문 내역</h3>
             <hr />
-            <div class="orderHistory">
+            <div class="orderHistory"> 
               <div class="btn-group">
                 <button type="button" class="btn btn-default hayera" id="today">오늘</button>
                 <button type="button" class="btn btn-default hayera" id="1week">1주일</button>

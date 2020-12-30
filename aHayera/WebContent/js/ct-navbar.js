@@ -36,6 +36,7 @@ $(document).scroll(function() {
                 $('nav[role="navigation"]').removeClass('navbar-transparent');
                 $('.navbar-search-form').hide();
                 $('.event-open').hide();
+                $('.filterBtn').hide();
             }
         } else {
             if( !transparent ) {
@@ -43,6 +44,7 @@ $(document).scroll(function() {
                 $('nav[role="navigation"]').addClass('navbar-transparent');
                 $('.navbar-search-form').show();
                 $('.event-open').show();
+                $('.filterBtn').show();
             }
         }
     }

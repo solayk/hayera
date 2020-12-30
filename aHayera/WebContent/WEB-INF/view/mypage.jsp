@@ -47,11 +47,6 @@
 <script
 	src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-
-
-<!-- Optional - Adds useful class to manipulate icon font display -->
-<link rel="stylesheet" href="css/pe-icon-7-stroke_helper.css">
-
 <!-- 주소찾기 -->
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -60,7 +55,7 @@
 <script src="js/mypageAddr.js"></script>
 
 <!-- css -->
-<link rel="stylesheet" type="text/css" href="css/mypage_util.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/mypage_util.css"> -->
 <link rel="stylesheet" type="text/css" href="css/mypage_modify.css">
 
 
@@ -328,14 +323,6 @@ font-family: '레시피코리아';
 	$(function() {
 
 
-		
-
-		$('.canclebtn').click(function() {
-
-			//alert('ok');
-			$('.costomer').css('top', '-500px');
-		});
-
 		$('#ok_btn').click(function() {
 			alert('수정되었습니다.')
 
@@ -344,23 +331,9 @@ font-family: '레시피코리아';
 
 		$('#pop_btn').click(
 				function() {
-
-					window.open('POP_changePw.do', "popupNo1",
-							'left='+(screen.availWidth-660)/2+',top='+(screen.availHeight-430)/2+', width=660px,height=800px',
-							"scrollbars=no");
-
-				})
-
-				
-
-
-				
-				
-		$('.pe-7s-wallet').click(function() {
-
-			location.href = "orderHistory.do";
-
-		})
+					var WinObj = window.open('POP_changePw.do', "popupNo1", 'width=460, height=600');
+					WinObj.moveTo(screen.availWidth/2.5, screen.availHeight/4);
+				});
 
 	})
 
@@ -491,52 +464,6 @@ font-family: '레시피코리아';
           }
         }); // --- end of $.ajax 전체상품목록
 
-        // 누적 판매 베스트 4
-        $.ajax({
-          type: 'post',
-          url: 'viewTopFourSalesdProduct.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
-            for (i = 0; i < data.length; i++) {
-
-              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
-              var star = starRating(rating);
-              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
-              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
-              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-
-              productListing(".viewTopFour", data, star, discount, mlprice);
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        });
-
-        // No.1 salesed Item
-        $.ajax({
-          type: 'post',
-          url: 'viewTopSalesedItem.do',
-          dataType: 'json',
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-          success: function (data) {
-            for (i = 0; i < data.length; i++) {
-
-              var rating = parseFloat(data[i].avg_rating).toFixed(1); /* 별점 0.5 단위 표기, 사실 rating 으로 소수점 첫째자리까지 반올림은 필요 없긴 함 */
-              var star = starRating(rating);
-              var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
-              if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
-              else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-
-              productListing(".viewTopSalesedItem", data, star, discount, mlprice);
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        });
-
         // 검색 자동완성
         $("#search").autocomplete({
           source: dataList,
@@ -571,104 +498,7 @@ font-family: '레시피코리아';
             $('li.dropdown').removeClass('open');
           }
         });
-
-        // 필터 평균평점 클릭 시 클래스 추가
-        $('.filter-review > li').click(function () {
-          $('.filter-review > li').removeClass('liSelected');
-          $(this).addClass('liSelected');
-        });
-
-        // 필터 ajax
-        $('.filter-window').on('click', function () {
-
-          var avg_rating = 0;
-          var feel = "";
-          var scent = "";
-
-          avg_rating = $('.liSelected > div > label').text();
-
-          var arr_feel = [];
-          if ($('#water').is(":checked")) arr_feel.push($('#water').val());
-          if ($('#soft').is(":checked")) arr_feel.push($('#soft').val());
-          if ($('#mat').is(":checked")) arr_feel.push($('#mat').val());
-          if ($('#hard').is(":checked")) arr_feel.push($('#hard').val());
-
-          var arr_scent = [];
-          if ($('#no').is(":checked")) arr_scent.push($('#no').val());
-          if ($('#flower').is(":checked")) arr_scent.push($('#flower').val());
-          if ($('#oe').is(":checked")) arr_scent.push($('#oe').val());
-          if ($('#chem').is(":checked")) arr_scent.push($('#chem').val());
-
-          for (var i = 0; i < arr_feel.length; i++) {
-            if (i != arr_feel.length - 1) feel += arr_feel[i] + "|";
-            else feel += arr_feel[i];
-          }
-
-          for (var i = 0; i < arr_scent.length; i++) {
-            if (i != arr_scent.length - 1) scent += arr_scent[i] + "|";
-            else scent += arr_scent[i];
-          }
-
-          var info = {
-            avg_rating: avg_rating,
-            feel: feel,
-            scent: scent
-          }
-
-          $.ajax({
-            type: 'post',
-            data: info,
-            url: 'viewFilteredProduct.do?category=',
-            dataType: 'json',
-            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-            async: false, // 검색을 위해 전역변수에 저장하기 위하여 비동기 방식 수행
-            success: function (data) {
-
-              console.log("길이: " + data.length);
-
-              $('.viewFilteredProduct').empty();
-
-              // 상품목록 배열 처리
-              for (i = 0; i < data.length; i++) {
-
-                console.log("체크: " + data[i].prod_no);
-
-                var rating = parseFloat(data[i].avg_rating).toFixed(1);
-                var star = starRating(rating);
-                var discount = parseInt(((data[i].price - data[i].discount_price) / data[i].price) * 100);
-                if (data[i].discount_price == '0') var mlprice = parseInt(data[i].price / data[i].capacity);
-                else var mlprice = parseInt(data[i].discount_price / data[i].capacity);
-
-                $('.viewFilteredProduct').append(
-                  '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
-                  + '<div class="item-img" style="position:relative;">'
-				  + (data[i].discount_price == '0' ? '' : '<div class="discountCard">SAVE<br><span class="discountCardFont">' + discount + '</span>%</div>')
-                  + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
-                  + '<div class="item-brand">' + data[i].brand + '</div>'
-                  + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
-                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"><span>' + data[i].avg_rating + '</span></div>'
-                  + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
-                    '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
-					: '<span class="item-price"><del>' + data[i].price.formatNumber() + '원</del></span><span class="item-discount_price"><span class="emph">→</span>' + data[i].discount_price.formatNumber() + '원 </span>')
-				  + '<div class="item-capacity">' + data[i].capacity + ' ml (ml당 ' + mlprice + ' 원)</div>'
-                  + '</li>'
-                )
-
-              }
-
-              $('.viewFilteredProduct').parent('div').show();
-              $('.viewTopFour').parent('div').hide();
-              $('.viewTopSalesedItem').parent('div').hide();
-              $('.viewAllProduct').parent('div').hide();
-
-            },
-            error: function (e) {
-              alert(e);
-            }
-          }); // --- end of $.ajax 필터
-
-        }); // --- end of 필터 ajax
-
+      
       }); // --- end of jquery document ready
 
       // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
@@ -691,13 +521,14 @@ font-family: '레시피코리아';
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse"
 							data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
+							<span class="sr-only">Toggle navigation</span> 
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span> 
+							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand navbar-brand-logo" href="main.jsp">
 							<div class="logo">
-								<img src="./images/logo_only_transparent_small.png">
+								<img src="images/logo_only_transparent_small.png">
 							</div>
 							<div class="brand">HAYERA</div>
 						</a>
@@ -707,14 +538,17 @@ font-family: '레시피코리아';
 						id="bs-example-navbar-collapse-1">
 						​
 						<ul class="nav navbar-nav navbar-center">
-							<li><a href="category.do?category=모이스처라이저"> <i
-									class="pe-7s-drop"> </i>
+							<li>
+								<a href="category.do?category=모이스처라이저">
+									<i class="pe-7s-drop"></i>
 									<p>모이스처라이저</p>
-							</a></li>
-							<li><a href="category.do?category=선크림"> <i
-									class="pe-7s-sun"> </i>
+								</a>
+							</li>
+							<li><a href="category.do?category=선크림"> 
+								<i class="pe-7s-sun"></i>
 									<p>선크림</p>
-							</a></li>
+								</a>
+							</li>
 						</ul>
 						​
 						<ul class="nav navbar-nav navbar-right">
@@ -744,15 +578,15 @@ font-family: '레시피코리아';
 								</ul></li>
 
 							<li class="dropdown">
-								<!-- mainAfterLogin 에만 해당 --> <a href="#"
-								class="dropdown-toggle"> <i class="pe-7s-user"></i>
+								<!-- mainAfterLogin 에만 해당 -->
+								<a href="#" class="dropdown-toggle">
+									<i class="pe-7s-user"></i>
 									<p>
-										내 계정 <b class="caret"></b>
+										내 계정 <b class="caretHayera"></b>
 									</p>
-							</a>
+								</a>
 								<ul class="dropdown-menu">
-
-									<%--   <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li> --%>
+									<%--   <li><a href="mypage.do?customer_id=${sessionScope.login}">개인정보수정</a></li> --%>
 									<li><a href="orderHistory.do">주문 내역</a></li>
 									<li><a href="logout.do">로그아웃</a></li>
 								</ul>
@@ -863,22 +697,15 @@ font-family: '레시피코리아';
 			</form>
 
 
-
-
-
-			​ <br> <br> <br> <br> <br> <br> <br>
-			<br> <br> <br> <br> <br> <br> <br>
-			<br> <br> <br> <br> <br> <br> <br>
-			<br> <br> <br> <br> <br> <br> <br>​
-		</div>
-		​
-		<div style="clear: both;"></div>
+			​ <br> <br> <br> <br>
 		​
 		<p class="text-right legal-info">
-			HAYERA 하예라 서울특별시 금천구 가산디지털2로 123 월드메르디앙벤처센터<br> 대표: 김영권 외 3명 /
-			사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈 <br> 메일: admin@hayera.com /
-			Copyright &copy;2020 hayera
-			<!-- end container -->
+			HAYERA 하예라 서울특별시 금천구 가산디지털2로 123 월드메르디앙벤처센터<br>
+			대표: 김영권 외 3명 / 사업자등록번호: 111-11-11111 / 개인정보관리자: 지우빈<br>
+			메일: admin@hayera.com / Copyright &copy;2020 hayera<br>
+		</p>
+		<!-- end container -->
+		</div>
 	</div>
 	<!-- end main -->
 </body>

@@ -252,10 +252,6 @@ font-family: '레시피코리아';
 
 			</nav>
 
-			<div class="blurred-container">
-				<!-- <div class="img-src"
-					style="background-image: url('images/main_background_top.png')"></div> -->
-			</div> 
 		</div>
 		<!--  end navbar -->
 
@@ -264,7 +260,7 @@ font-family: '레시피코리아';
 
 	<div class="main">
 		<div class="container tim-container category_main"
-			style="max-width: 400px; padding-top: 20px">
+			style="max-width: 400px; padding-top: 100px">
 
 			<form id="frm" method="get" action="updateMypage.do">
 				<table>
@@ -272,14 +268,14 @@ font-family: '레시피코리아';
 					<div class="wrap-input100 validate-input"
 						data-validate="Repeat Password is required">
 						<span class="label-input100">현재 비밀번호</span><br /> <input class=""
-							placeholder="현재비밀번호를 입력하세요" name="password" type="password"
+							placeholder="현재 비밀번호를 입력하세요" name="password" type="password" style="width:300px;" 
 							id='password' password /> <span class="focus-input100"></span>
 					</div>
 					<div class="wrap-input100 validate-input"
 						data-validate="password_new is required">
 						<span class="label-input100">새 비밀번호</span><br /> <input class=""
 							name="password_new" id="password_new"
-							placeholder="문자, 숫자, 특수문자조합으로 8자리 이상" type="password"
+							placeholder="문자, 숫자, 특수문자조합으로 8자리 이상" type="password" style="width:300px;"
 							password_new /> <span class="focus-input100"></span>
 					</div>
 
@@ -287,10 +283,9 @@ font-family: '레시피코리아';
 						data-validate="password_new_ch is required">
 						<span class="label-input100">새 비밀번호 확인</span><br /> <input
 							class="" name="password_new_ch" id="password_new_ch"
-							placeholder="문자, 숫자, 특수문자조합으로 8자리 이상" type="password"
+							placeholder="문자, 숫자, 특수문자조합으로 8자리 이상" type="password" style="width:300px;"
 							password_new_ch /> <span class="focus-input100"></span>
 					</div>
-
 
 
 					</p>

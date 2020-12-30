@@ -226,6 +226,8 @@
         var dayIndex = date.getDate();
         return dayIndex;
       }
+      
+     
 
 
     </script>
@@ -283,10 +285,12 @@
               </a>
             </li>
             <li>
-              <a href="adminUpdateRating.do">
+            <a>
+              <div id="adminUpdateRating" >
                 <i class="now-ui-icons files_paper"></i>
                 <p>별점 업데이트</p>
-              </a>
+              </div>
+             </a>
             </li>
           </ul>
         </div>
@@ -509,7 +513,23 @@
     <script src="./demo/demo.js"></script>
     <!-- 하예라 전용 JS Files   -->
     <script src="./js/hayera.js"></script>
+<script type="text/javascript">
 
+// 별점 업데이트 버튼 눌렀을 때
+$('#adminUpdateRating').click(function () {
+	
+	  $.ajax({
+		  url : "adminUpdateRating.do",
+		  success : function (result) {
+			alert(result);
+		},
+		err : function (err) {
+			console.log(err);
+		}
+	  }) 
+});
+
+</script>
   </body>
 
   </html>

@@ -78,7 +78,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
 	public List<ReviewVO> selectReviewlist() {
-		System.out.println("모든 리뷰 불러오자");
 		return mybatis.selectList("CustomerDAO.selectReviewlist");
 	}
 
@@ -86,12 +85,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public int insertReviewrating(ReviewVO vo) {
-		System.out.println("reviewrating 호출");
-		System.out.println(vo.getProd_no());
-		System.out.println(vo.getRate());
-		int result = mybatis.update("CustomerDAO.updateReviewrating", vo);
-		System.out.println(result);
-		return result;
+		
+		return mybatis.update("CustomerDAO.updateReviewrating", vo);
 	}
 	
 	

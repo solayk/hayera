@@ -53,7 +53,26 @@ public class ViewController {
 	//상품누르면 prod_no받아서 리뷰 넘기기
 	@RequestMapping("/productSelected.do")
 	public String productDetail(ProductVO vo, Model model, ReviewVO rvo,QnaVO qvo) {
-		model.addAttribute("productSelected",viewService.productSelected(vo));
+		
+		ProductVO newVo = viewService.productSelected(vo);
+		
+		// 별점 표기 위한 처리작업	
+		int rating = Integer.parseInt(newVo.getAvg_rating());
+		String star = "0";
+			if(rating >= 4.9) star = "5";
+			else if(rating >= 4.3 && rating <4.9) star = "4.5";
+			else if(rating >= 3.8 && rating <4.3) star = "4";
+			else if(rating >= 3.3 && rating <3.8) star = "3.5";
+			else if(rating >= 2.8 && rating <3.3) star = "3";
+			else if(rating >= 2.3 && rating <2.8) star = "2.5";
+			else if(rating >= 1.8 && rating <2.3) star = "2";
+			else if(rating >= 1.3 && rating <1.8) star = "1.5";
+			else if(rating > 0 && rating <1.3) star = "1";
+			else star = "0";
+		newVo.setAvg_rating(star);
+		
+		model.addAttribute("productSelected",newVo);
+		
 		rvo.setProd_no(vo.getProd_no());
 		qvo.setProd_no(vo.getProd_no());
 		model.addAttribute("reviewList",customerservice.selectReview(rvo));

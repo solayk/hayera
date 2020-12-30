@@ -7573,52 +7573,34 @@ td.visible-print {
 .detail-product-list {
   width: 450px;
 }
-/* .detail-product-list>li {
-  list-style-type: none;
-  display: table-cell;
-} */ /* 삭제예정 */
 
-/* .detail-product-list>li>div>div {
-  float: left;
-}
-.detail-product-list>li>div>div>table {
-  float: left;
-}
-.detail-board-list>li {
-  float: left;
-  display: block;
-  padding: 3px 0;
-} */
 .detail-board-list {
+  display: flex;
   text-align: center;
-  /* list-style-type: none;
-  position: relative;
-  width: 100%; */
 }
+
 .detail-board-list > div {
+  flex: 1;
   text-align: center;
-  display: inline-block;
-  left: 50%;
+  border: 0.5px solid #D9D9D9;
+  margin-bottom: 10px;
 }
 
 .detail-board-list > div > a {
-  float: left;
   display: block;
   text-align: center;
-  /* font-weight: 600; */
-  border-radius: 30px;
-  font-size: 20px;
-  margin-left: 0px;
-  margin-right: 10px;
+  font-size: 16px;
   text-decoration: none;
   color: black;
-  background-color: #C6E5F3;
+  background-color: white;
   transition: background .2s;
+  cursor: pointer;
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 4px;
   padding-bottom: 4px;
 }
+
 .spinner {
   list-style: none;
   display: inline-block;
@@ -7746,6 +7728,57 @@ td.visible-print {
   left: 50%;
   padding-top: 2px;
   transform: translate(-50%, -50%);
+}
+
+/* 상세페이지 */
+
+.info__th {
+	font-size: 18px;
+	line-height: 40px;
+}
+
+.info_td {
+	line-height: 40px;
+}
+
+.title {
+	color: #666;
+	font-family: '레시피코리아';
+}
+
+.detail-product-product_name {
+	font-family: 'Noto Sans KR';
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.detail_product-brand {
+  font-size: 14px;
+}
+
+.detail-product-price,
+.detail-product_discoint_price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #125288;
+}
+
+.detail-product-price-del {
+  padding-right: 1px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ccc;
+}
+
+.detail-head {
+  font-family: 'Noto Sans KR';
+  font-size: 16px;
+  font-weight: 700;
+  color: #808080;
+}
+
+.orderbyy {
+  cursor: pointer;
 }
 
 /* 장바구니 */

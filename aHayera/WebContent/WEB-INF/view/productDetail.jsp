@@ -1,7 +1,8 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject" %>
-   <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-      <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
-         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
             <!DOCTYPE html>
             <html>
 
@@ -127,32 +128,10 @@
 }
 /* 장바구니 버튼 */
 .baguni_button {
-	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
-	box-shadow: inset 0px 1px 0px 0px #ffffff;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff
-		), color-stop(1, #f6f6f6));
-	background: -moz-linear-gradient(center top, #ffffff 5%, #f6f6f6 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
-		endColorstr='#f6f6f6');
-	background-color: #ffffff;
-	-webkit-border-top-left-radius: 0px;
-	-moz-border-radius-topleft: 0px;
-	border-top-left-radius: 0px;
-	-webkit-border-top-right-radius: 0px;
-	-moz-border-radius-topright: 0px;
-	border-top-right-radius: 0px;
-	-webkit-border-bottom-right-radius: 0px;
-	-moz-border-radius-bottomright: 0px;
-	border-bottom-right-radius: 0px;
-	-webkit-border-bottom-left-radius: 0px;
-	-moz-border-radius-bottomleft: 0px;
-	border-bottom-left-radius: 0px;
-	text-indent: 0;
-	border: 1px solid #dcdcdc;
+	background-color: white;
+	border: 1px solid #125288;
 	display: inline-block;
 	color: #040f78;
-	font-family: Times New Roman;
 	font-size: 15px;
 	font-weight: bold;
 	font-style: normal;
@@ -161,7 +140,6 @@
 	width: 160px;
 	text-decoration: none;
 	text-align: center;
-	text-shadow: 0px 1px 0px #ffffff;
 }
 .baguni_button:hover {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6
@@ -175,10 +153,7 @@
 	position: relative;
 	top: 1px;
 }
-.detail-board-list a, .orderbyy, .btnqna {
-	cursor: pointer;
-	font-family: '레시피코리아';
-}
+
 /* li 앞 . 삭제 */
 .detail-review-list {
 	list-style: none;
@@ -196,26 +171,7 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
-.info__th {
-	font-size: 18px;
-	line-height: 40px;
-}
-.info_td {
-	line-height: 40px;
-}
-.title {
-	color: #666;
-	font-family: '레시피코리아';
-}
-.detail-product-product_name {
-	font-family: '레시피코리아';
-	font-size: 25px;
-}
-.detail-product_discoint_price {
-	font-family: '맑은고딕';
-	font-size: 20px;
-	font-weight: bold;
-}
+
 </style>
                <title>상세페이지</title>
                <script type="text/javascript">
@@ -469,19 +425,28 @@
                            <img src="/aHayera/resources/upload/${productSelected.img_url }">
                         </div>
                         <div class="detail-product-list">
-                           <div class="detail_product-brand">${productSelected.brand }</div><br/>
                            <div class="detail-product-product_name" >
                               ${productSelected.prod_name }
                            </div>
+                           <div class="detail_product-brand">${productSelected.brand }</div>
+                           
+                           <c:set var="rating" value="${productSelected.avg_rating}"/>
+                           
+                           <div class="item-reviewno"><img src="./images/star_${rating}.png"><span>${productSelected.avg_rating}</span></div>
+                           <c:set var="discount_price" value="${productSelected.discount_price}"/>
+                           <c:choose>
+                           		<c:when test="${discount_price eq 0}">
+                           			<span class="detail-product-price"><fmt:formatNumber value="${productSelected.price}" pattern="#,###" /></span>원
+                           		</c:when>
+                           		<c:otherwise>
+                           			<span class="detail-product_discoint_price"><fmt:formatNumber value="${productSelected.discount_price}" pattern="#,###" /></span>원<br>
+                           			<span class="detail-product-price-del"><del><fmt:formatNumber value="${productSelected.price}" pattern="#,###" />원</del></span>
+                           		</c:otherwise>	
+                           </c:choose>
+                           
+                           
                            <div class="detail-product-volume_price">
-                              ${productSelected.capacity }ml / 정가 : <span
-                                 class="detail-product-price">${productSelected.price}</span>원<br />
-								<c:set var="discount_price" value="${productSelected.discount_price}"/>
-                                 <c:if test="${discount_price ne 0}">
-	                           		<div class="detail-product_discoint_price">
-	                           			<span>할인가 : ${productSelected.discount_price}원</span>	
-	                           		</div>
-	                           	</c:if>
+                              ${productSelected.capacity }ml<br />
                            </div>
                            
                            <div>
@@ -491,7 +456,7 @@
                                  <table class="detail-info-table">
                                     <tbody>
                                        <tr class="detail-table-info">
-                                          <th class="info__th" width="50px"><span class="title">설명</span></th>
+                                          <th class="info__th" width="50px"><span class="detail-head">설명</span></th>
                                           <td class="info__td">
 
                                              <!-- DB 추가 필요 -->
@@ -505,19 +470,18 @@
                                          <hr/>
                                        <tr class="detail-table-count"> 
                                       
-                                          <th class="info__th" width="50px" ><span class="title" >수량</span></th>
+                                          <th class="info__th" width="50px" ><span class="detail-head" >수량</span></th>
                                           <td class="info__td">
                                              <div class="countcheck">
-                                                <input id="spinner" type="text" value="1" name="goodsCount" style="text-align: center; width: 30px"/>
-                                                <button type="button" id='countup' class="btn btn-primary btn-xs"
-                                                   onclick="change(1)">
-                                                   <span class="glyphicon glyphicon-chevron-up"></span>
-                                                </button>
                                                 <button type="button" id='countdown' class="btn btn-primary btn-xs"
-                                                   onclick="change(-1)">
-                                                   <span class="glyphicon glyphicon-chevron-down"></span>
+                                                   onclick="change(-1)" style="background-color: #125288;">
+                                                   <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
-
+                                                <input id="spinner" type="text" value="1" name="goodsCount" style="text-align: center; width: 30px; border: none;"/>
+                                                <button type="button" id='countup' class="btn btn-primary btn-xs"
+                                                   onclick="change(1)" style="background-color: #125288;">
+                                                   <span class="glyphicon glyphicon-plus"></span>
+                                                </button>
                                              </div>
                                           </td>
                                        </tr>
@@ -542,13 +506,13 @@
                      <br> <br> <br>
                      <div class='detail-board'>
                         <div class='detail-board-list'>
-                           <div>
+                           <div class="detail-child">
                               <a><span id='productexplain'>상품정보</span></a>
                            </div>
-                           <div>
+                           <div class="detail-child">
                               <a><span id='reviewboard' style="width: 500px">리뷰</span></a>
                            </div>
-                           <div>
+                           <div class="detail-child">
                               <a><span id='qnaboard'>문의</span></a>
                            </div>
                         </div>
@@ -617,7 +581,7 @@
                         </article>
                         <article class="detail-product-explain">
                            <div>
-                              <img src=${productSelected.explain_url} width="800">
+                              <img src=${productSelected.explain_url} style="max-width:100%; height:auto;">
                            </div>
                         </article>
                      </div>
@@ -682,8 +646,8 @@
                   )
                   //처음화면은 review
                   $(function () {
+                     $('.detail-boardmenu').hide();
                      $('.detail-boardmenu-qna').hide();
-                     $('.detail-product-explain').hide();
                      //리뷰 먼저 띄우기
                      $.ajax({
                         url: "highrate.do?orderby=writeday",

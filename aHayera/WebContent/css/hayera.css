@@ -133,7 +133,8 @@
 	color: #084A83;
 }
 
-.btn-cartPay {
+.btn-cartPay,
+.btn-cartPay:hover {
 	color: #fff;
 	background-color: #125288;
 }

@@ -2457,7 +2457,6 @@ textarea.input-lg {
 
 .btn:hover,
 .btn:focus {
-  color: #333333;
   text-decoration: none;
 }
 
@@ -7426,6 +7425,13 @@ td.visible-print {
   height: 30px;
   background-color: #FFFFFF;
   color: #084A83;
+}
+
+.main_cart,
+.main_cart > tbody,
+.main_cart > tbody > tr,
+.main_cart > tbody > tr > th {
+  border-radius: 10px;
 }
 
 .event-open {

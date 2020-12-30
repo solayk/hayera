@@ -725,7 +725,7 @@
 
             <div class="blurred-container">
               <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
-              <button class="filterBtn" onclick="filterShow()">상세검색</button>
+              <button class="filterBtn" onclick="filterShow()">상세검색 ∨</button>
             </div>
           </div><!--  end navbar -->
 

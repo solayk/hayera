@@ -698,7 +698,7 @@
 
         <div class="blurred-container">
           <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
-          <button class="filterBtn" onclick="filterShow()">상세검색</button>
+          <button class="filterBtn" onclick="filterShow()">상세검색 ∨</button>
         </div>
       </div><!--  end navbar -->
 
@@ -758,7 +758,7 @@
 
 
           <div class="product">
-            <h3 class="text-center hayera">누적 판매 베스트 4<br><br></h3>
+            <h3 class="text-center hayera">베스트셀러<br><br></h3>
             <ul class="product-top viewTopFour">
             </ul>
           </div>

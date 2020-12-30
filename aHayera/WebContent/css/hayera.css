@@ -98,7 +98,7 @@
 }
 
 .hayeraImgBox img:hover {
-	transform:scale(1.07);	/* 이미지 확대 */
+	transform:scale(1.1);	/* 이미지 확대 */
    	transition: transform .5s;	/*  시간 설정  */
 }
 
@@ -112,4 +112,13 @@
 	border-right: 4px solid transparent;
 	border-bottom: 0 dotted;
 	border-left: 4px solid transparent;
+}
+
+.liSelected>div,
+.liSelected>div>label {
+	/* 필터 별점 선택 표기 */
+	color: #084A83;
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: underline;
 }

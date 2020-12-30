@@ -226,13 +226,6 @@
       color: #BFBFBF;
     }
 
-    .liSelected>div {
-      /* 필터 별점 선택 표기 */
-      color: #084A83;
-      font-size: 16px;
-      text-decoration: underline;
-    }
-
     .cartEachQty {
       /* 장바구니 수량 칸 너비 */
       padding-left: 10px;

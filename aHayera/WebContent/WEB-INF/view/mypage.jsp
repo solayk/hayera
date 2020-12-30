@@ -267,12 +267,6 @@ html .ui-autocomplete {
 	color: #BFBFBF;
 }
 
-.liSelected>div {
-	color: #084A83;
-	font-size: 16px;
-	text-decoration: underline;
-}
-
  ​ .costomer {
 	position: absolute;
 	top: 50%;
@@ -652,11 +646,11 @@ font-family: '레시피코리아';
                   + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                   + '<div class="item-brand">' + data[i].brand + '</div>'
                   + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'
-                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"> ' + data[i].avg_rating + '</div>'
+                  + '<div class="item-reviewno"><img src="./images/star_' + star + '.png"><span>' + data[i].avg_rating + '</span></div>'
                   + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
                     '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
-                    : '<span class="item-discount_price">' + data[i].discount_price.formatNumber() + '원 </span><span class="item-price" style="color:#BFBFBF; font-size: 15px;"><del>' + data[i].price.formatNumber() + '원</del></span>')
-                  + '<div class="item-capacity">' + data[i].capacity + ' ml, ml당 ' + mlprice + ' 원</div>'
+					: '<span class="item-price"><del>' + data[i].price.formatNumber() + '원</del></span><span class="item-discount_price"><span class="emph">→</span>' + data[i].discount_price.formatNumber() + '원 </span>')
+				  + '<div class="item-capacity">' + data[i].capacity + ' ml (ml당 ' + mlprice + ' 원)</div>'
                   + '</li>'
                 )
 

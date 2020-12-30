@@ -489,7 +489,8 @@ cite {
 
 /* KOSMO Font 글꼴 */
 .hayera {
-  font-family: '레시피코리아';
+  font-family: 'Noto Sans KR';
+  font-weight: bold;
 }
 
 h1,
@@ -7429,7 +7430,7 @@ td.visible-print {
 
 .event-open {
   background-color: #084A83;
-  font-family: '레시피코리아';
+  font-family: 'Noto Sans KR';
   padding: 5px;
 }
 
@@ -7452,7 +7453,6 @@ td.visible-print {
 .filter-review {
   list-style-type: none;
   cursor: pointer;
-  font-family: '레시피코리아';
   height: auto;
   text-align: left;
   vertical-align: top;
@@ -7461,7 +7461,6 @@ td.visible-print {
 .filter-feeling {
   list-style-type: none;
   cursor: pointer;
-  font-family: '레시피코리아';
   height: auto;
   text-align: left;
   vertical-align: top;
@@ -7470,7 +7469,6 @@ td.visible-print {
 .filter-favor {
   list-style-type: none;
   cursor: pointer;
-  font-family: '레시피코리아';
   height: auto;
   text-align: left;
   vertical-align: top;
@@ -7478,8 +7476,11 @@ td.visible-print {
 
 .filter-review label,
 .filter-feeling label,
-.filter-favor label {
+.filter-favor label,
+.sortByStar {
   font-weight: normal;
+  font-size: 14px;
+  color: #125288;
 }
 
 .filter-feeling input,
@@ -7620,34 +7621,67 @@ td.visible-print {
   width: 80px;
   height: 80px;
 }
-/* KOSMO item-discount_price 클래스 폰트 추가.*/
-.item-discount_price{
-  font-family: '레시피코리아';
+
+.item-title {
+  font-family: 'Noto Sans KR';
   font-size: 20px;
+  font-weight: 700;
+  max-height: 58px;
+  line-height: 29px;
+  overflow: hidden;
 }
-.item-title,
+
 .item-price {
-  font-family: '레시피코리아';
+  font-size: 20px;
+  font-weight: 700;
+  color: #125288;
+}
+
+.item-price > del {
+  padding-right: 1px;
   font-size: 18px;
+  font-weight: 700;
+  color: #ccc;
+  text-decoration: line-through;
 }
 
-.item-reviewno {
-  font-family: '레시피코리아';
-  font-size: 14px;
+.emph {
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
-.item-reviewno>img {
-  width: 100px;
-  vertical-align: -5px;
+.item-discount_price{
+  font-size: 20px;
+  font-weight: 700;
+  color: #125288;
 }
-/* KOSMO item-brand,capacity 클래스 폰트 추가.*/
-.item-brand,
-.item-capacity,
+
+.item-capacity {
+  font-size: 16px;
+  color: #ccc;
+}
+
+.item-brand {
+  font-size: 12px;
+  color: #ccc;
+}
+
 .item-price-ml,
 .item-sale-remaining {
-  font-family: '레시피코리아';
   font-size: 10px;
   color: gray;
+}
+
+.item-reviewno > span{
+  font-size: 16px;
+  padding-left: 5px;
+  font-weight: 700;
+  color: #125288;
+}
+
+.item-reviewno > img {
+  width: 90px;
+  vertical-align: -2px;
 }
 
 .navbar-center {

@@ -90,7 +90,7 @@ function cartListing(loc, data, price) {
   $(loc).append(
     '<tr>' + '<td style="display: none;">' + data[i].prod_no + '</td>'
     + '<td>' + '<img src="/aHayera/resources/upload/' + data[i].img_url + '" width="55" height="55">' + '</td>'
-    + '<td>' + '<a href="#">' + data[i].prod_name + '</a>' + '</td>'
+    + '<td>' + '<a href="productSelected.do?prod_no='+data[i].prod_no+'">' + data[i].prod_name + '</a>' + '</td>'
     + '<td>'
     + '<button type="button" class="btn btn-primary btn-xs" id="countDown">'
     + '<span class="glyphicon glyphicon-chevron-down"></span>' + '</button>'

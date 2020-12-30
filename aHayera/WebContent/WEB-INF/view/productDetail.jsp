@@ -151,6 +151,11 @@
                   font-family: '레시피코리아';
                   font-size: 25px;
                   }
+                  .detail-product_discoint_price{
+                  font-family: '맑은고딕';
+                  font-size: 20px;
+                  font-weight: bold;
+                  }
               
                   
                </style>
@@ -400,8 +405,8 @@
                                        </a>
                                        <ul class="dropdown-menu">
                                           <!-- mainAfterLogin 에만 해당 -->
-                                          <li><a href="mypage.do?customer_id=${sessionScope.login}">마이페이지</a></li>
-                                          <li><a href="orderHistory.do">주문목록</a></li>
+                                          <li><a href="mypage.do?customer_id=${sessionScope.login}">개인정보수정</a></li>
+                                          <li><a href="orderHistory.do">주문 내역</a></li>
                                           <li><a href="logout.do">로그아웃</a></li>
                                        </ul>
                                     </li>
@@ -437,9 +442,9 @@
                            <div class="detail-product-volume_price">
                               ${productSelected.capacity }ml / 정가: <span
                                  class="detail-product-price">${productSelected.price}</span>원<br />
-                              <span style="font-size: 20px; font-weight: bold;">할인가 :</span>
-                              <input type="text" value="${productSelected.discount_price}" name="discount_price"
-                                 style="text-align: center; font-weight: bold; width:65px;" disabled>원
+	                           <div class="detail-product_discoint_price">
+	                           <span>할인가 : ${productSelected.discount_price}원</span>	
+	                           </div>
                            </div>
                            
                            <div>

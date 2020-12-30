@@ -471,13 +471,14 @@
                           var payment_price = data[i].payment_price.formatNumber();
                           $("#orderHistoryTable").append(
                             '<tr>' +
-                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + data[i].order_no + ']' + '</td>' +
+                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + '<span id="orderno">' + data[i].order_no + '</span>'+']' + '</td>' +
                             '<td>' + '<img src="resources/upload/' + data[i].img_url + '" width="80" height="80">' + '</td>' +
                             '<td>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">' + data[i].prod_name + '</a>' + '</td>' +
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' + '</td>' +
+                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
+                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -500,13 +501,14 @@
                           var payment_price = data[i].payment_price.formatNumber();
                           $("#orderHistoryTable").append(
                             '<tr>' +
-                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + data[i].order_no + ']' + '</td>' +
+                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + '<span id="orderno">' + data[i].order_no + '</span>'+']' + '</td>' +
                             '<td>' + '<img src="resources/upload/' + data[i].img_url + '" width="80" height="80">' + '</td>' +
                             '<td>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">' + data[i].prod_name + '</a>' + '</td>' +
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' + '</td>' +
+                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
+                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -529,13 +531,14 @@
                           var payment_price = data[i].payment_price.formatNumber();
                           $("#orderHistoryTable").append(
                             '<tr>' +
-                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + data[i].order_no + ']' + '</td>' +
+                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + '<span id="orderno">' + data[i].order_no + '</span>'+']' + '</td>' +
                             '<td>' + '<img src="resources/upload/' + data[i].img_url + '" width="80" height="80">' + '</td>' +
                             '<td>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">' + data[i].prod_name + '</a>' + '</td>' +
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' + '</td>' +
+                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
+                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -558,13 +561,14 @@
                           var payment_price = data[i].payment_price.formatNumber();
                           $("#orderHistoryTable").append(
                             '<tr>' +
-                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + '<span id="orderno">' + data[i].order_no + '</span>' + ']' + '</td>' +
+                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + '<span id="orderno">' + data[i].order_no + '</span>'+']' + '</td>' +
                             '<td>' + '<img src="resources/upload/' + data[i].img_url + '" width="80" height="80">' + '</td>' +
                             '<td>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">' + data[i].prod_name + '</a>' + '</td>' +
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' + '</td>' +
+                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
+                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -587,13 +591,14 @@
                           var payment_price = data[i].payment_price.formatNumber();
                           $("#orderHistoryTable").append(
                             '<tr>' +
-                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + data[i].order_no + ']' + '</td>' +
+                            '<td>' + '<p>' + data[i].order_date + '</p>' + '[' + '<span id="orderno">' + data[i].order_no + '</span>'+']' + '</td>' +
                             '<td>' + '<img src="resources/upload/' + data[i].img_url + '" width="80" height="80">' + '</td>' +
                             '<td>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">' + data[i].prod_name + '</a>' + '</td>' +
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' + '</td>' +
+                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
+                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -745,7 +750,7 @@
               <hr />
               <div id="orderHistory">
                 <table class="table table-striped" id="orderHistoryTable">
-                  <th>주문일자[주문번호]</th>
+                  <th>주문일자<br/>[주문번호]</th>
                   <th>이미지</th>
                   <th>상품명</th>
                   <th>수량</th>

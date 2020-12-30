@@ -77,7 +77,10 @@ return regexpr.test(value);
         		    	required:true
         		    },
         		    tel:{
-        		    	required:true
+        		    	required:true,
+        		    	minlength : 10,
+        		    	maxlength : 11,
+        		    	regx : /^[0-9]+$/
         		    },
         		    address:{
         		    	required : true
@@ -115,7 +118,10 @@ return regexpr.test(value);
                 		required:"필수 입력사항입니다."
                 	},
                 	tel:{
-                		required:"필수 입력사항입니다."
+                		required:"필수 입력사항입니다.",
+                		regx : "전화번호를 정확히 입력하세요.",
+                		minlength :"전화번호를 정확히 입력하세요.",
+                		maxlength : "전화번호를 정확히 입력하세요."
                 	},
                 	address:{
                 		required:"필수 입력사항입니다."

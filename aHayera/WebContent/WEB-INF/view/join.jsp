@@ -141,7 +141,7 @@
 											<div class="col-sm-10 col-sm-offset-1">
 												<div class="form-group">
 													<label>전화번호</label>
-													<input name="tel" type="tel" id='tel'class="form-control" placeholder="010-1234-5678">
+													<input name="tel" type="tel" id='tel'class="form-control" placeholder="숫자만 입력하세요">
 												</div>
 												<div class="form-group">
 													<label>Email </label>

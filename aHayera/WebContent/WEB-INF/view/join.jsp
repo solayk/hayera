@@ -67,7 +67,7 @@
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 
-		                <div class="card wizard-card" data-color="orange" id="wizardProfile">
+		                <div class="card wizard-card" data-color="blue" id="wizardProfile">
 		                    <form action="" method="">
 		                <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
 
@@ -323,7 +323,7 @@ $('#joinbtn').click(function () {
 		},
 		success :function(result){
 			if(result==1){
-				location.replace("mainAfterLogin.do");
+				location.replace("main.jsp");
 			}
 		},
 		err : function(err){consol.log(err)}

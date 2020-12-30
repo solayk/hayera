@@ -1,7 +1,7 @@
 $(function(){
     /* 날짜 객체 받아서 문자열로 리턴하는 함수 */
     function getDateStr(myDate){
-        return (myDate.getFullYear() + '-' + ("0"+(myDate.getMonth() + 1)).slice(-2) + '-' + myDate.getDate())
+        return (myDate.getFullYear() + '-' + ("0"+(myDate.getMonth() + 1)).slice(-2) + '-' + ("0"+(myDate.getDate())).slice(-2))
     };
     
     /* 오늘 날짜를 문자열로 반환 */

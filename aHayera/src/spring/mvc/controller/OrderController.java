@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,8 @@ import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
 import spring.mvc.domain.PaymentVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.ReviewVO;
+import spring.mvc.service.CustomerService;
 import spring.mvc.service.MypageService;
 import spring.mvc.service.OrderService;
 import spring.mvc.service.ViewService;
@@ -32,6 +33,8 @@ public class OrderController {
 	private MypageService mypageService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private CustomerService customerService;
 	
 	// 장바구니에서 결제하기 눌러서 넘어가기 -> orderCheckFromCart.jsp로 고객 정보/상품 정보 갖고 넘어가기. 
 	@RequestMapping("/orderFromCart.do")
@@ -208,12 +211,16 @@ public class OrderController {
 	
 	// 로그인한 회원 id로 주문 된 내역을 불러와 보여줌. 기본 3개월.
 	@RequestMapping("/orderHistory.do")
-	public void orderHistory(HttpSession session, OrderListVO ol, Model m) {
+	public void orderHistory(HttpSession session, OrderListVO ol, Model m, ReviewVO rvo) {
 		String customer_id = (String)session.getAttribute("login");  
 		ol.setCustomer_id(customer_id);
+		rvo.setCustomer_id(customer_id);
 		
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
 		List<OrderListVO> orderHistory = orderService.orderHistoryViewDefault(ol);
+		
 		m.addAttribute("orderHistory",orderHistory);
+		m.addAttribute("review",review);
 	};
 	// 주문 내역. 오늘 클릭 시
 	@RequestMapping("/orderHistoryViewToday.do")

@@ -197,19 +197,21 @@
           columnDefs: [
             { type: 'date', targets: [3] }
           ],
+          "paging": false
         });
 
         $("#sortTable2").DataTable({
           columnDefs: [
             { type: 'date', targets: [3] }
           ],
+          "paging": false
         });
 
         /* 불필요한 정보 삭제 */
         $('#sortTable_wrapper > div:eq(0)').remove();
-        $('#sortTable_wrapper > div:eq(1)').remove();
+        /* $('#sortTable_wrapper > div:eq(1)').remove(); */
         $('#sortTable2_wrapper > div:eq(0)').remove();
-        $('#sortTable2_wrapper > div:eq(1)').remove();
+        /* $('#sortTable2_wrapper > div:eq(1)').remove(); */
 
       }); // --- end of document ready
 

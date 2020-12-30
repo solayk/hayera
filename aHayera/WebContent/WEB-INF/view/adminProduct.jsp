@@ -128,6 +128,7 @@
                 columnDefs: [
                   { type: 'date', targets: [3] }
                 ],
+                "paging": false
               });
 
               $('#search-product').on("keyup", function () {
@@ -139,7 +140,7 @@
 
               /* 불필요한 정보 삭제 */
               $('#sortTable_wrapper > div:eq(0)').remove();
-              $('#sortTable_wrapper > div:eq(1)').remove();
+              /* $('#sortTable_wrapper > div:eq(1)').remove(); */
 
               /* 수정버튼 클릭 시 */
               $(document).on('click', '.editProduct', function () {

@@ -152,6 +152,7 @@
                 columnDefs: [
                   { type: 'date', targets: [3] }
                 ],
+                "paging": false
               });
 
               $('#search-product').on("keyup", function () {
@@ -524,8 +525,8 @@
                               <!-- 상품 전체 목록 띄우는 곳 -->
                               <tbody class="viewInventory">
                               </tbody>
-
                             </table>
+                            
                           </form>
                         </div>
                       </div>

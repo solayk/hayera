@@ -80,12 +80,6 @@
                       + '<td>' + data[i].skintype + '</td>'
                       + '<td>' + data[i].points + '</td>'
                       + '<td>' + data[i].gender + '</td>'
-                      + '<td></td>'
-                      + '<td></td>'
-                      + '<td></td>'
-                      + '<td></td>'
-                      + '<td></td>'
-                      + '<td></td>'
                       + '<td class="configBtns"><button class="editCustomer" type="button" data-toggle="tooltip" data-placement="top" title="수정"><i class="material-icons">&#xE254;</i></button>'
                       + '<button class="deleteCustomer" type="button" data-toggle="tooltip" data-placement="top" title="삭제"><i class="material-icons">&#xE872;</i></button></td>'
                       + '</tr>'
@@ -103,6 +97,7 @@
                 columnDefs: [
                   { type: 'date', targets: [3] }
                 ],
+                "paging": false
               });
 
               $('#search-product').on("keyup", function () {
@@ -114,7 +109,7 @@
 
               /* 불필요한 정보 삭제 */
               $('#sortTable_wrapper > div:eq(0)').remove();
-              $('#sortTable_wrapper > div:eq(1)').remove();
+              /* $('#sortTable_wrapper > div:eq(1)').remove(); */
 
               /* 수정버튼 클릭 시 */
               $(document).on('click', '.editCustomer', function () {
@@ -393,12 +388,6 @@
                                   <th scope="col" style="max-width: 50px; min-width: 50px;">피부타입</th>
                                   <th scope="col" style="max-width: 50px; min-width: 50px;">포인트</th>
                                   <th scope="col" style="max-width: 50px; min-width: 50px;">성별</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">주문</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">방문</th>
-                                  <th scope="col" style="max-width: 50px; min-width: 50px;">리뷰</th>
-                                  <th scope="col">평점</th>
-                                  <th scope="col" style="max-width: 50px;min-width: 50px;">문의</th>
-                                  <th scope="col">답변</th>
                                   <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>

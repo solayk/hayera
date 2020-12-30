@@ -102,6 +102,7 @@
                 columnDefs: [
                   { type: 'date', targets: [3] }
                 ],
+                "paging": false
               });
 
               $('#search-product').on("keyup", function () {
@@ -113,7 +114,7 @@
 
               /* 불필요한 정보 삭제 */
               $('#sortTable_wrapper > div:eq(0)').remove();
-              $('#sortTable_wrapper > div:eq(1)').remove();
+              /* $('#sortTable_wrapper > div:eq(1)').remove(); */
 
               /* 수정 버튼 클릭 시 */
               $(document).on('click', '.editOrder', function () {
@@ -397,7 +398,7 @@
                                   <th scope="col" style="max-width: 55px; min-width: 55px;">확정일</th>
                                   <th scope="col" style="max-width: 55px; min-width: 55px;">발송일</th>
                                   <th scope="col" style="max-width: 60px;min-width: 60px;">배송</th>
-                                  <th scope="col" style="width: 60px; max-width: 60px;min-width: 60px;"></th>
+                                  <th scope="col" style="max-width: 60px;min-width: 60px;"></th>
                                 </tr>
                               </thead>
 

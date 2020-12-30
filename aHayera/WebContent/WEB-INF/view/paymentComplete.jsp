@@ -403,7 +403,7 @@
 		
         var purchaseAmount = '${purchaseAmount}';
         
-        var slackUrl = 'https://hooks.slack.com/services/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';
+        var slackUrl = 'https://hooks.slack.com/services/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';
         var slackMsg = '주문번호: ' + '${purchaserOrderNo}' + ' / 아이디: ' + '${purchaserID}' + ' / 결제금액: ' + numberWithCommas(purchaseAmount) + '원';
 		
         $.ajax({

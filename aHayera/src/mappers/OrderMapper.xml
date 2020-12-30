@@ -116,4 +116,12 @@
 	]]>
 </update>
 
+<select id="selectReviewForwriteReview" resultType="review"> 
+	<![CDATA[
+	SELECT *
+	FROM review
+	WHERE customer_id = #{customer_id}
+	]]>
+</select>
+
 </mapper>

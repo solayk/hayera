@@ -8,6 +8,7 @@ import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
 import spring.mvc.domain.PaymentVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.ReviewVO;
 
 public interface OrderService {
 
@@ -36,4 +37,6 @@ public interface OrderService {
 	public void updateStock(ProductVO vo);
 	
 	public void updateTotalsales(ProductVO vo);
+	
+	public List<ReviewVO> selectReviewForwriteReview(ReviewVO vo);
 }

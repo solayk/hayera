@@ -13,6 +13,7 @@ import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.Order_ProductVOList;
 import spring.mvc.domain.PaymentVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.ReviewVO;
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
@@ -80,6 +81,10 @@ public class OrderServiceImpl implements OrderService {
 
 	public void updateTotalsales(ProductVO vo) {
 		orderDAO.updateTotalsales(vo);
+	}
+
+	public List<ReviewVO> selectReviewForwriteReview(ReviewVO vo) {
+		return orderDAO.selectReviewForwriteReview(vo);
 	}
 
 }

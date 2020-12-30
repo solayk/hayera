@@ -11,6 +11,7 @@ import spring.mvc.domain.OrderListVO;
 import spring.mvc.domain.Order_ProductVO;
 import spring.mvc.domain.PaymentVO;
 import spring.mvc.domain.ProductVO;
+import spring.mvc.domain.ReviewVO;
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 	@Autowired
@@ -63,6 +64,10 @@ public class OrderDAOImpl implements OrderDAO {
 
 	public void updateTotalsales(ProductVO vo) {
 		mybatis.update("OrderDAO.updateTotalsales",vo);
+	}
+
+	public List<ReviewVO> selectReviewForwriteReview(ReviewVO vo) {
+		return mybatis.selectList("OrderDAO.selectReviewForwriteReview",vo);
 	}
 
 }

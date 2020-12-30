@@ -7454,7 +7454,7 @@ td.visible-print {
   list-style-type: none;
   cursor: pointer;
   height: auto;
-  text-align: left;
+  text-align: center;
   vertical-align: top;
 }
 
@@ -7684,18 +7684,18 @@ td.visible-print {
 
 .item-capacity {
   font-size: 16px;
-  color: #ccc;
+  color: #404040;
 }
 
 .item-brand {
   font-size: 12px;
-  color: #ccc;
+  color: #404040;
 }
 
 .item-price-ml,
 .item-sale-remaining {
-  font-size: 10px;
-  color: gray;
+  font-size: 16px;
+  color: #ccc;
 }
 
 .item-reviewno > span{

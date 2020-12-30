@@ -287,7 +287,7 @@
             <li>
             <a>
               <div id="adminUpdateRating" >
-                <i class="now-ui-icons files_paper"></i>
+                <i class="now-ui-icons ui-2_like"></i>
                 <p>별점 업데이트</p>
               </div>
              </a>

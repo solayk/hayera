@@ -142,7 +142,7 @@
             		
             		var expected_price = ((exist_price*exist_qty) + (stock_in_price*stock_in_qty))/(exist_qty + stock_in_qty);
             		
-                  	$('#expected_price').val(numberWithCommas(String(expected_price)));
+                  	$('#expected_price').val(numberWithCommas(String(Math.round(expected_price))));
               	}  
             	  
               }); // --- end of on 'change' 입고가 기입하면 예상 평균가 계산해서 띄우기

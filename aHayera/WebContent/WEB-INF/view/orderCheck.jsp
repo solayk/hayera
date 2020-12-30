@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
 <title>HAYERA!</title>
 	<link href="css/hayera.css" rel="stylesheet" />
 	<!--     Font Awesome     -->
@@ -49,6 +50,7 @@
    	var points = point.formatNumber(); // 적립금의 세자리 단위 쉼표 형식
    	var sales_cost = ${productInfo.cost_price}; // 원가
    	var sales_revenue = discount_price - sales_cost; // 수익 = 할인가 - 원가
+   	
     //Jquery 시작
     $(function () {
     	// 적립금 입력 안했을 때, form에서 가져갈 데이터 오류 안나도록 처리.  
@@ -144,14 +146,31 @@
     		'<td>'+'무료배송'+'</td>'+
     		'</tr>'    	
     	);
-    	// 결제 버튼 클릭 시
+		// 결제 버튼 클릭 시
         $("#payment").click(function(){
+        	var method = document.pay.paymentMethod.value;
+        	if(method == "0"){
+        		alert("결제수단을 선택해주세요.")
+       			return false;
+        	}
         	var pointUse = $(".form-control").val();
-        	var money = (goodsCount*discount_price) - pointUse;
+        	var money = gcXdp - pointUse;
         	var totalSum = money.formatNumber();
-        	confirm(totalSum+"원 결제하시겠습니까?");
+        	if(confirm(totalSum+"원 결제하시겠습니까?") == true){
+        		document.pay.submit();
+        	}else{
+        		return;
+        	}
         });
-	})
+	}) // end of Jquery
+	/*function send_it() {
+    	var method = document.pay.paymentMethod.value;
+    	if(method == "0"){
+   			alert("결제수단을 선택해주세요.");
+   			document.pay.paymentMethod.focus();
+   			return false;
+   		}
+	}*/
     </script>
 </head>
 <body>
@@ -357,15 +376,15 @@
         </h2>
         <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive" data-bs-parent="#accordionExample5">
           <div class="accordion-body">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>결제수단을 선택해주세요.</option>
+            <select class="form-select" aria-label="Default select example" name="paymentMethod">
+              <option value="0">결제수단을 선택해주세요.</option>
               <option value="1">핸드폰 결제</option>
               <option value="2">카드 결제</option>
               <option value="3">무통장입금</option>
             </select>
             <br/>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+              <input class="form-check-input" type="checkbox" id="flexCheckDefault" checked>
               <label class="form-check-label" for="flexCheckDefault">
                 결제수단과 입력정보를 다음에도 사용
               </label>
@@ -375,7 +394,7 @@
       </div>
     </div>
     <div class="d-grid gap-2">
-      <input class="btn btn-primary" type="submit" id="payment"></button>
+      <input class="btn btn-primary" type="button" id="payment">
     </div>
   </div>
 </form>

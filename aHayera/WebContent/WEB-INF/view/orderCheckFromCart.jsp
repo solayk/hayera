@@ -208,13 +208,20 @@
     	
     	// 결제 버튼 클릭 시
         $("#payment").click(function(){
+        	var method = document.pay.paymentMethod.value;
+        	if(method == "0"){
+        		alert("결제수단을 선택해주세요.")
+       			return false;
+        	}
         	var pointUse = $(".form-control").val();
         	var money = ${priceSum} - pointUse;
         	var totalSum = money.formatNumber();
-        	confirm(totalSum+"원 결제하시겠습니까?");
+        	if(confirm(totalSum+"원 결제하시겠습니까?") == true){
+        		document.pay.submit();
+        	}else{
+        		return;
+        	}
         });
-    
-       	
 	})
     </script>
 </head>
@@ -409,8 +416,8 @@
         </h2>
         <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive" data-bs-parent="#accordionExample5">
           <div class="accordion-body">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>결제수단을 선택해주세요.</option>
+            <select class="form-select" aria-label="Default select example" name="paymentMethod">
+              <option value="0">결제수단을 선택해주세요.</option>
               <option value="1">핸드폰 결제</option>
               <option value="2">카드 결제</option>
               <option value="3">무통장입금</option>
@@ -427,7 +434,7 @@
       </div>
     </div>
     <div class="d-grid gap-2">
-      <input class="btn btn-primary" type="submit" id="payment"></button>
+      <input class="btn btn-primary" type="button" id="payment">
     </div>
   </div>
 </form>

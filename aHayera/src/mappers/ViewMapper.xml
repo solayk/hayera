@@ -7,7 +7,7 @@
 	<![CDATA[
 	SELECT * 
 	FROM PRODUCT
-	ORDER BY PROD_NO
+	ORDER BY TO_NUMBER(PROD_NO)
 	]]>
 	</select>
 	

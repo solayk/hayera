@@ -27,22 +27,58 @@
 .ta,.btn{
 	text-align: center;
 }
+
+
+.star {
+	display: inline-block;
+	width: 30px;
+	height: 60px;
+	cursor: pointer;
+	}
+
+.star_left {
+	background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat 0 0;
+	background-size: 60px;
+	margin-right: -3px;
+			}
+
+.star_right {
+	background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat -30px 0;
+	background-size: 60px;
+	margin-left: -3px;
+			}
+
+.star.on {
+	background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
+		}
 </style>
 </head>
 <body>
+
+		<div style="font-weight: bold; text-align: center;"><h3>점수를 선택해주세요</h3></div>
+
+		<div class="star-box" style="text-align: center;">
+			<span class="star star_left"></span>
+			<span class="star star_right"></span>
+
+			<span class="star star_left"></span>
+			<span class="star star_right"></span>
+
+			<span class="star star_left"></span>
+			<span class="star star_right"></span>
+
+			<span class="star star_left"></span>
+			<span class="star star_right"></span>
+
+			<span class="star star_left"></span>
+			<span class="star star_right"></span>
+		</div>
 
 
 <input type="hidden" name="prod_no" id="prod_no" value="<%=request.getParameter("prod_no")%>">
 <input type="hidden" name="order_no" id="order_no" value="<%=request.getParameter("order_no")%>">
 
-	
-		<div style="font-weight: bold; text-align: center;">점수를 선택해주세요</div>
-		<div style="text-align: center"><input type='radio' name='rate' value='1'>1 
-		<input type='radio' name='rate' value='2'>2
-		<input type='radio' name='rate' value='3'>3
-		<input type='radio' name='rate' value='4'>4
-		<input type='radio' name='rate' value='5'>5
-		</div>
+
 		<br/>
 	<div class="ta">	
 	<textarea  class='contents' id='contents' placeholder="후기를 입력하세요" style="width:400px; height:100px; float: center;"></textarea>
@@ -54,13 +90,27 @@
 
 <script type="text/javascript">
 
-$('#btnreview').click(function () {
 
+$(document).ready(function () {
+	var idx=0;
+	$(".star").on('click', function () {
+		idx = $(this).index();
+		$(".star").removeClass("on");
+	
+		for (var i = 0; i <= idx; i++) {
+			$(".star").eq(i).addClass("on");
+		}
+		
+	});
+
+
+$('#btnreview').click(function () {
+ var rate = (idx+1) /2;
 	$.ajax({
 		url : "reviewWrite.do",
 		data : { 'prod_no' : $('#prod_no').val(),
 			'order_no' : $('#order_no').val(),
-			'rate' :$('input[name="rate"]:checked').val(),
+			'rate' : rate,
 			'contents' : $('#contents').val()
 		},
 		success: function(data) {
@@ -72,7 +122,7 @@ $('#btnreview').click(function () {
 		}
 	})
 })
-
+});
 </script>
 
 

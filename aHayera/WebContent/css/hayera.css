@@ -125,10 +125,8 @@
 
 .filterBtn {
 	position: absolute; 
-	top: 128px; 
-	left:850px; 
-	width: 100px; 
-	height: 25px; 
+	left: 48%;
+	top: 85%;
 	background-color: transparent;
 	border: none;
 	font-size: 14px;

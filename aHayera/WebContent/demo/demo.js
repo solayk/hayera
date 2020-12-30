@@ -588,7 +588,7 @@ demo = {
       data: {
         labels: arrMonth,
         datasets: [{
-          label: "일 판매량",
+          label: "월 판매량",
           backgroundColor: gradientFill,
           borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",

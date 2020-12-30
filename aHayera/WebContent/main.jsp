@@ -712,15 +712,16 @@
               </div>
               <br>
             </form>
-
-            <button class="filterBtn" onclick="filterShow()">상세검색</button>
-
+			
+			
+ 
           </div><!-- /.container-fluid -->
-
+		  
         </nav>
 
         <div class="blurred-container">
           <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
+          <button class="filterBtn" onclick="filterShow()">상세검색</button>
         </div>
       </div><!--  end navbar -->
 

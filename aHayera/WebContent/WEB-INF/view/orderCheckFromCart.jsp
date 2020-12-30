@@ -36,6 +36,9 @@
     table{
         text-align: center;
     }
+  	.btn btn-primary{
+  	background-color: #125288;
+  	}
     </style>
     <script type="text/javascript">
     // 주문/결제 페이지 내 숫자 표시에 사용한 변수.

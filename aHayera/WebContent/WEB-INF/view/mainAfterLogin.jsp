@@ -253,6 +253,9 @@
         padding-left: 10px;
         padding-right: 10px;
       }
+      .btn btn-cartPay{
+       background-color: #125288;
+      }
     </style>
 
     <script type="text/javascript">

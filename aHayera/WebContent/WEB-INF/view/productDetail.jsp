@@ -171,6 +171,9 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
+.btn btn-primary{
+	background-color: #125288;
+}
 
 </style>
                <title>상세페이지</title>

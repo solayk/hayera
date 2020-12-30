@@ -128,15 +128,22 @@ public class CustomerController {
 	 return message;
    }
    
-   @RequestMapping("/adminUpdateRating.do")
-   public void updaterate(ReviewVO vo) {
+   @RequestMapping(value="/adminUpdateRating.do",produces ="application/text;charset=utf-8" )
+   @ResponseBody
+   public String updaterate(ReviewVO vo) {
 	   List<ReviewVO> list = customerserive.selectReviewlist();
-	 
+	   int result =0;
+	   String message = "업데이트 항목이 없습니다.";
 	   for(int i =0; i<list.size();i++) {
 		   vo.setRate(list.get(i).getRate());
 		   vo.setProd_no(list.get(i).getProd_no());
-		   int result = customerserive.insertReviewrating(vo);
+		   result = customerserive.insertReviewrating(vo);
 	   }
+	   if(result>0) {
+		   message = "업데이트 되었습니다";
+	   }
+	   
+	   return message;
    }
    
    

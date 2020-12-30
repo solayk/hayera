@@ -544,7 +544,7 @@
                   + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
                     '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
                     : '<span class="item-price"><del>' + data[i].price.formatNumber() + '원</del></span><span class="item-discount_price"><span class="emph">→</span>' + data[i].discount_price.formatNumber() + '원 </span>')
-                  + '<div class="item-capacity">' + data[i].capacity + ' ml (ml당 ' + mlprice + ' 원)</div>'
+                  + '<div class="item-capacity">' + data[i].capacity + ' ml <span class="item-price-ml">(ml당 ' + mlprice + ' 원)</span></div>'
                   + '</li>'
                 )
 
@@ -725,16 +725,16 @@
         <ul class="filter-review">
           <label style="font-size:18px;">평균평점</label>
           <li style="margin-bottom:4px;">
-            <div class="sortByStar"><img src="./images/star_4.png"> 별 <label>4</label>개 이상</div>
+            <div class="sortByStar"><img src="./images/star_4.png"><span class="andUp">& UP</span><label style="display: none;">4</label></div>
           </li>
           <li style="margin-bottom:4px;">
-            <div class="sortByStar"><img src="./images/star_3.png"> 별 <label>3</label>개 이상</div>
+            <div class="sortByStar"><img src="./images/star_3.png"><span class="andUp">& UP</span><label style="display: none;">3</label></div>
           </li>
           <li style="margin-bottom:4px;">
-            <div class="sortByStar"><img src="./images/star_2.png"> 별 <label>2</label>개 이상</div>
+            <div class="sortByStar"><img src="./images/star_2.png"><span class="andUp">& UP</span><label style="display: none;">2</label></div>
           </li>
           <li style="margin-bottom:8px;">
-            <div class="sortByStar"><img src="./images/star_1.png"> 별 <label>1</label>개 이상</div>
+            <div class="sortByStar"><img src="./images/star_1.png"><span class="andUp">& UP</span><label style="display: none;">1</label></div>
           </li>
           <li class="liSelected">
             <div class="sortByStar">

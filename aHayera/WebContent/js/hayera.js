@@ -43,7 +43,7 @@ function productListing(loc, data, star, discount, mlprice) {
     + (data[i].discount_price == '0' ? /* 할인 여부에 따라 가격 표시 다르게 */
       '<span class="item-price">' + data[i].price.formatNumber() + '원</span>'
       : '<span class="item-price"><del>' + data[i].price.formatNumber() + '원</del></span><span class="item-discount_price"><span class="emph">→</span>' + data[i].discount_price.formatNumber() + '원 </span>')
-    + '<div class="item-capacity">' + data[i].capacity + ' ml (ml당 ' + mlprice + ' 원)</div>'
+    + '<div class="item-capacity">' + data[i].capacity + ' ml <span class="item-price-ml">(ml당 ' + mlprice + ' 원)</span></div>'
     + '</li>'
   )
 }

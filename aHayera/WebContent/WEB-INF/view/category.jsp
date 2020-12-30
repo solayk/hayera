@@ -257,11 +257,11 @@
         <script type="text/javascript">
 
 
-          
-        
-        
-        
-        
+
+
+
+
+
 
           // Jquery 시작
           $(document).ready(function () {
@@ -273,6 +273,8 @@
 
 
 
+
+            $('.filter-window').hide(); // 상세검색 처음에 숨기기
 
             $('.viewFilteredProduct').parent('div').hide();
 
@@ -554,6 +556,9 @@
 
                   }
 
+                  // 필터 검색 결과 없으면
+                  if (data.length == 0) $('.viewFilteredProduct').append('<div class="text-center hayera" style="font-size:20px; color:gray;">검색 결과가 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>')
+
                   $('.viewFilteredProduct').parent('div').show();
                   $('.viewTopFour').parent('div').hide();
                   $('.viewTopSalesedItem').parent('div').hide();
@@ -571,15 +576,18 @@
 
           // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
           function clickGoFromCart() {
-        	var id = '<%=(String)session.getAttribute("login")%>';
-          	if(id=='null'){
-          		window.location.href = "login.do";
-          	}else{
-          		window.location.href = "orderFromCart.do";
-          	}
+            var id = '<%=(String)session.getAttribute("login")%>';
+            if (id == 'null') {
+              window.location.href = "login.do";
+            } else {
+              window.location.href = "orderFromCart.do";
+            }
           };
 
-
+          // 필터창 보이기 숨기기
+          function filterShow() {
+            $('.filter-window').toggle();
+          }
 
 
 
@@ -717,6 +725,7 @@
 
             <div class="blurred-container">
               <div class="img-src" style="background-image: url('images/main_background_top.png')"></div>
+              <button class="filterBtn" onclick="filterShow()">상세검색</button>
             </div>
           </div><!--  end navbar -->
 
@@ -725,18 +734,22 @@
         <div class="main">
           <div class="filter-window">
             <ul class="filter-review">
-              <label style="font-size:18px;">평균평점</label>
+              <label>평균평점</label>
               <li style="margin-bottom:4px;">
-                <div class="sortByStar"><img src="./images/star_4.png"> 별 <label>4</label>개 이상</div>
+                <div class="sortByStar"><img src="./images/star_4.png"><span>& UP</span><label
+                    style="display: none;">4</label></div>
               </li>
               <li style="margin-bottom:4px;">
-                <div class="sortByStar"><img src="./images/star_3.png"> 별 <label>3</label>개 이상</div>
+                <div class="sortByStar"><img src="./images/star_3.png"><span>& UP</span><label
+                    style="display: none;">3</label></div>
               </li>
               <li style="margin-bottom:4px;">
-                <div class="sortByStar"><img src="./images/star_2.png"> 별 <label>2</label>개 이상</div>
+                <div class="sortByStar"><img src="./images/star_2.png"><span>& UP</span><label
+                    style="display: none;">2</label></div>
               </li>
               <li style="margin-bottom:8px;">
-                <div class="sortByStar"><img src="./images/star_1.png"> 별 <label>1</label>개 이상</div>
+                <div class="sortByStar"><img src="./images/star_1.png"><span>& UP</span><label
+                    style="display: none;">1</label></div>
               </li>
               <li class="liSelected">
                 <div class="sortByStar">
@@ -745,14 +758,14 @@
               </li>
             </ul> <!-- /.filter-review -->
             <ul class="filter-feeling">
-              <label style="font-size:18px;">발림성</label>
+              <label>발림성</label>
               <li><label><input type="checkbox" name="feeling" id="water" value="흐름"> 흐름</label></li>
               <li><label><input type="checkbox" name="feeling" id="soft" value="부드러움"> 부드러움</label></li>
               <li><label><input type="checkbox" name="feeling" id="mat" value="매트"> 매트</label></li>
               <li><label><input type="checkbox" name="feeling" id="hard" value="하드"> 하드</label></li>
             </ul> <!-- /.filter-feeling -->
             <ul class="filter-favor">
-              <label style="font-size:18px;">향</label>
+              <label>향</label>
               <li><label><input type="checkbox" name="favor" id="no" value="무향"> 무향</label></li>
               <li><label><input type="checkbox" name="favor" id="flower" value="꽃"> 꽃</label></li>
               <li><label><input type="checkbox" name="favor" id="oe" value="오이"> 오이</label></li>

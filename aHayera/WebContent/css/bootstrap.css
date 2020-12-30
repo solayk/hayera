@@ -7741,3 +7741,10 @@ td.visible-print {
   padding-top: 2px;
   transform: translate(-50%, -50%);
 }
+
+/* 장바구니 */
+
+#cartSumPrice {
+  font-size: 20px;
+  font-weight: 700;
+}

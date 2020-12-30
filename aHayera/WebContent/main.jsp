@@ -266,7 +266,7 @@
       // Jquery 시작
       $(document).ready(function () {
     	  
-        $('.filter-window').hide(); // 상세검색 처음에 숨기기
+        
 
 
 
@@ -274,6 +274,7 @@
 
 
 
+    	$('.filter-window').hide(); // 상세검색 처음에 숨기기  
 
         $('.viewFilteredProduct').parent('div').hide();
 
@@ -550,7 +551,8 @@
                 )
 
               }
-
+			  
+              // 필터 검색 결과 없으면
               if (data.length == 0) $('.viewFilteredProduct').append('<div class="text-center hayera" style="font-size:20px; color:gray;">검색 결과가 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>')
 
               $('.viewFilteredProduct').parent('div').show();
@@ -660,7 +662,7 @@
                       <div class="panel-body">
                         <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                         <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                        <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로 결제</button>
+                        <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
                       </div>
                     </div>
                   </ul>

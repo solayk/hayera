@@ -39,6 +39,7 @@
 		<![CDATA[ PROD_NAME = #{prod_name}, BRAND = #{brand}, CATEGORY = #{category}, 
 		PRICE = #{price}, DISCOUNT_PRICE = #{discount_price}, CAPACITY = #{capacity}, 
 		SCENT = #{scent}, FEEL = #{feel}, PRODUCT_EXPLAIN = #{product_explain}, 
+		EXPLAIN_URL = #{explain_url}, 
 		]]>
 		</if>
 		<![CDATA[STOCK = #{stock}, COST_PRICE = #{cost_price}]]>  

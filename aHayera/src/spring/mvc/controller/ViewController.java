@@ -57,7 +57,7 @@ public class ViewController {
 		ProductVO newVo = viewService.productSelected(vo);
 		
 		// 별점 표기 위한 처리작업	
-		int rating = Integer.parseInt(newVo.getAvg_rating());
+		double rating = Double.parseDouble(newVo.getAvg_rating());
 		String star = "0";
 			if(rating >= 4.9) star = "5";
 			else if(rating >= 4.3 && rating <4.9) star = "4.5";

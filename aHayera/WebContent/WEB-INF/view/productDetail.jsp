@@ -576,7 +576,7 @@
                               <textarea id="taqna" rows="" cols="" style="width:770px; height:80px; "
                                  placeholder="문의사항을 적어주세요:)"></textarea>
                               <div style="clear: both; padding-bottom: 20px;""></div>
-            	  			<input type=" button" class="btnqna" id="btnqna" value="작성완료" style="text-align: center; float: right;">
+            	  			<input type=" button" class="btnqna" id="btnqna" value="작성완료" style="text-align: center; float: right; cursor:pointer;">
                               </div>
                         </article>
                         <article class="detail-product-explain">

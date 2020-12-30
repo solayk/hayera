@@ -282,7 +282,7 @@
           $(document).on('click', '#writeReview', function () {
             var order_no = $(this).parent().parent('tr').find('td:nth-child(1) > span').text();
             var prod_no = $(this).next().val();
-            var winObj = window.open("writereview.do?order_no=" + order_no + "&prod_no=" + prod_no + "", '리뷰 작성', 'width=600px, height=300');
+            var winObj = window.open("writereview.do?order_no=" + order_no + "&prod_no=" + prod_no + "", '리뷰 작성', 'width=600px, height=400');
             winObj.moveTo(screen.availWidth / 2, screen.availHeight / 3);
           });
 
@@ -687,7 +687,7 @@
                         <p>내 계정 <b class="caretHayera"></b></p>
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a href="mypage.do">마이페이지</a></li>
+                        <li><a href="mypage.do">개인정보수정</a></li>
                         <li><a href="orderHistory.do">주문 내역</a></li>
                         <li><a href="logout.do">로그아웃</a></li>
                       </ul>

@@ -399,6 +399,21 @@
         });
 
 
+        // 슬랙 구매완료 메시지
+		
+        var purchaseAmount = '${purchaseAmount}';
+        
+        var slackUrl = 'https://hooks.slack.com/services/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';
+        var slackMsg = '주문번호: ' + '${purchaserOrderNo}' + ' / 아이디: ' + '${purchaserID}' + ' / 결제금액: ' + numberWithCommas(purchaseAmount) + '원';
+		
+        $.ajax({
+          data: 'payload=' + JSON.stringify({ "text": slackMsg }),
+          dataType: 'json',
+          processData: false,
+          type: 'POST',
+          url: slackUrl
+        });
+
       }) // End of Jquery
 
       // 장바구니에서 바로 결제 클릭 시

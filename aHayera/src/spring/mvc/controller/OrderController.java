@@ -79,7 +79,7 @@ public class OrderController {
 	
 	// 주문 (현재는 로그인 한 회원의 정보를 주문 테이블 데이터로 저장하는 메소드가 되어버렸음.. 즉, 기본 배송지 설정 or '회원 정보와 동일' 선택한 상태의 주문 정보 저장임.)
 	@RequestMapping("/paymentComplete.do")
-	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, PaymentVO pvo, ProductVO vo, HttpSession session){
+	public void order(CustomerVO cvo, OrderListVO ol, Order_ProductVO op, PaymentVO pvo, ProductVO vo, HttpSession session, Model model){
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -135,11 +135,16 @@ public class OrderController {
 		
 		orderService.updateStock(vo);
 		orderService.updateTotalsales(vo);
+		
+		//	구매완료 슬랙 메시지
+		model.addAttribute("purchaserID", customer_id);
+		model.addAttribute("purchaseAmount", ol.getPayment_price());
+		model.addAttribute("purchaserOrderNo", order_no);
 	};
 	
 	// 장바구니 통해 여러 상품 주문결제
 	@RequestMapping("/paymentCompleteCart.do")
-	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, ProductVO vo/*, Order_ProductVO opVo*/, HttpSession session) {
+	public String orderFromCart(CustomerVO cvo, OrderListVO oVo, Order_ProductVOList oVoList, PaymentVO pvo, ProductVO vo, HttpSession session, Model model) {
 		cvo.setCustomer_id((String)session.getAttribute("login"));  
 		CustomerVO info = mypageService.getAllById(cvo);
 		// 로그인 한 회원의 정보를 가지고 고객id, 받는 사람, 주소 설정.
@@ -192,6 +197,12 @@ public class OrderController {
 		orderService.insertOrderFromCart(oVo, list, pvo, cvo);
 		
 		session.removeAttribute("inCart");
+		
+		// 구매완료 슬랙 메시지
+		model.addAttribute("purchaserID", customer_id);
+		model.addAttribute("purchaseAmount", oVo.getPayment_price());
+		model.addAttribute("purchaserOrderNo", order_no);
+		
 		return "paymentComplete";
 	}
 	

@@ -39,126 +39,210 @@
                <!-- 아이콘 https://material.io/resources/icons/?style=baseline -->
                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
                <style>
-                  .fa-heart {
-                     color: #F74933;
-                  }
+.fa-heart {
+	color: #F74933;
+}
 
-                  .space-100 {
-                     height: 100px;
-                     display: block;
-                  }
+.space-100 {
+	height: 100px;
+	display: block;
+}
 
-                  .prettyprint {
-                     background-color: #ffffff;
-                     border: 1px solid #999;
-                     margin-top: 20px;
-                     padding: 20px;
-                     text-align: left;
-                  }
+.prettyprint {
+	background-color: #ffffff;
+	border: 1px solid #999;
+	margin-top: 20px;
+	padding: 20px;
+	text-align: left;
+}
 
-                  .atv,
-                  .str {
-                     color: #05AE0E;
-                  }
+.atv, .str {
+	color: #05AE0E;
+}
 
-                  .tag,
-                  .pln,
-                  .kwd {
-                     color: #3472F7;
-                  }
+.tag, .pln, .kwd {
+	color: #3472F7;
+}
 
-                  .atn {
-                     color: #2C93FF;
-                  }
+.atn {
+	color: #2C93FF;
+}
 
-                  .pln {
-                     color: #333;
-                  }
+.pln {
+	color: #333;
+}
 
-                  .com {
-                     color: #999;
-                  }
+.com {
+	color: #999;
+}
 
-                  /* KOSMO : 장바구니 CSS */
-                  .table {
-                     width: 750px;
-                     text-align: center;
-                  }
+/* KOSMO : 장바구니 CSS */
+.table {
+	width: 750px;
+	text-align: center;
+}
 
-                  .panel-body {
-                     float: right;
-                  }
+.panel-body {
+	float: right;
+}
 
-                  /* 여기까지 */
-                  .detail-radio-filter {
-                     list-style: none;
-                     float: right;
-                  }
+/* 여기까지 */
+.detail-radio-filter {
+	list-style: none;
+	float: right;
+}
 
-                  .detail-filter {
-                     float: left;
-                     display: list-item;
-                  }
+.detail-filter {
+	float: left;
+	display: list-item;
+}
 
-                  .detail_button {
-                     background-color: #084A83;
-                     width: 200px;
-                     height: 50px;
-                     font-size: 17px;
-                     color: white;
-                     font-family: '레시피코리아';
-                     border-color: #084A83;
-                  }
+/* 바로결제버튼 */
+.detail_button {
+	-moz-box-shadow: inset 0px 0px 15px 3px #23395e;
+	-webkit-box-shadow: inset 0px 0px 15px 3px #23395e;
+	box-shadow: inset 0px 0px 15px 3px #23395e;
+	background-color: #2e466e;
+	-webkit-border-top-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	border-top-left-radius: 0px;
+	-webkit-border-top-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius-bottomright: 0px;
+	border-bottom-right-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-bottom-left-radius: 0px;
+	text-indent: 0;
+	border: 1px solid #1f2f47;
+	display: inline-block;
+	color: #ffffff;
+	font-family: Times New Roman;
+	font-size: 15px;
+	font-weight: bold;
+	font-style: normal;
+	height: 50px;
+	line-height: 50px;
+	width: 160px;
+	text-decoration: none;
+	text-align: center;
+	text-shadow: 0px 1px 0px #263666;
+}
 
-                  .detail-board-list a,
-                  .orderbyy, .btnqna {
-                     cursor: pointer;
-                     font-family: '레시피코리아';
-                  }
+.baguni_button:hover {
+	background-color: #415989;
+}
 
-                  /* li 앞 . 삭제 */
-                  .detail-review-list {
-                     list-style: none;
-                  }
+.baguni_button:active {
+	position: relative;
+	top: 1px;
+}
 
-                  .btnqna,
-                  .writeqna {
-                     border-radius: 50px;
-                     color: #fff;
-                     background-color: #084A83;
-                     font-family : 'Calibri';
-                     font-weight : bold;
-                     width: 150px;
-                  }
+/* 장바구니 버튼 */
+.baguni_button {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff
+		), color-stop(1, #f6f6f6));
+	background: -moz-linear-gradient(center top, #ffffff 5%, #f6f6f6 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',
+		endColorstr='#f6f6f6');
+	background-color: #ffffff;
+	-webkit-border-top-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	border-top-left-radius: 0px;
+	-webkit-border-top-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius-bottomright: 0px;
+	border-bottom-right-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-bottom-left-radius: 0px;
+	text-indent: 0;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #040f78;
+	font-family: Times New Roman;
+	font-size: 15px;
+	font-weight: bold;
+	font-style: normal;
+	height: 50px;
+	line-height: 50px;
+	width: 160px;
+	text-decoration: none;
+	text-align: center;
+	text-shadow: 0px 1px 0px #ffffff;
+}
 
-                  .cartEachQty {
-                     /* 장바구니 수량 칸 너비 */
-                     padding-left: 10px;
-                     padding-right: 10px;
-                  }
-                  .info__th{
-                  	font-size: 18px;
-                  	line-height: 40px;
-                  }
-                  .info_td{
-                  	line-height: 40px;
-                  }
-                  .title{
-                  color: #666;
-                  font-family: '레시피코리아';
-                  }
-                  .detail-product-product_name{
-                  font-family: '레시피코리아';
-                  font-size: 25px;
-                  }
-                  .detail-product_discoint_price{
-                  font-family: '맑은고딕';
-                  font-size: 20px;
-                  font-weight: bold;
-                  }
-              
-                  
-               </style>
+.baguni_button:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6
+		), color-stop(1, #ffffff));
+	background: -moz-linear-gradient(center top, #f6f6f6 5%, #ffffff 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6',
+		endColorstr='#ffffff');
+	background-color: #f6f6f6;
+}
+
+.baguni_button:active {
+	position: relative;
+	top: 1px;
+}
+
+.detail-board-list a, .orderbyy, .btnqna {
+	cursor: pointer;
+	font-family: '레시피코리아';
+}
+
+/* li 앞 . 삭제 */
+.detail-review-list {
+	list-style: none;
+}
+
+.btnqna, .writeqna {
+	border-radius: 50px;
+	color: #fff;
+	background-color: #084A83;
+	font-family: 'Calibri';
+	font-weight: bold;
+	width: 150px;
+}
+
+.cartEachQty {
+	/* 장바구니 수량 칸 너비 */
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.info__th {
+	font-size: 18px;
+	line-height: 40px;
+}
+
+.info_td {
+	line-height: 40px;
+}
+
+.title {
+	color: #666;
+	font-family: '레시피코리아';
+}
+
+.detail-product-product_name {
+	font-family: '레시피코리아';
+	font-size: 25px;
+}
+
+.detail-product_discoint_price {
+	font-family: '맑은고딕';
+	font-size: 20px;
+	font-weight: bold;
+}
+</style>
                <title>상세페이지</title>
                <script type="text/javascript">
 
@@ -490,8 +574,8 @@
                               </form>
                               <hr/>
                               <div>
-                                 <input class='detail_button' type="button" value="장바구니 추가" onclick="addCart()">
-                                 <input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()">
+                               <a href="#"  class='baguni_button'><input class= 'baguni_button' type="button" value="장바구니 추가" onclick="addCart()"></a>
+                               <a href="#" class="detail_button"><input class='detail_button' type="button" value="바로 결제하기" onclick="clickGopay()"></a>
                               </div>
 
                            </div>
@@ -506,13 +590,13 @@
                      <div class='detail-board'>
                         <div class='detail-board-list'>
                            <div>
+                              <a><span id='productexplain'>상품정보</span></a>
+                           </div>
+                           <div>
                               <a><span id='reviewboard' style="width: 500px">리뷰</span></a>
                            </div>
                            <div>
                               <a><span id='qnaboard'>문의</span></a>
-                           </div>
-                           <div>
-                              <a><span id='productexplain'>상품정보</span></a>
                            </div>
                         </div>
                         <br>

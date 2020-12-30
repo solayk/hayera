@@ -228,7 +228,7 @@ demo = {
       data: {
         labels: arrDay,
         datasets: [{
-          label: "Active Users",
+          label: "일 매출",
           borderColor: "#f96332",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#f96332",
@@ -367,7 +367,7 @@ demo = {
       data: {
         labels: arrMonth,
         datasets: [{
-          label: "Data",
+          label: "월 매출",
           borderColor: chartColor,
           pointBorderColor: chartColor,
           pointBackgroundColor: "#1e3d60",
@@ -588,7 +588,7 @@ demo = {
       data: {
         labels: arrMonth,
         datasets: [{
-          label: "Active Countries",
+          label: "일 판매량",
           backgroundColor: gradientFill,
           borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",

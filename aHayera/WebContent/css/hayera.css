@@ -115,10 +115,22 @@
 }
 
 .liSelected>div,
-.liSelected>div>label {
+.liSelected>div>label,
+.liSelected>div>span {
 	/* 필터 별점 선택 표기 */
-	color: #084A83;
-	font-size: 16px;
 	font-weight: bold;
-	text-decoration: underline;
+  	font-size: 15px;
+	color: #084A83;
+}
+
+.filterBtn {
+	position: absolute; 
+	top: 128px; 
+	left:850px; 
+	width: 100px; 
+	height: 25px; 
+	background-color: transparent;
+	border: none;
+	font-size: 14px;
+	color: #084A83;
 }

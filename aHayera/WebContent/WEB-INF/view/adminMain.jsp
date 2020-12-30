@@ -388,7 +388,7 @@
               <div class="card card-chart">
                 <div class="card-header">
                   <h5 class="card-category">사용자통계</h5>
-                  <h4 class="card-title">판매량</h4>
+                  <h4 class="card-title">일 판매량</h4>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">

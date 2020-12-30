@@ -7458,6 +7458,23 @@ td.visible-print {
   vertical-align: top;
 }
 
+.sortByStar {
+  font-weight: normal;
+  font-size: 14px;
+  color: #125288;
+}
+
+.sortByStar > img {
+  /* width: 90px; */
+  vertical-align: -3px;
+}
+
+.sortByStar > span {
+  font-weight: normal;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
 .filter-feeling {
   list-style-type: none;
   cursor: pointer;
@@ -7474,10 +7491,17 @@ td.visible-print {
   vertical-align: top;
 }
 
-.filter-review label,
-.filter-feeling label,
-.filter-favor label,
-.sortByStar {
+.filter-review > label,
+.filter-feeling > label,
+.filter-favor > label {
+  font-weight: normal;
+  font-size: 14px;
+  color: #125288;
+}
+
+.filter-review > li > label,
+.filter-feeling > li > label,
+.filter-favor > li > label {
   font-weight: normal;
   font-size: 14px;
   color: #125288;

@@ -642,7 +642,7 @@ font-family: '레시피코리아';
                 $('.viewFilteredProduct').append(
                   '<li style="margin:2px;">' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">'
                   + '<div class="item-img" style="position:relative;">'
-                  + (data[i].discount_price == '0' ? '' : '<div style="position:absolute; float:left; width:50px; height:48px; text-align:center; background-color:#084A83; color:white; padding-top:2px;">SAVE<br><span style="font-size:22px; line-height:90%;">' + discount + '</span>%</div>')
+				  + (data[i].discount_price == '0' ? '' : '<div class="discountCard">SAVE<br><span class="discountCardFont">' + discount + '</span>%</div>')
                   + '<img src="/aHayera/resources/upload/' + data[i].img_url + '"></div>'
                   + '<div class="item-brand">' + data[i].brand + '</div>'
                   + '<div class="item-info" style="width:220px; height:160px;"><div class="item-title">' + data[i].prod_name + '</div></a>'

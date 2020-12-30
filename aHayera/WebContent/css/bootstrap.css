@@ -7629,6 +7629,32 @@ td.visible-print {
   max-height: 58px;
   line-height: 29px;
   overflow: hidden;
+  margin-bottom: 2px;
+}
+
+.discountCard {
+  position:absolute; 
+  float:left; 
+  width:50px; 
+  height:48px; 
+  text-align:center; 
+  background-color:#C6E5F3; 
+  color:#333; 
+  padding-top:2px;
+  z-index: 1;
+  /* 마우스가 이미지를 벗어 났을 때도 자연스럽게 크기가 줄어들기 위함 */
+  transform:scale(1.0);        
+  transition: transform .5s; 
+}
+
+.discountCard:hover {
+  transform:scale(1.1);	/* 이미지 확대 */
+  transition: transform .5s;	/*  시간 설정  */
+}  
+
+.discountCardFont {
+  font-size:22px; 
+  line-height:90%;
 }
 
 .item-price {

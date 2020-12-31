@@ -271,7 +271,7 @@
           // Jquery 시작
           $(document).ready(function () {
 
-
+        	$("#cartSumPrice").text("0");
 
 
 
@@ -576,18 +576,21 @@
               }); // --- end of $.ajax 필터
 
             }); // --- end of 필터 ajax
+            
+          	// 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
+            $("#clickGoFromCart").click(function () {
+            	var id = '<%=(String)session.getAttribute("login")%>';
+            	if (id == 'null') {
+                    window.location.href = "login.do";
+                  } else if($("#cartSumPrice").text()!="0"){
+                    	window.location.href = "orderFromCart.do";
+                  } else{
+               	  		alert("장바구니에 상품이 없습니다.");
+      					return;
+                  }
+                });
 
           }); // --- end of jquery document ready
-
-          // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
-          function clickGoFromCart() {
-            var id = '<%=(String)session.getAttribute("login")%>';
-            if (id == 'null') {
-              window.location.href = "login.do";
-            } else {
-              window.location.href = "orderFromCart.do";
-            }
-          };
 
           // 필터창 보이기 숨기기
           function filterShow() {
@@ -671,7 +674,7 @@
                           <div class="panel-body">
                             <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                             <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                            <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
+                            <button type="button" class="btn btn-cartPay" id="clickGoFromCart">바로 결제</button>
                           </div>
                         </div>
                       </ul>

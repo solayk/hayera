@@ -266,7 +266,7 @@
       // Jquery 시작
       $(document).ready(function () {
     	  
-        
+    	$("#cartSumPrice").text("0");
 
 
 
@@ -567,6 +567,15 @@
           }); // --- end of $.ajax 필터
 
         }); // --- end of 필터 ajax
+        
+        <%-- $("#clickGoFromCart").click(function () {
+        	var id = '<%=(String)session.getAttribute("login")%>';
+        	if (id == 'null') {
+                window.location.href = "login.do";
+              } else {
+                window.location.href = "orderFromCart.do";
+              }
+		}) --%>
 
       }); // --- end of jquery document ready
 

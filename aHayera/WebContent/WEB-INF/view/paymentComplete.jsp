@@ -252,6 +252,8 @@
     <script type="text/javascript">
       //Jquery 시작
       $(document).ready(function () {
+    	
+    	$("#cartSumPrice").text("0");
 
         refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용)
 
@@ -416,13 +418,19 @@
           type: 'POST',
           url: slackUrl
         });
+        
+     // 장바구니에서 바로 결제 클릭 시
+		$("#clickGoFromCart").click(function () {
+			if($("#cartSumPrice").text()!="0"){
+      	  		window.location.href = "orderFromCart.do";
+    	  	}else{
+    	  		alert("장바구니에 상품이 없습니다.");
+				return;
+      	  	}
+		});
 
       }) // End of Jquery
 
-      // 장바구니에서 바로 결제 클릭 시
-      function clickGoFromCart() {
-        window.location.href = "orderFromCart.do";
-      }
       // 홈으로 클릭 시
       function clickGohome() {
         window.location.href = "main.jsp";
@@ -497,7 +505,7 @@
                       </div>
                       <div class="panel-body">
                         <span id="cartSumPrice"></span> 원 &emsp;&emsp;
-                        <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
+                        <button type="button" class="btn btn-cartPay" id="clickGoFromCart">바로 결제</button>
                       </div>
                     </div>
                   </ul>

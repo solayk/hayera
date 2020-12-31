@@ -180,6 +180,7 @@
                <script type="text/javascript">
                   // Jquery 시작
                   $(document).ready(function () {
+                	 $("#cartSumPrice").text("0");
                      refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용) 
                      // 장바구니 #countUp 버튼
                      $(document).on('click', '#countUp', function () {
@@ -261,6 +262,19 @@
                            $('li.dropdown').removeClass('open');
                         }
                      });
+                     
+                  	// 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
+                     $("#clickGoFromCart").click(function () {
+                     	var id = '<%=(String)session.getAttribute("login")%>';
+                     	if (id == 'null') {
+                             window.location.href = "login.do";
+                           } else if($("#cartSumPrice").text()!="0"){
+                             	window.location.href = "orderFromCart.do";
+                           } else{
+                        	  		alert("장바구니에 상품이 없습니다.");
+               					return;
+                           }
+                         });
                   }); // --- end of jquery document ready
                   // 바로 결제하기 클릭 시
                   function clickGopay() {
@@ -271,15 +285,6 @@
                         var form = document.goodsCountform;
                         form.submit();
                      }
-                  }
-                  // 장바구니 내 바로결제 버튼 클릭 시 --> 주문결제 페이지로 이동
-                  function clickGoFromCart() {
-               	  	var id = '<%=(String)session.getAttribute("login")%>';
-                   	if(id=='null'){
-                   		window.location.href = "login.do";
-                   	}else{
-                   		window.location.href = "orderFromCart.do";
-                   	}
                   }
                   // '장바구니 추가' 클릭 시
                   function addCart() {
@@ -372,7 +377,7 @@
                                              <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                                              <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
                                              <button type="button" class="btn btn-cartPay"
-                                                onclick="clickGoFromCart()">바로
+                                                id="clickGoFromCart">바로
                                                 결제</button>
                                           </div>
                                        </div>

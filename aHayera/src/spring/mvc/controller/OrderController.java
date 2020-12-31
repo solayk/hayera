@@ -247,11 +247,7 @@ public class OrderController {
 					data.get(i).setReview("1");
 				}
 			}
-			System.out.println("============= 체크 : "+data.get(i).getReview());
 		}
-		System.out.println("============= 체크2 : "+data.get(0).getReview()); // null   ok
-		System.out.println("============= 체크3 : "+data.get(1).getReview()); // 1      ok
-		System.out.println("============= 체크4 : "+data.get(2).getReview()); // 1      ok
 		return data;
 	}
 	// 주문 내역. 1주일 클릭 시

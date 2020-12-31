@@ -245,6 +245,9 @@
         padding-left: 10px;
         padding-right: 10px;
       }
+      .btn btn-cartPay{
+      background-color: "#125288"
+      }
     </style>
     <script type="text/javascript">
       //Jquery 시작
@@ -494,7 +497,7 @@
                       </div>
                       <div class="panel-body">
                         <span id="cartSumPrice"></span> 원 &emsp;&emsp;
-                        <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로 결제</button>
+                        <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
                       </div>
                     </div>
                   </ul>
@@ -505,7 +508,7 @@
                     <p>내 계정 <b class="caretHayera"></b></p>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="mypage.do">마이페이지</a></li>
+                    <li><a href="mypage.do">개인정보수정</a></li>
                     <li><a href="orderHistory.do">주문 내역</a></li>
                     <li><a href="logout.do">로그아웃</a></li>
                   </ul>

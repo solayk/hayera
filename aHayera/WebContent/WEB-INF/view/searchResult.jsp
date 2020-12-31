@@ -248,18 +248,18 @@
             color: #BFBFBF;
           }
 
-
-
-
-
-
-
-
           .cartEachQty {
             /* 장바구니 수량 칸 너비 */
             padding-left: 10px;
             padding-right: 10px;
           }
+          
+          /* 장바구니 버튼 */
+          .btn btn-cartPay{
+          background-color: "#125288"
+          
+          }
+          
         </style>
 
         <script type="text/javascript">
@@ -670,7 +670,7 @@
                           <div class="panel-body">
                             <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                             <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                            <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로 결제</button>
+                            <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
                           </div>
                         </div>
                       </ul>

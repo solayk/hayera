@@ -270,7 +270,9 @@
           table th {
             text-align: center;
           }
-          .btn btn-primary{
+          
+          /* 장바구니 버튼 */
+          .btn btn-cartPay{
             background-color: #125288;
           }
         </style>
@@ -709,7 +711,7 @@
                           </div>
                           <div class="panel-body">
                             <span id="cartSumPrice"></span> 원 &emsp;&emsp;
-                            <button type="button" class="btn btn-primary" onclick="clickGoFromCart()">바로 결제</button>
+                            <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
                           </div>
                         </div>
                       </ul>

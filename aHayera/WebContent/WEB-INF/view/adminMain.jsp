@@ -65,14 +65,19 @@
             // 12개월간 월별 데이터 라벨 저장
             var arrMonth = new Array();
             var j = 0;
+            
             for (let i = 11; i >= 0; i--) {
               let now = new Date();
+			  now.setDate(1); // 월별 말일 다르면 생길 수 있는 문제 해결을 위해 매월 첫 날로 세팅              
               let newdate = now.setMonth(now.getMonth() - i);
+              
               var newMonth = String(formatDate(newdate));
               if (newMonth.length == 1) arrMonth[j++] = '0' + newMonth;
               else arrMonth[j++] = newMonth;
             }
-
+			
+            console.log(arrMonth);
+            
             // 매출 데이터 저장
             var arrSales = new Array(arrMonth.length);
             // 수익률 데이터 저장
@@ -89,6 +94,7 @@
                   arrCount[k] = data[i].each_qty;
                 }
               }
+              
               // 매출현황 테이블 작성
               $('.viewSalesData').append(
                 '<tr>'

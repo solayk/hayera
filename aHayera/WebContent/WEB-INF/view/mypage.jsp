@@ -316,7 +316,9 @@ login_wrap {
 font-family: '레시피코리아';
 }
 
-
+.btn btn-primary{
+ background-color:#125288;
+}
 </style>
 
 <script type="text/javascript">

@@ -171,7 +171,7 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
-.btn btn-primary{
+.btn btn-cartPay{
 	background-color: #125288;
 }
 
@@ -371,7 +371,7 @@
                                           <div class="panel-body">
                                              <span id="cartSumPrice"></span> 원 &emsp;&emsp;
                                              <!-- 버튼에 결제창으로 가는 이벤트 부여 -->
-                                             <button type="button" class="btn btn-primary"
+                                             <button type="button" class="btn btn-cartPay"
                                                 onclick="clickGoFromCart()">바로
                                                 결제</button>
                                           </div>

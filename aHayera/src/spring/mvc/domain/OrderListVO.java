@@ -24,6 +24,8 @@ public class OrderListVO {
 	private String prod_name;
 	private String img_url;
 	
+	// review
+	private String review;
 	
 	public String getOrder_no() {
 		return order_no;
@@ -133,8 +135,11 @@ public class OrderListVO {
 	public void setImg_url(String img_url) {
 		this.img_url = img_url;
 	}
-	
-	
-	
+	public String getReview() {
+		return review;
+	}
+	public void setReview(String review) {
+		this.review = review;
+	}
 	
 }

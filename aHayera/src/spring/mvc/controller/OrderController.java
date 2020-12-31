@@ -219,8 +219,16 @@ public class OrderController {
 		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
 		List<OrderListVO> orderHistory = orderService.orderHistoryViewDefault(ol);
 		
+		for(int i=0; i<orderHistory.size(); i++) {
+			for(int j=0; j<review.size(); j++) {
+				if(orderHistory.get(i).getOrder_no().equals(review.get(j).getOrder_no()) && orderHistory.get(i).getProd_no().equals(review.get(j).getProd_no())) {
+					orderHistory.get(i).setReview("1");
+				}
+			}
+			System.out.println("체크 : " + orderHistory.get(i).getReview());
+		}
+		
 		m.addAttribute("orderHistory",orderHistory);
-		m.addAttribute("review",review);
 	};
 	// 주문 내역. 오늘 클릭 시
 	@RequestMapping("/orderHistoryViewToday.do")

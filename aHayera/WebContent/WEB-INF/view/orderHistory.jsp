@@ -446,7 +446,7 @@
               }
             });
             // 주문한 상품들의 정보 받아 오기 (페이지 로딩 시 기본 3개월)
-            <c:forEach items="${orderHistory}" var="history">
+            /* <c:forEach items="${orderHistory}" var="history">
             var p =${history.payment_price};
         	var payment_price = p.formatNumber();
             $("#orderHistoryTable").append(
@@ -461,35 +461,26 @@
     	        	'<input type="hidden" value="${history.prod_no}" >'+'</td>'+	        	
     	        	'</tr>'
             );
-            </c:forEach>
-            <%--
-            <c:set var="historyOrder_no" value="${orderHistory.order_no}"/> <!-- 해당 주문의 주문번호 -->
-        	<c:set var="reviewOrder_no" value="${review.order_no}"/> <!-- 리뷰 테이블의 주문 번호 -->
+            </c:forEach> */
+            
             <c:forEach items="${orderHistory}" var="history">
             var p =${history.payment_price};
         	var payment_price = p.formatNumber();
         	$("#orderHistoryTable").append(
-        		'<tr>'+
-	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'<span id="orderno">'+'${history.order_no}'+'</span>'+']'+'</td>'+
-	        	'<td>'+'<img src="resources/upload/${history.img_url}" width="80" height="80">'+'</td>'+
-	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'${history.prod_name}'+'</a>'+'</td>'+
-	        	'<td>'+'${history.each_qty}'+'</td>'+
-	        	'<td>'+payment_price+'원'+'</td>'+
-	        	'<td>'+'${history.delivery_status}'+'</td>'+
-	        	'<td>'+
-	        	'<c:choose>'+
-	        	'<c:when test='${historyOrder_no ne reviewOrder_no}'>'+
-	        	'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+
-	        	'</c:when>'+
-	        	'<c:otherwise>'+
-	        	'<input type="button" class="btn btn-default" value="리뷰작성완료" disabled>'+
-	        	'</c:otherwise>'+
-	        	'</c:choose>'+
-	        	'<input type="hidden" value="${history.prod_no}" >'+'</td>'+	        	
-	        	'</tr>'
-	        );
+            		'<tr>'+
+    	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'<span id="orderno">'+'${history.order_no}'+'</span>'+']'+'</td>'+
+    	        	'<td>'+'<img src="resources/upload/${history.img_url}" width="80" height="80">'+'</td>'+
+    	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'${history.prod_name}'+'</a>'+'</td>'+
+    	        	'<td>'+'${history.each_qty}'+'</td>'+
+    	        	'<td>'+payment_price+'원'+'</td>'+
+    	        	'<td>'+'${history.delivery_status}'+'</td>'+
+    	        	'<td>'
+    	        	+ '<c:if test='${history.review ne null}'><input type="button" class="btn btn-default" value="리뷰작성완료" disabled></c:if>'
+    	        	+ '<c:if test='${history.review eq null}'><input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" ></c:if>'
+    	        	+ '<input type="hidden" value="${history.prod_no}" >'+'</td>'+	        	
+    	        	'</tr>'
+    	        );
         	</c:forEach>
-        	--%>
 	        	
         	// 리뷰 버튼 비활성화
     		/*if(${history}){

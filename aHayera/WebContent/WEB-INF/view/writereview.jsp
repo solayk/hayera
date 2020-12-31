@@ -12,11 +12,11 @@
 <style type="text/css">
 .btnreview{
 	background-color: #125288;
-	color: white;
+	color:white;
+	padding: 5px;
 	width : 200px;
-	
+	font-weight: bold;
 	text-align: center;
-	border-color: #125288;
 	font-family: 'Noto Sans KR';
 	font-size: 18px;
 	height: 40px;
@@ -56,6 +56,7 @@
 .star.on {
 	background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
 		}
+
 </style>
 </head>
 <body>

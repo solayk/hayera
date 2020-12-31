@@ -503,8 +503,11 @@
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
-                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
+                            '<td>'                
+                            +'<c:set var="'+review+'" value="'+data[i].review+'"/>'
+                            +'<c:if test='${review ne null}'><input type="button" class="btn btn-default" value="리뷰작성완료" id="reviewFinish" disabled></c:if>'
+                            +'<c:if test='${review eq null}'><input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" ></c:if>'
+                            +'<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };

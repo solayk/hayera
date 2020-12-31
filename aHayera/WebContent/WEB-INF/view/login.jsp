@@ -32,18 +32,13 @@
     		      <div class="modal-content">
     		         <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">로그인 with HAYERA</h4>
+                        
+                        <div class="modal-title" style="text-align: center; font-family: '레시피코리아'; font-size: 20px;">로그인 with HAYERA</div>
                     </div>
                     <div class="modal-body">
                         <div class="box">
                              <div class="content">
-                               
-                                <div class="division">
-                                    <div class="line l"></div>
-                                      <span></span>
-                                    <div class="line r"></div>
-                                </div>
-                                <div class="error"></div>
+                             
                                 <div class="form loginBox">
                                     <form method="get"  accept-charset="UTF-8">
                                     <div id='errpopup'></div>

@@ -31,7 +31,7 @@
 }
 .contents{
 	font-size: 15px;
-
+	font-family: "맑은고딕";
 }
 
 .star {
@@ -42,19 +42,19 @@
 	}
 
 .star_left {
-	background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat 0 0;
+	background: url("./images/star.png") no-repeat 0 0;
 	background-size: 60px;
 	margin-right: -3px;
 			}
 
 .star_right {
-	background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat -30px 0;
+	background: url("./images/star.png") no-repeat -30px 0;
 	background-size: 60px;
 	margin-left: -3px;
 			}
 
 .star.on {
-	background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
+	background-image: url("./images/star_on.png");
 		}
 
 </style>

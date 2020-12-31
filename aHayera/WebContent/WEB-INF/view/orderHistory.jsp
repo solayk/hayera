@@ -11,7 +11,7 @@
         
         <!-- 타이틀 바 -->
         <link rel="shortcut icon" type="image/x-icon" href="images/logo_only_transparent_small.png">
-        <title>HAYERA!</title>
+        <title>하예라</title>
 
         <link href="css/bootstrap.css" rel="stylesheet" />
         <link href="css/hayera.css" rel="stylesheet" />
@@ -309,6 +309,8 @@
 
           //Jquery 시작
           $(document).ready(function () {
+        	  
+        	$("#cartSumPrice").text("0");  
 
             refreshCart(); // 장바구니 가져오기 (반복 부분에 이 함수 사용)
 
@@ -463,23 +465,6 @@
               }
             });
             // 주문한 상품들의 정보 받아 오기 (페이지 로딩 시 기본 3개월)
-            /* <c:forEach items="${orderHistory}" var="history">
-            var p =${history.payment_price};
-        	var payment_price = p.formatNumber();
-            $("#orderHistoryTable").append(
-            		'<tr>'+
-    	        	'<td>'+'<p>'+'${history.order_date}'+'</p>'+'['+'<span id="orderno">'+'${history.order_no}'+'</span>'+']'+'</td>'+
-    	        	'<td>'+'<img src="resources/upload/${history.img_url}" width="80" height="80">'+'</td>'+
-    	        	'<td>'+'<a href="productSelected.do?prod_no='+'${history.prod_no}'+'">'+'${history.prod_name}'+'</a>'+'</td>'+
-    	        	'<td>'+'${history.each_qty}'+'</td>'+
-    	        	'<td>'+payment_price+'원'+'</td>'+
-    	        	'<td>'+'${history.delivery_status}'+'</td>'+
-    	        	'<td>'+'<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >'+
-    	        	'<input type="hidden" value="${history.prod_no}" >'+'</td>'+	        	
-    	        	'</tr>'
-            );
-            </c:forEach> */
-            
             <c:forEach items="${orderHistory}" var="history">
             var p =${history.payment_price};
         	var payment_price = p.formatNumber();
@@ -498,12 +483,8 @@
     	        	'</tr>'
     	        );
         	</c:forEach>
-	        	
-        	// 리뷰 버튼 비활성화
-    		/*if(${history}){
-	        	$('#orderHistoryTable').find("input:gt(0)").prop("disabled",true).val("리뷰작성완료");
-    		}*/
-		// 오늘 클릭 시
+
+        // 오늘 클릭 시
 		$("#today").click(function () {
                     $.ajax({
                       type: 'post',
@@ -653,12 +634,18 @@
                       }
                     })
                   });
+		
+		// 장바구니에서 바로 결제 클릭 시
+		$("#clickGoFromCart").click(function () {
+			if($("#cartSumPrice").text()!="0"){
+      	  		window.location.href = "orderFromCart.do";
+    	  	}else{
+    	  		alert("장바구니에 상품이 없습니다.");
+				return;
+      	  	}
+		});
       }) // --- end of jquery
 
-      // 장바구니에서 바로 결제 클릭 시
-      function clickGoFromCart(){
-        	  window.location.href = "orderFromCart.do";
-      }
         </script>
         
       </head>
@@ -726,7 +713,7 @@
                           </div>
                           <div class="panel-body">
                             <span id="cartSumPrice"></span> 원 &emsp;&emsp;
-                            <button type="button" class="btn btn-cartPay" onclick="clickGoFromCart()">바로 결제</button>
+                            <button type="button" class="btn btn-cartPay" id="clickGoFromCart">바로 결제</button>
                           </div>
                         </div>
                       </ul>
@@ -803,28 +790,6 @@
                   <th>주문처리상태</th>
                   <th>리뷰</th>
                 </table>
-                <%--   
-                <tr>
-	        	<td><p>${history.order_date}</p>[<span id="orderno">+${history.order_no}</span>]</td>
-	        	<td><img src="resources/upload/${history.img_url}" width="80" height="80"></td>
-	        	<td><a href="productSelected.do?prod_no='+'${history.prod_no}'+'">${history.prod_name}</a></td>
-	        	<td>${history.each_qty}</td>
-	        	<td>payment_price원</td>
-	        	<td>${history.delivery_status}</td>
-	        	<td>
-	        	<c:set var="historyOrder_no" value="${history.order_no}"/> <!-- 해당 주문의 주문번호 -->
-	        	<c:set var="reviewOrder_no" value="${review.order_no }"/> <!-- 리뷰 테이블의 주문 번호 -->
-	        	<c:choose>
-	        		<c:when test='${historyOrder_no ne reviewOrder_no}'>
-			        	<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview">
-	        		</c:when>
-	        		<c:otherwise>
-	        			<input type="button" class="btn btn-default" value="리뷰작성완료" disabled>
-	        		</c:otherwise>
-	        	</c:choose>
-	        	<input type="hidden" value="${history.prod_no}"></td>
-	        	</tr>
-	        	 --%>
               </div>
               <div style="padding-left: 320px;">
                 <!-- 페이징 안해  -->

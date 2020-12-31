@@ -216,8 +216,8 @@ public class OrderController {
 		ol.setCustomer_id(customer_id);
 		rvo.setCustomer_id(customer_id);
 		
-		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
 		List<OrderListVO> orderHistory = orderService.orderHistoryViewDefault(ol);
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
 		
 		for(int i=0; i<orderHistory.size(); i++) {
 			for(int j=0; j<review.size(); j++) {
@@ -225,7 +225,7 @@ public class OrderController {
 					orderHistory.get(i).setReview("1");
 				}
 			}
-			System.out.println("체크 : " + orderHistory.get(i).getReview());
+			//System.out.println("체크 : " + orderHistory.get(i).getReview());
 		}
 		
 		m.addAttribute("orderHistory",orderHistory);
@@ -233,51 +233,98 @@ public class OrderController {
 	// 주문 내역. 오늘 클릭 시
 	@RequestMapping("/orderHistoryViewToday.do")
 	@ResponseBody
-	public List<OrderListVO> orderHistoryViewToday(HttpSession session, OrderListVO ol) {
+	public List<OrderListVO> orderHistoryViewToday(HttpSession session, OrderListVO ol, ReviewVO rvo) {
 		String customer_id = (String) session.getAttribute("login");
 		ol.setCustomer_id(customer_id);
+		rvo.setCustomer_id(customer_id);
 		
 		List<OrderListVO> data = orderService.orderHistoryViewToday(ol);
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
+		
+		for(int i=0; i<data.size(); i++) {
+			for(int j=0; j<review.size(); j++) {
+				if(data.get(i).getOrder_no().equals(review.get(j).getOrder_no()) && data.get(i).getProd_no().equals(review.get(j).getProd_no())) {
+					data.get(i).setReview("1");
+				}
+			}
+		}
 		return data;
 	}
 	// 주문 내역. 1주일 클릭 시
 	@RequestMapping("/orderHistoryView1week.do")
 	@ResponseBody
-	public List<OrderListVO> orderHistoryView1week(HttpSession session, OrderListVO ol) {
+	public List<OrderListVO> orderHistoryView1week(HttpSession session, OrderListVO ol, ReviewVO rvo) {
 		String customer_id = (String) session.getAttribute("login");
 		ol.setCustomer_id(customer_id);
+		rvo.setCustomer_id(customer_id);
 		
 		List<OrderListVO> data = orderService.orderHistoryView1week(ol);
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
+		
+		for(int i=0; i<data.size(); i++) {
+			for(int j=0; j<review.size(); j++) {
+				if(data.get(i).getOrder_no().equals(review.get(j).getOrder_no()) && data.get(i).getProd_no().equals(review.get(j).getProd_no())) {
+					data.get(i).setReview("1");
+				}
+			}
+		}
 		return data;
 	}
 	// 주문 내역. 1개월 클릭 시
 	@RequestMapping("/orderHistoryView1month.do")
 	@ResponseBody
-	public List<OrderListVO> orderHistoryView1month(HttpSession session, OrderListVO ol) {
+	public List<OrderListVO> orderHistoryView1month(HttpSession session, OrderListVO ol, ReviewVO rvo) {
 		String customer_id = (String) session.getAttribute("login");
 		ol.setCustomer_id(customer_id);
+		rvo.setCustomer_id(customer_id);
 		
 		List<OrderListVO> data = orderService.orderHistoryView1month(ol);
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
+		for(int i=0; i<data.size(); i++) {
+			for(int j=0; j<review.size(); j++) {
+				if(data.get(i).getOrder_no().equals(review.get(j).getOrder_no()) && data.get(i).getProd_no().equals(review.get(j).getProd_no())) {
+					data.get(i).setReview("1");
+				}
+			}
+		}
 		return data;
 	}
 	// 주문 내역. 3개월 클릭 시
 	@RequestMapping("/orderHistoryViewDefault.do")
 	@ResponseBody
-	public List<OrderListVO> orderHistoryViewDefault(HttpSession session, OrderListVO ol) {
+	public List<OrderListVO> orderHistoryViewDefault(HttpSession session, OrderListVO ol, ReviewVO rvo) {
 		String customer_id = (String) session.getAttribute("login");
 		ol.setCustomer_id(customer_id);
+		rvo.setCustomer_id(customer_id);
 		
 		List<OrderListVO> data = orderService.orderHistoryViewDefault(ol);
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
+		for(int i=0; i<data.size(); i++) {
+			for(int j=0; j<review.size(); j++) {
+				if(data.get(i).getOrder_no().equals(review.get(j).getOrder_no()) && data.get(i).getProd_no().equals(review.get(j).getProd_no())) {
+					data.get(i).setReview("1");
+				}
+			}
+		}
 		return data;
 	}
 	// 주문 내역. 6개월 클릭 시
 	@RequestMapping("/orderHistoryView6months.do")
 	@ResponseBody
-	public List<OrderListVO> orderHistoryView6months(HttpSession session, OrderListVO ol) {
+	public List<OrderListVO> orderHistoryView6months(HttpSession session, OrderListVO ol, ReviewVO rvo) {
 		String customer_id = (String) session.getAttribute("login");
 		ol.setCustomer_id(customer_id);
+		rvo.setCustomer_id(customer_id);
 		
 		List<OrderListVO> data = orderService.orderHistoryView6months(ol);
+		List<ReviewVO> review = orderService.selectReviewForwriteReview(rvo);
+		for(int i=0; i<data.size(); i++) {
+			for(int j=0; j<review.size(); j++) {
+				if(data.get(i).getOrder_no().equals(review.get(j).getOrder_no()) && data.get(i).getProd_no().equals(review.get(j).getProd_no())) {
+					data.get(i).setReview("1");
+				}
+			}
+		}
 		return data;
 	}
 

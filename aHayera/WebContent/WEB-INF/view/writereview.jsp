@@ -121,6 +121,7 @@ $('#btnreview').click(function () {
 		},
 		success: function(data) {
 			alert(data);
+			opener.location.href = "orderHistory.do";
 			window.self.close();
 		},
 		err : function(err) {

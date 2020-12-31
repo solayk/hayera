@@ -505,7 +505,7 @@
                             '<td>' + data[i].delivery_status + '</td>' +
                             '<td>'                
                             + (data[i].review != null ? '<input type="button" class="btn btn-default" value="리뷰작성완료" id="reviewFinish" disabled>'
-                               : '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" ></td>')
+                               : '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >')
                             +'<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
@@ -535,8 +535,10 @@
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
-                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
+                            '<td>' 
+                            + (data[i].review != null ? '<input type="button" class="btn btn-default" value="리뷰작성완료" id="reviewFinish" disabled>'
+                               : '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >')
+                            +'<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -564,9 +566,11 @@
                             '<td>' + '<a href="productSelected.do?prod_no=' + data[i].prod_no + '">' + data[i].prod_name + '</a>' + '</td>' +
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
-                            '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
-                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
+                            '<td>' + data[i].delivery_status + '</td>'+
+                            '<td>'
+                            + (data[i].review != null ? '<input type="button" class="btn btn-default" value="리뷰작성완료" id="reviewFinish" disabled>'
+                                    : '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >')
+                            +'<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -595,8 +599,10 @@
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
-                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
+                            '<td>'
+                            + (data[i].review != null ? '<input type="button" class="btn btn-default" value="리뷰작성완료" id="reviewFinish" disabled>'
+                               : '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >')
+                            +'<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };
@@ -625,8 +631,10 @@
                             '<td>' + data[i].each_qty + '</td>' +
                             '<td>' + payment_price + '원' + '</td>' +
                             '<td>' + data[i].delivery_status + '</td>' +
-                            '<td>' + '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >' +
-                            '<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
+                            '<td>' 
+                            + (data[i].review != null ? '<input type="button" class="btn btn-default" value="리뷰작성완료" id="reviewFinish" disabled>'
+                                    : '<input type="button" class="btn btn-default" value="리뷰 쓰기" id="writeReview" >')
+                            +'<input type="hidden" value="'+data[i].prod_no+'">'+'</td>'+
                             '</tr>'
                           )
                         };

@@ -56,11 +56,11 @@ function refreshCart() {
     dataType: 'json',
     contentType: 'application/x-www-form-urlencoded;charset=utf-8',
     success: function (data) {
-
+      
       $(".main_cart").empty();
-
+	
       var priceSum = 0;
-
+	  
       if (data.length == 0) {
         $('#cartSizeIcon > span').hide();
         $('#cartSize').text("");
